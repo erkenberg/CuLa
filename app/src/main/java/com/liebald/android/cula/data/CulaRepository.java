@@ -17,7 +17,6 @@
 package com.liebald.android.cula.data;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.liebald.android.cula.data.database.DictionaryDao;
@@ -96,5 +95,14 @@ public class CulaRepository {
         });
     }
 
-
+    /**
+     * Removes the given DictionaryEntries from the Database.
+     *
+     * @param dictionaryEntry The @{@link DictionaryEntry}s to remove from the Database
+     */
+    public void removeDictionaryEntry(DictionaryEntry dictionaryEntry) {
+        mExecutors.diskIO().execute(() -> {
+            mDictionaryDao.deleteEntry(dictionaryEntry);
+        });
+    }
 }

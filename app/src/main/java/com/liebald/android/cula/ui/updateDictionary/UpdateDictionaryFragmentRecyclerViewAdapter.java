@@ -1,14 +1,17 @@
 package com.liebald.android.cula.ui.updateDictionary;
 
-import com.liebald.android.cula.R;
-import com.liebald.android.cula.data.database.DictionaryEntry;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.liebald.android.cula.R;
+import com.liebald.android.cula.data.database.DictionaryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,21 +31,18 @@ public class UpdateDictionaryFragmentRecyclerViewAdapter extends
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_update_dictionary_listitem, parent, false);
+                .inflate(R.layout.update_dictionary_list_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
         holder.mNativeWordView.setText(mValues.get(position).getNativeWord());
         holder.mForeignWordView.setText(mValues.get(position).getForeignWord());
-
     }
 
     void swapForecast(final List<DictionaryEntry> newDictionaryEntries) {
         // If there was no forecast data, then recreate all of the list
-        Log.d("adapter", "adapter called current values: " + mValues + " new: " + newDictionaryEntries);
         if (mValues == null) {
             mValues = newDictionaryEntries;
             notifyDataSetChanged();
@@ -95,16 +95,17 @@ public class UpdateDictionaryFragmentRecyclerViewAdapter extends
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        final View mView;
         final TextView mNativeWordView;
         final TextView mForeignWordView;
-        DictionaryEntry mItem;
+        final LinearLayout viewForeground;
+        final RelativeLayout viewBackground;
 
         ViewHolder(View view) {
             super(view);
-            mView = view;
             mNativeWordView = view.findViewById(R.id.nativeWord);
             mForeignWordView = view.findViewById(R.id.foreignWord);
+            viewForeground = view.findViewById(R.id.view_foreground);
+            viewBackground = view.findViewById(R.id.view_background);
         }
 
         @Override

@@ -3,6 +3,7 @@ package com.liebald.android.cula.ui.updateDictionary;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
+
 import com.liebald.android.cula.data.CulaRepository;
 
 /**

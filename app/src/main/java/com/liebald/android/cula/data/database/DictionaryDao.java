@@ -2,6 +2,7 @@ package com.liebald.android.cula.data.database;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -45,4 +46,10 @@ public interface DictionaryDao {
      */
     @Query("DELETE from dictionary")
     void deleteAll();
+
+    /**
+     * Delete the given entrie from the dictionary table.
+     */
+    @Delete
+    void deleteEntry(DictionaryEntry entry);
 }

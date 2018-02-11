@@ -87,4 +87,13 @@ public class DictionaryEntry {
         return foreignWord;
     }
 
+    @Override
+    @Ignore
+    public String toString() {
+        return "DictionaryEntry{" +
+                "id=" + id +
+                ", nativeWord='" + nativeWord + '\'' +
+                ", foreignWord='" + foreignWord + '\'' +
+                '}';
+    }
 }

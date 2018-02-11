@@ -1,8 +1,5 @@
 package com.liebald.android.cula.ui.main;
 
-import com.liebald.android.cula.R;
-import com.liebald.android.cula.ui.learn.CardBoxFragment;
-import com.liebald.android.cula.ui.updateDictionary.UpdateDictionaryFragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,6 +10,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.liebald.android.cula.R;
+import com.liebald.android.cula.ui.learn.CardBoxFragment;
+import com.liebald.android.cula.ui.updateDictionary.UpdateDictionaryFragment;
 
 public class MainDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,6 +35,7 @@ public class MainDrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        selectItem(1);
     }
 
     @Override
@@ -75,7 +77,7 @@ public class MainDrawerActivity extends AppCompatActivity
     private void selectItem(int position) {
         // Create a new fragment and specify the planet to show based on position
         Fragment fragment;
-        if (position != 2) {
+        if (position != 1) {
             fragment = new CardBoxFragment();
             Bundle args = new Bundle();
             args.putString("text", Integer.toString(position));

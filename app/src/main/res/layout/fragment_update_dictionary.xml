@@ -11,8 +11,10 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/ListConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_update_dictionary_list"
@@ -26,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_add_word_pair"
             tools:context="com.liebald.android.cula.ui.updateDictionary.UpdateDictionaryFragment"
-            tools:listitem="@layout/fragment_update_dictionary_listitem" />
+            tools:listitem="@layout/update_dictionary_list_item" />
 
         <EditText
             android:id="@+id/edit_text_add_native_word"
@@ -54,19 +56,18 @@
             app:layout_constraintEnd_toEndOf="@+id/edit_text_add_native_word"
             app:layout_constraintStart_toStartOf="@+id/edit_text_add_native_word"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_add_native_word"
-            tools:text="foreign"
-            />
+            tools:text="foreign" />
 
 
         <Button
-            android:focusable="true"
             android:id="@+id/button_add_word_pair"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:onClick="@{() -> model.addNewUser(editTextAddNativeWord.getText().toString(), editTextAddForeignWord.getText().toString())}"
+            android:focusable="true"
+            android:onClick="@{() -> model.addNewDictionaryEntry(editTextAddNativeWord.getText().toString(), editTextAddForeignWord.getText().toString())}"
             android:text="@string/button_add_words"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/edit_text_add_native_word"

@@ -15,6 +15,7 @@ public class UpdateDictionaryFragmentViewModel extends ViewModel {
 
     private LiveData<List<DictionaryEntry>> mDictionaryEntries;
     private CulaRepository mCulaRepository;
+    private DictionaryEntry latestDeletedEntry = null;
 
     /**
      * Constructor of the ViewModel.
@@ -30,11 +31,21 @@ public class UpdateDictionaryFragmentViewModel extends ViewModel {
         return mDictionaryEntries;
     }
 
-    public void addNewUser(@NonNull String newNativeWord, @NonNull String newForeignWord) {
+    public void addNewDictionaryEntry(@NonNull String newNativeWord, @NonNull String newForeignWord) {
         Log.d("test", "added Words " + newNativeWord + " " + newForeignWord);
         if (newNativeWord.isEmpty() || newForeignWord.isEmpty()) {
             return;
         }
         mCulaRepository.addDictionaryEntry(new DictionaryEntry(newNativeWord, newForeignWord));
+    }
+
+    public void removeDictionaryEntry(int index) {
+        latestDeletedEntry = mDictionaryEntries.getValue().get(index);
+        Log.d(UpdateDictionaryFragmentViewModel.class.getSimpleName(), latestDeletedEntry.toString());
+        mCulaRepository.removeDictionaryEntry(latestDeletedEntry);
+    }
+
+    public void restoreLatestDeletedDictionaryEntry() {
+        mCulaRepository.addDictionaryEntry(latestDeletedEntry);
     }
 }

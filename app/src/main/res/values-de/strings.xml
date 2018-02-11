@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="train">Üben</string>
-    <string name="addWords">Wörter übersicht</string>
+    <string name="train">Training</string>
+    <string name="addWords">Vokabel Übersicht</string>
 </resources>

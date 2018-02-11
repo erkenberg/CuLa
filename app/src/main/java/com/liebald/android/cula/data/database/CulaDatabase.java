@@ -11,8 +11,6 @@ import android.content.Context;
 @Database(version = 1, entities = {DictionaryEntry.class})
 public abstract class CulaDatabase extends RoomDatabase {
 
-    public abstract DictionaryDao dictionaryDao();
-
     private static final String DATABASE_NAME = "dictionary";
     private static final Object LOCK = new Object();
     private static volatile CulaDatabase sInstance;
@@ -28,5 +26,7 @@ public abstract class CulaDatabase extends RoomDatabase {
         }
         return sInstance;
     }
+
+    public abstract DictionaryDao dictionaryDao();
 
 }
