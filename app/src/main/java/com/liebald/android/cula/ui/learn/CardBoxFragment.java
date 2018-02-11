@@ -1,6 +1,6 @@
-package android.liebald.com.cula.ui.learn;
+package com.liebald.android.cula.ui.learn;
 
-import android.liebald.com.cula.R;
+import com.liebald.android.cula.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

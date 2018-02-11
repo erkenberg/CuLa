@@ -1,6 +1,7 @@
-package android.liebald.com.cula.data.database;
+package com.liebald.android.cula.data.database;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -39,6 +40,20 @@ public class DictionaryEntry {
             String nativeWord, @NonNull
                                    String foreignWord) {
         this.id = id;
+        this.nativeWord = nativeWord;
+        this.foreignWord = foreignWord;
+    }
+
+    /**
+     * Constructor for an DictionaryEntry.
+     *
+     * @param nativeWord  The stored native language word.
+     * @param foreignWord The translation of the word in the foreign language.
+     */
+    @Ignore
+    public DictionaryEntry(
+            String nativeWord, @NonNull
+            String foreignWord) {
         this.nativeWord = nativeWord;
         this.foreignWord = foreignWord;
     }

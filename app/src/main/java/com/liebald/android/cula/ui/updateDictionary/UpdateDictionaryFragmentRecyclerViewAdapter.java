@@ -1,9 +1,10 @@
-package android.liebald.com.cula.ui.updateDictionary;
+package com.liebald.android.cula.ui.updateDictionary;
 
-import android.liebald.com.cula.R;
-import android.liebald.com.cula.data.database.DictionaryEntry;
+import com.liebald.android.cula.R;
+import com.liebald.android.cula.data.database.DictionaryEntry;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,23 +28,26 @@ public class UpdateDictionaryFragmentRecyclerViewAdapter extends
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_dictionaryentrylist, parent, false);
+                .inflate(R.layout.fragment_update_dictionary_listitem, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mNativeWordView.setText(mValues.get(position).getForeignWord());
+        holder.mNativeWordView.setText(mValues.get(position).getNativeWord());
         holder.mForeignWordView.setText(mValues.get(position).getForeignWord());
 
     }
 
     void swapForecast(final List<DictionaryEntry> newDictionaryEntries) {
         // If there was no forecast data, then recreate all of the list
+        Log.d("adapter", "adapter called current values: " + mValues + " new: " + newDictionaryEntries);
         if (mValues == null) {
             mValues = newDictionaryEntries;
             notifyDataSetChanged();
+            Log.d("adapter", "adapter called, notified changed");
+
         } else {
             /*
             * Otherwise we use DiffUtil to calculate the changes and update accordingly. This

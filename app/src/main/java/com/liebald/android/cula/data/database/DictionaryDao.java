@@ -1,4 +1,4 @@
-package android.liebald.com.cula.data.database;
+package com.liebald.android.cula.data.database;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -22,16 +22,27 @@ public interface DictionaryDao {
      * @param dictionaryEntry A list of weather forecasts to insert
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    List<Long> insertEntry(DictionaryEntry... dictionaryEntry);
+    void insertEntry(DictionaryEntry... dictionaryEntry);
 
     /**
      * Gets all {@link DictionaryEntry}s in the dictionary database table.
      *
      * @return {@link LiveData} with all DictionaryEntries.
      */
-    @Query("SELECT id, nativeWord, foreignWord FROM dictionary")
+    @Query("SELECT id, nativeWord, foreignWord FROM dictionary ORDER by id desc")
     LiveData<List<DictionaryEntry>> getAllEntries();
 
+    /**
+     * Get the current amount of entries in the dictionary table.
+     *
+     * @return The current size.
+     */
     @Query("Select count(id) from dictionary")
     int getDictionarySize();
+
+    /**
+     * Delete all entries from the dictionary table.
+     */
+    @Query("DELETE from dictionary")
+    void deleteAll();
 }

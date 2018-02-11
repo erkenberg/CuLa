@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.liebald.android.cula.ui.updateDictionary.UpdateDictionaryFragmentViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_update_dictionary_list"
+            android:name="com.liebald.android.cula.ui.updateDictionary.DictionaryEntryListFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_add_word_pair"
+            tools:context="com.liebald.android.cula.ui.updateDictionary.UpdateDictionaryFragment"
+            tools:listitem="@layout/fragment_update_dictionary_listitem" />
+
+        <EditText
+            android:id="@+id/edit_text_add_native_word"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:nextFocusForward="@id/edit_text_add_foreign_word"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="native" />
+
+        <EditText
+            android:id="@+id/edit_text_add_foreign_word"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:nextFocusForward="@id/edit_text_add_foreign_word"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/edit_text_add_native_word"
+            app:layout_constraintStart_toStartOf="@+id/edit_text_add_native_word"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_add_native_word"
+            tools:text="foreign" />
+
+
+        <Button
+            android:id="@+id/button_add_word_pair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="@{() -> model.addNewUser(editTextAddNativeWord.getText().toString(), editTextAddForeignWord.getText().toString())}"
+            android:text="@string/button_add_words"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/edit_text_add_native_word"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_add_foreign_word" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

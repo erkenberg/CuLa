@@ -1,8 +1,8 @@
-package android.liebald.com.cula.ui.main;
+package com.liebald.android.cula.ui.main;
 
-import android.liebald.com.cula.R;
-import android.liebald.com.cula.ui.learn.CardBoxFragment;
-import android.liebald.com.cula.ui.updateDictionary.UpdateDictionaryFragment;
+import com.liebald.android.cula.R;
+import com.liebald.android.cula.ui.learn.CardBoxFragment;
+import com.liebald.android.cula.ui.updateDictionary.UpdateDictionaryFragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;

@@ -1,9 +1,9 @@
-package android.liebald.com.cula.ui.updateDictionary;
+package com.liebald.android.cula.ui.updateDictionary;
 
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
-import android.liebald.com.cula.data.CulaRepository;
+import com.liebald.android.cula.data.CulaRepository;
 
 /**
  * Factory method that allows us to create a ViewModel with a constructor that takes a

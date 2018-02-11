@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "android.liebald.com.cula"
+        applicationId "com.liebald.android.cula"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
@@ -19,6 +19,9 @@ android {
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
+    }
+    dataBinding {
+        enabled = true
     }
 }
 

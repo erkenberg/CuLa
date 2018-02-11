@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package android.liebald.com.cula.utilities;
+package com.liebald.android.cula.utilities;
 
 import android.content.Context;
-import android.liebald.com.cula.data.CulaRepository;
-import android.liebald.com.cula.data.database.CulaDatabase;
-import android.liebald.com.cula.ui.updateDictionary.UpdateDictionaryViewModelFactory;
+import com.liebald.android.cula.data.CulaRepository;
+import com.liebald.android.cula.data.database.CulaDatabase;
+import com.liebald.android.cula.ui.updateDictionary.UpdateDictionaryViewModelFactory;
 
 /**
  * Provides static methods to inject the various classes needed for Sunshine
@@ -28,7 +28,8 @@ public class InjectorUtils {
 
     public static CulaRepository provideRepository(Context context) {
         CulaDatabase database = CulaDatabase.getInstance(context.getApplicationContext());
-        return CulaRepository.getInstance(database.dictionaryDao());
+        AppExecutors executors = AppExecutors.getInstance();
+        return CulaRepository.getInstance(database.dictionaryDao(),executors);
     }
     public static UpdateDictionaryViewModelFactory provideUpdateDictionaryViewModelFactory(Context context) {
         CulaRepository repository = provideRepository(context.getApplicationContext());
