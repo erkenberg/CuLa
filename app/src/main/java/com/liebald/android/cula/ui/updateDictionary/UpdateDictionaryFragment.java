@@ -3,21 +3,22 @@ package com.liebald.android.cula.ui.updateDictionary;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-
-import com.liebald.android.cula.R;
-import com.liebald.android.cula.utilities.InjectorUtils;
-
-import com.liebald.android.cula.databinding.FragmentUpdateDictionaryBinding;
+import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.view.inputmethod.InputMethodManager;
+
+import com.liebald.android.cula.R;
+import com.liebald.android.cula.databinding.FragmentUpdateDictionaryBinding;
+import com.liebald.android.cula.utilities.InjectorUtils;
 
 /**
  * A fragment representing a list of DictionaryEntries and the possibility to add new ones.
@@ -91,7 +92,15 @@ public class UpdateDictionaryFragment extends Fragment {
             recyclerView.smoothScrollToPosition(mPosition);
         });
 
-
+        mBinding.editTextAddForeignWord.setOnKeyListener((View view2, int key, KeyEvent keyEvent) -> {
+            if (keyEvent.getAction() == keyEvent.ACTION_UP && key == KeyEvent.KEYCODE_ENTER) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+                mBinding.editTextAddForeignWord.clearFocus();
+                return true;
+            }
+            return false;
+        });
         return view;
     }
 

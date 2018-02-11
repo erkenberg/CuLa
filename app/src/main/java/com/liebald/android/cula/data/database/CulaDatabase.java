@@ -22,7 +22,7 @@ public abstract class CulaDatabase extends RoomDatabase {
             synchronized (LOCK) {
                 if (sInstance == null) {
                     sInstance = Room.databaseBuilder(context.getApplicationContext(), CulaDatabase.class,
-                            CulaDatabase.DATABASE_NAME).allowMainThreadQueries().build();
+                            CulaDatabase.DATABASE_NAME).build();
                 }
             }
         }

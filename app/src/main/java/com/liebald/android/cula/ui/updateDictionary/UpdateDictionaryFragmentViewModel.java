@@ -32,6 +32,9 @@ public class UpdateDictionaryFragmentViewModel extends ViewModel {
 
     public void addNewUser(@NonNull String newNativeWord, @NonNull String newForeignWord) {
         Log.d("test", "added Words " + newNativeWord + " " + newForeignWord);
+        if (newNativeWord.isEmpty() || newForeignWord.isEmpty()) {
+            return;
+        }
         mCulaRepository.addDictionaryEntry(new DictionaryEntry(newNativeWord, newForeignWord));
     }
 }

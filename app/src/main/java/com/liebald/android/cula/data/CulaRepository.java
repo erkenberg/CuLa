@@ -17,6 +17,7 @@
 package com.liebald.android.cula.data;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.liebald.android.cula.data.database.DictionaryDao;
@@ -56,17 +57,9 @@ public class CulaRepository {
 
         //int c = mDictionaryDao.insertEntry(entry1, entry2, entry3, entry4).size();
         // Log.d(CulaRepository.class.getSimpleName(), "initialized database with " + c + " entries");
-        Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mDictionaryDao.getDictionarySize() + " entries");
-
-
-    }
-
-    private void sleep(long time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        mExecutors.diskIO().execute(() -> {
+            Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mDictionaryDao.getDictionarySize() + " entries");
+        });
 
     }
 
