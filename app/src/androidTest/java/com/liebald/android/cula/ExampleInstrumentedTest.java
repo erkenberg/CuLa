@@ -1,4 +1,4 @@
-package android.liebald.com.cula;
+package com.liebald.android.cula;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
