@@ -30,30 +30,31 @@ public class LibraryEntry {
     private String foreignWord;
 
     /**
-     * Constructor for an LibraryEntry.
+     * The knowledgeLevel of the {@link LibraryEntry}.
+     */
+    private double knowledgeLevel;
+
+    /**
+     * Constructor for an {@link LibraryEntry}.
      *
      * @param id          The Id of the @{@link LibraryEntry}.
      * @param nativeWord  The stored native language word.
      * @param foreignWord The translation of the word in the foreign language.
      */
-    public LibraryEntry(int id, @NonNull
-            String nativeWord, @NonNull
-                                   String foreignWord) {
+    public LibraryEntry(int id, @NonNull String nativeWord, @NonNull String foreignWord, double knowledgeLevel) {
         this.id = id;
         this.nativeWord = nativeWord;
         this.foreignWord = foreignWord;
     }
 
     /**
-     * Constructor for an LibraryEntry.
+     * Constructor for an {@link LibraryEntry}.
      *
      * @param nativeWord  The stored native language word.
      * @param foreignWord The translation of the word in the foreign language.
      */
     @Ignore
-    public LibraryEntry(
-            String nativeWord, @NonNull
-            String foreignWord) {
+    public LibraryEntry(@NonNull String nativeWord, @NonNull String foreignWord, double knowledgeLevel) {
         this.nativeWord = nativeWord;
         this.foreignWord = foreignWord;
     }
@@ -87,13 +88,22 @@ public class LibraryEntry {
         return foreignWord;
     }
 
+    /**
+     * Getter for the knowledge level of the {@link LibraryEntry}.
+     *
+     * @return knowlede level of the {@link LibraryEntry}.
+     */
+    public double getKnowledgeLevel() {
+        return knowledgeLevel;
+    }
+
     @Override
-    @Ignore
     public String toString() {
         return "LibraryEntry{" +
                 "id=" + id +
                 ", nativeWord='" + nativeWord + '\'' +
                 ", foreignWord='" + foreignWord + '\'' +
+                ", knowledgeLevel=" + knowledgeLevel +
                 '}';
     }
 }

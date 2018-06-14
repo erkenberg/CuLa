@@ -2,7 +2,6 @@ package com.liebald.android.cula.ui.library;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.liebald.android.cula.data.CulaRepository;
@@ -29,14 +28,6 @@ public class LibraryFragmentViewModel extends ViewModel {
 
     public LiveData<List<LibraryEntry>> getLibraryEntries() {
         return mLibraryEntries;
-    }
-
-    public void addNewLibraryEntry(@NonNull String newNativeWord, @NonNull String newForeignWord) {
-        Log.d("test", "added Words " + newNativeWord + " " + newForeignWord);
-        if (newNativeWord.isEmpty() || newForeignWord.isEmpty()) {
-            return;
-        }
-        mCulaRepository.addLibraryEntry(new LibraryEntry(newNativeWord, newForeignWord));
     }
 
     public void removeLibraryEntry(int index) {

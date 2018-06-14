@@ -1,5 +1,6 @@
 package com.liebald.android.cula.ui.library;
 
+import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,19 +25,23 @@ public class LibraryFragmentRecyclerViewAdapter extends
 
     private List<LibraryEntry> mValues;
 
-    LibraryFragmentRecyclerViewAdapter() {
+    private OnItemClickListener mListener;
+
+    LibraryFragmentRecyclerViewAdapter(OnItemClickListener listener) {
         mValues = new ArrayList<>();
+        mListener = listener;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.update_library_item, parent, false);
+                .inflate(R.layout.library_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.mNativeWordView.setText(mValues.get(position).getNativeWord());
         holder.mForeignWordView.setText(mValues.get(position).getForeignWord());
     }
@@ -93,6 +98,11 @@ public class LibraryFragmentRecyclerViewAdapter extends
         return mValues.size();
     }
 
+    public interface OnItemClickListener {
+        void onLibraryEntryClick(View view, int id);
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         final TextView mNativeWordView;
@@ -106,6 +116,7 @@ public class LibraryFragmentRecyclerViewAdapter extends
             mForeignWordView = view.findViewById(R.id.foreignWord);
             viewForeground = view.findViewById(R.id.view_foreground);
             viewBackground = view.findViewById(R.id.view_background);
+            viewBackground.setOnClickListener(v -> mListener.onLibraryEntryClick(v, mValues.get(getAdapterPosition()).getId()));
         }
 
         @Override
@@ -114,4 +125,6 @@ public class LibraryFragmentRecyclerViewAdapter extends
                     .getText() + "'";
         }
     }
+
+
 }

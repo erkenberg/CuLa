@@ -8,7 +8,7 @@ import android.content.Context;
 /**
  * The Room Database for the App.
  */
-@Database(version = 1, entities = {LibraryEntry.class})
+@Database(version = 1, entities = {LibraryEntry.class}, exportSchema = false)
 public abstract class CulaDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "CulaDatabase";

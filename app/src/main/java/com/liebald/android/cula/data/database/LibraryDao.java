@@ -30,8 +30,17 @@ public interface LibraryDao {
      *
      * @return {@link LiveData} with all @{@link LibraryEntry}s.
      */
-    @Query("SELECT id, nativeWord, foreignWord FROM library ORDER by id desc")
+    @Query("SELECT id, nativeWord, foreignWord, knowledgeLevel FROM library ORDER by nativeWord desc")
     LiveData<List<LibraryEntry>> getAllEntries();
+
+    /**
+     * Gets the {@link LibraryEntry} in the library database table with the given id.
+     *
+     * @param id The id of the entry.
+     * @return {@link LiveData} with the @{@link LibraryEntry}.
+     */
+    @Query("SELECT id, nativeWord, foreignWord, knowledgeLevel FROM library WHERE id=:id")
+    LiveData<LibraryEntry> getEntriyById(int id);
 
     /**
      * Get the current amount of entries in the library table.

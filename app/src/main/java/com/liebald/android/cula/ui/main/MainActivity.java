@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(false)
                 .withDrawerWidthDp(250)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_label_learn).withIcon(FontAwesome.Icon.faw_pencil_alt),
+                        new PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_label_train).withIcon(FontAwesome.Icon.faw_pencil_alt),
                         new PrimaryDrawerItem().withIdentifier(2).withName(R.string.drawer_label_library).withIcon(FontAwesome.Icon.faw_book),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withIdentifier(3).withName(R.string.drawer_label_settings).withIcon(FontAwesome.Icon.faw_cog)

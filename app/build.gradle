@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.liebald.android.cula"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -52,7 +52,7 @@ dependencies {
     implementation("com.mikepenz:materialdrawer:6.0.7@aar") {
         transitive = true
     }
-    // Icons for use
+    // Icons to use
     implementation 'com.mikepenz:fontawesome-typeface:5.0.6.0@aar'
 
 }

@@ -44,20 +44,16 @@ public class CulaRepository {
 
         //TODO: remove following testcode:
         mExecutors.diskIO().execute(mLibraryDao::deleteAll);
-        LibraryEntry entry1 = new LibraryEntry(1, "native", "foreign");
+        LibraryEntry entry1 = new LibraryEntry(1, "native", "foreign", 1);
         addLibraryEntry(entry1);
-        LibraryEntry entry2 = new LibraryEntry(2, "native2", "foreign2");
+        LibraryEntry entry2 = new LibraryEntry(2, "native2", "foreign2", 2);
         addLibraryEntry(entry2);
-        LibraryEntry entry3 = new LibraryEntry(3, "native3", "foreign3");
+        LibraryEntry entry3 = new LibraryEntry(3, "native3", "foreign3", 3);
         addLibraryEntry(entry3);
-        LibraryEntry entry4 = new LibraryEntry(4, "native44", "foreign44");
+        LibraryEntry entry4 = new LibraryEntry(4, "native44", "foreign44", 4);
         addLibraryEntry(entry4);
 
-        //int c = mLibraryDao.insertEntry(entry1, entry2, entry3, entry4).size();
-        // Log.d(CulaRepository.class.getSimpleName(), "initialized database with " + c + " entries");
-        mExecutors.diskIO().execute(() -> {
-            Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " entries");
-        });
+        mExecutors.diskIO().execute(() -> Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " entries"));
 
     }
 
@@ -77,10 +73,19 @@ public class CulaRepository {
     /**
      * Get all {@link LibraryEntry}s.
      *
-     * @return The Weather from the chosen date.
+     * @return All {@link LibraryEntry}s.
      */
     public LiveData<List<LibraryEntry>> getAllLibraryEntries() {
         return mLibraryDao.getAllEntries();
+    }
+
+    /**
+     * Get all {@link LibraryEntry}s.
+     *
+     * @return The {@link LibraryEntry} with the given ID.
+     */
+    public LiveData<LibraryEntry> getLibraryEntry(int id) {
+        return mLibraryDao.getEntriyById(id);
     }
 
     /**
@@ -89,9 +94,7 @@ public class CulaRepository {
      * @param libraryEntry One or more {@link LibraryEntry}s to add to the Database
      */
     public void addLibraryEntry(LibraryEntry... libraryEntry) {
-        mExecutors.diskIO().execute(() -> {
-            mLibraryDao.insertEntry(libraryEntry);
-        });
+        mExecutors.diskIO().execute(() -> mLibraryDao.insertEntry(libraryEntry));
     }
 
     /**
@@ -100,8 +103,6 @@ public class CulaRepository {
      * @param libraryEntry The @{@link LibraryEntry}s to remove from the Database
      */
     public void removeLibraryEntry(LibraryEntry libraryEntry) {
-        mExecutors.diskIO().execute(() -> {
-            mLibraryDao.deleteEntry(libraryEntry);
-        });
+        mExecutors.diskIO().execute(() -> mLibraryDao.deleteEntry(libraryEntry));
     }
 }
