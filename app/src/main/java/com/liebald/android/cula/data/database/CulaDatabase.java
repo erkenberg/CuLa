@@ -6,12 +6,12 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 /**
- * The Room Database for the Dictionary.
+ * The Room Database for the App.
  */
-@Database(version = 1, entities = {DictionaryEntry.class})
+@Database(version = 1, entities = {LibraryEntry.class})
 public abstract class CulaDatabase extends RoomDatabase {
 
-    private static final String DATABASE_NAME = "dictionary";
+    private static final String DATABASE_NAME = "CulaDatabase";
     private static final Object LOCK = new Object();
     private static volatile CulaDatabase sInstance;
 
@@ -27,6 +27,6 @@ public abstract class CulaDatabase extends RoomDatabase {
         return sInstance;
     }
 
-    public abstract DictionaryDao dictionaryDao();
+    public abstract LibraryDao libraryDao();
 
 }

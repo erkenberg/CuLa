@@ -1,4 +1,4 @@
-package com.liebald.android.cula.ui.learn;
+package com.liebald.android.cula.ui.train;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

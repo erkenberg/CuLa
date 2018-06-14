@@ -20,7 +20,7 @@ import android.content.Context;
 
 import com.liebald.android.cula.data.CulaRepository;
 import com.liebald.android.cula.data.database.CulaDatabase;
-import com.liebald.android.cula.ui.updateDictionary.UpdateDictionaryViewModelFactory;
+import com.liebald.android.cula.ui.library.LibraryViewModelFactory;
 
 /**
  * Provides static methods to inject the various classes needed for Sunshine
@@ -30,11 +30,11 @@ public class InjectorUtils {
     public static CulaRepository provideRepository(Context context) {
         CulaDatabase database = CulaDatabase.getInstance(context.getApplicationContext());
         AppExecutors executors = AppExecutors.getInstance();
-        return CulaRepository.getInstance(database.dictionaryDao(), executors);
+        return CulaRepository.getInstance(database.libraryDao(), executors);
     }
 
-    public static UpdateDictionaryViewModelFactory provideUpdateDictionaryViewModelFactory(Context context) {
+    public static LibraryViewModelFactory provideLibraryViewModelFactory(Context context) {
         CulaRepository repository = provideRepository(context.getApplicationContext());
-        return new UpdateDictionaryViewModelFactory(repository);
+        return new LibraryViewModelFactory(repository);
     }
 }

@@ -8,8 +8,8 @@ import android.support.annotation.NonNull;
 /**
  * An @{@link Entity} Describing a word pair.
  */
-@Entity(tableName = "dictionary")
-public class DictionaryEntry {
+@Entity(tableName = "library")
+public class LibraryEntry {
 
     /**
      * The Id of the Entry in the Database.
@@ -30,13 +30,13 @@ public class DictionaryEntry {
     private String foreignWord;
 
     /**
-     * Constructor for an DictionaryEntry.
+     * Constructor for an LibraryEntry.
      *
-     * @param id          The Id of the @{@link DictionaryEntry}.
+     * @param id          The Id of the @{@link LibraryEntry}.
      * @param nativeWord  The stored native language word.
      * @param foreignWord The translation of the word in the foreign language.
      */
-    public DictionaryEntry(int id, @NonNull
+    public LibraryEntry(int id, @NonNull
             String nativeWord, @NonNull
                                    String foreignWord) {
         this.id = id;
@@ -45,13 +45,13 @@ public class DictionaryEntry {
     }
 
     /**
-     * Constructor for an DictionaryEntry.
+     * Constructor for an LibraryEntry.
      *
      * @param nativeWord  The stored native language word.
      * @param foreignWord The translation of the word in the foreign language.
      */
     @Ignore
-    public DictionaryEntry(
+    public LibraryEntry(
             String nativeWord, @NonNull
             String foreignWord) {
         this.nativeWord = nativeWord;
@@ -59,7 +59,7 @@ public class DictionaryEntry {
     }
 
     /**
-     * Getter for the id of this {@link DictionaryEntry}.
+     * Getter for the id of this {@link LibraryEntry}.
      *
      * @return The id.
      */
@@ -90,7 +90,7 @@ public class DictionaryEntry {
     @Override
     @Ignore
     public String toString() {
-        return "DictionaryEntry{" +
+        return "LibraryEntry{" +
                 "id=" + id +
                 ", nativeWord='" + nativeWord + '\'' +
                 ", foreignWord='" + foreignWord + '\'' +

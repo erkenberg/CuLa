@@ -1,0 +1,53 @@
+package com.liebald.android.cula.ui.library;
+
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.liebald.android.cula.data.CulaRepository;
+import com.liebald.android.cula.data.database.LibraryEntry;
+
+import java.util.List;
+
+
+public class LibraryFragmentViewModel extends ViewModel {
+
+    private LiveData<List<LibraryEntry>> mLibraryEntries;
+    private CulaRepository mCulaRepository;
+    private LibraryEntry latestDeletedEntry = null;
+
+    /**
+     * Constructor of the ViewModel.
+     *
+     * @param repository The repository needed for data operations.
+     */
+    LibraryFragmentViewModel(CulaRepository repository) {
+        mCulaRepository = repository;
+        mLibraryEntries = repository.getAllLibraryEntries();
+    }
+
+    public LiveData<List<LibraryEntry>> getLibraryEntries() {
+        return mLibraryEntries;
+    }
+
+    public void addNewLibraryEntry(@NonNull String newNativeWord, @NonNull String newForeignWord) {
+        Log.d("test", "added Words " + newNativeWord + " " + newForeignWord);
+        if (newNativeWord.isEmpty() || newForeignWord.isEmpty()) {
+            return;
+        }
+        mCulaRepository.addLibraryEntry(new LibraryEntry(newNativeWord, newForeignWord));
+    }
+
+    public void removeLibraryEntry(int index) {
+        if (mLibraryEntries == null || mLibraryEntries.getValue() == null)
+            return;
+        latestDeletedEntry = mLibraryEntries.getValue().get(index);
+        Log.d(LibraryFragmentViewModel.class.getSimpleName(), latestDeletedEntry.toString());
+        mCulaRepository.removeLibraryEntry(latestDeletedEntry);
+    }
+
+    public void restoreLatestDeletedLibraryEntry() {
+        mCulaRepository.addLibraryEntry(latestDeletedEntry);
+    }
+}

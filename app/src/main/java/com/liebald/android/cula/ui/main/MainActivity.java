@@ -8,8 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.liebald.android.cula.R;
-import com.liebald.android.cula.ui.learn.CardBoxFragment;
-import com.liebald.android.cula.ui.updateDictionary.UpdateDictionaryFragment;
+import com.liebald.android.cula.ui.library.LibraryFragment;
+import com.liebald.android.cula.ui.train.CardBoxFragment;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             args.putString("text", Long.toString(position));
             fragment.setArguments(args);
         } else {
-            fragment = new UpdateDictionaryFragment();
+            fragment = new LibraryFragment();
         }
         drawer.closeDrawer();
 

@@ -19,8 +19,8 @@ package com.liebald.android.cula.data;
 import android.arch.lifecycle.LiveData;
 import android.util.Log;
 
-import com.liebald.android.cula.data.database.DictionaryDao;
-import com.liebald.android.cula.data.database.DictionaryEntry;
+import com.liebald.android.cula.data.database.LibraryDao;
+import com.liebald.android.cula.data.database.LibraryEntry;
 import com.liebald.android.cula.utilities.AppExecutors;
 
 import java.util.List;
@@ -35,39 +35,38 @@ public class CulaRepository {
     // For Singleton instantiation
     private static final Object LOCK = new Object();
     private static CulaRepository sInstance;
-    private final DictionaryDao mDictionaryDao;
+    private final LibraryDao mLibraryDao;
     private final AppExecutors mExecutors;
 
-    private CulaRepository(DictionaryDao dictionaryDao, AppExecutors appExecutors) {
-        mDictionaryDao = dictionaryDao;
+    private CulaRepository(LibraryDao libraryDao, AppExecutors appExecutors) {
+        mLibraryDao = libraryDao;
         mExecutors = appExecutors;
 
-        mExecutors.diskIO().execute(() -> {
-            mDictionaryDao.deleteAll();
-        });
-        DictionaryEntry entry1 = new DictionaryEntry(1, "native", "foreign");
-        addDictionaryEntry(entry1);
-        DictionaryEntry entry2 = new DictionaryEntry(2, "native2", "foreign2");
-        addDictionaryEntry(entry2);
-        DictionaryEntry entry3 = new DictionaryEntry(3, "native3", "foreign3");
-        addDictionaryEntry(entry3);
-        DictionaryEntry entry4 = new DictionaryEntry(4, "native44", "foreign44");
-        addDictionaryEntry(entry4);
+        //TODO: remove following testcode:
+        mExecutors.diskIO().execute(mLibraryDao::deleteAll);
+        LibraryEntry entry1 = new LibraryEntry(1, "native", "foreign");
+        addLibraryEntry(entry1);
+        LibraryEntry entry2 = new LibraryEntry(2, "native2", "foreign2");
+        addLibraryEntry(entry2);
+        LibraryEntry entry3 = new LibraryEntry(3, "native3", "foreign3");
+        addLibraryEntry(entry3);
+        LibraryEntry entry4 = new LibraryEntry(4, "native44", "foreign44");
+        addLibraryEntry(entry4);
 
-        //int c = mDictionaryDao.insertEntry(entry1, entry2, entry3, entry4).size();
+        //int c = mLibraryDao.insertEntry(entry1, entry2, entry3, entry4).size();
         // Log.d(CulaRepository.class.getSimpleName(), "initialized database with " + c + " entries");
         mExecutors.diskIO().execute(() -> {
-            Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mDictionaryDao.getDictionarySize() + " entries");
+            Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " entries");
         });
 
     }
 
     public synchronized static CulaRepository getInstance(
-            DictionaryDao dictionaryDao, AppExecutors appExecutors) {
+            LibraryDao libraryDao, AppExecutors appExecutors) {
         Log.d(LOG_TAG, "Getting the repository");
         if (sInstance == null) {
             synchronized (LOCK) {
-                sInstance = new CulaRepository(dictionaryDao, appExecutors);
+                sInstance = new CulaRepository(libraryDao, appExecutors);
                 Log.d(LOG_TAG, "Made new repository");
             }
         }
@@ -76,33 +75,33 @@ public class CulaRepository {
 
 
     /**
-     * Get all {@link com.liebald.android.cula.data.database.DictionaryEntry}s.
+     * Get all {@link LibraryEntry}s.
      *
      * @return The Weather from the chosen date.
      */
-    public LiveData<List<DictionaryEntry>> getAllDictionaryEntries() {
-        return mDictionaryDao.getAllEntries();
+    public LiveData<List<LibraryEntry>> getAllLibraryEntries() {
+        return mLibraryDao.getAllEntries();
     }
 
     /**
-     * Adds the given DictionaryEntries to the Database.
+     * Adds the given {@link LibraryEntry}s to the Database.
      *
-     * @param dictionaryEntry One or more @{@link DictionaryEntry}s to add to the Database
+     * @param libraryEntry One or more {@link LibraryEntry}s to add to the Database
      */
-    public void addDictionaryEntry(DictionaryEntry... dictionaryEntry) {
+    public void addLibraryEntry(LibraryEntry... libraryEntry) {
         mExecutors.diskIO().execute(() -> {
-            mDictionaryDao.insertEntry(dictionaryEntry);
+            mLibraryDao.insertEntry(libraryEntry);
         });
     }
 
     /**
-     * Removes the given DictionaryEntries from the Database.
+     * Removes the given {@link LibraryEntry}s from the Database.
      *
-     * @param dictionaryEntry The @{@link DictionaryEntry}s to remove from the Database
+     * @param libraryEntry The @{@link LibraryEntry}s to remove from the Database
      */
-    public void removeDictionaryEntry(DictionaryEntry dictionaryEntry) {
+    public void removeLibraryEntry(LibraryEntry libraryEntry) {
         mExecutors.diskIO().execute(() -> {
-            mDictionaryDao.deleteEntry(dictionaryEntry);
+            mLibraryDao.deleteEntry(libraryEntry);
         });
     }
 }

@@ -1,4 +1,4 @@
-package com.liebald.android.cula.ui.updateDictionary;
+package com.liebald.android.cula.ui.library;
 
 
 import android.arch.lifecycle.ViewModel;
@@ -8,19 +8,19 @@ import com.liebald.android.cula.data.CulaRepository;
 
 /**
  * Factory method that allows us to create a ViewModel with a constructor that takes a
- * {@link android.liebald.com.cula.data.CulaRepository}
+ * {@link CulaRepository}
  */
-public class UpdateDictionaryViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+public class LibraryViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final CulaRepository mRepository;
 
-    public UpdateDictionaryViewModelFactory(CulaRepository repository) {
+    public LibraryViewModelFactory(CulaRepository repository) {
         this.mRepository = repository;
     }
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new UpdateDictionaryFragmentViewModel(mRepository);
+        return (T) new LibraryFragmentViewModel(mRepository);
     }
 }

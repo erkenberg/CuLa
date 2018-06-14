@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.liebald.android.cula.ui.library.LibraryFragmentViewModel" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/library_coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<android.support.constraint.ConstraintLayout-->
+        <!--android:id="@+id/ListConstraintLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@android:color/white">-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_library_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+
+            tools:context="com.liebald.android.cula.ui.library.LibraryFragment"
+            tools:listitem="@layout/update_library_item" />
+
+        <!--<EditText-->
+        <!--android:id="@+id/edit_text_add_native_word"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="text"-->
+        <!--android:nextFocusForward="@id/edit_text_add_foreign_word"-->
+        <!--android:paddingEnd="8dp"-->
+        <!--android:paddingStart="8dp"-->
+        <!--android:paddingTop="8dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--tools:text="native" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/edit_text_add_foreign_word"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="text"-->
+        <!--android:nextFocusForward="@id/edit_text_add_foreign_word"-->
+        <!--android:paddingEnd="8dp"-->
+        <!--android:paddingStart="8dp"-->
+        <!--android:paddingTop="8dp"-->
+        <!--app:layout_constraintEnd_toEndOf="@+id/edit_text_add_native_word"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/edit_text_add_native_word"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/edit_text_add_native_word"-->
+        <!--tools:text="foreign" />-->
+
+
+        <!--<Button-->
+        <!--android:id="@+id/button_add_word_pair"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:focusable="true"-->
+        <!--android:onClick="@{() -> model.addNewLibraryEntry(editTextAddNativeWord.getText().toString(), editTextAddForeignWord.getText().toString())}"-->
+        <!--android:text="@string/button_add_words"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/edit_text_add_native_word"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/edit_text_add_foreign_word" />-->
+        <!--</android.support.constraint.ConstraintLayout>-->
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            app:elevation="6dp"
+            app:fabSize="normal"
+            app:pressedTranslationZ="6dp" />
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

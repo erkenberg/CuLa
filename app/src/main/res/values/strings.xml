@@ -15,4 +15,9 @@
     <string name="drawer_label_settings">Settings</string>
     <string name="drawer_label_learn">Learn</string>
     <string name="app_name_full">The Customizable Language Trainer</string>
+    <string name="delete">Delete</string>
+    <string name="word_removed_from_library">Word removed from Library!</string>
+    <string name="undo">UNDO</string>
+    <string name="restored">Restored</string>
+
 </resources>

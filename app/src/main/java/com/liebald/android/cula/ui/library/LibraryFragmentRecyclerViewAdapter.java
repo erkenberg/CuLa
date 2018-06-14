@@ -1,4 +1,4 @@
-package com.liebald.android.cula.ui.updateDictionary;
+package com.liebald.android.cula.ui.library;
 
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -11,27 +11,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.liebald.android.cula.R;
-import com.liebald.android.cula.data.database.DictionaryEntry;
+import com.liebald.android.cula.data.database.LibraryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DictionaryEntry}.
+ * {@link RecyclerView.Adapter} that can display a {@link LibraryEntry}.
  */
-public class UpdateDictionaryFragmentRecyclerViewAdapter extends
-        RecyclerView.Adapter<UpdateDictionaryFragmentRecyclerViewAdapter.ViewHolder> {
+public class LibraryFragmentRecyclerViewAdapter extends
+        RecyclerView.Adapter<LibraryFragmentRecyclerViewAdapter.ViewHolder> {
 
-    private List<DictionaryEntry> mValues;
+    private List<LibraryEntry> mValues;
 
-    public UpdateDictionaryFragmentRecyclerViewAdapter() {
+    LibraryFragmentRecyclerViewAdapter() {
         mValues = new ArrayList<>();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.update_dictionary_list_item, parent, false);
+                .inflate(R.layout.update_library_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -41,10 +41,10 @@ public class UpdateDictionaryFragmentRecyclerViewAdapter extends
         holder.mForeignWordView.setText(mValues.get(position).getForeignWord());
     }
 
-    void swapForecast(final List<DictionaryEntry> newDictionaryEntries) {
+    void swapForecast(final List<LibraryEntry> newLibraryEntries) {
         // If there was no forecast data, then recreate all of the list
         if (mValues == null) {
-            mValues = newDictionaryEntries;
+            mValues = newLibraryEntries;
             notifyDataSetChanged();
             Log.d("adapter", "adapter called, notified changed");
 
@@ -64,24 +64,24 @@ public class UpdateDictionaryFragmentRecyclerViewAdapter extends
 
                 @Override
                 public int getNewListSize() {
-                    return newDictionaryEntries.size();
+                    return newLibraryEntries.size();
                 }
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
                     return mValues.get(oldItemPosition).getId() ==
-                            newDictionaryEntries.get(newItemPosition).getId();
+                            newLibraryEntries.get(newItemPosition).getId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    DictionaryEntry newEntry = newDictionaryEntries.get(newItemPosition);
-                    DictionaryEntry oldEntry = mValues.get(oldItemPosition);
+                    LibraryEntry newEntry = newLibraryEntries.get(newItemPosition);
+                    LibraryEntry oldEntry = mValues.get(oldItemPosition);
                     return newEntry.getId() == oldEntry.getId()
                             && newEntry.getForeignWord().equals(oldEntry.getForeignWord()) && newEntry.getNativeWord().equals(oldEntry.getNativeWord());
                 }
             });
-            mValues = newDictionaryEntries;
+            mValues = newLibraryEntries;
             result.dispatchUpdatesTo(this);
         }
     }

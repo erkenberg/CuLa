@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fdea574760cf1603054d4539ac9c4cfe",
+    "identityHash": "01b6cbf7a2f8f5cfd6ff6a4a34ff436a",
     "entities": [
       {
-        "tableName": "dictionary",
+        "tableName": "library",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nativeWord` TEXT NOT NULL, `foreignWord` TEXT NOT NULL)",
         "fields": [
           {
@@ -39,7 +39,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"fdea574760cf1603054d4539ac9c4cfe\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"01b6cbf7a2f8f5cfd6ff6a4a34ff436a\")"
     ]
   }
 }
