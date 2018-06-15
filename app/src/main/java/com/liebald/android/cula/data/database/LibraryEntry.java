@@ -45,6 +45,7 @@ public class LibraryEntry {
         this.id = id;
         this.nativeWord = nativeWord;
         this.foreignWord = foreignWord;
+        this.knowledgeLevel = knowledgeLevel;
     }
 
     /**
@@ -57,6 +58,7 @@ public class LibraryEntry {
     public LibraryEntry(@NonNull String nativeWord, @NonNull String foreignWord, double knowledgeLevel) {
         this.nativeWord = nativeWord;
         this.foreignWord = foreignWord;
+        this.knowledgeLevel = knowledgeLevel;
     }
 
     /**

@@ -44,15 +44,16 @@ public class CulaRepository {
 
         //TODO: remove following testcode:
         mExecutors.diskIO().execute(mLibraryDao::deleteAll);
-        LibraryEntry entry1 = new LibraryEntry(1, "native", "foreign", 1);
+        LibraryEntry entry1 = new LibraryEntry(1, "native1", "foreign", 1.1);
         addLibraryEntry(entry1);
-        LibraryEntry entry2 = new LibraryEntry(2, "native2", "foreign2", 2);
+        LibraryEntry entry2 = new LibraryEntry(2, "native2", "foreign2", 2.2);
         addLibraryEntry(entry2);
-        LibraryEntry entry3 = new LibraryEntry(3, "native3", "foreign3", 3);
+        LibraryEntry entry3 = new LibraryEntry(3, "native3", "foreign3", 3.3);
         addLibraryEntry(entry3);
-        LibraryEntry entry4 = new LibraryEntry(4, "native44", "foreign44", 4);
+        LibraryEntry entry4 = new LibraryEntry(4, "native4", "foreign44", 4.4);
         addLibraryEntry(entry4);
-
+        LibraryEntry entry5 = new LibraryEntry(5, "native5", "foreign43", 4.8);
+        addLibraryEntry(entry5);
         mExecutors.diskIO().execute(() -> Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " entries"));
 
     }

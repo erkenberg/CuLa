@@ -74,7 +74,7 @@ public class LibraryFragment extends Fragment implements RecyclerItemTouchHelper
         if(getContext()==null)
             return view;
         mBinding.recyclerViewLibraryList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        mAdapter = new LibraryFragmentRecyclerViewAdapter(this);
+        mAdapter = new LibraryFragmentRecyclerViewAdapter(this, getContext());
         mBinding.recyclerViewLibraryList.setAdapter(mAdapter);
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
@@ -83,7 +83,7 @@ public class LibraryFragment extends Fragment implements RecyclerItemTouchHelper
 
         Log.d("test2", "" + mViewModel.getLibraryEntries());
         mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
-            mAdapter.swapForecast(libraryEntries);
+            mAdapter.swapEntries(libraryEntries);
             if (mPosition == RecyclerView.NO_POSITION) {
                 mPosition = 0;
             }

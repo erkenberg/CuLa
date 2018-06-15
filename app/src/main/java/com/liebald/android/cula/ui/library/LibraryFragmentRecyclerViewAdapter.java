@@ -1,5 +1,6 @@
 package com.liebald.android.cula.ui.library;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.liebald.android.cula.R;
 import com.liebald.android.cula.data.database.LibraryEntry;
+import com.liebald.android.cula.utilities.KnowledgeLevelUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +27,18 @@ public class LibraryFragmentRecyclerViewAdapter extends
 
     private List<LibraryEntry> mValues;
 
-    private OnItemClickListener mListener;
+    private final OnItemClickListener mListener;
 
-    LibraryFragmentRecyclerViewAdapter(OnItemClickListener listener) {
+
+    /**
+     * Context required to set the correct colors for the knowledgeLevel.
+     */
+    private final Context mContext;
+
+    LibraryFragmentRecyclerViewAdapter(OnItemClickListener listener, Context context) {
         mValues = new ArrayList<>();
         mListener = listener;
+        mContext = context;
     }
 
     @NonNull
@@ -44,9 +53,11 @@ public class LibraryFragmentRecyclerViewAdapter extends
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.mNativeWordView.setText(mValues.get(position).getNativeWord());
         holder.mForeignWordView.setText(mValues.get(position).getForeignWord());
+        holder.viewForeground.setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel(mContext, mValues.get(position).getKnowledgeLevel()));
+
     }
 
-    void swapForecast(final List<LibraryEntry> newLibraryEntries) {
+    void swapEntries(final List<LibraryEntry> newLibraryEntries) {
         // If there was no forecast data, then recreate all of the list
         if (mValues == null) {
             mValues = newLibraryEntries;
@@ -83,7 +94,7 @@ public class LibraryFragmentRecyclerViewAdapter extends
                     LibraryEntry newEntry = newLibraryEntries.get(newItemPosition);
                     LibraryEntry oldEntry = mValues.get(oldItemPosition);
                     return newEntry.getId() == oldEntry.getId()
-                            && newEntry.getForeignWord().equals(oldEntry.getForeignWord()) && newEntry.getNativeWord().equals(oldEntry.getNativeWord());
+                            && newEntry.getForeignWord().equals(oldEntry.getForeignWord()) && newEntry.getNativeWord().equals(oldEntry.getNativeWord()) && newEntry.getKnowledgeLevel() == oldEntry.getKnowledgeLevel();
                 }
             });
             mValues = newLibraryEntries;
@@ -116,7 +127,7 @@ public class LibraryFragmentRecyclerViewAdapter extends
             mForeignWordView = view.findViewById(R.id.foreignWord);
             viewForeground = view.findViewById(R.id.view_foreground);
             viewBackground = view.findViewById(R.id.view_background);
-            viewBackground.setOnClickListener(v -> mListener.onLibraryEntryClick(v, mValues.get(getAdapterPosition()).getId()));
+            viewForeground.setOnClickListener(v -> mListener.onLibraryEntryClick(v, mValues.get(getAdapterPosition()).getId()));
         }
 
         @Override
