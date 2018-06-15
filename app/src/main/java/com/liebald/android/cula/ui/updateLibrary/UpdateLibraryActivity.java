@@ -51,8 +51,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         int id;
-        //TODO: use default knowledgeLevel from config
-        mBinding.rbKnowledgeLevel3.toggle();
+
         if (intent.hasExtra(BUNDLE_EXTRA_UPDATE_KEY) && (id = intent.getIntExtra(BUNDLE_EXTRA_UPDATE_KEY, -1)) != -1) {
             mBinding.buttonAddWordPair.setVisibility(View.GONE);
             UpdateLibraryViewModelFactory viewModelFactory = new UpdateLibraryViewModelFactory(mCulaRepository, id);
@@ -75,6 +74,9 @@ public class UpdateLibraryActivity extends AppCompatActivity {
                 selectedKnowledgeLevel = libraryEntry.getKnowledgeLevel();
             });
 
+        } else {
+            //TODO: use default knowledgeLevel from config
+            mBinding.rbKnowledgeLevel3.toggle();
         }
 
         mBinding.radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -109,8 +111,14 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         String nativeWord = mBinding.editTextAddNativeWord.getText().toString().trim();
         String foreignWord = mBinding.editTextAddForeignWord.getText().toString().trim();
         //TODO: replacable by snackbar?
-        if (nativeWord.isEmpty() || foreignWord.isEmpty()) {
-            Toast.makeText(this, "Please fill in both words!", Toast.LENGTH_LONG).show();
+        if (nativeWord.isEmpty()) {
+            Toast.makeText(this, "Fill in the native word!", Toast.LENGTH_LONG).show();
+            mBinding.editTextAddNativeWord.requestFocus();
+            return;
+        }
+        if (foreignWord.isEmpty()) {
+            Toast.makeText(this, "Please provide a translation", Toast.LENGTH_LONG).show();
+            mBinding.editTextAddForeignWord.requestFocus();
             return;
         }
         if (entryId != -1) {
@@ -126,6 +134,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         else {
             mBinding.editTextAddNativeWord.setText("");
             mBinding.editTextAddForeignWord.setText("");
+            mBinding.editTextAddNativeWord.requestFocus();
             Toast.makeText(this, "Added word pair to library", Toast.LENGTH_LONG).show();
         }
     }

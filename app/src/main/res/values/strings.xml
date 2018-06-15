@@ -19,9 +19,12 @@
     <string name="restored">Restored</string>
 
     <!-- Update Library Strings-->
-    <string name="update_library_hint_foreign_word">Add the foreign word here</string>
-    <string name="update_library_hint_native_word">Add the native word here</string>
+    <string name="update_library_hint_foreign_word">Add the foreign word</string>
+    <string name="update_library_hint_native_word">Add the native word</string>
     <string name="update_library_button_save_word">Save</string>
     <string name="update_library_button_save_word_return">Save &amp; return</string>
+    <string name="update_library_button_label_knowledgeLevel">How well do you know this word pair already?</string>
+    <string name="update_library_label_native_word">Native Word:</string>
+    <string name="update_library_label_foreign_word">Foreign Word:</string>
 
 </resources>

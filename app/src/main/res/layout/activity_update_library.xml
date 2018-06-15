@@ -9,6 +9,20 @@
         android:layout_height="match_parent"
         tools:context=".ui.updateLibrary.UpdateLibraryActivity">
 
+        <TextView
+            android:id="@+id/tv_label_add_native_word"
+            style="@style/Label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/update_library_label_native_word"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/edit_text_add_native_word"
             android:layout_width="0dp"
@@ -18,10 +32,25 @@
             android:hint="@string/update_library_hint_native_word"
             android:inputType="text"
             android:nextFocusForward="@id/edit_text_add_foreign_word"
-            android:padding="16dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tv_label_add_native_word" />
+
+        <TextView
+            android:id="@+id/tv_label_add_foreign_word"
+            style="@style/Label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/update_library_label_foreign_word"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_add_native_word" />
 
         <EditText
             android:id="@+id/edit_text_add_foreign_word"
@@ -30,37 +59,54 @@
             android:hint="@string/update_library_hint_foreign_word"
             android:inputType="text"
             android:nextFocusForward="@id/edit_text_add_foreign_word"
-            android:padding="16dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             app:layout_constraintEnd_toEndOf="@+id/edit_text_add_native_word"
             app:layout_constraintStart_toStartOf="@+id/edit_text_add_native_word"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_add_native_word" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_add_foreign_word" />
+
+        <TextView
+            android:id="@+id/tv_label_knowledgeLevel"
+            style="@style/Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/update_library_button_label_knowledgeLevel"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_add_foreign_word" />
 
 
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
-            android:layout_height="47dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal"
+            android:focusable="false"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_add_foreign_word">
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_knowledgeLevel">
 
             <RadioButton
                 android:id="@+id/rb_knowledgeLevel_1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:focusable="false"
                 android:background="@color/knowledgeLevel_1"
-                android:checked="true"
                 android:theme="@style/KnowledgeLevelRadioButton" />
 
             <RadioButton
                 android:id="@+id/rb_knowledgeLevel_2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:focusable="false"
                 android:background="@color/knowledgeLevel_2"
                 android:theme="@style/KnowledgeLevelRadioButton" />
 
@@ -68,18 +114,22 @@
                 android:id="@+id/rb_knowledgeLevel_3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:focusable="false"
                 android:background="@color/knowledgeLevel_3"
                 android:theme="@style/KnowledgeLevelRadioButton" />
 
             <RadioButton
                 android:id="@+id/rb_knowledgeLevel_4"
                 android:layout_width="wrap_content"
+                android:focusable="false"
                 android:layout_height="match_parent"
                 android:background="@color/knowledgeLevel_4"
                 android:theme="@style/KnowledgeLevelRadioButton" />
 
             <RadioButton
                 android:id="@+id/rb_knowledgeLevel_5"
+                android:focusable="false"
+
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/knowledgeLevel_5"
@@ -94,6 +144,7 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:onClick="commitLibraryEntry"
+            android:layout_marginTop="16dp"
             android:text="@string/update_library_button_save_word"
             app:layout_constraintEnd_toStartOf="@+id/button_add_word_pair_return"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -107,11 +158,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:focusable="true"
+            android:layout_marginTop="16dp"
             android:onClick="commitLibraryEntry"
             android:text="@string/update_library_button_save_word_return"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/button_add_word_pair"
-            app:layout_constraintTop_toTopOf="@+id/button_add_word_pair" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
