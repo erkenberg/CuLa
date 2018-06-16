@@ -1,4 +1,4 @@
-package com.liebald.android.cula.ui.updateLibrary;
+package org.liebald.android.cula.ui.updateLibrary;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -10,17 +10,17 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.liebald.android.cula.R;
-import com.liebald.android.cula.data.CulaRepository;
-import com.liebald.android.cula.data.database.LibraryEntry;
+import org.liebald.android.cula.data.CulaRepository;
+import org.liebald.android.cula.data.database.LibraryEntry;
 import com.liebald.android.cula.databinding.ActivityUpdateLibraryBinding;
-import com.liebald.android.cula.utilities.InjectorUtils;
+import org.liebald.android.cula.utilities.InjectorUtils;
 
 public class UpdateLibraryActivity extends AppCompatActivity {
 
 
     /**
      * When the intend passed to this activity contains a bundle with this extra
-     * an existing {@link com.liebald.android.cula.data.database.LibraryEntry}
+     * an existing {@link LibraryEntry}
      * should be updated instead of adding a new one.
      * The id of the entry is passed as the value of the key.
      */

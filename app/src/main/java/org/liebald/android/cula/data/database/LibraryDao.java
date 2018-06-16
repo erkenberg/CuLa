@@ -1,4 +1,4 @@
-package com.liebald.android.cula.data.database;
+package org.liebald.android.cula.data.database;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

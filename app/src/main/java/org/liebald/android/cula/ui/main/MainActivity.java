@@ -1,4 +1,4 @@
-package com.liebald.android.cula.ui.main;
+package org.liebald.android.cula.ui.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.liebald.android.cula.R;
-import com.liebald.android.cula.ui.library.LibraryFragment;
-import com.liebald.android.cula.ui.train.CardBoxFragment;
+import org.liebald.android.cula.ui.library.LibraryFragment;
+import org.liebald.android.cula.ui.train.CardBoxFragment;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;

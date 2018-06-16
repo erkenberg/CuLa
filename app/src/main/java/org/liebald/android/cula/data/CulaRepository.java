@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.liebald.android.cula.data;
+package org.liebald.android.cula.data;
 
 import android.arch.lifecycle.LiveData;
 import android.util.Log;
 
-import com.liebald.android.cula.data.database.LibraryDao;
-import com.liebald.android.cula.data.database.LibraryEntry;
-import com.liebald.android.cula.utilities.AppExecutors;
+import org.liebald.android.cula.data.database.LibraryDao;
+import org.liebald.android.cula.data.database.LibraryEntry;
+import org.liebald.android.cula.utilities.AppExecutors;
 
 import java.util.List;
 

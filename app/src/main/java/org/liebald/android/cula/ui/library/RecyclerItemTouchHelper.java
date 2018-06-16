@@ -1,4 +1,4 @@
-package com.liebald.android.cula.ui.library;
+package org.liebald.android.cula.ui.library;
 
 import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;

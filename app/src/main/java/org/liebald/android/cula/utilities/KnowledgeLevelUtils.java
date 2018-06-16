@@ -1,4 +1,4 @@
-package com.liebald.android.cula.utilities;
+package org.liebald.android.cula.utilities;
 
 import android.content.Context;
 import android.content.res.Resources;

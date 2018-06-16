@@ -2,13 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.liebald.com.cula.ui.learn.CardBoxFragment">
+    tools:context="org.liebald.android.cula.ui.train.CardBoxFragment">
 
     <TextView
         android:id="@+id/fragment_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/hello_blank_fragment" />
+        android:gravity="center" />
 
 </FrameLayout>

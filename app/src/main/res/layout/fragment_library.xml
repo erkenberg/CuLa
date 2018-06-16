@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            tools:context="com.liebald.android.cula.ui.library.LibraryFragment"
+            tools:context="com.liebald.android.cula.org.liebald.android.cula.ui.library.LibraryFragment"
             tools:listitem="@layout/library_item" />
 
         <android.support.design.widget.FloatingActionButton

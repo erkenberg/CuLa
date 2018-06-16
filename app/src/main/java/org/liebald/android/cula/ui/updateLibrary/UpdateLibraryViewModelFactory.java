@@ -1,10 +1,10 @@
-package com.liebald.android.cula.ui.updateLibrary;
+package org.liebald.android.cula.ui.updateLibrary;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.liebald.android.cula.data.CulaRepository;
+import org.liebald.android.cula.data.CulaRepository;
 
 public class UpdateLibraryViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 

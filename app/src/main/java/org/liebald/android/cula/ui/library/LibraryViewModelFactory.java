@@ -1,11 +1,11 @@
-package com.liebald.android.cula.ui.library;
+package org.liebald.android.cula.ui.library;
 
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.liebald.android.cula.data.CulaRepository;
+import org.liebald.android.cula.data.CulaRepository;
 
 /**
  * Factory method that allows us to create a ViewModel with a constructor that takes a

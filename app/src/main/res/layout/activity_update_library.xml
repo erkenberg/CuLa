@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -7,7 +6,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.updateLibrary.UpdateLibraryActivity">
+        tools:context="org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity">
 
         <TextView
             android:id="@+id/tv_label_add_native_word"
@@ -79,7 +78,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_add_foreign_word" />
 
-
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
@@ -129,12 +127,10 @@
             <RadioButton
                 android:id="@+id/rb_knowledgeLevel_5"
                 android:focusable="false"
-
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/knowledgeLevel_5"
                 android:theme="@style/KnowledgeLevelRadioButton" />
-
         </RadioGroup>
 
         <Button

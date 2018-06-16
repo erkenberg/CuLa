@@ -1,4 +1,4 @@
-package com.liebald.android.cula.ui.library;
+package org.liebald.android.cula.ui.library;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -21,13 +21,15 @@ import android.widget.Toast;
 
 import com.liebald.android.cula.R;
 import com.liebald.android.cula.databinding.FragmentLibraryBinding;
-import com.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
-import com.liebald.android.cula.utilities.InjectorUtils;
+import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
+import org.liebald.android.cula.utilities.InjectorUtils;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import org.liebald.android.cula.data.database.LibraryEntry;
+
 /**
- * A fragment presenting a list of {@link com.liebald.android.cula.data.database.LibraryEntry}s and the possibility to add new ones.
+ * A fragment presenting a list of {@link LibraryEntry}s and the possibility to add new ones.
  */
 public class LibraryFragment extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener, LibraryFragmentRecyclerViewAdapter.OnItemClickListener {
 

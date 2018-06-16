@@ -1,4 +1,4 @@
-package com.liebald.android.cula.data.database;
+package org.liebald.android.cula.data.database;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

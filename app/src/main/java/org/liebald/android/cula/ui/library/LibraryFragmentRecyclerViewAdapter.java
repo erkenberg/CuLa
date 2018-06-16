@@ -1,4 +1,4 @@
-package com.liebald.android.cula.ui.library;
+package org.liebald.android.cula.ui.library;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.liebald.android.cula.R;
-import com.liebald.android.cula.data.database.LibraryEntry;
-import com.liebald.android.cula.utilities.KnowledgeLevelUtils;
+import org.liebald.android.cula.data.database.LibraryEntry;
+import org.liebald.android.cula.utilities.KnowledgeLevelUtils;
 
 import java.util.ArrayList;
 import java.util.List;

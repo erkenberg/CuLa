@@ -1,11 +1,11 @@
-package com.liebald.android.cula.ui.library;
+package org.liebald.android.cula.ui.library;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
-import com.liebald.android.cula.data.CulaRepository;
-import com.liebald.android.cula.data.database.LibraryEntry;
+import org.liebald.android.cula.data.CulaRepository;
+import org.liebald.android.cula.data.database.LibraryEntry;
 
 import java.util.List;
 

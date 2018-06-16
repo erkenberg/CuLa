@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.liebald.android.cula.utilities;
+package org.liebald.android.cula.utilities;
 
 import android.content.Context;
 
-import com.liebald.android.cula.data.CulaRepository;
-import com.liebald.android.cula.data.database.CulaDatabase;
-import com.liebald.android.cula.ui.library.LibraryViewModelFactory;
+import org.liebald.android.cula.data.CulaRepository;
+import org.liebald.android.cula.data.database.CulaDatabase;
+import org.liebald.android.cula.ui.library.LibraryViewModelFactory;
 
 /**
  * Provides static methods to inject the various classes needed for Sunshine

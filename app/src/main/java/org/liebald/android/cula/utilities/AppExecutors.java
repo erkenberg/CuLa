@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.liebald.android.cula.utilities;
+package org.liebald.android.cula.utilities;
 
 import android.os.Handler;
 import android.os.Looper;
