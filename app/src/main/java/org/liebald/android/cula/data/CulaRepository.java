@@ -86,7 +86,7 @@ public class CulaRepository {
      * @return The {@link LibraryEntry} with the given ID.
      */
     public LiveData<LibraryEntry> getLibraryEntry(int id) {
-        return mLibraryDao.getEntriyById(id);
+        return mLibraryDao.getEntryById(id);
     }
 
     /**

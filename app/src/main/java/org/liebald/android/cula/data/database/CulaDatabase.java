@@ -8,7 +8,7 @@ import android.content.Context;
 /**
  * The Room Database for the App.
  */
-@Database(version = 1, entities = {LibraryEntry.class}, exportSchema = false)
+@Database(version = 1, entities = {LibraryEntry.class, LanguageEntry.class}, exportSchema = false)
 public abstract class CulaDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "CulaDatabase";
@@ -28,5 +28,7 @@ public abstract class CulaDatabase extends RoomDatabase {
     }
 
     public abstract LibraryDao libraryDao();
+
+    public abstract LanguageDao languageDao();
 
 }

@@ -10,7 +10,7 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 /**
- * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase}
+ * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase} related to the library.
  */
 @Dao
 public interface LibraryDao {
@@ -20,7 +20,7 @@ public interface LibraryDao {
      * libraryEntry uses the {@link OnConflictStrategy} of replacing the word pair.
      * The required uniqueness of these values is defined in the {@link LibraryEntry}.
      *
-     * @param libraryEntry A list of weather forecasts to insert
+     * @param libraryEntry A list of {@link LibraryEntry}s to insert
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertEntry(LibraryEntry... libraryEntry);
@@ -40,7 +40,7 @@ public interface LibraryDao {
      * @return {@link LiveData} with the @{@link LibraryEntry}.
      */
     @Query("SELECT id, nativeWord, foreignWord, knowledgeLevel FROM library WHERE id=:id")
-    LiveData<LibraryEntry> getEntriyById(int id);
+    LiveData<LibraryEntry> getEntryById(int id);
 
     /**
      * Get the current amount of entries in the library table.

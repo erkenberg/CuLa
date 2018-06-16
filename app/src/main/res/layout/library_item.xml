@@ -45,13 +45,13 @@
         android:padding="@dimen/padd_10">
 
         <TextView
-            android:id="@+id/nativeWord"
+            android:id="@+id/language"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="8dp"
             android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="nativeWord" />
+            tools:text="language" />
 
         <TextView
             android:id="@+id/foreignWord"
