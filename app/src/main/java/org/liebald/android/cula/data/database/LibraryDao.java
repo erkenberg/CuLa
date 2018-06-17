@@ -26,12 +26,13 @@ public interface LibraryDao {
     void insertEntry(LibraryEntry... libraryEntry);
 
     /**
-     * Gets all {@link LibraryEntry}s in the library database table.
+     * Gets all {@link LibraryEntry}s in the library database table matching the given language.
      *
-     * @return {@link LiveData} with all @{@link LibraryEntry}s.
+     * @param  language The Language that must be included in all returned libraryEntries.
+     * @return {@link LiveData} with all matching @{@link LibraryEntry}s.
      */
-    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel FROM library ORDER by nativeWord desc")
-    LiveData<List<LibraryEntry>> getAllEntries();
+    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel FROM library WHERE language=:language ORDER by nativeWord desc")
+    LiveData<List<LibraryEntry>> getAllEntries(String language);
 
     /**
      * Gets the {@link LibraryEntry} in the library database table with the given id.

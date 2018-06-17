@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
@@ -51,15 +50,14 @@ public class MainActivity extends AppCompatActivity {
                         new SecondaryDrawerItem().withIdentifier(3).withName(R.string.drawer_label_settings).withIcon(FontAwesome.Icon.faw_cog)
                 )
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
-                    Log.d(TAG, "" + position);
                     selectItem(drawerItem.getIdentifier());
                     return true;
                 })
-                .withSelectedItem(2)
+                .withSelectedItem(3)
                 .build();
 
         drawer.closeDrawer();
-        selectItem(2);
+        selectItem(3);
     }
 
 

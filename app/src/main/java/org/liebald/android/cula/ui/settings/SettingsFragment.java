@@ -8,6 +8,7 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
+import android.util.Log;
 
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.database.LanguageEntry;
@@ -19,6 +20,8 @@ import java.util.List;
  * The settings/preferences Fragment for configuration of the app.
  */
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private static final String TAG = SettingsFragment.class.getSimpleName();
 
     /**
      * The {@link SharedPreferences} used to store the preferences.
@@ -57,14 +60,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     private void updateLanguageList(List<LanguageEntry> languageEntries) {
-        String[] entries = new String[languageEntries.size()];
         String[] entryValues = new String[languageEntries.size()];
         for (int i = 0; i < languageEntries.size(); i++) {
-            entries[i] = languageEntries.get(i).getLanguage();
-            entryValues[i] = Integer.toString(i + 1);
+            entryValues[i] = languageEntries.get(i).getLanguage();
 
         }
-        mLanguageListPreference.setEntries(entries);
+        if (languageEntries.size() == 0)
+            return;
+        mLanguageListPreference.setEntries(entryValues);
         mLanguageListPreference.setDefaultValue(entryValues[0]);
         mLanguageListPreference.setEntryValues(entryValues);
     }
@@ -79,11 +82,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             int index = listPreference.findIndexOfValue(sharedPreferences.getString(key, getResources().getString(R.string.settings_languages_default)));
             if (index >= 0) {
                 preference.setSummary(listPreference.getEntries()[index]);
+                Log.d(TAG, "SharedPreferences was set to: " + listPreference.getEntries()[index]);
             }
+
         } else {
             //todo: implement logic for other preferences
             preference.setSummary(sharedPreferences.getString(key, key));
-
         }
     }
 

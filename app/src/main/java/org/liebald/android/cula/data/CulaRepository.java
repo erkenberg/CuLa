@@ -17,6 +17,7 @@
 package org.liebald.android.cula.data;
 
 import android.arch.lifecycle.LiveData;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.liebald.android.cula.data.database.LanguageDao;
@@ -40,26 +41,34 @@ public class CulaRepository {
     private final LibraryDao mLibraryDao;
     private final LanguageDao mLanguageDao;
     private final AppExecutors mExecutors;
+    private final SharedPreferences mSharedPreferences;
 
-    private CulaRepository(LibraryDao libraryDao, LanguageDao languageDao, AppExecutors appExecutors) {
+    private CulaRepository(LibraryDao libraryDao, LanguageDao languageDao, AppExecutors appExecutors, SharedPreferences sharedPreferences) {
         mLibraryDao = libraryDao;
         mExecutors = appExecutors;
         mLanguageDao = languageDao;
+        mSharedPreferences = sharedPreferences;
 
         //TODO: remove following testcode:
         mExecutors.diskIO().execute(mLibraryDao::deleteAll);
-        LanguageEntry language = new LanguageEntry("DE");
-        addLanguageEntry(language);
-        LibraryEntry entry1 = new LibraryEntry(1, "native1", "foreign", "DE", 1.1);
+        LanguageEntry language1 = new LanguageEntry("German");
+        addLanguageEntry(language1);
+        LanguageEntry language2 = new LanguageEntry("Greek");
+        addLanguageEntry(language2);
+        LibraryEntry entry1 = new LibraryEntry(1, "native1", "foreign", "German", 1.1);
         addLibraryEntry(entry1);
-        LibraryEntry entry2 = new LibraryEntry(2, "native2", "foreign2", "DE", 2.2);
+        LibraryEntry entry2 = new LibraryEntry(2, "native2", "foreign2", "German", 2.2);
         addLibraryEntry(entry2);
-        LibraryEntry entry3 = new LibraryEntry(3, "native3", "foreign3", "DE", 3.3);
+        LibraryEntry entry3 = new LibraryEntry(3, "native3", "foreign3", "German", 3.3);
         addLibraryEntry(entry3);
-        LibraryEntry entry4 = new LibraryEntry(4, "native4", "foreign4", "DE", 4.4);
+        LibraryEntry entry4 = new LibraryEntry(4, "native4", "foreign4", "German", 4.4);
         addLibraryEntry(entry4);
-        LibraryEntry entry5 = new LibraryEntry(5, "native5", "foreign5", "DE", 4.8);
+        LibraryEntry entry5 = new LibraryEntry(5, "native5", "foreign5", "German", 4.8);
         addLibraryEntry(entry5);
+        LibraryEntry entry6 = new LibraryEntry(6, "native6", "foreign6", "Greek", 2);
+        addLibraryEntry(entry6);
+        LibraryEntry entry7 = new LibraryEntry(7, "native7", "foreign7", "Greek", 4);
+        addLibraryEntry(entry7);
         mExecutors.diskIO().execute(() -> Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " library entries"));
 
     }
@@ -70,14 +79,15 @@ public class CulaRepository {
      * @param libraryDao   The {@link LibraryDao} to access all {@link LibraryEntry}s.
      * @param languageDao  The {@link LanguageDao} to access all {@link LanguageEntry}s.
      * @param appExecutors The {@link AppExecutors} used to execute all kind of queries of the main thread.
+     * @param sharedPreferences The {@link SharedPreferences} used access the apps settings.
      * @return A new {@link CulaRepository} if none exists. If already an instance exists this is returned instead of creating a new one.
      */
     public synchronized static CulaRepository getInstance(
-            LibraryDao libraryDao, LanguageDao languageDao, AppExecutors appExecutors) {
+            LibraryDao libraryDao, LanguageDao languageDao, AppExecutors appExecutors, SharedPreferences sharedPreferences) {
         Log.d(LOG_TAG, "Getting the repository");
         if (sInstance == null) {
             synchronized (LOCK) {
-                sInstance = new CulaRepository(libraryDao, languageDao, appExecutors);
+                sInstance = new CulaRepository(libraryDao, languageDao, appExecutors, sharedPreferences);
                 Log.d(LOG_TAG, "Made new repository");
             }
         }
@@ -91,7 +101,10 @@ public class CulaRepository {
      * @return All {@link LibraryEntry}s.
      */
     public LiveData<List<LibraryEntry>> getAllLibraryEntries() {
-        return mLibraryDao.getAllEntries();
+        //todo: find out how to use the string resource here instead of the hard coded key.
+        String language = mSharedPreferences.getString("languages", "123");
+        Log.d("TAG", language);
+        return mLibraryDao.getAllEntries(language);
     }
 
     /**
