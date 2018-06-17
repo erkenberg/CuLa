@@ -30,7 +30,7 @@ public interface LibraryDao {
      *
      * @return {@link LiveData} with all @{@link LibraryEntry}s.
      */
-    @Query("SELECT id, nativeWord, foreignWord, knowledgeLevel FROM library ORDER by nativeWord desc")
+    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel FROM library ORDER by nativeWord desc")
     LiveData<List<LibraryEntry>> getAllEntries();
 
     /**
@@ -39,7 +39,7 @@ public interface LibraryDao {
      * @param id The id of the entry.
      * @return {@link LiveData} with the @{@link LibraryEntry}.
      */
-    @Query("SELECT id, nativeWord, foreignWord, knowledgeLevel FROM library WHERE id=:id")
+    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel FROM library WHERE id=:id")
     LiveData<LibraryEntry> getEntryById(int id);
 
     /**

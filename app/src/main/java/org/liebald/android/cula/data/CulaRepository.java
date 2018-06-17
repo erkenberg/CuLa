@@ -19,6 +19,8 @@ package org.liebald.android.cula.data;
 import android.arch.lifecycle.LiveData;
 import android.util.Log;
 
+import org.liebald.android.cula.data.database.LanguageDao;
+import org.liebald.android.cula.data.database.LanguageEntry;
 import org.liebald.android.cula.data.database.LibraryDao;
 import org.liebald.android.cula.data.database.LibraryEntry;
 import org.liebald.android.cula.utilities.AppExecutors;
@@ -36,34 +38,46 @@ public class CulaRepository {
     private static final Object LOCK = new Object();
     private static CulaRepository sInstance;
     private final LibraryDao mLibraryDao;
+    private final LanguageDao mLanguageDao;
     private final AppExecutors mExecutors;
 
-    private CulaRepository(LibraryDao libraryDao, AppExecutors appExecutors) {
+    private CulaRepository(LibraryDao libraryDao, LanguageDao languageDao, AppExecutors appExecutors) {
         mLibraryDao = libraryDao;
         mExecutors = appExecutors;
+        mLanguageDao = languageDao;
 
         //TODO: remove following testcode:
         mExecutors.diskIO().execute(mLibraryDao::deleteAll);
-        LibraryEntry entry1 = new LibraryEntry(1, "native1", "foreign", 1.1);
+        LanguageEntry language = new LanguageEntry("DE");
+        addLanguageEntry(language);
+        LibraryEntry entry1 = new LibraryEntry(1, "native1", "foreign", "DE", 1.1);
         addLibraryEntry(entry1);
-        LibraryEntry entry2 = new LibraryEntry(2, "native2", "foreign2", 2.2);
+        LibraryEntry entry2 = new LibraryEntry(2, "native2", "foreign2", "DE", 2.2);
         addLibraryEntry(entry2);
-        LibraryEntry entry3 = new LibraryEntry(3, "native3", "foreign3", 3.3);
+        LibraryEntry entry3 = new LibraryEntry(3, "native3", "foreign3", "DE", 3.3);
         addLibraryEntry(entry3);
-        LibraryEntry entry4 = new LibraryEntry(4, "native4", "foreign44", 4.4);
+        LibraryEntry entry4 = new LibraryEntry(4, "native4", "foreign4", "DE", 4.4);
         addLibraryEntry(entry4);
-        LibraryEntry entry5 = new LibraryEntry(5, "native5", "foreign43", 4.8);
+        LibraryEntry entry5 = new LibraryEntry(5, "native5", "foreign5", "DE", 4.8);
         addLibraryEntry(entry5);
-        mExecutors.diskIO().execute(() -> Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " entries"));
+        mExecutors.diskIO().execute(() -> Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " library entries"));
 
     }
 
+    /**
+     * Singleton to make sure only one {@link CulaRepository} is used at a time.
+     *
+     * @param libraryDao   The {@link LibraryDao} to access all {@link LibraryEntry}s.
+     * @param languageDao  The {@link LanguageDao} to access all {@link LanguageEntry}s.
+     * @param appExecutors The {@link AppExecutors} used to execute all kind of queries of the main thread.
+     * @return A new {@link CulaRepository} if none exists. If already an instance exists this is returned instead of creating a new one.
+     */
     public synchronized static CulaRepository getInstance(
-            LibraryDao libraryDao, AppExecutors appExecutors) {
+            LibraryDao libraryDao, LanguageDao languageDao, AppExecutors appExecutors) {
         Log.d(LOG_TAG, "Getting the repository");
         if (sInstance == null) {
             synchronized (LOCK) {
-                sInstance = new CulaRepository(libraryDao, appExecutors);
+                sInstance = new CulaRepository(libraryDao, languageDao, appExecutors);
                 Log.d(LOG_TAG, "Made new repository");
             }
         }
@@ -106,4 +120,24 @@ public class CulaRepository {
     public void removeLibraryEntry(LibraryEntry libraryEntry) {
         mExecutors.diskIO().execute(() -> mLibraryDao.deleteEntry(libraryEntry));
     }
+
+    /**
+     * Get all {@link LanguageEntry}s.
+     *
+     * @return All {@link LanguageEntry}s.
+     */
+    public LiveData<List<LanguageEntry>> getAllLanguageEntries() {
+        return mLanguageDao.getAllEntries();
+    }
+
+    /**
+     * Adds the given {@link LanguageEntry}s to the Database.
+     *
+     * @param languageEntries One or more {@link LanguageEntry}s to add to the Database
+     */
+    public void addLanguageEntry(LanguageEntry... languageEntries) {
+        mExecutors.diskIO().execute(() -> mLanguageDao.insertEntry(languageEntries));
+    }
+
+
 }

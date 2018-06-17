@@ -9,10 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.liebald.android.cula.R;
+import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.LibraryEntry;
-import com.liebald.android.cula.databinding.ActivityUpdateLibraryBinding;
+import org.liebald.android.cula.databinding.ActivityUpdateLibraryBinding;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
 public class UpdateLibraryActivity extends AppCompatActivity {
@@ -121,11 +121,12 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             mBinding.editTextAddForeignWord.requestFocus();
             return;
         }
+        //TODO: replace the language with a correct language
         if (entryId != -1) {
             //TODO: replace with update method?
-            mCulaRepository.addLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord, selectedKnowledgeLevel));
+            mCulaRepository.addLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord, "DE", selectedKnowledgeLevel));
         } else {
-            mCulaRepository.addLibraryEntry(new LibraryEntry(nativeWord, foreignWord, selectedKnowledgeLevel));
+            mCulaRepository.addLibraryEntry(new LibraryEntry(nativeWord, foreignWord, "DE", selectedKnowledgeLevel));
         }
         Log.d("TAG", "test " + selectedKnowledgeLevel);
         //TODO: replace by snackbar?

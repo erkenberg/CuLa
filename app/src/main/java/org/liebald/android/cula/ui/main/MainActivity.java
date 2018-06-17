@@ -7,15 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-import com.liebald.android.cula.R;
-import org.liebald.android.cula.ui.library.LibraryFragment;
-import org.liebald.android.cula.ui.train.CardBoxFragment;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+
+import org.liebald.android.cula.R;
+import org.liebald.android.cula.ui.library.LibraryFragment;
+import org.liebald.android.cula.ui.train.CardBoxFragment;
 
 public class MainActivity extends AppCompatActivity {
 

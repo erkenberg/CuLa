@@ -19,14 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.liebald.android.cula.R;
-import com.liebald.android.cula.databinding.FragmentLibraryBinding;
-import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
-import org.liebald.android.cula.utilities.InjectorUtils;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.database.LibraryEntry;
+import org.liebald.android.cula.databinding.FragmentLibraryBinding;
+import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
+import org.liebald.android.cula.utilities.InjectorUtils;
 
 /**
  * A fragment presenting a list of {@link LibraryEntry}s and the possibility to add new ones.

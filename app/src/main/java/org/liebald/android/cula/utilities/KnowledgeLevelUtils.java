@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.v4.content.res.ResourcesCompat;
 
-import com.liebald.android.cula.R;
+import org.liebald.android.cula.R;
 
 public class KnowledgeLevelUtils {
 

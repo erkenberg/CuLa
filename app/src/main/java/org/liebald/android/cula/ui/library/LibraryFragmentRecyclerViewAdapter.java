@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.liebald.android.cula.R;
+import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.database.LibraryEntry;
 import org.liebald.android.cula.utilities.KnowledgeLevelUtils;
 

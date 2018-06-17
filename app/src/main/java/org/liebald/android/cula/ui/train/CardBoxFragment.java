@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.liebald.android.cula.R;
+import org.liebald.android.cula.R;
 
 
 /**

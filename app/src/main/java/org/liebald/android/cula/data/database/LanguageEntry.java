@@ -2,13 +2,15 @@ package org.liebald.android.cula.data.database;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 /**
  * An @{@link Entity} Describing a foreign language that can be trained.
  */
-@Entity(tableName = "language")
+@Entity(tableName = "language",
+        indices = {@Index(value = {"language"}, unique = true)})
 public class LanguageEntry {
 
     /**

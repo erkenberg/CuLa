@@ -30,7 +30,7 @@ public class InjectorUtils {
     public static CulaRepository provideRepository(Context context) {
         CulaDatabase database = CulaDatabase.getInstance(context.getApplicationContext());
         AppExecutors executors = AppExecutors.getInstance();
-        return CulaRepository.getInstance(database.libraryDao(), executors);
+        return CulaRepository.getInstance(database.libraryDao(), database.languageDao(), executors);
     }
 
     public static LibraryViewModelFactory provideLibraryViewModelFactory(Context context) {
