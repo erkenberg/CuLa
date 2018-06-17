@@ -21,20 +21,45 @@ import android.content.Context;
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.ui.library.LibraryViewModelFactory;
+import org.liebald.android.cula.ui.settings.SettingsViewModelFactory;
 
 /**
  * Provides static methods to inject the various classes needed for Sunshine
  */
 public class InjectorUtils {
 
+    /**
+     * provides the {@link CulaRepository} for other classes for data access.
+     *
+     * @param context {@link Context} of the caller using the {@link CulaRepository}
+     * @return The {@link CulaRepository}
+     */
     public static CulaRepository provideRepository(Context context) {
         CulaDatabase database = CulaDatabase.getInstance(context.getApplicationContext());
         AppExecutors executors = AppExecutors.getInstance();
         return CulaRepository.getInstance(database.libraryDao(), database.languageDao(), executors);
     }
 
+    /**
+     * Returns the {@link LibraryViewModelFactory} with access to the {@link CulaRepository}.
+     *
+     * @param context {@link Context} of the Fragment using the {@link LibraryViewModelFactory}
+     * @return The {@link LibraryViewModelFactory}.
+     */
     public static LibraryViewModelFactory provideLibraryViewModelFactory(Context context) {
         CulaRepository repository = provideRepository(context.getApplicationContext());
         return new LibraryViewModelFactory(repository);
+    }
+
+    /**
+     * Returns the {@link SettingsViewModelFactory} with access to the {@link CulaRepository}.
+     * todo: merge with LibraryViewModelFactory? they are identical.
+     *
+     * @param context {@link Context} of the Fragment using the {@link SettingsViewModelFactory}
+     * @return The {@link SettingsViewModelFactory}.
+     */
+    public static SettingsViewModelFactory provideLanguageViewModelFactory(Context context) {
+        CulaRepository repository = provideRepository(context.getApplicationContext());
+        return new SettingsViewModelFactory(repository);
     }
 }

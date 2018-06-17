@@ -57,8 +57,6 @@ public class LibraryFragment extends Fragment implements RecyclerItemTouchHelper
             return;
         LibraryViewModelFactory factory = InjectorUtils.provideLibraryViewModelFactory(getContext());
         mViewModel = ViewModelProviders.of(getActivity(), factory).get(LibraryFragmentViewModel.class);
-
-
     }
 
     @Override
