@@ -16,6 +16,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.ui.library.LibraryFragment;
+import org.liebald.android.cula.ui.settings.SettingsFragment;
 import org.liebald.android.cula.ui.train.CardBoxFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -65,19 +66,25 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Handler for the clicked navigation drawer items. Loads the correct fragment in the activity.
      *
-     * @param position The fragment to load.
+     * @param identifier The fragment to load.
      */
-    private void selectItem(long position) {
+    private void selectItem(long identifier) {
         // Create a new fragment and specify the planet to show based on position
         Fragment fragment;
-        if (position != 2) {
-            fragment = new CardBoxFragment();
-            Bundle args = new Bundle();
-            args.putString("text", Long.toString(position));
-            fragment.setArguments(args);
-        } else {
-            fragment = new LibraryFragment();
+        switch ((int) identifier) {
+            case 2:
+                fragment = new LibraryFragment();
+                break;
+            case 3:
+                fragment = new SettingsFragment();
+                break;
+            default:
+                fragment = new CardBoxFragment();
+                Bundle args = new Bundle();
+                args.putString("text", Long.toString(identifier));
+                fragment.setArguments(args);
         }
+
         drawer.closeDrawer();
 
         // Insert the fragment by replacing any existing fragment

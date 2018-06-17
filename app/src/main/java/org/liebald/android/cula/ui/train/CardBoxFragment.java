@@ -1,6 +1,7 @@
 package org.liebald.android.cula.ui.train;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 
 import org.liebald.android.cula.R;
 
-
+//TODO: dummy fragment for tests
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CardBoxFragment#newInstance} factory method to
@@ -48,11 +49,10 @@ public class CardBoxFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_card_box, container, false);

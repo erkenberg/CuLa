@@ -23,4 +23,12 @@
     <string name="update_library_label_native_word">Native Word:</string>
     <string name="update_library_label_foreign_word">Foreign Word:</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Settings Strings-->
+    <string name="settings_languages_title">Language</string>
+    <string name="settings_languages_key">languages</string>
+    <string name="settings_languages_default">No language added</string>
+
 </resources>

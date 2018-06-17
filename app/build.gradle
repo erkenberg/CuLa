@@ -38,6 +38,9 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation "com.android.support:support-annotations:27.1.1"
+    // for preferenceFragmentCompat
+    implementation 'com.android.support:preference-v7:27.1.1'
+    implementation 'com.android.support:preference-v14:27.1.1'
 
     // android architecture components
     implementation "android.arch.persistence.room:runtime:1.1.0"
