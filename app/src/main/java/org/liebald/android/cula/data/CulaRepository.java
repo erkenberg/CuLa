@@ -102,7 +102,7 @@ public class CulaRepository {
     public LiveData<List<LibraryEntry>> getAllLibraryEntries() {
         //todo: find out how to use the string resource here instead of the hard coded key.
         String language = mSharedPreferences.getString("languages", "123");
-        Log.d(TAG, language);
+        Log.d(TAG, "Retrieving all entries for selected Language: " + language);
         return mLibraryDao.getAllEntries(language);
     }
 

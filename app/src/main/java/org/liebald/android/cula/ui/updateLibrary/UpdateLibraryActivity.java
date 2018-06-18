@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -121,21 +122,21 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             mBinding.editTextAddForeignWord.requestFocus();
             return;
         }
-        //TODO: replace the language with a correct language
+        String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.settings_languages_key), "");
         if (entryId != -1) {
             //TODO: replace with update method?
-            mCulaRepository.addLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord, "DE", selectedKnowledgeLevel));
+            mCulaRepository.addLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord, language, selectedKnowledgeLevel));
         } else {
-            mCulaRepository.addLibraryEntry(new LibraryEntry(nativeWord, foreignWord, "DE", selectedKnowledgeLevel));
+            mCulaRepository.addLibraryEntry(new LibraryEntry(nativeWord, foreignWord, language, selectedKnowledgeLevel));
         }
         Log.d("TAG", "test " + selectedKnowledgeLevel);
-        //TODO: replace by snackbar?
         if (view.getId() == R.id.button_add_word_pair_return)
             finish();
         else {
             mBinding.editTextAddNativeWord.setText("");
             mBinding.editTextAddForeignWord.setText("");
             mBinding.editTextAddNativeWord.requestFocus();
+            //TODO: replace by snackbar?
             Toast.makeText(this, "Added word pair to library", Toast.LENGTH_LONG).show();
         }
     }

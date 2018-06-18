@@ -25,7 +25,6 @@ import com.mikepenz.iconics.IconicsDrawable;
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.database.LibraryEntry;
 import org.liebald.android.cula.databinding.FragmentLibraryBinding;
-import org.liebald.android.cula.ui.settings.SettingsFragment;
 import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
@@ -60,6 +59,7 @@ public class LibraryFragment extends Fragment implements
             return;
         LibraryViewModelFactory factory = InjectorUtils.provideLibraryViewModelFactory(getContext());
         mViewModel = ViewModelProviders.of(getActivity(), factory).get(LibraryFragmentViewModel.class);
+
     }
 
     @Override
@@ -84,13 +84,13 @@ public class LibraryFragment extends Fragment implements
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mBinding.recyclerViewLibraryList);
 
 
-        mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
-            mAdapter.swapEntries(libraryEntries);
-            if (mPosition == RecyclerView.NO_POSITION) {
-                mPosition = 0;
-            }
-            mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
-        });
+//        mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
+//            mAdapter.swapEntries(libraryEntries);
+//            if (mPosition == RecyclerView.NO_POSITION) {
+//                mPosition = 0;
+//            }
+//            mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
+//        });
 
         //Set the setOnClickListener for the Floating Action Button
         mBinding.fabAddWord.setOnClickListener(v -> updateLibraryActivity());
@@ -139,21 +139,22 @@ public class LibraryFragment extends Fragment implements
     public void onResume() {
         super.onResume();
 
-        //TODO: better way to refresh the livedata when the language was changed?
-        // If the language was changed we have to reload the list.
-        if (!PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(SettingsFragment.LANGUAGE_CHANGED_KEY, false)) {
-            return;
+        String currentLanguage = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(getResources().getString(R.string.settings_languages_key), "");
+
+        if (!mViewModel.getCurrentLanguage().equals(currentLanguage)) {
+            if (mViewModel.getLibraryEntries() != null)
+                mViewModel.getLibraryEntries().removeObservers(this);
+
+            mViewModel.setCurrentLanguage(currentLanguage);
+            mViewModel.languageChanged();
+            mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
+                mAdapter.swapEntries(libraryEntries);
+                if (mPosition == RecyclerView.NO_POSITION) {
+                    mPosition = 0;
+                }
+                mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
+            });
         }
-        mViewModel.getLibraryEntries().removeObservers(this);
-        mViewModel.languageChanged();
-        mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
-            mAdapter.swapEntries(libraryEntries);
-            if (mPosition == RecyclerView.NO_POSITION) {
-                mPosition = 0;
-            }
-            mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
-        });
-        PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putBoolean(SettingsFragment.LANGUAGE_CHANGED_KEY, false).apply();
 
     }
 }
