@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -13,7 +14,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +25,16 @@ import com.mikepenz.iconics.IconicsDrawable;
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.database.LibraryEntry;
 import org.liebald.android.cula.databinding.FragmentLibraryBinding;
+import org.liebald.android.cula.ui.settings.SettingsFragment;
 import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
 /**
  * A fragment presenting a list of {@link LibraryEntry}s and the possibility to add new ones.
  */
-public class LibraryFragment extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener, LibraryFragmentRecyclerViewAdapter.OnItemClickListener {
+public class LibraryFragment extends Fragment implements
+        RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
+        LibraryFragmentRecyclerViewAdapter.OnItemClickListener {
 
     private int mPosition = RecyclerView.NO_POSITION;
     private FragmentLibraryBinding mBinding;
@@ -81,7 +84,6 @@ public class LibraryFragment extends Fragment implements RecyclerItemTouchHelper
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mBinding.recyclerViewLibraryList);
 
 
-        Log.d("test2", "" + mViewModel.getLibraryEntries());
         mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
             mAdapter.swapEntries(libraryEntries);
             if (mPosition == RecyclerView.NO_POSITION) {
@@ -131,5 +133,27 @@ public class LibraryFragment extends Fragment implements RecyclerItemTouchHelper
         Intent intent = new Intent(getContext(), UpdateLibraryActivity.class);
         intent.putExtra(UpdateLibraryActivity.BUNDLE_EXTRA_UPDATE_KEY, id);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //TODO: better way to refresh the livedata when the language was changed?
+        // If the language was changed we have to reload the list.
+        if (!PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(SettingsFragment.LANGUAGE_CHANGED_KEY, false)) {
+            return;
+        }
+        mViewModel.getLibraryEntries().removeObservers(this);
+        mViewModel.languageChanged();
+        mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
+            mAdapter.swapEntries(libraryEntries);
+            if (mPosition == RecyclerView.NO_POSITION) {
+                mPosition = 0;
+            }
+            mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
+        });
+        PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putBoolean(SettingsFragment.LANGUAGE_CHANGED_KEY, false).apply();
+
     }
 }

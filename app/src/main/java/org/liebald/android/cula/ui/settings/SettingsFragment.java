@@ -22,6 +22,7 @@ import java.util.List;
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TAG = SettingsFragment.class.getSimpleName();
+    public static final String LANGUAGE_CHANGED_KEY = "language_changed";
 
     /**
      * The {@link SharedPreferences} used to store the preferences.
@@ -63,13 +64,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         String[] entryValues = new String[languageEntries.size()];
         for (int i = 0; i < languageEntries.size(); i++) {
             entryValues[i] = languageEntries.get(i).getLanguage();
-
         }
         if (languageEntries.size() == 0)
             return;
         mLanguageListPreference.setEntries(entryValues);
-        mLanguageListPreference.setDefaultValue(entryValues[0]);
+//        mLanguageListPreference.setDefaultValue(entryValues[0]);
         mLanguageListPreference.setEntryValues(entryValues);
+        mLanguageListPreference.setSummary(mLanguageListPreference.getValue());
     }
 
 
@@ -84,6 +85,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 preference.setSummary(listPreference.getEntries()[index]);
                 Log.d(TAG, "SharedPreferences was set to: " + listPreference.getEntries()[index]);
             }
+            sharedPreferences.edit().putBoolean(LANGUAGE_CHANGED_KEY, true).apply();
 
         } else {
             //todo: implement logic for other preferences

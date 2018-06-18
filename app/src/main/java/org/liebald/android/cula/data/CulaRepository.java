@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class CulaRepository {
 
-    private static final String LOG_TAG = CulaRepository.class.getSimpleName();
+    private static final String TAG = CulaRepository.class.getSimpleName();
 
     // For Singleton instantiation
     private static final Object LOCK = new Object();
@@ -84,11 +84,10 @@ public class CulaRepository {
      */
     public synchronized static CulaRepository getInstance(
             LibraryDao libraryDao, LanguageDao languageDao, AppExecutors appExecutors, SharedPreferences sharedPreferences) {
-        Log.d(LOG_TAG, "Getting the repository");
         if (sInstance == null) {
             synchronized (LOCK) {
                 sInstance = new CulaRepository(libraryDao, languageDao, appExecutors, sharedPreferences);
-                Log.d(LOG_TAG, "Made new repository");
+                Log.d(TAG, "Made new repository");
             }
         }
         return sInstance;
@@ -103,7 +102,7 @@ public class CulaRepository {
     public LiveData<List<LibraryEntry>> getAllLibraryEntries() {
         //todo: find out how to use the string resource here instead of the hard coded key.
         String language = mSharedPreferences.getString("languages", "123");
-        Log.d("TAG", language);
+        Log.d(TAG, language);
         return mLibraryDao.getAllEntries(language);
     }
 
