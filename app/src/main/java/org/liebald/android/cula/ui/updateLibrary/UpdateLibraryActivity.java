@@ -64,6 +64,8 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             UpdateLibraryViewModelFactory viewModelFactory = new UpdateLibraryViewModelFactory(mCulaRepository, id);
             final UpdateLibraryViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(UpdateLibraryViewModel.class);
             viewModel.getEntry().observe(this, libraryEntry -> {
+                if (libraryEntry == null)
+                    return;
                 viewModel.getEntry().removeObservers(this);
                 mBinding.editTextAddForeignWord.setText(libraryEntry.getForeignWord());
                 mBinding.editTextAddNativeWord.setText(libraryEntry.getNativeWord());

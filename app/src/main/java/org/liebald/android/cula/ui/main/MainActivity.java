@@ -15,6 +15,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.ui.library.LibraryFragment;
+import org.liebald.android.cula.ui.quote.QuoteFragment;
 import org.liebald.android.cula.ui.settings.SettingsFragment;
 import org.liebald.android.cula.ui.train.CardBoxFragment;
 
@@ -30,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private Drawer drawer;
 
+    private static final int DRAWER_TRAIN_KEY = 0;
+    private static final int DRAWER_LIBRARY_KEY = 1;
+    private static final int DRAWER_SETTINGS_KEY = 2;
+    private static final int DRAWER_QUOTE_KEY = 3;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,20 +51,21 @@ public class MainActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(false)
                 .withDrawerWidthDp(250)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_label_train).withIcon(FontAwesome.Icon.faw_pencil_alt),
-                        new PrimaryDrawerItem().withIdentifier(2).withName(R.string.drawer_label_library).withIcon(FontAwesome.Icon.faw_book),
+                        new PrimaryDrawerItem().withIdentifier(DRAWER_QUOTE_KEY).withName(R.string.drawer_label_quote).withIcon(FontAwesome.Icon.faw_bookmark),
+                        new PrimaryDrawerItem().withIdentifier(DRAWER_TRAIN_KEY).withName(R.string.drawer_label_train).withIcon(FontAwesome.Icon.faw_pencil_alt),
+                        new PrimaryDrawerItem().withIdentifier(DRAWER_LIBRARY_KEY).withName(R.string.drawer_label_library).withIcon(FontAwesome.Icon.faw_book),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withIdentifier(3).withName(R.string.drawer_label_settings).withIcon(FontAwesome.Icon.faw_cog)
+                        new SecondaryDrawerItem().withIdentifier(DRAWER_SETTINGS_KEY).withName(R.string.drawer_label_settings).withIcon(FontAwesome.Icon.faw_cog)
                 )
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     selectItem(drawerItem.getIdentifier());
                     return true;
                 })
-                .withSelectedItem(3)
+                .withSelectedItem(DRAWER_QUOTE_KEY)
                 .build();
 
         drawer.closeDrawer();
-        selectItem(3);
+        selectItem(DRAWER_QUOTE_KEY);
     }
 
 
@@ -70,11 +78,14 @@ public class MainActivity extends AppCompatActivity {
         // Create a new fragment and specify the planet to show based on position
         Fragment fragment;
         switch ((int) identifier) {
-            case 2:
+            case DRAWER_LIBRARY_KEY:
                 fragment = new LibraryFragment();
                 break;
-            case 3:
+            case DRAWER_SETTINGS_KEY:
                 fragment = new SettingsFragment();
+                break;
+            case DRAWER_QUOTE_KEY:
+                fragment = new QuoteFragment();
                 break;
             default:
                 fragment = new CardBoxFragment();

@@ -23,6 +23,7 @@ import android.support.v7.preference.PreferenceManager;
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.ui.library.LibraryViewModelFactory;
+import org.liebald.android.cula.ui.quote.QuoteViewModelFactory;
 import org.liebald.android.cula.ui.settings.SettingsViewModelFactory;
 
 /**
@@ -64,5 +65,17 @@ public class InjectorUtils {
     public static SettingsViewModelFactory provideLanguageViewModelFactory(Context context) {
         CulaRepository repository = provideRepository(context.getApplicationContext());
         return new SettingsViewModelFactory(repository);
+    }
+
+    /**
+     * Returns the {@link QuoteViewModelFactory} with access to the {@link CulaRepository}.
+     * todo: merge with LibraryViewModelFactory? they are identical.
+     *
+     * @param context {@link Context} of the Fragment using the {@link QuoteViewModelFactory}
+     * @return The {@link QuoteViewModelFactory}.
+     */
+    public static QuoteViewModelFactory provideQuoteViewModelFactory(Context context) {
+        CulaRepository repository = provideRepository(context.getApplicationContext());
+        return new QuoteViewModelFactory(repository);
     }
 }

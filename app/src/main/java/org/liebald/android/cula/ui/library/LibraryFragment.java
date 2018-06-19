@@ -70,14 +70,14 @@ public class LibraryFragment extends Fragment implements
         //initialize Data Binding
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_library, container, false);
-        View view = mBinding.getRoot();
 
         // Set the adapter
         Context context = mBinding.recyclerViewLibraryList.getContext();
         mBinding.recyclerViewLibraryList.setLayoutManager(new LinearLayoutManager(context));
 
         if (getContext() == null)
-            return view;
+            return mBinding.getRoot();
+        ;
         mBinding.recyclerViewLibraryList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mAdapter = new LibraryFragmentRecyclerViewAdapter(this, getContext());
         mBinding.recyclerViewLibraryList.setAdapter(mAdapter);
@@ -98,7 +98,7 @@ public class LibraryFragment extends Fragment implements
         mBinding.fabAddWord.setOnClickListener(v -> updateLibraryActivity());
         mBinding.fabAddWord.setImageDrawable(new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_plus).color(Color.WHITE).sizeDp(24));
 
-        return view;
+        return mBinding.getRoot();
     }
 
     /**

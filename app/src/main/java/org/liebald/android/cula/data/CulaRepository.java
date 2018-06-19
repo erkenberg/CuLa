@@ -17,6 +17,7 @@
 package org.liebald.android.cula.data;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -149,6 +150,19 @@ public class CulaRepository {
      */
     public void addLanguageEntry(LanguageEntry... languageEntries) {
         mExecutors.diskIO().execute(() -> mLanguageDao.insertEntry(languageEntries));
+    }
+
+
+    /**
+     * Load a new {@link Quote} and return it wrapped in {@link LiveData}.
+     *
+     * @return The {@link LiveData} wrapped {@link Quote}
+     */
+    public LiveData<Quote> getQuote() {
+        MutableLiveData<Quote> live = new MutableLiveData<>();
+        //TODO: replace testquote with actual load from the db.
+        live.postValue(new Quote("TestQuote"));
+        return live;
     }
 
 
