@@ -28,7 +28,7 @@ public interface LibraryDao {
     /**
      * Gets all {@link LibraryEntry}s in the library database table matching the given language.
      *
-     * @param  language The Language that must be included in all returned libraryEntries.
+     * @param language The Language that must be included in all returned libraryEntries.
      * @return {@link LiveData} with all matching @{@link LibraryEntry}s.
      */
     @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel FROM library WHERE language=:language ORDER by nativeWord desc")

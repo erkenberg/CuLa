@@ -74,9 +74,9 @@ public class LibraryFragment extends Fragment implements
 
         // Set the adapter
         Context context = mBinding.recyclerViewLibraryList.getContext();
-            mBinding.recyclerViewLibraryList.setLayoutManager(new LinearLayoutManager(context));
+        mBinding.recyclerViewLibraryList.setLayoutManager(new LinearLayoutManager(context));
 
-        if(getContext()==null)
+        if (getContext() == null)
             return view;
         mBinding.recyclerViewLibraryList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mAdapter = new LibraryFragmentRecyclerViewAdapter(this, getContext());

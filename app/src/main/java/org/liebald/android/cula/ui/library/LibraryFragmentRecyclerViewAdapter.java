@@ -25,15 +25,12 @@ import java.util.List;
 public class LibraryFragmentRecyclerViewAdapter extends
         RecyclerView.Adapter<LibraryFragmentRecyclerViewAdapter.ViewHolder> {
 
-    private List<LibraryEntry> mValues;
-
     private final OnItemClickListener mListener;
-
-
     /**
      * Context required to set the correct colors for the knowledgeLevel.
      */
     private final Context mContext;
+    private List<LibraryEntry> mValues;
 
     LibraryFragmentRecyclerViewAdapter(OnItemClickListener listener, Context context) {
         mValues = new ArrayList<>();
@@ -66,11 +63,11 @@ public class LibraryFragmentRecyclerViewAdapter extends
 
         } else {
             /*
-            * Otherwise we use DiffUtil to calculate the changes and update accordingly. This
-            * shows the four methods you need to override to return a DiffUtil callback. The
-            * old list is the current list stored in mForecast, where the new list is the new
-            * values passed in from the observing the database.
-            */
+             * Otherwise we use DiffUtil to calculate the changes and update accordingly. This
+             * shows the four methods you need to override to return a DiffUtil callback. The
+             * old list is the current list stored in mForecast, where the new list is the new
+             * values passed in from the observing the database.
+             */
 
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override

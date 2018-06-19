@@ -84,8 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:orientation="horizontal"
             android:focusable="false"
+            android:orientation="horizontal"
             android:scaleX="1.5"
             android:scaleY="1.5"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,40 +96,40 @@
                 android:id="@+id/rb_knowledgeLevel_1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:focusable="false"
                 android:background="@color/knowledgeLevel_1"
+                android:focusable="false"
                 android:theme="@style/KnowledgeLevelRadioButton" />
 
             <RadioButton
                 android:id="@+id/rb_knowledgeLevel_2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:focusable="false"
                 android:background="@color/knowledgeLevel_2"
+                android:focusable="false"
                 android:theme="@style/KnowledgeLevelRadioButton" />
 
             <RadioButton
                 android:id="@+id/rb_knowledgeLevel_3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:focusable="false"
                 android:background="@color/knowledgeLevel_3"
+                android:focusable="false"
                 android:theme="@style/KnowledgeLevelRadioButton" />
 
             <RadioButton
                 android:id="@+id/rb_knowledgeLevel_4"
                 android:layout_width="wrap_content"
-                android:focusable="false"
                 android:layout_height="match_parent"
                 android:background="@color/knowledgeLevel_4"
+                android:focusable="false"
                 android:theme="@style/KnowledgeLevelRadioButton" />
 
             <RadioButton
                 android:id="@+id/rb_knowledgeLevel_5"
-                android:focusable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/knowledgeLevel_5"
+                android:focusable="false"
                 android:theme="@style/KnowledgeLevelRadioButton" />
         </RadioGroup>
 
@@ -138,9 +138,9 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:focusable="true"
             android:onClick="commitLibraryEntry"
-            android:layout_marginTop="16dp"
             android:text="@string/update_library_button_save_word"
             app:layout_constraintEnd_toStartOf="@+id/button_add_word_pair_return"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -153,8 +153,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:focusable="true"
             android:layout_marginTop="16dp"
+            android:focusable="true"
             android:onClick="commitLibraryEntry"
             android:text="@string/update_library_button_save_word_return"
             app:layout_constraintEnd_toEndOf="parent"

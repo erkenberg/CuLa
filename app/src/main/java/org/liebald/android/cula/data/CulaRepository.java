@@ -76,9 +76,9 @@ public class CulaRepository {
     /**
      * Singleton to make sure only one {@link CulaRepository} is used at a time.
      *
-     * @param libraryDao   The {@link LibraryDao} to access all {@link LibraryEntry}s.
-     * @param languageDao  The {@link LanguageDao} to access all {@link LanguageEntry}s.
-     * @param appExecutors The {@link AppExecutors} used to execute all kind of queries of the main thread.
+     * @param libraryDao        The {@link LibraryDao} to access all {@link LibraryEntry}s.
+     * @param languageDao       The {@link LanguageDao} to access all {@link LanguageEntry}s.
+     * @param appExecutors      The {@link AppExecutors} used to execute all kind of queries of the main thread.
      * @param sharedPreferences The {@link SharedPreferences} used access the apps settings.
      * @return A new {@link CulaRepository} if none exists. If already an instance exists this is returned instead of creating a new one.
      */

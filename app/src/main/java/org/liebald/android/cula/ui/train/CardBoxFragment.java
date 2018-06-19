@@ -11,6 +11,7 @@ import android.widget.TextView;
 import org.liebald.android.cula.R;
 
 //TODO: dummy fragment for tests
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CardBoxFragment#newInstance} factory method to
