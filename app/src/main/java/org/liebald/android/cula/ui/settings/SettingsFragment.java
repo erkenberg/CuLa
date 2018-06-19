@@ -66,6 +66,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
         if (languageEntries.size() == 0)
             return;
+        Log.d(TAG, "" + mLanguageListPreference.getValue());
         mLanguageListPreference.setEntries(entryValues);
         mLanguageListPreference.setEntryValues(entryValues);
         mLanguageListPreference.setSummary(mLanguageListPreference.getValue());

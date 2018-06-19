@@ -14,6 +14,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class LibraryFragment extends Fragment implements
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
         LibraryFragmentRecyclerViewAdapter.OnItemClickListener {
 
+    private static final String TAG = LibraryFragment.class.getSimpleName();
     private int mPosition = RecyclerView.NO_POSITION;
     private FragmentLibraryBinding mBinding;
 
@@ -140,7 +142,7 @@ public class LibraryFragment extends Fragment implements
         super.onResume();
 
         String currentLanguage = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(getResources().getString(R.string.settings_languages_key), "");
-
+        Log.d(TAG, currentLanguage);
         if (!mViewModel.getCurrentLanguage().equals(currentLanguage)) {
             if (mViewModel.getLibraryEntries() != null)
                 mViewModel.getLibraryEntries().removeObservers(this);
@@ -154,6 +156,8 @@ public class LibraryFragment extends Fragment implements
                 }
                 mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
             });
+        } else {
+            mAdapter.swapEntries(mViewModel.getLibraryEntries().getValue());
         }
 
     }

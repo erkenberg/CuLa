@@ -28,7 +28,23 @@
 
     <!-- Settings Strings-->
     <string name="settings_languages_title">Language</string>
-    <string name="settings_languages_key">languages</string>
-    <string name="settings_languages_default">No language added</string>
+    <string name="settings_languages_key" translatable="false">languages</string>
+    <string name="settings_languages_default">No language selected</string>
+    <string name="settings_languages_summary">Select your language to train</string>
+    <string name="settings_default_knowledgeLevel_title">Default Knowledge Level</string>
+    <string name="settings_default_knowledgeLevel_key" translatable="false">defaultKnowledgeLevel</string>
+    <string name="settings_default_knowledgeLevel_default">3</string>
+    <string name="settings_default_knowledgeLevel_summary">@string/knowledgeLevel3</string>
+    <!-- Knowledge Levels-->
+    <string name="knowledgeLevel1">None</string>
+    <string name="knowledgeLevel2">Bad</string>
+    <string name="knowledgeLevel3">Average</string>
+    <string name="knowledgeLevel4">Good</string>
+    <string name="knowledgeLevel5">Perfect</string>
+    <string name="knowledgeLevel1_key" translatable="false">1</string>
+    <string name="knowledgeLevel2_key" translatable="false">2</string>
+    <string name="knowledgeLevel3_key" translatable="false">3</string>
+    <string name="knowledgeLevel4_key" translatable="false">4</string>
+    <string name="knowledgeLevel5_key" translatable="false">5</string>
 
 </resources>
