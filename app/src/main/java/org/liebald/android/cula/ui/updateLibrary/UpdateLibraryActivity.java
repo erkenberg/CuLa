@@ -2,11 +2,11 @@ package org.liebald.android.cula.ui.updateLibrary;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -43,6 +43,11 @@ public class UpdateLibraryActivity extends AppCompatActivity {
      */
     private double selectedKnowledgeLevel;
 
+    /**
+     * The shared preferences for accessing default values.
+     */
+    private SharedPreferences mSharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         int id;
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (intent.hasExtra(BUNDLE_EXTRA_UPDATE_KEY) && (id = intent.getIntExtra(BUNDLE_EXTRA_UPDATE_KEY, -1)) != -1) {
             mBinding.buttonAddWordPair.setVisibility(View.GONE);
@@ -62,22 +68,20 @@ public class UpdateLibraryActivity extends AppCompatActivity {
                 mBinding.editTextAddForeignWord.setText(libraryEntry.getForeignWord());
                 mBinding.editTextAddNativeWord.setText(libraryEntry.getNativeWord());
                 if (libraryEntry.getKnowledgeLevel() < 1.5)
-                    mBinding.rbKnowledgeLevel1.toggle();
+                    setKnowledgeLevelUI("1");
                 else if (libraryEntry.getKnowledgeLevel() < 2.5)
-                    mBinding.rbKnowledgeLevel2.toggle();
+                    setKnowledgeLevelUI("2");
                 else if (libraryEntry.getKnowledgeLevel() < 3.5)
-                    mBinding.rbKnowledgeLevel3.toggle();
+                    setKnowledgeLevelUI("3");
                 else if (libraryEntry.getKnowledgeLevel() < 4.5)
-                    mBinding.rbKnowledgeLevel4.toggle();
+                    setKnowledgeLevelUI("4");
                 else
-                    mBinding.rbKnowledgeLevel5.toggle();
+                    setKnowledgeLevelUI("5");
                 entryId = libraryEntry.getId();
-                selectedKnowledgeLevel = libraryEntry.getKnowledgeLevel();
             });
 
         } else {
-            //TODO: use default knowledgeLevel from config
-            mBinding.rbKnowledgeLevel3.toggle();
+            setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string.settings_default_knowledgeLevel_key), "3"));
         }
 
         mBinding.radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -129,17 +133,44 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         } else {
             mCulaRepository.addLibraryEntry(new LibraryEntry(nativeWord, foreignWord, language, selectedKnowledgeLevel));
         }
-        Log.d("TAG", "test " + selectedKnowledgeLevel);
+
         if (view.getId() == R.id.button_add_word_pair_return)
             finish();
         else {
             mBinding.editTextAddNativeWord.setText("");
             mBinding.editTextAddForeignWord.setText("");
             mBinding.editTextAddNativeWord.requestFocus();
+            setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string.settings_default_knowledgeLevel_key), "3"));
             //TODO: replace by snackbar?
             Toast.makeText(this, "Added word pair to library", Toast.LENGTH_LONG).show();
         }
     }
 
+    /**
+     * Toggles the correct KnowledgeLevel radiobutton in the UI.
+     *
+     * @param knowledgeLevelString The knowledgeLevel to set
+     */
+    private void setKnowledgeLevelUI(String knowledgeLevelString) {
+        int knowledgeLevel = Integer.parseInt(knowledgeLevelString);
+        selectedKnowledgeLevel = knowledgeLevel;
+        switch (knowledgeLevel) {
+            case 1:
+                mBinding.rbKnowledgeLevel1.toggle();
+                break;
+            case 2:
+                mBinding.rbKnowledgeLevel2.toggle();
+                break;
+            case 3:
+                mBinding.rbKnowledgeLevel3.toggle();
+                break;
+            case 4:
+                mBinding.rbKnowledgeLevel4.toggle();
+                break;
+            case 5:
+                mBinding.rbKnowledgeLevel5.toggle();
+                break;
+        }
+    }
 
 }
