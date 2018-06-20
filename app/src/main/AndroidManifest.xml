@@ -22,6 +22,14 @@
         <activity
             android:name="org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity"
             android:parentActivityName="org.liebald.android.cula.ui.main.MainActivity" />
+
+        <service
+            android:exported="false"
+            android:name=".services.UpdateQuoteJobService">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

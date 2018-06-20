@@ -41,7 +41,7 @@ public class InjectorUtils {
         CulaDatabase database = CulaDatabase.getInstance(context.getApplicationContext());
         AppExecutors executors = AppExecutors.getInstance();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return CulaRepository.getInstance(database, executors, sharedPreferences);
+        return CulaRepository.getInstance(database, executors, sharedPreferences, context.getApplicationContext());
     }
 
     /**

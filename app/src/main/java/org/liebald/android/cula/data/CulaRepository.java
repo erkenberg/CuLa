@@ -17,8 +17,13 @@
 package org.liebald.android.cula.data;
 
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
 
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Dao.LanguageDao;
@@ -27,6 +32,7 @@ import org.liebald.android.cula.data.database.Dao.QuoteDao;
 import org.liebald.android.cula.data.database.Entities.LanguageEntry;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
+import org.liebald.android.cula.services.UpdateQuoteJobService;
 import org.liebald.android.cula.utilities.AppExecutors;
 
 import java.util.List;
@@ -46,15 +52,44 @@ public class CulaRepository {
     private final QuoteDao mQuoteDao;
     private final AppExecutors mExecutors;
     private final SharedPreferences mSharedPreferences;
+    private final Context mContext;
 
-    private CulaRepository(CulaDatabase database, AppExecutors appExecutors, SharedPreferences sharedPreferences) {
+    private CulaRepository(CulaDatabase database, AppExecutors appExecutors, SharedPreferences sharedPreferences, Context context) {
         mLibraryDao = database.libraryDao();
         mExecutors = appExecutors;
         mLanguageDao = database.languageDao();
         mQuoteDao = database.quoteDao();
         mSharedPreferences = sharedPreferences;
+        mContext = context;
+
 
         //TODO: remove following testcode:
+        setDebugState();
+
+        scheduleJobService();
+
+    }
+
+    /**
+     * Schedules a Job service to regularily update the Quote of the day.
+     */
+    private void scheduleJobService() {
+
+
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(mContext));
+
+        Job myJob = dispatcher.newJobBuilder()
+                .setService(UpdateQuoteJobService.class)
+                .setTag("updateQuoteJobService")
+                .build();
+
+        dispatcher.mustSchedule(myJob);
+    }
+
+    /**
+     * For debugging purposes prefill database with specified data.
+     */
+    private void setDebugState() {
         mExecutors.diskIO().execute(mLibraryDao::deleteAll);
         LanguageEntry language1 = new LanguageEntry("German");
         addLanguageEntry(language1);
@@ -74,7 +109,7 @@ public class CulaRepository {
         addLibraryEntry(entry6);
         LibraryEntry entry7 = new LibraryEntry(7, "native7", "foreign7", "Greek", 4);
         addLibraryEntry(entry7);
-        addQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text"));
+        setQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text"));
 
         mExecutors.diskIO().execute(() -> Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " library entries"));
 
@@ -83,16 +118,16 @@ public class CulaRepository {
     /**
      * Singleton to make sure only one {@link CulaRepository} is used at a time.
      *
-     * @param database        The {@link CulaDatabase} to access all {@link android.arch.persistence.room.Dao}s.
+     * @param database          The {@link CulaDatabase} to access all {@link android.arch.persistence.room.Dao}s.
      * @param appExecutors      The {@link AppExecutors} used to execute all kind of queries of the main thread.
      * @param sharedPreferences The {@link SharedPreferences} used access the apps settings.
      * @return A new {@link CulaRepository} if none exists. If already an instance exists this is returned instead of creating a new one.
      */
     public synchronized static CulaRepository getInstance(
-            CulaDatabase database, AppExecutors appExecutors, SharedPreferences sharedPreferences) {
+            CulaDatabase database, AppExecutors appExecutors, SharedPreferences sharedPreferences, Context context) {
         if (sInstance == null) {
             synchronized (LOCK) {
-                sInstance = new CulaRepository(database, appExecutors, sharedPreferences);
+                sInstance = new CulaRepository(database, appExecutors, sharedPreferences, context);
                 Log.d(TAG, "Made new repository");
             }
         }
@@ -162,7 +197,7 @@ public class CulaRepository {
      *
      * @param quoteEntries One or more {@link QuoteEntry}s to add to the Database
      */
-    public void addQuoteEntry(QuoteEntry... quoteEntries) {
+    public void setQuoteEntry(QuoteEntry... quoteEntries) {
         mExecutors.diskIO().execute(() -> mQuoteDao.insertEntry(quoteEntries));
     }
 
