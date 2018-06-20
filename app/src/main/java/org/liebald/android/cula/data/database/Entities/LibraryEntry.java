@@ -1,4 +1,4 @@
-package org.liebald.android.cula.data.database;
+package org.liebald.android.cula.data.database.Entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;

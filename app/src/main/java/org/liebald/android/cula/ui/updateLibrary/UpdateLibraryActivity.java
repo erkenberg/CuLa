@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.CulaRepository;
-import org.liebald.android.cula.data.database.LibraryEntry;
+import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.databinding.ActivityUpdateLibraryBinding;
 import org.liebald.android.cula.utilities.InjectorUtils;
 

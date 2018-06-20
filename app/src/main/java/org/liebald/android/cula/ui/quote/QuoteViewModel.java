@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import org.liebald.android.cula.data.CulaRepository;
-import org.liebald.android.cula.data.Quote;
+import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
 
 /**
@@ -12,7 +12,7 @@ import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
  */
 public class QuoteViewModel extends ViewModel {
 
-    private final LiveData<Quote> quote;
+    private final LiveData<QuoteEntry> quote;
 
     /**
      * Constructor.
@@ -24,11 +24,11 @@ public class QuoteViewModel extends ViewModel {
     }
 
     /**
-     * Returns the current {@link Quote}.
+     * Returns the current {@link QuoteEntry}.
      *
-     * @return The {@link LiveData} wrapped {@link Quote}
+     * @return The {@link LiveData} wrapped {@link QuoteEntry}
      */
-    public LiveData<Quote> getQuote() {
+    public LiveData<QuoteEntry> getQuote() {
         return quote;
     }
 }

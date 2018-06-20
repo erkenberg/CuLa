@@ -17,14 +17,16 @@
 package org.liebald.android.cula.data;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import org.liebald.android.cula.data.database.LanguageDao;
-import org.liebald.android.cula.data.database.LanguageEntry;
-import org.liebald.android.cula.data.database.LibraryDao;
-import org.liebald.android.cula.data.database.LibraryEntry;
+import org.liebald.android.cula.data.database.CulaDatabase;
+import org.liebald.android.cula.data.database.Dao.LanguageDao;
+import org.liebald.android.cula.data.database.Dao.LibraryDao;
+import org.liebald.android.cula.data.database.Dao.QuoteDao;
+import org.liebald.android.cula.data.database.Entities.LanguageEntry;
+import org.liebald.android.cula.data.database.Entities.LibraryEntry;
+import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 import org.liebald.android.cula.utilities.AppExecutors;
 
 import java.util.List;
@@ -41,13 +43,15 @@ public class CulaRepository {
     private static CulaRepository sInstance;
     private final LibraryDao mLibraryDao;
     private final LanguageDao mLanguageDao;
+    private final QuoteDao mQuoteDao;
     private final AppExecutors mExecutors;
     private final SharedPreferences mSharedPreferences;
 
-    private CulaRepository(LibraryDao libraryDao, LanguageDao languageDao, AppExecutors appExecutors, SharedPreferences sharedPreferences) {
-        mLibraryDao = libraryDao;
+    private CulaRepository(CulaDatabase database, AppExecutors appExecutors, SharedPreferences sharedPreferences) {
+        mLibraryDao = database.libraryDao();
         mExecutors = appExecutors;
-        mLanguageDao = languageDao;
+        mLanguageDao = database.languageDao();
+        mQuoteDao = database.quoteDao();
         mSharedPreferences = sharedPreferences;
 
         //TODO: remove following testcode:
@@ -70,6 +74,8 @@ public class CulaRepository {
         addLibraryEntry(entry6);
         LibraryEntry entry7 = new LibraryEntry(7, "native7", "foreign7", "Greek", 4);
         addLibraryEntry(entry7);
+        addQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text"));
+
         mExecutors.diskIO().execute(() -> Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " library entries"));
 
     }
@@ -77,17 +83,16 @@ public class CulaRepository {
     /**
      * Singleton to make sure only one {@link CulaRepository} is used at a time.
      *
-     * @param libraryDao        The {@link LibraryDao} to access all {@link LibraryEntry}s.
-     * @param languageDao       The {@link LanguageDao} to access all {@link LanguageEntry}s.
+     * @param database        The {@link CulaDatabase} to access all {@link android.arch.persistence.room.Dao}s.
      * @param appExecutors      The {@link AppExecutors} used to execute all kind of queries of the main thread.
      * @param sharedPreferences The {@link SharedPreferences} used access the apps settings.
      * @return A new {@link CulaRepository} if none exists. If already an instance exists this is returned instead of creating a new one.
      */
     public synchronized static CulaRepository getInstance(
-            LibraryDao libraryDao, LanguageDao languageDao, AppExecutors appExecutors, SharedPreferences sharedPreferences) {
+            CulaDatabase database, AppExecutors appExecutors, SharedPreferences sharedPreferences) {
         if (sInstance == null) {
             synchronized (LOCK) {
-                sInstance = new CulaRepository(libraryDao, languageDao, appExecutors, sharedPreferences);
+                sInstance = new CulaRepository(database, appExecutors, sharedPreferences);
                 Log.d(TAG, "Made new repository");
             }
         }
@@ -152,17 +157,22 @@ public class CulaRepository {
         mExecutors.diskIO().execute(() -> mLanguageDao.insertEntry(languageEntries));
     }
 
+    /**
+     * Adds the given {@link QuoteEntry}s to the Database.
+     *
+     * @param quoteEntries One or more {@link QuoteEntry}s to add to the Database
+     */
+    public void addQuoteEntry(QuoteEntry... quoteEntries) {
+        mExecutors.diskIO().execute(() -> mQuoteDao.insertEntry(quoteEntries));
+    }
 
     /**
-     * Load a new {@link Quote} and return it wrapped in {@link LiveData}.
+     * Load a new {@link QuoteEntry} and return it wrapped in {@link LiveData}.
      *
-     * @return The {@link LiveData} wrapped {@link Quote}
+     * @return The {@link LiveData} wrapped {@link QuoteEntry}
      */
-    public LiveData<Quote> getQuote() {
-        MutableLiveData<Quote> live = new MutableLiveData<>();
-        //TODO: replace testquote with actual load from the db.
-        live.postValue(new Quote("TestQuote"));
-        return live;
+    public LiveData<QuoteEntry> getQuote() {
+        return mQuoteDao.getLatestEntry();
     }
 
 

@@ -24,7 +24,7 @@ import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
 
 import org.liebald.android.cula.R;
-import org.liebald.android.cula.data.database.LibraryEntry;
+import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.databinding.FragmentLibraryBinding;
 import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
 import org.liebald.android.cula.utilities.InjectorUtils;

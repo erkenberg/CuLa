@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import org.liebald.android.cula.data.CulaRepository;
-import org.liebald.android.cula.data.database.LanguageEntry;
+import org.liebald.android.cula.data.database.Entities.LanguageEntry;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import org.liebald.android.cula.data.CulaRepository;
-import org.liebald.android.cula.data.database.LibraryEntry;
+import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 
 import java.util.List;
 

@@ -11,7 +11,7 @@ import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
 import org.liebald.android.cula.R;
-import org.liebald.android.cula.data.database.LanguageEntry;
+import org.liebald.android.cula.data.database.Entities.LanguageEntry;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
 import java.util.List;

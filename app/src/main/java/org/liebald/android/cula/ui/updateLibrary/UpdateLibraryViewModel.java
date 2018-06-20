@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import org.liebald.android.cula.data.CulaRepository;
-import org.liebald.android.cula.data.database.LibraryEntry;
+import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 
 /**
  * Viewmodel for the {@link UpdateLibraryActivity}.
