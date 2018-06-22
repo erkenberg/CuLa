@@ -24,6 +24,9 @@ import android.util.Log;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Dao.LanguageDao;
@@ -42,6 +45,9 @@ import java.util.List;
  */
 public class CulaRepository {
 
+    /**
+     * Tag for logging.
+     */
     private static final String TAG = CulaRepository.class.getSimpleName();
 
     // For Singleton instantiation
@@ -54,6 +60,7 @@ public class CulaRepository {
     private final SharedPreferences mSharedPreferences;
     private final Context mContext;
 
+
     private CulaRepository(CulaDatabase database, AppExecutors appExecutors, SharedPreferences sharedPreferences, Context context) {
         mLibraryDao = database.libraryDao();
         mExecutors = appExecutors;
@@ -62,28 +69,60 @@ public class CulaRepository {
         mSharedPreferences = sharedPreferences;
         mContext = context;
 
-
-        //TODO: remove following testcode:
+        //TODO: remove following testcode before publishing
         setDebugState();
-
         scheduleJobService();
+
 
     }
 
     /**
-     * Schedules a Job service to regularily update the Quote of the day.
+     * Singleton to make sure only one {@link CulaRepository} is used at a time.
+     *
+     * @param database          The {@link CulaDatabase} to access all {@link android.arch.persistence.room.Dao}s.
+     * @param appExecutors      The {@link AppExecutors} used to execute all kind of queries of the main thread.
+     * @param sharedPreferences The {@link SharedPreferences} used access the apps settings.
+     * @return A new {@link CulaRepository} if none exists. If already an instance exists this is returned instead of creating a new one.
+     */
+    public synchronized static CulaRepository getInstance(
+            CulaDatabase database, AppExecutors appExecutors, SharedPreferences sharedPreferences, Context context) {
+        if (sInstance == null) {
+            synchronized (LOCK) {
+                sInstance = new CulaRepository(database, appExecutors, sharedPreferences, context);
+                Log.d(TAG, "Made new repository");
+            }
+        }
+        return sInstance;
+    }
+
+
+    /**
+     * Schedules a Job service to regularly update the motivational quote.
      */
     private void scheduleJobService() {
 
-
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(mContext));
 
-        Job myJob = dispatcher.newJobBuilder()
+        // Update the database immediately
+        Job myInstantJob = dispatcher.newJobBuilder()
                 .setService(UpdateQuoteJobService.class)
-                .setTag("updateQuoteJobService")
+                .setTag("updateQuoteJobServiceNow")
                 .build();
+        dispatcher.mustSchedule(myInstantJob);
 
-        dispatcher.mustSchedule(myJob);
+        // and also update it each 12-13 hours as recurring job
+        Job recurringJob = dispatcher.newJobBuilder()
+                .setService(UpdateQuoteJobService.class)
+                .setTag("updateQuoteJobServiceRecurrent")
+                .setLifetime(Lifetime.FOREVER)
+                .setRecurring(true)
+                .setTrigger(Trigger.executionWindow(
+                        12 * 60 * 60,
+                        13 * 60 * 60))
+                .setReplaceCurrent(true)
+                .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
+                .build();
+        dispatcher.mustSchedule(recurringJob);
     }
 
     /**
@@ -109,30 +148,12 @@ public class CulaRepository {
         addLibraryEntry(entry6);
         LibraryEntry entry7 = new LibraryEntry(7, "native7", "foreign7", "Greek", 4);
         addLibraryEntry(entry7);
-        setQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text"));
+        setQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text", "Stefan"));
 
         mExecutors.diskIO().execute(() -> Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " library entries"));
 
     }
 
-    /**
-     * Singleton to make sure only one {@link CulaRepository} is used at a time.
-     *
-     * @param database          The {@link CulaDatabase} to access all {@link android.arch.persistence.room.Dao}s.
-     * @param appExecutors      The {@link AppExecutors} used to execute all kind of queries of the main thread.
-     * @param sharedPreferences The {@link SharedPreferences} used access the apps settings.
-     * @return A new {@link CulaRepository} if none exists. If already an instance exists this is returned instead of creating a new one.
-     */
-    public synchronized static CulaRepository getInstance(
-            CulaDatabase database, AppExecutors appExecutors, SharedPreferences sharedPreferences, Context context) {
-        if (sInstance == null) {
-            synchronized (LOCK) {
-                sInstance = new CulaRepository(database, appExecutors, sharedPreferences, context);
-                Log.d(TAG, "Made new repository");
-            }
-        }
-        return sInstance;
-    }
 
 
     /**
@@ -163,6 +184,10 @@ public class CulaRepository {
      */
     public void addLibraryEntry(LibraryEntry... libraryEntry) {
         mExecutors.diskIO().execute(() -> mLibraryDao.insertEntry(libraryEntry));
+        for (LibraryEntry lib :
+                libraryEntry) {
+            Log.d(TAG, "Added Entry to db:" + lib.toString());
+        }
     }
 
     /**
@@ -170,7 +195,7 @@ public class CulaRepository {
      *
      * @param libraryEntry The @{@link LibraryEntry}s to remove from the Database
      */
-    public void removeLibraryEntry(LibraryEntry libraryEntry) {
+    public void deleteLibraryEntry(LibraryEntry libraryEntry) {
         mExecutors.diskIO().execute(() -> mLibraryDao.deleteEntry(libraryEntry));
     }
 
@@ -184,13 +209,23 @@ public class CulaRepository {
     }
 
     /**
-     * Adds the given {@link LanguageEntry}s to the Database.
+     * Removes the given {@link LanguageEntry}s from the Database.
+     *
+     * @param languageEntry The @{@link LanguageEntry}s to remove from the Database
+     */
+    public void deleteLanguageEntry(LanguageEntry languageEntry) {
+        mExecutors.diskIO().execute(() -> mLanguageDao.deleteEntry(languageEntry));
+    }
+
+    /**
+     * Adds the given {@link LanguageEntry}s to the Database. If the language already exists, nothing is done.
      *
      * @param languageEntries One or more {@link LanguageEntry}s to add to the Database
      */
     public void addLanguageEntry(LanguageEntry... languageEntries) {
         mExecutors.diskIO().execute(() -> mLanguageDao.insertEntry(languageEntries));
     }
+
 
     /**
      * Adds the given {@link QuoteEntry}s to the Database.

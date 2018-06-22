@@ -50,7 +50,7 @@ public class LibraryFragmentViewModel extends ViewModel {
             return;
         latestDeletedEntry = mLibraryEntries.getValue().get(index);
         Log.d(LibraryFragmentViewModel.class.getSimpleName(), latestDeletedEntry.toString());
-        mCulaRepository.removeLibraryEntry(latestDeletedEntry);
+        mCulaRepository.deleteLibraryEntry(latestDeletedEntry);
     }
 
     /**

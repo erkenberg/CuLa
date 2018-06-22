@@ -17,11 +17,18 @@ public class QuoteEntry {
      * The text of the {@link QuoteEntry}.
      */
     private final String text;
+
+    /**
+     * The author of the {@link QuoteEntry}.
+     */
+    private final String author;
+
     /**
      * The Id of the {@link QuoteEntry} in the Database.
      */
     @PrimaryKey(autoGenerate = true)
     private int id;
+
     /**
      * Timestamp when the {@link QuoteEntry} was created in the Database.
      */
@@ -34,8 +41,9 @@ public class QuoteEntry {
      * @param text The stored text of the {@link QuoteEntry}.
      */
     @Ignore
-    public QuoteEntry(@NonNull String text) {
+    public QuoteEntry(@NonNull String text, @NonNull String author) {
         this.text = text;
+        this.author = author;
         createdAt = new Date();
     }
 
@@ -46,18 +54,27 @@ public class QuoteEntry {
      * @param id   The ID of the quote.
      * @param text Text as String.
      */
-    public QuoteEntry(int id, String text) {
-        this(text);
+    public QuoteEntry(int id, String text, String author) {
+        this(text, author);
         this.id = id;
     }
 
     /**
      * Returns the text of the {@link QuoteEntry}.
      *
-     * @return The text as String.
+     * @return The text as {@link String}.
      */
     public String getText() {
         return text;
+    }
+
+    /**
+     * Returns the Author of the {@link QuoteEntry}.
+     *
+     * @return The Author as {@link String}.
+     */
+    public String getAuthor() {
+        return author;
     }
 
     /**

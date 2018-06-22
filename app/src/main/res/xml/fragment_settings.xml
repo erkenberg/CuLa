@@ -5,11 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.settings.SettingsFragment">
 
-
-    <!--<android.support.v7.preference.PreferenceCategory-->
-    <!--android:title="Category 1">-->
-    <!--</android.support.v7.preference.PreferenceCategory>-->
-
     <!--<android.support.v7.preference.SwitchPreferenceCompat-->
     <!--android:defaultValue="true"-->
     <!--android:key="key1"-->
@@ -28,6 +23,31 @@
     <!--android:summary="CheckBox Summary"-->
     <!--android:title="CheckBox Preference" />-->
 
+
+    <android.support.v7.preference.PreferenceCategory android:title="Language Settings" />
+    <ListPreference
+        android:defaultValue="@string/settings_select_language_default"
+        android:entries="@array/languages"
+        android:entryValues="@array/languages_value"
+        android:key="@string/settings_select_language_key"
+        android:summary="@string/settings_select_language_summary"
+        android:title="@string/settings_select_language_title" />
+
+    <Preference
+        android:key="@string/settings_add_language_key"
+        android:persistent="false"
+        android:summary="@string/settings_add_language_summary"
+        android:title="@string/settings_add_language_title" />
+
+    <Preference
+        android:key="@string/settings_delete_language_key"
+        android:persistent="false"
+        android:summary="@string/settings_delete_language_summary"
+        android:title="@string/settings_delete_language_title" />
+
+
+    <android.support.v7.preference.PreferenceCategory android:title="Default Settings" />
+
     <ListPreference
         android:defaultValue="@string/settings_default_knowledgeLevel_default"
         android:entries="@array/knowledgeLevel"
@@ -35,12 +55,4 @@
         android:key="@string/settings_default_knowledgeLevel_key"
         android:summary="@string/settings_default_knowledgeLevel_summary"
         android:title="@string/settings_default_knowledgeLevel_title" />
-
-    <ListPreference
-        android:defaultValue="@string/settings_languages_default"
-        android:entries="@array/languages"
-        android:entryValues="@array/languages_value"
-        android:key="@string/settings_languages_key"
-        android:summary="@string/settings_languages_summary"
-        android:title="@string/settings_languages_title" />
 </android.support.v7.preference.PreferenceScreen>

@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
                     selectItem(drawerItem.getIdentifier());
                     return true;
                 })
-                .withSelectedItem(DRAWER_QUOTE_KEY)
+                .withSelectedItem(DRAWER_SETTINGS_KEY)
                 .build();
 
         drawer.closeDrawer();
-        selectItem(DRAWER_QUOTE_KEY);
+        selectItem(DRAWER_SETTINGS_KEY);
     }
 
 

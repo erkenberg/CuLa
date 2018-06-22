@@ -131,7 +131,9 @@ public class LibraryEntry {
                 "id=" + id +
                 ", nativeWord='" + nativeWord + '\'' +
                 ", foreignWord='" + foreignWord + '\'' +
+                ", language='" + language + '\'' +
                 ", knowledgeLevel=" + knowledgeLevel +
                 '}';
+
     }
 }

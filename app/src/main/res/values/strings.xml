@@ -10,10 +10,14 @@
     <string name="drawer_label_quote">Quote of the Day</string>
 
     <!-- Library Strings-->
-    <string name="delete">Delete</string>
     <string name="word_removed_from_library">Word removed from Library!</string>
+
+    <!-- General purpose strings -->
     <string name="undo">UNDO</string>
     <string name="restored">Restored</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
 
     <!-- Update Library Strings-->
     <string name="update_library_hint_foreign_word">Add the foreign word</string>
@@ -28,14 +32,23 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Settings Strings-->
-    <string name="settings_languages_title">Language</string>
-    <string name="settings_languages_key" translatable="false">languages</string>
-    <string name="settings_languages_default">No language selected</string>
-    <string name="settings_languages_summary">Select your language to train</string>
+    <string name="settings_select_language_key" translatable="false">languages</string>
+    <string name="settings_select_language_title">Select language</string>
+    <string name="settings_select_language_default">No language selected</string>
+    <string name="settings_select_language_summary">Select your language to train</string>
+    <string name="settings_add_language_key" translatable="false">addLanguage</string>
+    <string name="settings_add_language_title">Add language</string>
+    <string name="settings_add_language_summary">Add a new language</string>
+    <string name="settings_delete_language_key" translatable="false">deleteLanguage</string>
+    <string name="settings_delete_language_title">Delete Language</string>
+    <string name="settings_delete_language_summary">Delete the currently selected language and all words for it.</string>
+
+
     <string name="settings_default_knowledgeLevel_title">Default Knowledge Level</string>
     <string name="settings_default_knowledgeLevel_key" translatable="false">defaultKnowledgeLevel</string>
     <string name="settings_default_knowledgeLevel_default">3</string>
     <string name="settings_default_knowledgeLevel_summary">@string/knowledgeLevel3</string>
+
     <!-- Knowledge Levels-->
     <string name="knowledgeLevel1">None</string>
     <string name="knowledgeLevel2">Bad</string>
@@ -47,5 +60,8 @@
     <string name="knowledgeLevel3_key" translatable="false">3</string>
     <string name="knowledgeLevel4_key" translatable="false">4</string>
     <string name="knowledgeLevel5_key" translatable="false">5</string>
+    <string name="settings_delete_language_title_warning">Really remove this language and all words belonging to it?</string>
+    <string name="ok">Ok</string>
+
 
 </resources>

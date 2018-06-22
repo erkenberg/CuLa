@@ -30,7 +30,7 @@ public interface QuoteDao {
      *
      * @return {@link LiveData} with the latest @{@link QuoteEntry}.
      */
-    @Query("SELECT id, text, createdAt FROM quotes ORDER by createdAt desc LIMIT 1")
+    @Query("SELECT id, text, author, createdAt FROM quotes ORDER by createdAt desc LIMIT 1")
     LiveData<QuoteEntry> getLatestEntry();
 
 

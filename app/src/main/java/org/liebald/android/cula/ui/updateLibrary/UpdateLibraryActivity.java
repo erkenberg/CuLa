@@ -31,6 +31,10 @@ public class UpdateLibraryActivity extends AppCompatActivity {
      * The databinding for the Layout.
      */
     private ActivityUpdateLibraryBinding mBinding;
+
+    /**
+     * The {@link CulaRepository} that provides access to all data sources.
+     */
     private CulaRepository mCulaRepository;
 
     /**
@@ -128,7 +132,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             mBinding.editTextAddForeignWord.requestFocus();
             return;
         }
-        String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.settings_languages_key), "");
+        String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.settings_select_language_key), "");
         if (entryId != -1) {
             //TODO: replace with update method?
             mCulaRepository.addLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord, language, selectedKnowledgeLevel));

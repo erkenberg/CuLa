@@ -141,7 +141,7 @@ public class LibraryFragment extends Fragment implements
     public void onResume() {
         super.onResume();
 
-        String currentLanguage = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(getResources().getString(R.string.settings_languages_key), "");
+        String currentLanguage = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(getResources().getString(R.string.settings_select_language_key), "");
         Log.d(TAG, currentLanguage);
         if (!mViewModel.getCurrentLanguage().equals(currentLanguage)) {
             if (mViewModel.getLibraryEntries() != null)
@@ -156,7 +156,7 @@ public class LibraryFragment extends Fragment implements
                 }
                 mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
             });
-        } else {
+        } else if (mViewModel.getLibraryEntries() != null) {
             mAdapter.swapEntries(mViewModel.getLibraryEntries().getValue());
         }
 

@@ -47,8 +47,10 @@ public class QuoteFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_quote, container, false);
 
         mViewModel.getQuote().observe(this, quote -> {
-            if (quote != null)
+            if (quote != null) {
                 mBinding.quoteText.setText(quote.getText());
+                mBinding.quoteAuthor.setText(quote.getAuthor());
+            }
         });
 
         return mBinding.getRoot();

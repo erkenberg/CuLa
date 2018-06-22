@@ -20,12 +20,12 @@ public interface LanguageDao {
 
     /**
      * Inserts a {@link LanguageEntry} into the language table. If there is a conflicting id the
-     * {@link LanguageEntry} uses the {@link OnConflictStrategy} to replace the {@link LanguageEntry}.
+     * {@link LanguageEntry} uses the {@link OnConflictStrategy} to abort if the the {@link LanguageEntry} already exists.
      * The required uniqueness of these values is defined in the {@link LanguageEntry}.
      *
      * @param languageEntries A list of {@link LanguageEntry}s to insert
      */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertEntry(LanguageEntry... languageEntries);
 
     /**
@@ -33,24 +33,16 @@ public interface LanguageDao {
      *
      * @return {@link LiveData} with all @{@link LanguageEntry}s.
      */
-    @Query("SELECT id, language FROM language ORDER by language desc")
+    @Query("SELECT language FROM language ORDER by language desc")
     LiveData<List<LanguageEntry>> getAllEntries();
 
-    /**
-     * Gets the {@link LanguageEntry} in the language database table with the given id.
-     *
-     * @param id The id of the entry.
-     * @return {@link LiveData} with the @{@link LanguageEntry}.
-     */
-    @Query("SELECT id, language FROM language WHERE id=:id")
-    LiveData<LanguageEntry> getEntryById(int id);
 
     /**
      * Get the current amount of entries in the language table.
      *
      * @return The current size.
      */
-    @Query("Select count(id) from language")
+    @Query("Select count(language) from language")
     int getAmountOfLanguages();
 
     /**
