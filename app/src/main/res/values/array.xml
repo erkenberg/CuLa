@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="languages">
-        <item>No Language</item>
+        <item>@string/settings_select_language_default</item>
     </string-array>
     <string-array name="languages_value">
-        <item>noLanguage</item>
+        <item>@string/settings_select_language_default</item>
     </string-array>
 
     <string-array name="knowledgeLevel">
