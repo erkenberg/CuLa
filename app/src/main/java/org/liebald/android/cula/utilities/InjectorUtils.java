@@ -41,7 +41,8 @@ public class InjectorUtils {
         CulaDatabase database = CulaDatabase.getInstance(context.getApplicationContext());
         AppExecutors executors = AppExecutors.getInstance();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return CulaRepository.getInstance(database, executors, sharedPreferences, context.getApplicationContext());
+        return CulaRepository.getInstance(database, executors, sharedPreferences, context.getApplicationContext()
+        );
     }
 
     /**
@@ -57,7 +58,6 @@ public class InjectorUtils {
 
     /**
      * Returns the {@link SettingsViewModelFactory} with access to the {@link CulaRepository}.
-     * todo: merge with LibraryViewModelFactory? they are identical.
      *
      * @param context {@link Context} of the Fragment using the {@link SettingsViewModelFactory}
      * @return The {@link SettingsViewModelFactory}.
@@ -69,7 +69,6 @@ public class InjectorUtils {
 
     /**
      * Returns the {@link QuoteViewModelFactory} with access to the {@link CulaRepository}.
-     * todo: merge with LibraryViewModelFactory? they are identical.
      *
      * @param context {@link Context} of the Fragment using the {@link QuoteViewModelFactory}
      * @return The {@link QuoteViewModelFactory}.
