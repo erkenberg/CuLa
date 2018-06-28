@@ -7,16 +7,26 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import org.liebald.android.cula.data.database.Dao.LanguageDao;
+import org.liebald.android.cula.data.database.Dao.LessonDao;
 import org.liebald.android.cula.data.database.Dao.LibraryDao;
 import org.liebald.android.cula.data.database.Dao.QuoteDao;
 import org.liebald.android.cula.data.database.Entities.LanguageEntry;
+import org.liebald.android.cula.data.database.Entities.LessonEntry;
+import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 
 /**
  * The Room Database for the App.
  */
-@Database(version = 1, entities = {LibraryEntry.class, LanguageEntry.class, QuoteEntry.class}, exportSchema = false)
+@Database(version = 1,
+        entities = {
+                LibraryEntry.class,
+                LanguageEntry.class,
+                QuoteEntry.class,
+                LessonEntry.class,
+                LessonMappingEntry.class},
+        exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class CulaDatabase extends RoomDatabase {
 
@@ -56,5 +66,12 @@ public abstract class CulaDatabase extends RoomDatabase {
      * @return The {@link QuoteDao}.
      */
     public abstract QuoteDao quoteDao();
+
+    /**
+     * Gain access to the {@link LessonDao} for interacting with the lesson related database parts.
+     *
+     * @return The {@link QuoteDao}.
+     */
+    public abstract LessonDao lessonDao();
 
 }

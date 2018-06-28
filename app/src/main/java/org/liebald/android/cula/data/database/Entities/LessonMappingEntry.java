@@ -1,14 +1,33 @@
 package org.liebald.android.cula.data.database.Entities;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+
+import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
  * An @{@link Entity} Describing a mapping between a {@link LessonEntry} and a {@link LibraryEntry}.
  */
-//TODO: foreign keys.
-@Entity(tableName = "library")
+@Entity(tableName = "lesson_mapping",
+        foreignKeys = {
+                @ForeignKey(entity = LessonEntry.class,
+                        parentColumns = "id",
+                        childColumns = "lessonEntryId",
+                        onDelete = CASCADE,
+                        onUpdate = CASCADE),
+                @ForeignKey(entity = LibraryEntry.class,
+                        parentColumns = "id",
+                        childColumns = "libraryEntryId",
+                        onDelete = CASCADE,
+                        onUpdate = CASCADE)
+        },
+        indices = {
+                @Index(value = {"lessonEntryId"}),
+                @Index(value = {"libraryEntryId"})
+        })
 public class LessonMappingEntry {
 
     /**
@@ -20,36 +39,36 @@ public class LessonMappingEntry {
     /**
      * The id of the {@link LibraryEntry} mapped to the {@link LessonEntry}.
      */
-    private int libraryId;
+    private int libraryEntryId;
 
     /**
      * The id of the {@link LessonEntry} mapped to a {@link LibraryEntry}.
      */
-    private int lessonId;
+    private int lessonEntryId;
 
 
     /**
      * Constructor for an {@link LessonMappingEntry}.
      *
      * @param id        The Id of the @{@link LessonMappingEntry}.
-     * @param libraryId The id of the {@link LibraryEntry} mapped to the {@link LessonEntry}.
-     * @param lessonId  The id of the {@link LessonEntry} mapped to a {@link LibraryEntry}.
+     * @param lessonEntryId  The id of the {@link LessonEntry} mapped to a {@link LibraryEntry}.
+     * @param libraryEntryId The id of the {@link LibraryEntry} mapped to the {@link LessonEntry}.
      */
-    public LessonMappingEntry(int id, int libraryId, int lessonId) {
-        this(libraryId, lessonId);
+    public LessonMappingEntry(int id, int lessonEntryId, int libraryEntryId) {
+        this(lessonEntryId, libraryEntryId);
         this.id = id;
     }
 
     /**
      * Constructor for an {@link LessonMappingEntry}.
      *
-     * @param libraryId The id of the {@link LibraryEntry} mapped to the {@link LessonEntry}.
-     * @param lessonId  The id of the {@link LessonEntry} mapped to a {@link LibraryEntry}.
+     * @param lessonEntryId  The id of the {@link LessonEntry} mapped to a {@link LibraryEntry}.
+     * @param libraryEntryId The id of the {@link LibraryEntry} mapped to the {@link LessonEntry}.
      */
     @Ignore
-    public LessonMappingEntry(int libraryId, int lessonId) {
-        this.libraryId = libraryId;
-        this.lessonId = lessonId;
+    public LessonMappingEntry(int lessonEntryId, int libraryEntryId) {
+        this.libraryEntryId = libraryEntryId;
+        this.lessonEntryId = lessonEntryId;
     }
 
     /**
@@ -66,8 +85,8 @@ public class LessonMappingEntry {
      *
      * @return The {@link LibraryEntry} id.
      */
-    public int getLibraryId() {
-        return libraryId;
+    public int getLibraryEntryId() {
+        return libraryEntryId;
     }
 
     /**
@@ -75,8 +94,8 @@ public class LessonMappingEntry {
      *
      * @return The {@link LessonEntry} id.
      */
-    public int getLessonId() {
-        return lessonId;
+    public int getLessonEntryId() {
+        return lessonEntryId;
     }
 
 
@@ -84,8 +103,8 @@ public class LessonMappingEntry {
     public String toString() {
         return "LessonMappingEntry{" +
                 "id=" + id +
-                ", libraryId=" + libraryId +
-                ", lessonId=" + lessonId +
+                ", libraryEntryId=" + libraryEntryId +
+                ", lessonEntryId=" + lessonEntryId +
                 '}';
     }
 }

@@ -30,9 +30,12 @@ import com.firebase.jobdispatcher.Trigger;
 
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Dao.LanguageDao;
+import org.liebald.android.cula.data.database.Dao.LessonDao;
 import org.liebald.android.cula.data.database.Dao.LibraryDao;
 import org.liebald.android.cula.data.database.Dao.QuoteDao;
 import org.liebald.android.cula.data.database.Entities.LanguageEntry;
+import org.liebald.android.cula.data.database.Entities.LessonEntry;
+import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 import org.liebald.android.cula.services.UpdateQuoteJobService;
@@ -56,6 +59,7 @@ public class CulaRepository {
     private final LibraryDao mLibraryDao;
     private final LanguageDao mLanguageDao;
     private final QuoteDao mQuoteDao;
+    private final LessonDao mLessonDao;
     private final AppExecutors mExecutors;
     private final SharedPreferences mSharedPreferences;
     private final Context mContext;
@@ -66,14 +70,15 @@ public class CulaRepository {
         mExecutors = appExecutors;
         mLanguageDao = database.languageDao();
         mQuoteDao = database.quoteDao();
+        mLessonDao = database.lessonDao();
         mSharedPreferences = sharedPreferences;
         mContext = context;
 
         //TODO: remove following testcode before publishing
         setDebugState();
+
+
         scheduleJobService();
-
-
     }
 
     /**
@@ -130,27 +135,32 @@ public class CulaRepository {
      */
     private void setDebugState() {
         mExecutors.diskIO().execute(mLibraryDao::deleteAll);
-        LanguageEntry language1 = new LanguageEntry("German");
-        addLanguageEntry(language1);
-        LanguageEntry language2 = new LanguageEntry("Greek");
-        addLanguageEntry(language2);
-        LibraryEntry entry1 = new LibraryEntry(1, "native1", "foreign", "German", 1.1);
-        addLibraryEntry(entry1);
-        LibraryEntry entry2 = new LibraryEntry(2, "native2", "foreign2", "German", 2.2);
-        addLibraryEntry(entry2);
-        LibraryEntry entry3 = new LibraryEntry(3, "native3", "foreign3", "German", 3.3);
-        addLibraryEntry(entry3);
-        LibraryEntry entry4 = new LibraryEntry(4, "native4", "foreign4", "German", 4.4);
-        addLibraryEntry(entry4);
-        LibraryEntry entry5 = new LibraryEntry(5, "native5", "foreign5", "German", 4.8);
-        addLibraryEntry(entry5);
-        LibraryEntry entry6 = new LibraryEntry(6, "native6", "foreign6", "Greek", 2);
-        addLibraryEntry(entry6);
-        LibraryEntry entry7 = new LibraryEntry(7, "native7", "foreign7", "Greek", 4);
-        addLibraryEntry(entry7);
+        addLanguageEntry(new LanguageEntry("German"));
+        addLanguageEntry(new LanguageEntry("Greek"));
+        addLibraryEntry(new LibraryEntry(1, "native1", "foreign", "German", 1.1));
+        addLibraryEntry(new LibraryEntry(2, "native2", "foreign2", "German", 2.2));
+        addLibraryEntry(new LibraryEntry(3, "native3", "foreign3", "German", 3.3));
+        addLibraryEntry(new LibraryEntry(4, "native4", "foreign4", "German", 4.4));
+        addLibraryEntry(new LibraryEntry(5, "native5", "foreign5", "German", 4.8));
+        addLibraryEntry(new LibraryEntry(6, "native6", "foreign6", "Greek", 2));
+        addLibraryEntry(new LibraryEntry(7, "native7", "foreign7", "Greek", 4));
         setQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text", "Stefan"));
+        addLessonEntry(new LessonEntry(1, "Test Lesson", "This lesson is for testing purposes"));
+        addLessonMappingEntry(new LessonMappingEntry(1, 1, 2));
 
-        mExecutors.diskIO().execute(() -> Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " library entries"));
+        mExecutors.diskIO().execute(() ->
+                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " library entries")
+        );
+        mExecutors.diskIO().execute(() ->
+                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLanguageDao.getAmountOfLanguages() + " language entries")
+        );
+        mExecutors.diskIO().execute(() ->
+                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLessonDao.getAmountOfLessons() + " lesson entries")
+        );
+        mExecutors.diskIO().execute(() ->
+                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLessonDao.getAmountOfLessonsMappings() + " lesson mapping entries")
+        );
+
 
     }
 
@@ -243,6 +253,24 @@ public class CulaRepository {
      */
     public LiveData<QuoteEntry> getQuote() {
         return mQuoteDao.getLatestEntry();
+    }
+
+    /**
+     * Adds the given {@link LessonEntry}s to the Database. If the {@link LessonEntry} already exists, nothing is done.
+     *
+     * @param lessonEntries One or more {@link LessonEntry}s to add to the Database
+     */
+    public void addLessonEntry(LessonEntry... lessonEntries) {
+        mExecutors.diskIO().execute(() -> mLessonDao.insertEntry(lessonEntries));
+    }
+
+    /**
+     * Adds the given {@link LessonMappingEntry}s to the Database. If the {@link LessonMappingEntry} already exists, nothing is done.
+     *
+     * @param lessonMappingEntries One or more {@link LanguageEntry}s to add to the Database
+     */
+    public void addLessonMappingEntry(LessonMappingEntry... lessonMappingEntries) {
+        mExecutors.diskIO().execute(() -> mLessonDao.insertEntry(lessonMappingEntries));
     }
 
 
