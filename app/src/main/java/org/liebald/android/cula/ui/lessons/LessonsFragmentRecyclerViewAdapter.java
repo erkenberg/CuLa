@@ -1,6 +1,5 @@
-package org.liebald.android.cula.ui.library;
+package org.liebald.android.cula.ui.lessons;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -13,50 +12,43 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.liebald.android.cula.R;
-import org.liebald.android.cula.data.database.Entities.LibraryEntry;
-import org.liebald.android.cula.utilities.KnowledgeLevelUtils;
+import org.liebald.android.cula.data.database.Entities.LessonEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link LibraryEntry}.
+ * {@link RecyclerView.Adapter} that can display a list of {@link LessonEntry}s.
  */
-public class LibraryFragmentRecyclerViewAdapter extends
-        RecyclerView.Adapter<LibraryFragmentRecyclerViewAdapter.ViewHolder> {
+public class LessonsFragmentRecyclerViewAdapter extends
+        RecyclerView.Adapter<LessonsFragmentRecyclerViewAdapter.ViewHolder> {
 
     private final OnItemClickListener mListener;
-    /**
-     * Context required to set the correct colors for the knowledgeLevel.
-     */
-    private final Context mContext;
-    private List<LibraryEntry> mValues;
 
-    LibraryFragmentRecyclerViewAdapter(OnItemClickListener listener, Context context) {
+    private List<LessonEntry> mValues;
+
+    LessonsFragmentRecyclerViewAdapter(OnItemClickListener listener) {
         mValues = new ArrayList<>();
         mListener = listener;
-        mContext = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.library_item, parent, false);
+                .inflate(R.layout.lesson_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.mNativeWordView.setText(mValues.get(position).getNativeWord());
-        holder.mForeignWordView.setText(mValues.get(position).getForeignWord());
-        holder.viewForeground.setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel(mContext, mValues.get(position).getKnowledgeLevel()));
-
+        holder.mLessonName.setText(mValues.get(position).getLessonName());
+        holder.mLessonDescription.setText(mValues.get(position).getLessonDescription());
     }
 
-    void swapEntries(final List<LibraryEntry> newLibraryEntries) {
+    void swapEntries(final List<LessonEntry> newLessonEntries) {
         if (mValues == null) {
-            mValues = newLibraryEntries;
+            mValues = newLessonEntries;
             notifyDataSetChanged();
             Log.d("adapter", "adapter called, notified changed");
 
@@ -76,24 +68,26 @@ public class LibraryFragmentRecyclerViewAdapter extends
 
                 @Override
                 public int getNewListSize() {
-                    return newLibraryEntries.size();
+                    return newLessonEntries.size();
                 }
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
                     return mValues.get(oldItemPosition).getId() ==
-                            newLibraryEntries.get(newItemPosition).getId();
+                            newLessonEntries.get(newItemPosition).getId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    LibraryEntry newEntry = newLibraryEntries.get(newItemPosition);
-                    LibraryEntry oldEntry = mValues.get(oldItemPosition);
+                    LessonEntry newEntry = newLessonEntries.get(newItemPosition);
+                    LessonEntry oldEntry = mValues.get(oldItemPosition);
                     return newEntry.getId() == oldEntry.getId()
-                            && newEntry.getForeignWord().equals(oldEntry.getForeignWord()) && newEntry.getNativeWord().equals(oldEntry.getNativeWord()) && newEntry.getKnowledgeLevel() == oldEntry.getKnowledgeLevel();
+                            && newEntry.getLanguage().equals(oldEntry.getLanguage())
+                            && newEntry.getLessonName().equals(oldEntry.getLessonName())
+                            && newEntry.getLessonDescription() == oldEntry.getLessonDescription();
                 }
             });
-            mValues = newLibraryEntries;
+            mValues = newLessonEntries;
             result.dispatchUpdatesTo(this);
         }
     }
@@ -106,29 +100,28 @@ public class LibraryFragmentRecyclerViewAdapter extends
     }
 
     public interface OnItemClickListener {
-        void onLibraryEntryClick(View view, int id);
-
+        void onLessonEntryClick(View view, int id);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView mNativeWordView;
-        final TextView mForeignWordView;
+        final TextView mLessonName;
+        final TextView mLessonDescription;
         final LinearLayout viewForeground;
         final RelativeLayout viewBackground;
 
         ViewHolder(View view) {
             super(view);
-            mNativeWordView = view.findViewById(R.id.nativeWord);
-            mForeignWordView = view.findViewById(R.id.foreignWord);
+            mLessonName = view.findViewById(R.id.lesson_name);
+            mLessonDescription = view.findViewById(R.id.lesson_description);
             viewForeground = view.findViewById(R.id.view_foreground);
             viewBackground = view.findViewById(R.id.view_background);
-            viewForeground.setOnClickListener(v -> mListener.onLibraryEntryClick(v, mValues.get(getAdapterPosition()).getId()));
+            viewForeground.setOnClickListener(v -> mListener.onLessonEntryClick(v, mValues.get(getAdapterPosition()).getId()));
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mNativeWordView.getText() + "'" + " '" + mForeignWordView
+            return super.toString() + " '" + mLessonName.getText() + "'" + " '" + mLessonDescription
                     .getText() + "'";
         }
     }

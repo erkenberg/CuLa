@@ -14,6 +14,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import org.liebald.android.cula.R;
+import org.liebald.android.cula.ui.lessons.LessonsFragment;
 import org.liebald.android.cula.ui.library.LibraryFragment;
 import org.liebald.android.cula.ui.quote.QuoteFragment;
 import org.liebald.android.cula.ui.settings.SettingsFragment;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int DRAWER_LIBRARY_KEY = 1;
     private static final int DRAWER_SETTINGS_KEY = 2;
     private static final int DRAWER_QUOTE_KEY = 3;
+    private static final int DRAWER_LESSONS_KEY = 4;
 
 
     @Override
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withIdentifier(DRAWER_QUOTE_KEY).withName(R.string.drawer_label_quote).withIcon(FontAwesome.Icon.faw_bookmark),
                         new PrimaryDrawerItem().withIdentifier(DRAWER_TRAIN_KEY).withName(R.string.drawer_label_train).withIcon(FontAwesome.Icon.faw_pencil_alt),
                         new PrimaryDrawerItem().withIdentifier(DRAWER_LIBRARY_KEY).withName(R.string.drawer_label_library).withIcon(FontAwesome.Icon.faw_book),
+                        new PrimaryDrawerItem().withIdentifier(DRAWER_LESSONS_KEY).withName(R.string.drawer_label_lessons).withIcon(FontAwesome.Icon.faw_address_book2),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withIdentifier(DRAWER_SETTINGS_KEY).withName(R.string.drawer_label_settings).withIcon(FontAwesome.Icon.faw_cog)
                 )
@@ -61,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
                     selectItem(drawerItem.getIdentifier());
                     return true;
                 })
-                .withSelectedItem(DRAWER_SETTINGS_KEY)
+                .withSelectedItem(DRAWER_LESSONS_KEY)
                 .build();
 
         drawer.closeDrawer();
-        selectItem(DRAWER_SETTINGS_KEY);
+        selectItem(DRAWER_LESSONS_KEY);
     }
 
 
@@ -87,7 +90,11 @@ public class MainActivity extends AppCompatActivity {
             case DRAWER_QUOTE_KEY:
                 fragment = new QuoteFragment();
                 break;
+            case DRAWER_LESSONS_KEY:
+                fragment = new LessonsFragment();
+                break;
             default:
+                //TODO:remove dummy default
                 fragment = new CardBoxFragment();
                 Bundle args = new Bundle();
                 args.putString("text", Long.toString(identifier));

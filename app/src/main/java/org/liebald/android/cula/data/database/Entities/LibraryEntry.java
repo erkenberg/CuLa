@@ -57,6 +57,8 @@ public class LibraryEntry {
      * @param id          The Id of the @{@link LibraryEntry}.
      * @param nativeWord  The stored native language word.
      * @param foreignWord The translation of the word in the foreign language.
+     * @param language The language this {@link LibraryEntry} belongs to.
+     * @param knowledgeLevel The knowledgeLevel of this {@link LanguageEntry}.
      */
     public LibraryEntry(int id, @NonNull String nativeWord, @NonNull String foreignWord, @NonNull String language, double knowledgeLevel) {
         this(nativeWord, foreignWord, language, knowledgeLevel);
@@ -68,6 +70,8 @@ public class LibraryEntry {
      *
      * @param nativeWord  The stored native language word.
      * @param foreignWord The translation of the word in the foreign language.
+     * @param language The language this {@link LibraryEntry} belongs to.
+     * @param knowledgeLevel The knowledgeLevel of this {@link LanguageEntry}.
      */
     @Ignore
     public LibraryEntry(@NonNull String nativeWord, @NonNull String foreignWord, @NonNull String language, double knowledgeLevel) {

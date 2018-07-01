@@ -37,6 +37,7 @@ import org.liebald.android.cula.data.database.Entities.LanguageEntry;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
+import org.liebald.android.cula.data.database.Entities.MappingPOJO;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 import org.liebald.android.cula.services.UpdateQuoteJobService;
 import org.liebald.android.cula.utilities.AppExecutors;
@@ -135,19 +136,26 @@ public class CulaRepository {
      */
     private void setDebugState() {
         mExecutors.diskIO().execute(mLibraryDao::deleteAll);
-        addLanguageEntry(new LanguageEntry("German"));
-        addLanguageEntry(new LanguageEntry("Greek"));
-        addLibraryEntry(new LibraryEntry(1, "native1", "foreign", "German", 1.1));
-        addLibraryEntry(new LibraryEntry(2, "native2", "foreign2", "German", 2.2));
-        addLibraryEntry(new LibraryEntry(3, "native3", "foreign3", "German", 3.3));
-        addLibraryEntry(new LibraryEntry(4, "native4", "foreign4", "German", 4.4));
-        addLibraryEntry(new LibraryEntry(5, "native5", "foreign5", "German", 4.8));
-        addLibraryEntry(new LibraryEntry(6, "native6", "foreign6", "Greek", 2));
-        addLibraryEntry(new LibraryEntry(7, "native7", "foreign7", "Greek", 4));
-        setQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text", "Stefan"));
-        addLessonEntry(new LessonEntry(1, "Test Lesson", "This lesson is for testing purposes"));
-        addLessonMappingEntry(new LessonMappingEntry(1, 1, 2));
+        insertLanguageEntry(new LanguageEntry("German"));
+        insertLanguageEntry(new LanguageEntry("Greek"));
+        insertLibraryEntry(new LibraryEntry(1, "native1", "foreign", "German", 1.1));
+        insertLibraryEntry(new LibraryEntry(2, "native2", "foreign2", "German", 2.2));
+        insertLibraryEntry(new LibraryEntry(3, "native3", "foreign3", "German", 3.3));
+        insertLibraryEntry(new LibraryEntry(4, "native4", "foreign4", "German", 4.4));
+        insertLibraryEntry(new LibraryEntry(5, "native5", "foreign5", "German", 4.8));
+        insertLibraryEntry(new LibraryEntry(6, "native6", "foreign6", "Greek", 2));
+        insertLibraryEntry(new LibraryEntry(7, "native7", "foreign7", "Greek", 4));
+        insertQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text", "Stefan"));
+        insertLessonEntry(new LessonEntry(1, "Test Lesson 1", "This lesson is for testing purposes", "German"));
+        insertLessonEntry(new LessonEntry(2, "Test Lesson 2", "This lesson is for testing purposes", "Greek"));
+        insertLessonEntry(new LessonEntry(3, "Test Lesson 3", "This lesson is for testing purposes", "Greek"));
+        insertLessonMappingEntry(new LessonMappingEntry(1, 1, 1));
+        insertLessonMappingEntry(new LessonMappingEntry(2, 1, 2));
+        insertLessonMappingEntry(new LessonMappingEntry(3, 2, 3));
+        insertLessonMappingEntry(new LessonMappingEntry(4, 3, 4));
+        insertLessonMappingEntry(new LessonMappingEntry(5, 3, 5));
 
+        //print the current entries in the db to the log console.
         mExecutors.diskIO().execute(() ->
                 Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " library entries")
         );
@@ -160,7 +168,6 @@ public class CulaRepository {
         mExecutors.diskIO().execute(() ->
                 Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLessonDao.getAmountOfLessonsMappings() + " lesson mapping entries")
         );
-
 
     }
 
@@ -192,7 +199,7 @@ public class CulaRepository {
      *
      * @param libraryEntry One or more {@link LibraryEntry}s to add to the Database
      */
-    public void addLibraryEntry(LibraryEntry... libraryEntry) {
+    public void insertLibraryEntry(LibraryEntry... libraryEntry) {
         mExecutors.diskIO().execute(() -> mLibraryDao.insertEntry(libraryEntry));
         for (LibraryEntry lib :
                 libraryEntry) {
@@ -232,7 +239,7 @@ public class CulaRepository {
      *
      * @param languageEntries One or more {@link LanguageEntry}s to add to the Database
      */
-    public void addLanguageEntry(LanguageEntry... languageEntries) {
+    public void insertLanguageEntry(LanguageEntry... languageEntries) {
         mExecutors.diskIO().execute(() -> mLanguageDao.insertEntry(languageEntries));
     }
 
@@ -242,7 +249,7 @@ public class CulaRepository {
      *
      * @param quoteEntries One or more {@link QuoteEntry}s to add to the Database
      */
-    public void setQuoteEntry(QuoteEntry... quoteEntries) {
+    public void insertQuoteEntry(QuoteEntry... quoteEntries) {
         mExecutors.diskIO().execute(() -> mQuoteDao.insertEntry(quoteEntries));
     }
 
@@ -255,13 +262,44 @@ public class CulaRepository {
         return mQuoteDao.getLatestEntry();
     }
 
+
+    /**
+     * Get all {@link LessonEntry}s.
+     *
+     * @return All {@link LessonEntry}s.
+     */
+    public LiveData<List<LessonEntry>> getAllLessonEntries() {
+        //todo: find out how to use the string resource here instead of the hard coded key.
+        String language = mSharedPreferences.getString("languages", "123");
+        Log.d(TAG, "Retrieving all entries for selected Language: " + language);
+        return mLessonDao.getAllEntries(language);
+    }
+
     /**
      * Adds the given {@link LessonEntry}s to the Database. If the {@link LessonEntry} already exists, nothing is done.
      *
      * @param lessonEntries One or more {@link LessonEntry}s to add to the Database
      */
-    public void addLessonEntry(LessonEntry... lessonEntries) {
+    public void insertLessonEntry(LessonEntry... lessonEntries) {
         mExecutors.diskIO().execute(() -> mLessonDao.insertEntry(lessonEntries));
+    }
+
+    /**
+     * Removes the given {@link LessonEntry}s from the Database.
+     *
+     * @param lessonEntry The @{@link LessonEntry}s to remove from the Database
+     */
+    public void deleteLessonEntry(LessonEntry lessonEntry) {
+        mExecutors.diskIO().execute(() -> mLessonDao.deleteEntry(lessonEntry));
+    }
+
+    /**
+     * Get the {@link LessonEntry} with the given ID.
+     *
+     * @return The {@link LessonEntry} with the given ID.
+     */
+    public LiveData<LessonEntry> getLessonEntry(int id) {
+        return mLessonDao.getEntryById(id);
     }
 
     /**
@@ -269,8 +307,19 @@ public class CulaRepository {
      *
      * @param lessonMappingEntries One or more {@link LanguageEntry}s to add to the Database
      */
-    public void addLessonMappingEntry(LessonMappingEntry... lessonMappingEntries) {
+    public void insertLessonMappingEntry(LessonMappingEntry... lessonMappingEntries) {
         mExecutors.diskIO().execute(() -> mLessonDao.insertEntry(lessonMappingEntries));
+    }
+
+
+    /**
+     * Gets the List of {@link MappingPOJO}s in the lesson database table with the given id.
+     *
+     * @param id The lesson id for which the {@link List} of {@link MappingPOJO}s should be retrieved.
+     * @return {@link LiveData} with the {@link List} of @{@link MappingPOJO}s.
+     */
+    public LiveData<List<MappingPOJO>> getMappingEntries(int id) {
+        return mLessonDao.getLessonMappingById(id);
     }
 
 

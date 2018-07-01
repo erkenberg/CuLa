@@ -101,7 +101,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             return;
         }
         CulaRepository repository = InjectorUtils.provideRepository(Objects.requireNonNull(getContext()));
-        repository.addLanguageEntry(new LanguageEntry(newLanguage));
+        repository.insertLanguageEntry(new LanguageEntry(newLanguage));
 
     }
 

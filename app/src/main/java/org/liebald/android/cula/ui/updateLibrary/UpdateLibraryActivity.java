@@ -135,9 +135,9 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.settings_select_language_key), "");
         if (entryId != -1) {
             //TODO: replace with update method?
-            mCulaRepository.addLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord, language, selectedKnowledgeLevel));
+            mCulaRepository.insertLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord, language, selectedKnowledgeLevel));
         } else {
-            mCulaRepository.addLibraryEntry(new LibraryEntry(nativeWord, foreignWord, language, selectedKnowledgeLevel));
+            mCulaRepository.insertLibraryEntry(new LibraryEntry(nativeWord, foreignWord, language, selectedKnowledgeLevel));
         }
 
         if (view.getId() == R.id.button_add_word_pair_return)

@@ -10,6 +10,7 @@ import android.arch.persistence.room.Query;
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
+import org.liebald.android.cula.data.database.Entities.MappingPOJO;
 
 import java.util.List;
 
@@ -44,8 +45,8 @@ public interface LessonDao {
      *
      * @return {@link LiveData} with all @{@link LessonEntry}s.
      */
-    @Query("SELECT id,lessonName,lessonDescription FROM lesson ORDER BY lessonName")
-    LiveData<List<LessonEntry>> getAllEntries();
+    @Query("SELECT id, lessonName, lessonDescription, language FROM lesson WHERE language=:language ORDER BY lessonName DESC")
+    LiveData<List<LessonEntry>> getAllEntries(String language);
 
 
     /**
@@ -69,4 +70,25 @@ public interface LessonDao {
      */
     @Delete
     void deleteEntry(LessonEntry entry);
+
+    /**
+     * Gets the {@link LessonEntry} in the lesson database table with the given id.
+     *
+     * @param id The id of the entry.
+     * @return {@link LiveData} with the @{@link LessonEntry}.
+     */
+    @Query("SELECT id, lessonName, lessonDescription, language FROM lesson WHERE id=:id")
+    LiveData<LessonEntry> getEntryById(int id);
+
+
+    /**
+     * Gets the List of {@link MappingPOJO}s in the lesson database table with the given id.
+     *
+     * @param id The lesson id for which the {@link List} of {@link MappingPOJO}s should be retrieved.
+     * @return {@link LiveData} with the {@link List} of @{@link MappingPOJO}s.
+     */
+    //TODO: change default 1 to correct boolean indicating whether an entry belings the the given lesson
+    @Query("SELECT id, foreignWord, nativeWord, 1 as partOfLesson FROM library WHERE id=:id or 1=1")
+    LiveData<List<MappingPOJO>> getLessonMappingById(int id);
+
 }

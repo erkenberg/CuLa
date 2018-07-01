@@ -57,7 +57,7 @@ public class LibraryFragmentViewModel extends ViewModel {
      * Restore the latest deleted entry.
      */
     public void restoreLatestDeletedLibraryEntry() {
-        mCulaRepository.addLibraryEntry(latestDeletedEntry);
+        mCulaRepository.insertLibraryEntry(latestDeletedEntry);
     }
 
     /**

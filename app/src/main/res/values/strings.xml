@@ -62,6 +62,13 @@
     <string name="knowledgeLevel5_key" translatable="false">5</string>
     <string name="settings_delete_language_title_warning">Really remove this language and all words belonging to it?</string>
     <string name="ok">Ok</string>
+    <string name="drawer_label_lessons">Lessons</string>
+    <string name="lesson_deleted">Lesson deleted</string>
+    <string name="update_lesson_label_name">Name of the Lesson</string>
+    <string name="update_lesson_hint_name">Add the name of the lesson</string>
+    <string name="update_lesson_hint_description">Add a description of the lesson</string>
+    <string name="update_lesson_label_description">Lesson description</string>
+    <string name="update_lesson_label_mapping">Library entries belonging to the lesson (autosaved)</string>
 
 
 </resources>

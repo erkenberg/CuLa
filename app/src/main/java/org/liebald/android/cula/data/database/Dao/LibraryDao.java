@@ -61,7 +61,7 @@ public interface LibraryDao {
     void deleteAll();
 
     /**
-     * Delete the given entrie from the library table.
+     * Delete the given entry from the library table.
      */
     @Delete
     void deleteEntry(LibraryEntry entry);

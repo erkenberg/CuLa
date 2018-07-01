@@ -12,7 +12,6 @@ import org.liebald.android.cula.utilities.StringUtils;
 @Entity(tableName = "language")
 public class LanguageEntry {
 
-
     /**
      * The foreign language.
      */

@@ -22,6 +22,7 @@ import android.support.v7.preference.PreferenceManager;
 
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.CulaDatabase;
+import org.liebald.android.cula.ui.lessons.LessonsViewModelFactory;
 import org.liebald.android.cula.ui.library.LibraryViewModelFactory;
 import org.liebald.android.cula.ui.quote.QuoteViewModelFactory;
 import org.liebald.android.cula.ui.settings.SettingsViewModelFactory;
@@ -57,6 +58,17 @@ public class InjectorUtils {
     }
 
     /**
+     * Returns the {@link LessonsViewModelFactory} with access to the {@link CulaRepository}.
+     *
+     * @param context {@link Context} of the Fragment using the {@link LessonsViewModelFactory}
+     * @return The {@link LessonsViewModelFactory}.
+     */
+    public static LessonsViewModelFactory provideLessonsViewModelFactory(Context context) {
+        CulaRepository repository = provideRepository(context.getApplicationContext());
+        return new LessonsViewModelFactory(repository);
+    }
+
+    /**
      * Returns the {@link SettingsViewModelFactory} with access to the {@link CulaRepository}.
      *
      * @param context {@link Context} of the Fragment using the {@link SettingsViewModelFactory}
@@ -77,4 +89,6 @@ public class InjectorUtils {
         CulaRepository repository = provideRepository(context.getApplicationContext());
         return new QuoteViewModelFactory(repository);
     }
+
+
 }
