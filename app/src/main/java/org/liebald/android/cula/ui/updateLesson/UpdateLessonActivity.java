@@ -9,16 +9,19 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
+import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
 import org.liebald.android.cula.data.database.Entities.MappingPOJO;
 import org.liebald.android.cula.databinding.ActivityUpdateLessonBinding;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
-public class UpdateLessonActivity extends AppCompatActivity {
+public class UpdateLessonActivity extends AppCompatActivity implements UpdateLessonRecyclerViewAdapter.OnItemClickListener {
 
 
     /**
@@ -44,9 +47,16 @@ public class UpdateLessonActivity extends AppCompatActivity {
     private int entryId = -1;
 
     /**
+     * Adapter for the list of words that could belong to the lesson.
+     */
+    private UpdateLessonRecyclerViewAdapter mAdapter;
+
+    /**
      * The shared preferences for accessing default values.
      */
     private SharedPreferences mSharedPreferences;
+
+    private UpdateLessonViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +68,10 @@ public class UpdateLessonActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int id;
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //Make sure the keyboard doesn't show on activity start.
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        mAdapter = new UpdateLessonRecyclerViewAdapter(this);
+        mBinding.recyclerViewLessonMappingList.setAdapter(mAdapter);
 
         // If an existing entry should be updated:
         if (intent.hasExtra(BUNDLE_EXTRA_UPDATE_KEY) && (id = intent.getIntExtra(BUNDLE_EXTRA_UPDATE_KEY, -1)) != -1) {
@@ -65,21 +79,22 @@ public class UpdateLessonActivity extends AppCompatActivity {
 
 
             UpdateLessonViewModelFactory viewModelFactory = new UpdateLessonViewModelFactory(mCulaRepository, id);
-            final UpdateLessonViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(UpdateLessonViewModel.class);
-            viewModel.getEntry().observe(this, lessonEntry -> {
+            mViewModel = ViewModelProviders.of(this, viewModelFactory).get(UpdateLessonViewModel.class);
+            mViewModel.getEntry().observe(this, lessonEntry -> {
                 if (lessonEntry == null)
                     return;
-                viewModel.getEntry().removeObservers(this);
+                mViewModel.getEntry().removeObservers(this);
                 mBinding.etAddLessonName.setText(lessonEntry.getLessonName());
                 mBinding.etAddLessonDescription.setText(lessonEntry.getLessonDescription());
 
                 entryId = lessonEntry.getId();
             });
 
-            viewModel.getMapping().observe(this, mappingPOJOList -> {
+            mViewModel.getMapping().observe(this, mappingPOJOList -> {
                 if (mappingPOJOList == null)
                     return;
-                viewModel.getEntry().removeObservers(this);
+                mViewModel.getEntry().removeObservers(this);
+                mAdapter.swapEntries(mappingPOJOList);
                 Log.d(UpdateLessonActivity.class.getSimpleName(), "Elements in mapping list: " + mappingPOJOList.size());
                 for (MappingPOJO pojo : mappingPOJOList)
                     Log.d(UpdateLessonActivity.class.getSimpleName(), pojo.toString());
@@ -128,4 +143,17 @@ public class UpdateLessonActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onLessonEntryClick(CheckBox check, int id) {
+
+        //TODO: keep scrollposition on update.
+        if (mViewModel.getEntry().getValue() == null)
+            return;
+        if (check.isChecked()) {
+            mCulaRepository.insertLessonMappingEntry(new LessonMappingEntry(mViewModel.getEntry().getValue().getId(), id));
+        } else {
+            mCulaRepository.deleteLessonMappingEntry(new LessonMappingEntry(mViewModel.getEntry().getValue().getId(), id));
+
+        }
+    }
 }

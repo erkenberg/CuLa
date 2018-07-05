@@ -16,6 +16,7 @@
 
 package org.liebald.android.cula.data;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -56,6 +57,7 @@ public class CulaRepository {
 
     // For Singleton instantiation
     private static final Object LOCK = new Object();
+    @SuppressLint("StaticFieldLeak")
     private static CulaRepository sInstance;
     private final LibraryDao mLibraryDao;
     private final LanguageDao mLanguageDao;
@@ -308,18 +310,32 @@ public class CulaRepository {
      * @param lessonMappingEntries One or more {@link LanguageEntry}s to add to the Database
      */
     public void insertLessonMappingEntry(LessonMappingEntry... lessonMappingEntries) {
-        mExecutors.diskIO().execute(() -> mLessonDao.insertEntry(lessonMappingEntries));
+        mExecutors.diskIO().execute(() -> mLessonDao.insertMappingEntry(lessonMappingEntries));
     }
 
+    /**
+     * Deletes a mapping between a {@link LessonEntry} and a {@link LibraryEntry}.
+     *
+     * @param lessonMappingEntry The {@link LessonMappingEntry} describing the mapping.
+     */
+    public void deleteLessonMappingEntry(LessonMappingEntry lessonMappingEntry) {
+        mExecutors.diskIO().execute(() -> mLessonDao.deleteMappingEntry(
+                lessonMappingEntry.getLessonEntryId(), lessonMappingEntry.getLibraryEntryId()));
+
+    }
 
     /**
-     * Gets the List of {@link MappingPOJO}s in the lesson database table with the given id.
+     * Gets the List of {@link MappingPOJO}s in the lesson database table with the given id
+     * based on the current language.
      *
-     * @param id The lesson id for which the {@link List} of {@link MappingPOJO}s should be retrieved.
+     * @param id The lesson id for which the {@link List} of {@link MappingPOJO}s
+     *           should be retrieved.
      * @return {@link LiveData} with the {@link List} of @{@link MappingPOJO}s.
      */
     public LiveData<List<MappingPOJO>> getMappingEntries(int id) {
-        return mLessonDao.getLessonMappingById(id);
+        //todo: find out how to use the string resource here instead of the hard coded key.
+        String language = mSharedPreferences.getString("languages", "123");
+        return mLessonDao.getLessonMappingById(id, language);
     }
 
 

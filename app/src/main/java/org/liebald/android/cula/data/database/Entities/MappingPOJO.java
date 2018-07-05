@@ -42,4 +42,20 @@ public class MappingPOJO {
                 ", partOfLesson=" + partOfLesson +
                 '}';
     }
+
+    public int getLibraryId() {
+        return libraryId;
+    }
+
+    public String getNative_word() {
+        return native_word;
+    }
+
+    public String getForeign_word() {
+        return foreign_word;
+    }
+
+    public boolean isPartOfLesson() {
+        return partOfLesson;
+    }
 }

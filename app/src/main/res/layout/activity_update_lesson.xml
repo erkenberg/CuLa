@@ -3,117 +3,122 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.constraint.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_label_add_lesson_name"
-            style="@style/Label"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/update_lesson_label_name"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:context="org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity">
 
-        <EditText
-            android:id="@+id/et_add_lesson_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginStart="32dp"
-            android:hint="@string/update_lesson_hint_name"
-            android:inputType="text"
-            android:nextFocusForward="@id/et_add_lesson_description"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_label_add_lesson_name" />
+            <TextView
+                android:id="@+id/tv_label_add_lesson_name"
+                style="@style/Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/update_lesson_label_name"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_label_add_lesson_description"
-            style="@style/Label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/update_lesson_label_description"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_add_lesson_name" />
+            <EditText
+                android:id="@+id/et_add_lesson_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:hint="@string/update_lesson_hint_name"
+                android:inputType="text"
+                android:nextFocusForward="@id/et_add_lesson_description"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_add_lesson_name" />
 
-        <EditText
-            android:id="@+id/et_add_lesson_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/update_lesson_hint_description"
-            android:inputType="text"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/et_add_lesson_name"
-            app:layout_constraintStart_toStartOf="@+id/et_add_lesson_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_label_add_lesson_description" />
+            <TextView
+                android:id="@+id/tv_label_add_lesson_description"
+                style="@style/Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/update_lesson_label_description"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_add_lesson_name" />
 
-        <Button
-            android:id="@+id/button_add_lesson"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:focusable="true"
-            android:onClick="commitLessonEntry"
-            android:text="@string/update_library_button_save_word"
-            app:layout_constraintEnd_toStartOf="@+id/button_add_lesson_return"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_add_lesson_description" />
+            <EditText
+                android:id="@+id/et_add_lesson_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/update_lesson_hint_description"
+                android:inputType="text"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/et_add_lesson_name"
+                app:layout_constraintStart_toStartOf="@+id/et_add_lesson_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_label_add_lesson_description" />
 
-        <Button
-            android:id="@+id/button_add_lesson_return"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:focusable="true"
-            android:onClick="commitLessonEntry"
-            android:text="@string/update_library_button_save_word_return"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/button_add_lesson"
-            app:layout_constraintTop_toBottomOf="@+id/et_add_lesson_description" />
+            <Button
+                android:id="@+id/button_add_lesson"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:focusable="true"
+                android:onClick="commitLessonEntry"
+                android:text="@string/update_library_button_save_word"
+                app:layout_constraintEnd_toStartOf="@+id/button_add_lesson_return"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_add_lesson_description" />
 
-        <TextView
-            android:id="@+id/tv_label_add_lesson_mappings"
-            style="@style/Label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/update_lesson_label_mapping"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_add_lesson_return" />
+            <Button
+                android:id="@+id/button_add_lesson_return"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:focusable="true"
+                android:onClick="commitLessonEntry"
+                android:text="@string/update_library_button_save_word_return"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/button_add_lesson"
+                app:layout_constraintTop_toBottomOf="@+id/et_add_lesson_description" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_lesson_mapping_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_label_add_lesson_mappings"
-            tools:listitem="@layout/lesson_mapping_item" />
+            <TextView
+                android:id="@+id/tv_label_add_lesson_mappings"
+                style="@style/Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/update_lesson_label_mapping"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_add_lesson_return" />
 
-    </android.support.constraint.ConstraintLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_lesson_mapping_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_label_add_lesson_mappings"
+                tools:listitem="@layout/lesson_mapping_item" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </layout>

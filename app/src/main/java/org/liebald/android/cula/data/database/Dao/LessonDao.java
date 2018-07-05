@@ -10,6 +10,7 @@ import android.arch.persistence.room.Query;
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
+import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.data.database.Entities.MappingPOJO;
 
 import java.util.List;
@@ -30,6 +31,9 @@ public interface LessonDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertEntry(LessonEntry... lessonEntries);
 
+    @Delete
+    void deleteEntry(LessonEntry... lessonEntries);
+
     /**
      * Inserts a {@link LessonMappingEntry} into the lesson_mapping table. If there is a conflicting id the
      * {@link LessonMappingEntry} uses the {@link OnConflictStrategy} to abort if an according entry already exists.
@@ -38,7 +42,7 @@ public interface LessonDao {
      * @param lessonMappingEntries A list of {@link LessonMappingEntry}s to insert
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertEntry(LessonMappingEntry... lessonMappingEntries);
+    void insertMappingEntry(LessonMappingEntry... lessonMappingEntries);
 
     /**
      * Gets all {@link LessonEntry}s in the lesson database table.
@@ -66,12 +70,6 @@ public interface LessonDao {
     int getAmountOfLessonsMappings();
 
     /**
-     * Delete the given {@link LessonEntry} from the lesson table.
-     */
-    @Delete
-    void deleteEntry(LessonEntry entry);
-
-    /**
      * Gets the {@link LessonEntry} in the lesson database table with the given id.
      *
      * @param id The id of the entry.
@@ -85,10 +83,22 @@ public interface LessonDao {
      * Gets the List of {@link MappingPOJO}s in the lesson database table with the given id.
      *
      * @param id The lesson id for which the {@link List} of {@link MappingPOJO}s should be retrieved.
+     * @param language The current language.
      * @return {@link LiveData} with the {@link List} of @{@link MappingPOJO}s.
      */
-    //TODO: change default 1 to correct boolean indicating whether an entry belings the the given lesson
-    @Query("SELECT id, foreignWord, nativeWord, 1 as partOfLesson FROM library WHERE id=:id or 1=1")
-    LiveData<List<MappingPOJO>> getLessonMappingById(int id);
+    //TODO: probably not the most efficient query.
+    @Query("SELECT id, foreignWord, nativeWord, " +
+            "CASE WHEN EXISTS(SELECT Id FROM lesson_mapping WHERE libraryEntryId=library.id AND lessonEntryId=:id) THEN 1 ELSE 0 END AS partOfLesson " +
+            "FROM library  WHERE  language=:language" +
+            " ORDER BY partOfLesson DESC")
+    LiveData<List<MappingPOJO>> getLessonMappingById(int id, String language);
 
+    /**
+     * Deletes a mapping between a {@link LessonEntry} and a {@link LibraryEntry}.
+     *
+     * @param lessonId
+     * @param libraryId
+     */
+    @Query("DELETE FROM lesson_mapping WHERE lessonEntryId=:lessonId AND libraryEntryId=:libraryId")
+    void deleteMappingEntry(int lessonId, int libraryId);
 }
