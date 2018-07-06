@@ -57,7 +57,9 @@ public class LessonsFragmentViewModel extends ViewModel {
      */
     public void restoreLatestDeletedLessonEntry() {
         //TODO: currently the lesson mappings are still gone.
-        mCulaRepository.insertLessonEntry(latestDeletedEntry);
+        CulaRepository.OnLessonEntryAddedListener dummyListener = ids -> {
+        };
+        mCulaRepository.insertLessonEntry(dummyListener, latestDeletedEntry);
     }
 
     /**

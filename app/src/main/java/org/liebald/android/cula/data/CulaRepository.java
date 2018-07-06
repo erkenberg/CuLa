@@ -49,6 +49,48 @@ import java.util.List;
  * Handles data operations in Cula.
  */
 public class CulaRepository {
+    /**
+     * For debugging purposes prefill database with specified data.
+     */
+    private void setDebugState() {
+        mExecutors.diskIO().execute(mLibraryDao::deleteAll);
+        insertLanguageEntry(new LanguageEntry("German"));
+        insertLanguageEntry(new LanguageEntry("Greek"));
+        insertLibraryEntry(new LibraryEntry(1, "native1", "foreign", "German", 1.1));
+        insertLibraryEntry(new LibraryEntry(2, "native2", "foreign2", "German", 2.2));
+        insertLibraryEntry(new LibraryEntry(3, "native3", "foreign3", "German", 3.3));
+        insertLibraryEntry(new LibraryEntry(4, "native4", "foreign4", "German", 4.4));
+        insertLibraryEntry(new LibraryEntry(5, "native5", "foreign5", "German", 4.8));
+        insertLibraryEntry(new LibraryEntry(6, "native6", "foreign6", "Greek", 2));
+        insertLibraryEntry(new LibraryEntry(7, "native7", "foreign7", "Greek", 4));
+        insertQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text", "Stefan"));
+
+        OnLessonEntryAddedListener dummyListener = ids -> {
+        };
+        insertLessonEntry(dummyListener, new LessonEntry(1, "Test Lesson 1", "This lesson is for testing purposes", "German"));
+        insertLessonEntry(dummyListener, new LessonEntry(2, "Test Lesson 2", "This lesson is for testing purposes", "Greek"));
+        insertLessonEntry(dummyListener, new LessonEntry(3, "Test Lesson 3", "This lesson is for testing purposes", "Greek"));
+        insertLessonMappingEntry(new LessonMappingEntry(1, 1, 1));
+        insertLessonMappingEntry(new LessonMappingEntry(2, 1, 2));
+        insertLessonMappingEntry(new LessonMappingEntry(3, 2, 3));
+        insertLessonMappingEntry(new LessonMappingEntry(4, 3, 4));
+        insertLessonMappingEntry(new LessonMappingEntry(5, 3, 5));
+
+        //print the current entries in the db to the log console.
+        mExecutors.diskIO().execute(() ->
+                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " library entries")
+        );
+        mExecutors.diskIO().execute(() ->
+                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLanguageDao.getAmountOfLanguages() + " language entries")
+        );
+        mExecutors.diskIO().execute(() ->
+                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLessonDao.getAmountOfLessons() + " lesson entries")
+        );
+        mExecutors.diskIO().execute(() ->
+                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLessonDao.getAmountOfLessonsMappings() + " lesson mapping entries")
+        );
+
+    }
 
     /**
      * Tag for logging.
@@ -134,43 +176,14 @@ public class CulaRepository {
     }
 
     /**
-     * For debugging purposes prefill database with specified data.
+     * Adds the given {@link LessonEntry}s to the Database.
+     * If the {@link LessonEntry} already exists, nothing is done.
+     *
+     * @param callback called with the ids of the added entries.
+     * @param lessonEntries One or more {@link LessonEntry}s to add to the Database
      */
-    private void setDebugState() {
-        mExecutors.diskIO().execute(mLibraryDao::deleteAll);
-        insertLanguageEntry(new LanguageEntry("German"));
-        insertLanguageEntry(new LanguageEntry("Greek"));
-        insertLibraryEntry(new LibraryEntry(1, "native1", "foreign", "German", 1.1));
-        insertLibraryEntry(new LibraryEntry(2, "native2", "foreign2", "German", 2.2));
-        insertLibraryEntry(new LibraryEntry(3, "native3", "foreign3", "German", 3.3));
-        insertLibraryEntry(new LibraryEntry(4, "native4", "foreign4", "German", 4.4));
-        insertLibraryEntry(new LibraryEntry(5, "native5", "foreign5", "German", 4.8));
-        insertLibraryEntry(new LibraryEntry(6, "native6", "foreign6", "Greek", 2));
-        insertLibraryEntry(new LibraryEntry(7, "native7", "foreign7", "Greek", 4));
-        insertQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text", "Stefan"));
-        insertLessonEntry(new LessonEntry(1, "Test Lesson 1", "This lesson is for testing purposes", "German"));
-        insertLessonEntry(new LessonEntry(2, "Test Lesson 2", "This lesson is for testing purposes", "Greek"));
-        insertLessonEntry(new LessonEntry(3, "Test Lesson 3", "This lesson is for testing purposes", "Greek"));
-        insertLessonMappingEntry(new LessonMappingEntry(1, 1, 1));
-        insertLessonMappingEntry(new LessonMappingEntry(2, 1, 2));
-        insertLessonMappingEntry(new LessonMappingEntry(3, 2, 3));
-        insertLessonMappingEntry(new LessonMappingEntry(4, 3, 4));
-        insertLessonMappingEntry(new LessonMappingEntry(5, 3, 5));
-
-        //print the current entries in the db to the log console.
-        mExecutors.diskIO().execute(() ->
-                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao.getLibrarySize() + " library entries")
-        );
-        mExecutors.diskIO().execute(() ->
-                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLanguageDao.getAmountOfLanguages() + " language entries")
-        );
-        mExecutors.diskIO().execute(() ->
-                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLessonDao.getAmountOfLessons() + " lesson entries")
-        );
-        mExecutors.diskIO().execute(() ->
-                Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLessonDao.getAmountOfLessonsMappings() + " lesson mapping entries")
-        );
-
+    public void insertLessonEntry(OnLessonEntryAddedListener callback, LessonEntry... lessonEntries) {
+        mExecutors.diskIO().execute(() -> callback.onLessonEntryAdded(mLessonDao.insertEntry(lessonEntries)));
     }
 
 
@@ -278,12 +291,20 @@ public class CulaRepository {
     }
 
     /**
-     * Adds the given {@link LessonEntry}s to the Database. If the {@link LessonEntry} already exists, nothing is done.
+     * Updates the given {@link LessonEntry}s to the Database.
      *
-     * @param lessonEntries One or more {@link LessonEntry}s to add to the Database
+     * @param lessonEntries One or more {@link LessonEntry}s to update in the Database
      */
-    public void insertLessonEntry(LessonEntry... lessonEntries) {
-        mExecutors.diskIO().execute(() -> mLessonDao.insertEntry(lessonEntries));
+    public void updateLessonEntry(LessonEntry... lessonEntries) {
+        mExecutors.diskIO().execute(() -> mLessonDao.updateEntry(lessonEntries));
+    }
+
+    /**
+     * A callback when one or more {@link LessonEntry}s were added to the database.
+     * Contains the Ids of the new entries
+     */
+    public interface OnLessonEntryAddedListener {
+        void onLessonEntryAdded(long[] ids);
     }
 
     /**

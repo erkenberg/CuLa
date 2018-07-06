@@ -76,21 +76,21 @@
                 android:focusable="true"
                 android:onClick="commitLessonEntry"
                 android:text="@string/update_library_button_save_word"
-                app:layout_constraintEnd_toStartOf="@+id/button_add_lesson_return"
+                app:layout_constraintEnd_toStartOf="@+id/button_return"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_add_lesson_description" />
 
             <Button
-                android:id="@+id/button_add_lesson_return"
+                android:id="@+id/button_return"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:focusable="true"
-                android:onClick="commitLessonEntry"
-                android:text="@string/update_library_button_save_word_return"
+                android:onClick="returnWithoutSave"
+                android:text="@string/button_return"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/button_add_lesson"
                 app:layout_constraintTop_toBottomOf="@+id/et_add_lesson_description" />
@@ -107,7 +107,7 @@
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_add_lesson_return" />
+                app:layout_constraintTop_toBottomOf="@+id/button_return" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_lesson_mapping_list"

@@ -69,6 +69,7 @@
     <string name="update_lesson_hint_description">Add a description of the lesson</string>
     <string name="update_lesson_label_description">Lesson description</string>
     <string name="update_lesson_label_mapping">Library entries belonging to the lesson (autosaved)</string>
+    <string name="button_return">Return</string>
 
 
 </resources>

@@ -12,20 +12,33 @@ import java.util.List;
 /**
  * Viewmodel for the {@link UpdateLessonActivity}.
  */
-public class UpdateLessonViewModel extends ViewModel {
+class UpdateLessonViewModel extends ViewModel {
 
-    private final LiveData<LessonEntry> entry;
-    private final LiveData<List<MappingPOJO>> mapping;
+    private LiveData<LessonEntry> entry;
+    private LiveData<List<MappingPOJO>> mapping;
+    private CulaRepository mCulaRepository;
 
     /**
      * Constructor.
      *
-     * @param repository Takes the CulaRepository
-     * @param entryId    Id of the {@link LessonEntry} That should be loaded.
+     * @param repository Takes the {@link CulaRepository}
+     * @param entryId    Id of the {@link LessonEntry} which should be loaded.
      */
     UpdateLessonViewModel(CulaRepository repository, int entryId) {
-        entry = repository.getLessonEntry(entryId);
-        mapping = repository.getMappingEntries(entryId);
+        mCulaRepository = repository;
+        updateViewModel(entryId);
+    }
+
+    /**
+     * Update the {@link ViewModel} if entryId is  not -1.
+     *
+     * @param entryId Id of the {@link LessonEntry} which should be loaded.
+     */
+    void updateViewModel(int entryId) {
+        if (entryId != -1) {
+            entry = mCulaRepository.getLessonEntry(entryId);
+            mapping = mCulaRepository.getMappingEntries(entryId);
+        }
     }
 
     /**
@@ -33,7 +46,7 @@ public class UpdateLessonViewModel extends ViewModel {
      *
      * @return The {@link LiveData} wrapped {@link LessonEntry}
      */
-    public LiveData<LessonEntry> getEntry() {
+    LiveData<LessonEntry> getEntry() {
         return entry;
     }
 
@@ -43,7 +56,7 @@ public class UpdateLessonViewModel extends ViewModel {
      *
      * @return The {@link LiveData} wrapped the {@link List} of {@link MappingPOJO}s.
      */
-    public LiveData<List<MappingPOJO>> getMapping() {
+    LiveData<List<MappingPOJO>> getMapping() {
         return mapping;
     }
 }

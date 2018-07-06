@@ -1,6 +1,7 @@
 package org.liebald.android.cula.ui.updateLesson;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
@@ -21,7 +23,7 @@ import org.liebald.android.cula.data.database.Entities.MappingPOJO;
 import org.liebald.android.cula.databinding.ActivityUpdateLessonBinding;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
-public class UpdateLessonActivity extends AppCompatActivity implements UpdateLessonRecyclerViewAdapter.OnItemClickListener {
+public class UpdateLessonActivity extends AppCompatActivity implements UpdateLessonRecyclerViewAdapter.OnItemClickListener, CulaRepository.OnLessonEntryAddedListener {
 
 
     /**
@@ -44,6 +46,7 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
     /**
      * The entryId of an entry that is updated. Only used when !=-1.
      */
+    //todo: move to viewmodel?
     private int entryId = -1;
 
     /**
@@ -61,52 +64,70 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //load databinding
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_update_lesson);
+
+        //get the Repository for db access
         mCulaRepository = InjectorUtils.provideRepository(this);
+
+        //enable the back button
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
-        Intent intent = getIntent();
-        int id;
+
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         //Make sure the keyboard doesn't show on activity start.
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        //create and set adapter for the mappings
         mAdapter = new UpdateLessonRecyclerViewAdapter(this);
         mBinding.recyclerViewLessonMappingList.setAdapter(mAdapter);
 
-        // If an existing entry should be updated:
-        if (intent.hasExtra(BUNDLE_EXTRA_UPDATE_KEY) && (id = intent.getIntExtra(BUNDLE_EXTRA_UPDATE_KEY, -1)) != -1) {
-            mBinding.buttonAddLesson.setVisibility(View.GONE);
+        //Get the intent that startet the activity for special treatments
+        Intent intent = getIntent();
+        int id = -1;
+        // If an existing entry should be updated the id of the entry is given:
+        if (intent.hasExtra(BUNDLE_EXTRA_UPDATE_KEY)) {
+            id = intent.getIntExtra(BUNDLE_EXTRA_UPDATE_KEY, -1);
+        }
+        //create the view model
+        UpdateLessonViewModelFactory viewModelFactory = new UpdateLessonViewModelFactory(mCulaRepository, id);
+        mViewModel = ViewModelProviders.of(this, viewModelFactory).get(UpdateLessonViewModel.class);
 
-
-            UpdateLessonViewModelFactory viewModelFactory = new UpdateLessonViewModelFactory(mCulaRepository, id);
-            mViewModel = ViewModelProviders.of(this, viewModelFactory).get(UpdateLessonViewModel.class);
-            mViewModel.getEntry().observe(this, lessonEntry -> {
-                if (lessonEntry == null)
-                    return;
-                mViewModel.getEntry().removeObservers(this);
-                mBinding.etAddLessonName.setText(lessonEntry.getLessonName());
-                mBinding.etAddLessonDescription.setText(lessonEntry.getLessonDescription());
-
-                entryId = lessonEntry.getId();
-            });
-
-            mViewModel.getMapping().observe(this, mappingPOJOList -> {
-                if (mappingPOJOList == null)
-                    return;
-                mViewModel.getEntry().removeObservers(this);
-                mAdapter.swapEntries(mappingPOJOList);
-                Log.d(UpdateLessonActivity.class.getSimpleName(), "Elements in mapping list: " + mappingPOJOList.size());
-                for (MappingPOJO pojo : mappingPOJOList)
-                    Log.d(UpdateLessonActivity.class.getSimpleName(), pojo.toString());
-
-            });
-
+        // Only when editing an existing lesson the UI should be filled
+        if (id != -1) {
+            updateUI();
         } else {
-            //TODO: anything to do if adding a new ViewModel?
+            mBinding.tvLabelAddLessonMappings.setVisibility(View.INVISIBLE);
         }
 
-
     }
+
+    /**
+     * Retrieves the mapping for the currently updated Lesson.
+     */
+    private void updateUI() {
+        mViewModel.getEntry().observe(this, lessonEntry -> {
+            if (lessonEntry == null)
+                return;
+            mViewModel.getEntry().removeObservers(this);
+            mBinding.etAddLessonName.setText(lessonEntry.getLessonName());
+            mBinding.etAddLessonDescription.setText(lessonEntry.getLessonDescription());
+            entryId = lessonEntry.getId();
+
+        });
+        mViewModel.getMapping().observe(this, mappingPOJOList -> {
+            if (mappingPOJOList == null)
+                return;
+            mViewModel.getEntry().removeObservers(this);
+            mAdapter.swapEntries(mappingPOJOList);
+            Log.d(UpdateLessonActivity.class.getSimpleName(), "Elements in mapping list: " + mappingPOJOList.size());
+            for (MappingPOJO pojo : mappingPOJOList)
+                Log.d(UpdateLessonActivity.class.getSimpleName(), pojo.toString());
+        });
+        mBinding.tvLabelAddLessonMappings.setVisibility(View.VISIBLE);
+    }
+
 
     /**
      * Callback for the add/update lesson button.
@@ -117,8 +138,8 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
     public void commitLessonEntry(View view) {
         String lessonName = mBinding.etAddLessonName.getText().toString().trim();
         String lessonDescription = mBinding.etAddLessonDescription.getText().toString().trim();
-        //TODO: replacable by snackbar?
         if (lessonName.isEmpty()) {
+            //TODO: replacable by snackbar?
             Toast.makeText(this, "Lesson name can't be empty", Toast.LENGTH_LONG).show();
             mBinding.etAddLessonName.requestFocus();
             return;
@@ -126,27 +147,36 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
 
         String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.settings_select_language_key), "");
         if (entryId != -1) {
-            //TODO: replace with update method?
-            mCulaRepository.insertLessonEntry(new LessonEntry(entryId, lessonName, lessonDescription, language));
+            mCulaRepository.updateLessonEntry(new LessonEntry(entryId, lessonName, lessonDescription, language));
+            //TODO: replace by snackbar?
+            Toast.makeText(this, "Updated lesson", Toast.LENGTH_LONG).show();
         } else {
-            mCulaRepository.insertLessonEntry(new LessonEntry(lessonName, lessonDescription, language));
-        }
-
-        if (view.getId() == R.id.button_add_lesson_return)
-            finish();
-        else {
-            // mBinding.editTextAddNativeWord.setText("");
-            // mBinding.editTextAddForeignWord.setText("");
-            //mBinding.editTextAddNativeWord.requestFocus();
+            mCulaRepository.insertLessonEntry(this, new LessonEntry(lessonName, lessonDescription, language));
             //TODO: replace by snackbar?
             Toast.makeText(this, "Added lesson", Toast.LENGTH_LONG).show();
         }
+
+        View v = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null)
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
+
+    /**
+     * Callback for the return button.
+     *
+     * @param view The view that was clicked.
+     */
+    public void returnWithoutSave(View view) {
+        finish();
+    }
+
 
     @Override
     public void onLessonEntryClick(CheckBox check, int id) {
-
-        //TODO: keep scrollposition on update.
+        //TODO: keep scroll position on update.
         if (mViewModel.getEntry().getValue() == null)
             return;
         if (check.isChecked()) {
@@ -156,4 +186,16 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
 
         }
     }
+
+    @Override
+    public void onLessonEntryAdded(long[] ids) {
+        //Currently we only add one lesson at a time, therefore we just check the first element.
+        if (ids.length > 0) {
+            entryId = (int) ids[0];
+            mViewModel.updateViewModel(entryId);
+            runOnUiThread(this::updateUI);
+        }
+    }
+
+
 }

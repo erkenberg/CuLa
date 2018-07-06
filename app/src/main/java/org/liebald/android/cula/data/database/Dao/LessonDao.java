@@ -6,6 +6,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
@@ -27,9 +28,18 @@ public interface LessonDao {
      * The required uniqueness of these values is defined in the {@link LessonEntry}.
      *
      * @param lessonEntries A list of {@link LessonEntry}s to insert
+     * @return The ids of the new {@link LessonEntry}s.
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertEntry(LessonEntry... lessonEntries);
+    long[] insertEntry(LessonEntry... lessonEntries);
+
+    /**
+     * Updates a {@link LessonEntry} into the lessons table.
+     *
+     * @param lessonEntries A list of {@link LessonEntry}s to update
+     */
+    @Update
+    void updateEntry(LessonEntry... lessonEntries);
 
     @Delete
     void deleteEntry(LessonEntry... lessonEntries);
