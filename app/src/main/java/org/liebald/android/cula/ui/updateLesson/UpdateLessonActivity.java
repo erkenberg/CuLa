@@ -8,6 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -81,6 +82,7 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
 
         //create and set adapter for the mappings
         mAdapter = new UpdateLessonRecyclerViewAdapter(this);
+        mBinding.recyclerViewLessonMappingList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mBinding.recyclerViewLessonMappingList.setAdapter(mAdapter);
 
         //Get the intent that startet the activity for special treatments

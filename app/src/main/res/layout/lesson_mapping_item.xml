@@ -8,29 +8,37 @@
         android:id="@+id/cb_lesson_mapping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp" />
+        android:layout_margin="4dp"
+        android:scaleX="1.4"
+        android:scaleY="1.4" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/grey" />
 
     <TextView
         android:id="@+id/tv_lesson_mapping_native_word"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_margin="4dp"
-        android:layout_weight="1"
+        android:layout_weight="5"
+        android:padding="4dp"
         android:gravity="center_vertical"
         tools:text="Native Word" />
 
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark" />
+        android:background="@color/grey" />
 
     <TextView
         android:id="@+id/tv_lesson_mapping_foreign_word"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-
-        android:layout_margin="4dp"
-        android:layout_weight="1"
+        android:layout_weight="6"
+        android:padding="4dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
         android:gravity="center_vertical"
         tools:text="Foreign Word" />
 </LinearLayout>

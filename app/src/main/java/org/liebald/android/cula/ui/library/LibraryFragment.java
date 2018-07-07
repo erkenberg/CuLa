@@ -85,15 +85,6 @@ public class LibraryFragment extends Fragment implements
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mBinding.recyclerViewLibraryList);
 
-
-//        mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
-//            mAdapter.swapEntries(libraryEntries);
-//            if (mPosition == RecyclerView.NO_POSITION) {
-//                mPosition = 0;
-//            }
-//            mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
-//        });
-
         //Set the setOnClickListener for the Floating Action Button
         mBinding.fabAddWord.setOnClickListener(v -> updateLibraryActivity());
         mBinding.fabAddWord.setImageDrawable(new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_plus).color(Color.WHITE).sizeDp(24));
