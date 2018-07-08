@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/library_coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_label_start_training_instructions"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/start_training_label_instructions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_label_start_training_number_of_words"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/start_training_label_number_of_words"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_start_training_instructions" />
+
+        <TextView
+            android:id="@+id/tv_label_start_training_lesson"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/start_training_label_lesson"
+            app:layout_constraintStart_toStartOf="@+id/tv_label_start_training_number_of_words"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_start_training_number_of_words" />
+
+        <TextView
+            android:id="@+id/tv_label_start_training_knowledge_level"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/start_training_label_knowledge_level"
+            app:layout_constraintStart_toStartOf="@+id/tv_label_start_training_lesson"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_start_training_lesson" />
+
+        <Spinner
+            android:id="@+id/sp_start_training_number_of_words"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_label_start_training_number_of_words"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/tv_label_start_training_number_of_words"
+            app:layout_constraintTop_toTopOf="@+id/tv_label_start_training_number_of_words" />
+
+        <Spinner
+            android:id="@+id/sp_start_training_lesson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_label_start_training_lesson"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/tv_label_start_training_lesson"
+            app:layout_constraintTop_toTopOf="@+id/tv_label_start_training_lesson" />
+
+        <Spinner
+            android:id="@+id/sp_start_training_knowledge_level_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_label_start_training_knowledge_level"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/tv_label_start_training_knowledge_level"
+            app:layout_constraintTop_toTopOf="@+id/tv_label_start_training_knowledge_level" />
+
+        <Spinner
+            android:id="@+id/sp_start_training_knowledge_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_label_start_training_knowledge_level"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/sp_start_training_knowledge_level_range"
+            app:layout_constraintTop_toTopOf="@+id/tv_label_start_training_knowledge_level" />
+
+
+        <Button
+            android:id="@+id/button_add_word_pair_return"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:focusable="true"
+            android:onClick="startTraining"
+            android:text="@string/start_training_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_start_training_knowledge_level" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -20,14 +20,14 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a list of {@link LessonEntry}s.
  */
-public class LessonsFragmentRecyclerViewAdapter extends
-        RecyclerView.Adapter<LessonsFragmentRecyclerViewAdapter.ViewHolder> {
+public class LessonsRecyclerViewAdapter extends
+        RecyclerView.Adapter<LessonsRecyclerViewAdapter.ViewHolder> {
 
     private final OnItemClickListener mListener;
 
     private List<LessonEntry> mValues;
 
-    LessonsFragmentRecyclerViewAdapter(OnItemClickListener listener) {
+    LessonsRecyclerViewAdapter(OnItemClickListener listener) {
         mValues = new ArrayList<>();
         mListener = listener;
     }

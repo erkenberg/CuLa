@@ -26,6 +26,7 @@ import org.liebald.android.cula.ui.lessons.LessonsViewModelFactory;
 import org.liebald.android.cula.ui.library.LibraryViewModelFactory;
 import org.liebald.android.cula.ui.quote.QuoteViewModelFactory;
 import org.liebald.android.cula.ui.settings.SettingsViewModelFactory;
+import org.liebald.android.cula.ui.startTraining.StartTrainingViewModelFactory;
 
 /**
  * Provides static methods to inject the various classes needed for Sunshine
@@ -90,5 +91,14 @@ public class InjectorUtils {
         return new QuoteViewModelFactory(repository);
     }
 
-
+    /**
+     * Returns the {@link StartTrainingViewModelFactory} with access to the {@link CulaRepository}.
+     *
+     * @param context {@link Context} of the Fragment using the {@link StartTrainingViewModelFactory}
+     * @return The {@link StartTrainingViewModelFactory}.
+     */
+    public static StartTrainingViewModelFactory provideStartTrainingViewModelFactory(Context context) {
+        CulaRepository repository = provideRepository(context.getApplicationContext());
+        return new StartTrainingViewModelFactory(repository);
+    }
 }

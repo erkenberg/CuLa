@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * {@link ViewModel} for the {@link LessonsFragment}.
  */
-public class LessonsFragmentViewModel extends ViewModel {
+public class LessonsViewModel extends ViewModel {
 
     private LiveData<List<LessonEntry>> mLessonEntries;
     private CulaRepository mCulaRepository;
@@ -26,7 +26,7 @@ public class LessonsFragmentViewModel extends ViewModel {
      *
      * @param repository The repository needed for data operations.
      */
-    LessonsFragmentViewModel(CulaRepository repository) {
+    LessonsViewModel(CulaRepository repository) {
         mCulaRepository = repository;
     }
 
@@ -48,7 +48,7 @@ public class LessonsFragmentViewModel extends ViewModel {
         if (mLessonEntries == null || mLessonEntries.getValue() == null)
             return;
         latestDeletedEntry = mLessonEntries.getValue().get(index);
-        Log.d(LessonsFragmentViewModel.class.getSimpleName(), latestDeletedEntry.toString());
+        Log.d(LessonsViewModel.class.getSimpleName(), latestDeletedEntry.toString());
         mCulaRepository.deleteLessonEntry(latestDeletedEntry);
     }
 

@@ -55,14 +55,23 @@ public class UpdateLibraryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // create Databinding
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_update_library);
+
+        // get DB access
         mCulaRepository = InjectorUtils.provideRepository(this);
+
+        //set back button
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
-        int id;
+
+        // get the shared preferences
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        // if an ID is given as extra an existing entry should be loaded and updated instead of creating a new one.
+        int id;
         if (intent.hasExtra(BUNDLE_EXTRA_UPDATE_KEY) && (id = intent.getIntExtra(BUNDLE_EXTRA_UPDATE_KEY, -1)) != -1) {
             mBinding.buttonAddWordPair.setVisibility(View.GONE);
             UpdateLibraryViewModelFactory viewModelFactory = new UpdateLibraryViewModelFactory(mCulaRepository, id);
@@ -73,6 +82,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
                 viewModel.getEntry().removeObservers(this);
                 mBinding.editTextAddForeignWord.setText(libraryEntry.getForeignWord());
                 mBinding.editTextAddNativeWord.setText(libraryEntry.getNativeWord());
+
                 if (libraryEntry.getKnowledgeLevel() < 1.5)
                     setKnowledgeLevelUI("1");
                 else if (libraryEntry.getKnowledgeLevel() < 2.5)
@@ -87,9 +97,11 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             });
 
         } else {
+            //on creating a new entry load the default knowledgelevel set in the settings.
             setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string.settings_default_knowledgeLevel_key), "3"));
         }
 
+        //add an onCheckedChange listener to set the internal current knowledge level correctly.
         mBinding.radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_knowledgeLevel_1:

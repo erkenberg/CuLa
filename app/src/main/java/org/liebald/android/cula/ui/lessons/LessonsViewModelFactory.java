@@ -23,6 +23,6 @@ public class LessonsViewModelFactory extends ViewModelProvider.NewInstanceFactor
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new LessonsFragmentViewModel(mRepository);
+        return (T) new LessonsViewModel(mRepository);
     }
 }

@@ -51,26 +51,36 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        // set the correct preference layout
         addPreferencesFromResource(R.xml.fragment_settings);
+
+        // get the shared preferences
         if (getActivity() != null)
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        // get the ListPreference for the language settings (select, add, delete)
         mLanguageListPreference = (ListPreference) findPreference(getResources().getString(R.string.settings_select_language_key));
         Preference addLanguage = findPreference(getResources().getString(R.string.settings_add_language_key));
+        Preference deleteLanguage = findPreference(getResources().getString(R.string.settings_delete_language_key));
+
+        // set onClick listener for adding/deleting language buttons
         addLanguage.setOnPreferenceClickListener(preference -> {
             showAddLanguageDialog();
             return true;
         });
-        Preference deleteLanguage = findPreference(getResources().getString(R.string.settings_delete_language_key));
         deleteLanguage.setOnPreferenceClickListener(preference -> {
             deleteLanguageDialog();
             return true;
         });
 
+        // get the ViewModel
         if (getContext() != null) {
             SettingsViewModelFactory factory = InjectorUtils.provideLanguageViewModelFactory(getContext());
             mViewModel = ViewModelProviders.of(getActivity(), factory).get(SettingsFragmentViewModel.class);
         }
+        //Load the language entries and update the ListPreference
         mViewModel.getLanguageEntries().observe(this, this::updateLanguageList);
+
 
         onSharedPreferenceChanged(sharedPreferences, getString(R.string.settings_select_language_key));
 
@@ -154,7 +164,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Preference preference = findPreference(key);
-        //check
+        //check which preference changed and update the summary correctly.
         if (preference instanceof ListPreference && key.equals(getResources().getString(R.string.settings_select_language_key))) {
             ListPreference listPreference = (ListPreference) preference;
             int index = listPreference.findIndexOfValue(sharedPreferences.getString(key, getResources().getString(R.string.settings_select_language_default)));
@@ -162,10 +172,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 preference.setSummary(listPreference.getEntries()[index]);
                 Log.d(TAG, "SharedPreferences was set to: " + listPreference.getEntries()[index]);
             }
-
-        } else {
-            //todo: implement logic for other preferences
-            preference.setSummary(sharedPreferences.getString(key, key));
+        } else if (preference instanceof ListPreference && key.equals(getResources().getString(R.string.settings_default_knowledgeLevel_key))) {
+            ListPreference listPreference = (ListPreference) preference;
+            preference.setSummary(listPreference.getEntry());
         }
     }
 

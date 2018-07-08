@@ -34,15 +34,15 @@ import org.liebald.android.cula.utilities.InjectorUtils;
  */
 public class LessonsFragment extends Fragment implements
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
-        LessonsFragmentRecyclerViewAdapter.OnItemClickListener {
+        LessonsRecyclerViewAdapter.OnItemClickListener {
 
     private static final String TAG = LessonsFragment.class.getSimpleName();
     private int mPosition = RecyclerView.NO_POSITION;
     private FragmentLessonsBinding mBinding;
 
-    private LessonsFragmentViewModel mViewModel;
+    private LessonsViewModel mViewModel;
 
-    private LessonsFragmentRecyclerViewAdapter mAdapter;
+    private LessonsRecyclerViewAdapter mAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -60,7 +60,7 @@ public class LessonsFragment extends Fragment implements
         if (getActivity() == null || getContext() == null)
             return;
         LessonsViewModelFactory factory = InjectorUtils.provideLessonsViewModelFactory(getContext());
-        mViewModel = ViewModelProviders.of(getActivity(), factory).get(LessonsFragmentViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity(), factory).get(LessonsViewModel.class);
 
     }
 
@@ -79,7 +79,7 @@ public class LessonsFragment extends Fragment implements
             return mBinding.getRoot();
         ;
         mBinding.recyclerViewLessonsList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        mAdapter = new LessonsFragmentRecyclerViewAdapter(this);
+        mAdapter = new LessonsRecyclerViewAdapter(this);
         mBinding.recyclerViewLessonsList.setAdapter(mAdapter);
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
@@ -99,7 +99,7 @@ public class LessonsFragment extends Fragment implements
      */
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof LessonsFragmentRecyclerViewAdapter.ViewHolder) {
+        if (viewHolder instanceof LessonsRecyclerViewAdapter.ViewHolder) {
 
             final int deletedIndex = viewHolder.getAdapterPosition();
             // remove the item from the viewModel

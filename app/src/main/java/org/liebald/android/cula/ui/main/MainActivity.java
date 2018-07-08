@@ -18,7 +18,7 @@ import org.liebald.android.cula.ui.lessons.LessonsFragment;
 import org.liebald.android.cula.ui.library.LibraryFragment;
 import org.liebald.android.cula.ui.quote.QuoteFragment;
 import org.liebald.android.cula.ui.settings.SettingsFragment;
-import org.liebald.android.cula.ui.train.CardBoxFragment;
+import org.liebald.android.cula.ui.startTraining.StartTrainingFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
                     selectItem(drawerItem.getIdentifier());
                     return true;
                 })
-                .withSelectedItem(DRAWER_LESSONS_KEY)
+                .withSelectedItem(DRAWER_TRAIN_KEY)
                 .build();
 
         drawer.closeDrawer();
-        selectItem(DRAWER_LESSONS_KEY);
+        selectItem(DRAWER_TRAIN_KEY);
     }
 
 
@@ -93,12 +93,11 @@ public class MainActivity extends AppCompatActivity {
             case DRAWER_LESSONS_KEY:
                 fragment = new LessonsFragment();
                 break;
+            case DRAWER_TRAIN_KEY:
+                fragment = new StartTrainingFragment();
+                break;
             default:
-                //TODO:remove dummy default
-                fragment = new CardBoxFragment();
-                Bundle args = new Bundle();
-                args.putString("text", Long.toString(identifier));
-                fragment.setArguments(args);
+                return;
         }
 
         drawer.closeDrawer();
