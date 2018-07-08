@@ -103,6 +103,7 @@ public class StartTrainingFragment extends Fragment {
                         R.array.training_number_of_words, android.R.layout.simple_spinner_item);
         num_words_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBinding.spStartTrainingNumberOfWords.setAdapter(num_words_adapter);
+        mBinding.spStartTrainingNumberOfWords.setSelection(1);
 
         // Set the correct Entries for the Knowledge Level Range Spinner.
         ArrayAdapter<CharSequence> knowledgeLevel_range_adapter =
@@ -111,6 +112,7 @@ public class StartTrainingFragment extends Fragment {
         knowledgeLevel_range_adapter.setDropDownViewResource(android.R.layout
                 .simple_spinner_dropdown_item);
         mBinding.spStartTrainingKnowledgeLevelRange.setAdapter(knowledgeLevel_range_adapter);
+        mBinding.spStartTrainingKnowledgeLevelRange.setSelection(1);
 
         // Set the correct Entries for the Knowledge Level Spinner.
         ArrayAdapter<CharSequence> knowledgeLevel_adapter =
