@@ -85,4 +85,6 @@
     <string name="start_training_number_of_words_large" translatable="false">25</string>
     <string name="start_training_number_of_words_all">all</string>
     <string name="start_training_lessons_any">Any</string>
+    <string name="start_training_label_reverse_training">Reverse Training:</string>
+
 </resources>

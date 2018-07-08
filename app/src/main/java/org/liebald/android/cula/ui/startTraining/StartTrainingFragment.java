@@ -2,6 +2,7 @@ package org.liebald.android.cula.ui.startTraining;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.databinding.FragmentStartTrainingBinding;
+import org.liebald.android.cula.ui.training.TrainingActivity;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
 import java.util.Objects;
@@ -29,19 +31,28 @@ public class StartTrainingFragment extends Fragment {
      * {@link Bundle} key for the amount of words to be trained.
      */
     public static final String BUNDLE_EXTRA_NUMWORDS_KEY = "NumberOfWords";
+
     /**
      * {@link Bundle} key for the Lesson to be trained.
      */
     public static final String BUNDLE_EXTRA_LESSON_KEY = "Lesson";
+
     /**
      * {@link Bundle} key for the KnowledgeLevel of words to be trained.
      */
     public static final String BUNDLE_EXTRA_KNOWLEDGE_LEVEL_KEY = "KnowledgeLevel";
+
     /**
      * {@link Bundle} key for the KnowledgeLevel range of words to be trained
      * (exactly the knowledge level or also higher/lower).
      */
     public static final String BUNDLE_EXTRA_KNOWLEDGE_LEVEL_RANGE_KEY = "KnowledgeLevelRange";
+
+    /**
+     * {@link Bundle} key for the boolean indicating whether the training should be reversed.
+     */
+    public static final String BUNDLE_EXTRA_REVERSE_TRAINING_KEY = "ReverseTraining";
+
     /**
      * Tag for logging.
      */
@@ -127,7 +138,6 @@ public class StartTrainingFragment extends Fragment {
                 mBinding.spStartTrainingLesson.setAdapter(lesson_adapter);
             }
         });
-
         return mBinding.getRoot();
     }
 
@@ -139,9 +149,21 @@ public class StartTrainingFragment extends Fragment {
     public void startTraining(View view) {
         Toast.makeText(getContext(), "Starting Training", Toast.LENGTH_SHORT).show();
 
+        Intent intent = new Intent(getContext(), TrainingActivity.class);
+        intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_KEY, (String) mBinding
+                .spStartTrainingKnowledgeLevel.getSelectedItem());
+        intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_RANGE_KEY, (String) mBinding
+                .spStartTrainingKnowledgeLevelRange.getSelectedItem());
+        intent.putExtra(BUNDLE_EXTRA_LESSON_KEY, (String) mBinding.spStartTrainingLesson
+                .getSelectedItem());
+        intent.putExtra(BUNDLE_EXTRA_NUMWORDS_KEY, (String) mBinding.spStartTrainingNumberOfWords
+                .getSelectedItem());
+        intent.putExtra(BUNDLE_EXTRA_REVERSE_TRAINING_KEY, mBinding
+                .swStartTrainingReverseTraining.isChecked());
+
+        startActivity(intent);
 
         //TODO: save selected options to sharedParameters for next session
-        //TODO: pass selected parameters as options to training activity
         //TODO: start training activity
     }
 

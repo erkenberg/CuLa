@@ -27,6 +27,8 @@
         <activity
             android:name=".ui.updateLesson.UpdateLessonActivity"
             android:parentActivityName=".ui.main.MainActivity" />
+        <activity android:name=".ui.training.TrainingActivity" />
+
         <service
             android:exported="false"
             android:name=".services.UpdateQuoteJobService">
