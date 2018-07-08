@@ -49,7 +49,7 @@
     <string name="settings_default_knowledgeLevel_summary">@string/knowledgeLevel3</string>
 
     <!-- Knowledge Levels-->
-    <string name="knowledgeLevel1">None</string>
+    <string name="knowledgeLevel1">Unknown</string>
     <string name="knowledgeLevel2">Bad</string>
     <string name="knowledgeLevel3">Average</string>
     <string name="knowledgeLevel4">Good</string>
@@ -59,6 +59,7 @@
     <string name="knowledgeLevel3_key" translatable="false">3</string>
     <string name="knowledgeLevel4_key" translatable="false">4</string>
     <string name="knowledgeLevel5_key" translatable="false">5</string>
+
 
     <!-- Lesson Overview Strings -->
     <string name="lesson_deleted">Lesson deleted</string>
@@ -73,9 +74,15 @@
     <!-- Start Training strings-->
     <string name="start_training_label_instructions">Select your training settings:</string>
     <string name="start_training_label_lesson">Lesson:</string>
-    <string name="start_training_label_number_of_words">Number of words:</string>
-    <string name="start_training_label_knowledge_level">Knowledge level:</string>
+    <string name="start_training_label_number_of_words">Number of Words:</string>
+    <string name="start_training_label_knowledge_level">Knowledge Level:</string>
     <string name="start_training_button">Start Training</string>
-
-
+    <string name="start_training_knowledgeLevel_range_less_or_equal" translatable="false"><![CDATA[<=]]></string>
+    <string name="start_training_knowledgeLevel_range_equal" translatable="false">=</string>
+    <string name="start_training_knowledgeLevel_range_more_or_equal" translatable="false"><![CDATA[>=]]></string>
+    <string name="start_training_number_of_words_small" translatable="false">5</string>
+    <string name="start_training_number_of_words_medium" translatable="false">10</string>
+    <string name="start_training_number_of_words_large" translatable="false">25</string>
+    <string name="start_training_number_of_words_all">all</string>
+    <string name="start_training_lessons_any">Any</string>
 </resources>

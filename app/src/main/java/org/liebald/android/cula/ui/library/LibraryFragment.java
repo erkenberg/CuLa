@@ -68,7 +68,6 @@ public class LibraryFragment extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //initialize Data Binding
-
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_library, container, false);
 
         // Set the adapter
@@ -77,7 +76,7 @@ public class LibraryFragment extends Fragment implements
 
         if (getContext() == null)
             return mBinding.getRoot();
-        ;
+
         mBinding.recyclerViewLibraryList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mAdapter = new LibraryFragmentRecyclerViewAdapter(this, getContext());
         mBinding.recyclerViewLibraryList.setAdapter(mAdapter);

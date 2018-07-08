@@ -14,11 +14,25 @@
         <item>@string/knowledgeLevel4</item>
         <item>@string/knowledgeLevel5</item>
     </string-array>
+
     <string-array name="knowledgeLevel_value">
         <item>@string/knowledgeLevel1_key</item>
         <item>@string/knowledgeLevel2_key</item>
         <item>@string/knowledgeLevel3_key</item>
         <item>@string/knowledgeLevel4_key</item>
         <item>@string/knowledgeLevel5_key</item>
+    </string-array>
+
+    <string-array name="knowledgeLevel_range">
+        <item>@string/start_training_knowledgeLevel_range_less_or_equal</item>
+        <item>@string/start_training_knowledgeLevel_range_equal</item>
+        <item>@string/start_training_knowledgeLevel_range_more_or_equal</item>
+    </string-array>
+
+    <string-array name="training_number_of_words">
+        <item>@string/start_training_number_of_words_small</item>
+        <item>@string/start_training_number_of_words_medium</item>
+        <item>@string/start_training_number_of_words_large</item>
+        <item>@string/start_training_number_of_words_all</item>
     </string-array>
 </resources>
