@@ -43,6 +43,7 @@ import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 import org.liebald.android.cula.services.UpdateQuoteJobService;
 import org.liebald.android.cula.utilities.AppExecutors;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,13 +57,15 @@ public class CulaRepository {
         mExecutors.diskIO().execute(mLibraryDao::deleteAll);
         insertLanguageEntry(new LanguageEntry("German"));
         insertLanguageEntry(new LanguageEntry("Greek"));
-        insertLibraryEntry(new LibraryEntry(1, "native1", "foreign", "German", 1.1));
-        insertLibraryEntry(new LibraryEntry(2, "native2", "foreign2", "German", 2.2));
-        insertLibraryEntry(new LibraryEntry(3, "native3", "foreign3", "German", 3.3));
-        insertLibraryEntry(new LibraryEntry(4, "native4", "foreign4", "German", 4.4));
-        insertLibraryEntry(new LibraryEntry(5, "native5", "foreign5", "German", 4.8));
-        insertLibraryEntry(new LibraryEntry(6, "native6", "foreign6", "Greek", 2));
-        insertLibraryEntry(new LibraryEntry(7, "native7", "foreign7", "Greek", 4));
+        insertLibraryEntry(new LibraryEntry(1, "native1", "foreign", "German", 1.1, new Date()));
+        insertLibraryEntry(new LibraryEntry(2, "native2", "foreign2", "German", 2.2, new Date()));
+        insertLibraryEntry(new LibraryEntry(3, "native3", "foreign3", "German", 3.3, new Date()));
+        insertLibraryEntry(new LibraryEntry(4, "native4", "foreign4", "German", 4.4, new Date()));
+        insertLibraryEntry(new LibraryEntry(5, "native5", "foreign5", "German", 4.8, new Date()));
+        insertLibraryEntry(new LibraryEntry(6, "native6", "foreign6", "Greek", 2, new Date()));
+        insertLibraryEntry(new LibraryEntry(7, "native7", "foreign7", "Greek", 4, new Date()));
+        insertLibraryEntry(new LibraryEntry(8, "native8", "foreign8", "Greek", 4, new Date()));
+
         insertQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text", "Stefan"));
 
         OnLessonEntryAddedListener dummyListener = ids -> {
@@ -72,9 +75,11 @@ public class CulaRepository {
         insertLessonEntry(dummyListener, new LessonEntry(3, "Test Lesson 3", "This lesson is for testing purposes", "Greek"));
         insertLessonMappingEntry(new LessonMappingEntry(1, 1, 1));
         insertLessonMappingEntry(new LessonMappingEntry(2, 1, 2));
-        insertLessonMappingEntry(new LessonMappingEntry(3, 2, 3));
-        insertLessonMappingEntry(new LessonMappingEntry(4, 3, 4));
-        insertLessonMappingEntry(new LessonMappingEntry(5, 3, 5));
+        insertLessonMappingEntry(new LessonMappingEntry(3, 2, 6));
+        insertLessonMappingEntry(new LessonMappingEntry(4, 2, 7));
+        insertLessonMappingEntry(new LessonMappingEntry(5, 2, 8));
+        insertLessonMappingEntry(new LessonMappingEntry(6, 3, 7));
+        insertLessonMappingEntry(new LessonMappingEntry(7, 3, 8));
 
         //print the current entries in the db to the log console.
         mExecutors.diskIO().execute(() ->
@@ -194,10 +199,8 @@ public class CulaRepository {
      * @return All {@link LibraryEntry}s.
      */
     public LiveData<List<LibraryEntry>> getAllLibraryEntries() {
-        //todo: find out how to use the string resource here instead of the hard coded key.
-        String language = mSharedPreferences.getString("languages", "123");
-        Log.d(TAG, "Retrieving all entries for selected Language: " + language);
-        return mLibraryDao.getAllEntries(language);
+        Log.d(TAG, "Retrieving all entries for selected Language: " + getCurrentLanguage());
+        return mLibraryDao.getAllEntries(getCurrentLanguage());
     }
 
     /**
@@ -284,10 +287,8 @@ public class CulaRepository {
      * @return All {@link LessonEntry}s.
      */
     public LiveData<List<LessonEntry>> getAllLessonEntries() {
-        //todo: find out how to use the string resource here instead of the hard coded key.
-        String language = mSharedPreferences.getString("languages", "123");
-        Log.d(TAG, "Retrieving all entries for selected Language: " + language);
-        return mLessonDao.getAllEntries(language);
+        Log.d(TAG, "Retrieving all entries for selected Language: " + getCurrentLanguage());
+        return mLessonDao.getAllEntries(getCurrentLanguage());
     }
 
     /**
@@ -354,10 +355,29 @@ public class CulaRepository {
      * @return {@link LiveData} with the {@link List} of @{@link MappingPOJO}s.
      */
     public LiveData<List<MappingPOJO>> getMappingEntries(int id) {
-        //todo: find out how to use the string resource here instead of the hard coded key.
-        String language = mSharedPreferences.getString("languages", "123");
-        return mLessonDao.getLessonMappingById(id, language);
+        return mLessonDao.getLessonMappingById(id, getCurrentLanguage());
     }
 
 
+    public LiveData<List<LibraryEntry>> getTrainingEntries(int number, int
+            minKnowledgeLevel, int maxKnowledgeLevel, int lessonId) {
+        return mLibraryDao.getTrainingEntries(getCurrentLanguage(), number, minKnowledgeLevel,
+                maxKnowledgeLevel, lessonId);
+    }
+
+    public LiveData<List<LibraryEntry>> getTrainingEntries(int number, int
+            minKnowledgeLevel, int maxKnowledgeLevel) {
+        return mLibraryDao.getTrainingEntries(getCurrentLanguage(), number, minKnowledgeLevel,
+                maxKnowledgeLevel);
+    }
+
+    /**
+     * Get the currently selected language.
+     *
+     * @return The currently selected language.
+     */
+    private String getCurrentLanguage() {
+        //todo: find out how to use the string resource here instead of the hard coded key.
+        return mSharedPreferences.getString("languages", "123");
+    }
 }

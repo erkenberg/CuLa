@@ -77,7 +77,6 @@ public class LessonsFragment extends Fragment implements
 
         if (getContext() == null)
             return mBinding.getRoot();
-        ;
         mBinding.recyclerViewLessonsList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mAdapter = new LessonsRecyclerViewAdapter(this);
         mBinding.recyclerViewLessonsList.setAdapter(mAdapter);

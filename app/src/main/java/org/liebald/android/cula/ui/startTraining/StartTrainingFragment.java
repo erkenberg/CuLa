@@ -162,11 +162,8 @@ public class StartTrainingFragment extends Fragment {
                 .getSelectedItem());
         intent.putExtra(BUNDLE_EXTRA_REVERSE_TRAINING_KEY, mBinding
                 .swStartTrainingReverseTraining.isChecked());
-
         startActivity(intent);
-
         //TODO: save selected options to sharedParameters for next session
-        //TODO: start training activity
     }
 
 }

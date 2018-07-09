@@ -16,6 +16,8 @@ import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.databinding.ActivityUpdateLibraryBinding;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
+import java.util.Date;
+
 public class UpdateLibraryActivity extends AppCompatActivity {
 
 
@@ -147,7 +149,8 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.settings_select_language_key), "");
         if (entryId != -1) {
             //TODO: replace with update method?
-            mCulaRepository.insertLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord, language, selectedKnowledgeLevel));
+            mCulaRepository.insertLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord,
+                    language, selectedKnowledgeLevel, new Date()));
         } else {
             mCulaRepository.insertLibraryEntry(new LibraryEntry(nativeWord, foreignWord, language, selectedKnowledgeLevel));
         }

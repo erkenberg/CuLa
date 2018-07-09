@@ -59,7 +59,8 @@ public interface LessonDao {
      *
      * @return {@link LiveData} with all @{@link LessonEntry}s.
      */
-    @Query("SELECT id, lessonName, lessonDescription, language FROM lesson WHERE language=:language ORDER BY lessonName DESC")
+    @Query("SELECT id, lessonName, lessonDescription, language FROM lesson WHERE " +
+            "language=:language ORDER BY lessonName DESC")
     LiveData<List<LessonEntry>> getAllEntries(String language);
 
 
@@ -98,9 +99,9 @@ public interface LessonDao {
      */
     //TODO: probably not the most efficient query.
     @Query("SELECT id, foreignWord, nativeWord, " +
-            "CASE WHEN EXISTS(SELECT Id FROM lesson_mapping WHERE libraryEntryId=library.id AND lessonEntryId=:id) THEN 1 ELSE 0 END AS partOfLesson " +
-            "FROM library  WHERE  language=:language" +
-            " ORDER BY partOfLesson DESC")
+            "CASE WHEN EXISTS(SELECT Id FROM lesson_mapping WHERE libraryEntryId=library.id AND " +
+            "lessonEntryId=:id) THEN 1 ELSE 0 END AS partOfLesson " +
+            "FROM library  WHERE  language=:language ORDER BY partOfLesson DESC")
     LiveData<List<MappingPOJO>> getLessonMappingById(int id, String language);
 
     /**

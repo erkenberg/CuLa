@@ -13,7 +13,8 @@ import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import java.util.List;
 
 /**
- * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase} related to the library.
+ * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase}
+ * related to the library.
  */
 @Dao
 public interface LibraryDao {
@@ -34,7 +35,8 @@ public interface LibraryDao {
      * @param language The Language that must be included in all returned libraryEntries.
      * @return {@link LiveData} with all matching @{@link LibraryEntry}s.
      */
-    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel FROM library WHERE language=:language ORDER by nativeWord desc")
+    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated FROM " +
+            "library WHERE language=:language ORDER by nativeWord desc")
     LiveData<List<LibraryEntry>> getAllEntries(String language);
 
     /**
@@ -43,7 +45,8 @@ public interface LibraryDao {
      * @param id The id of the entry.
      * @return {@link LiveData} with the @{@link LibraryEntry}.
      */
-    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel FROM library WHERE id=:id")
+    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated FROM " +
+            "library WHERE id=:id")
     LiveData<LibraryEntry> getEntryById(int id);
 
     /**
@@ -65,4 +68,22 @@ public interface LibraryDao {
      */
     @Delete
     void deleteEntry(LibraryEntry entry);
+
+
+    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated FROM " +
+            "library WHERE language=:language AND knowledgeLevel>=:minKnowledgeLevel AND " +
+            "knowledgeLevel<=:maxKnowledgeLevel ORDER by " +
+            "RANDOM() LIMIT :number")
+    LiveData<List<LibraryEntry>> getTrainingEntries(String language, int number, int
+            minKnowledgeLevel, int maxKnowledgeLevel);
+
+
+    @Query("SELECT library.id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated " +
+            "FROM library LEFT OUTER JOIN lesson_mapping ON library.id  = libraryEntryId WHERE " +
+            "language=:language AND knowledgeLevel>=:minKnowledgeLevel AND " +
+            "knowledgeLevel<=:maxKnowledgeLevel AND :lessonId=:lessonId ORDER by RANDOM() LIMIT " +
+            ":number")
+    LiveData<List<LibraryEntry>> getTrainingEntries(String language, int number, int
+            minKnowledgeLevel, int maxKnowledgeLevel, int lessonId);
+
 }

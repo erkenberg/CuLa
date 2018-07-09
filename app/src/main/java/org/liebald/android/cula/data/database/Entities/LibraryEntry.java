@@ -7,6 +7,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
@@ -52,17 +54,27 @@ public class LibraryEntry {
     private double knowledgeLevel;
 
     /**
+     * Timestamp when the {@link LibraryEntry} was last updated.
+     */
+    @NonNull
+    private Date lastUpdated;
+
+
+    /**
      * Constructor for an {@link LibraryEntry}.
      *
      * @param id          The Id of the @{@link LibraryEntry}.
      * @param nativeWord  The stored native language word.
      * @param foreignWord The translation of the word in the foreign language.
      * @param language The language this {@link LibraryEntry} belongs to.
-     * @param knowledgeLevel The knowledgeLevel of this {@link LanguageEntry}.
+     * @param knowledgeLevel The knowledgeLevel of this {@link LibraryEntry}.
+     * @param lastUpdated Timestamp of the last update of the {@link LibraryEntry}
      */
-    public LibraryEntry(int id, @NonNull String nativeWord, @NonNull String foreignWord, @NonNull String language, double knowledgeLevel) {
+    public LibraryEntry(int id, @NonNull String nativeWord, @NonNull String foreignWord, @NonNull
+            String language, double knowledgeLevel, @NonNull Date lastUpdated) {
         this(nativeWord, foreignWord, language, knowledgeLevel);
         this.id = id;
+        this.lastUpdated = lastUpdated;
     }
 
     /**
@@ -71,7 +83,7 @@ public class LibraryEntry {
      * @param nativeWord  The stored native language word.
      * @param foreignWord The translation of the word in the foreign language.
      * @param language The language this {@link LibraryEntry} belongs to.
-     * @param knowledgeLevel The knowledgeLevel of this {@link LanguageEntry}.
+     * @param knowledgeLevel The knowledgeLevel of this {@link LibraryEntry}.
      */
     @Ignore
     public LibraryEntry(@NonNull String nativeWord, @NonNull String foreignWord, @NonNull String language, double knowledgeLevel) {
@@ -79,6 +91,26 @@ public class LibraryEntry {
         this.foreignWord = foreignWord;
         this.knowledgeLevel = knowledgeLevel;
         this.language = language;
+        lastUpdated = new Date();
+    }
+
+    /**
+     * Constructor for an {@link LibraryEntry}.
+     *
+     * @param nativeWord     The stored native language word.
+     * @param foreignWord    The translation of the word in the foreign language.
+     * @param language       The language this {@link LibraryEntry} belongs to.
+     * @param knowledgeLevel The knowledgeLevel of this {@link LibraryEntry}.
+     * @param lastUpdated    Timestamp of the last update of the {@link LibraryEntry}
+     */
+    @Ignore
+    public LibraryEntry(@NonNull String nativeWord, @NonNull String foreignWord, @NonNull String
+            language, double knowledgeLevel, @NonNull Date lastUpdated) {
+        this.nativeWord = nativeWord;
+        this.foreignWord = foreignWord;
+        this.knowledgeLevel = knowledgeLevel;
+        this.language = language;
+        this.lastUpdated = lastUpdated;
     }
 
     /**
@@ -120,6 +152,15 @@ public class LibraryEntry {
     }
 
     /**
+     * Setter for the knowledge level of the {@link LibraryEntry}.
+     *
+     * @param knowledgeLevel knowledge level of the {@link LibraryEntry}.
+     */
+    public void setKnowledgeLevel(double knowledgeLevel) {
+        this.knowledgeLevel = knowledgeLevel;
+    }
+
+    /**
      * To which language as described in an {@link LanguageEntry} does this word belong.
      *
      * @return The language as word.
@@ -127,6 +168,26 @@ public class LibraryEntry {
     @NonNull
     public String getLanguage() {
         return language;
+    }
+
+
+    /**
+     * Get the date of the last update of the {@link LibraryEntry}-
+     *
+     * @return Date of the last update.
+     */
+    @NonNull
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    /**
+     * Setter for the update time of the {@link LibraryEntry}.
+     *
+     * @param lastUpdated time of the last update of {@link LibraryEntry}.
+     */
+    public void setLastUpdated(@NonNull Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     @Override
@@ -137,7 +198,7 @@ public class LibraryEntry {
                 ", foreignWord='" + foreignWord + '\'' +
                 ", language='" + language + '\'' +
                 ", knowledgeLevel=" + knowledgeLevel +
+                ", lastUpdated=" + lastUpdated +
                 '}';
-
     }
 }
