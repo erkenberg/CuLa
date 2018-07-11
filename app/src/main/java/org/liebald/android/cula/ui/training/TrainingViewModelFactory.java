@@ -10,13 +10,13 @@ public class TrainingViewModelFactory extends ViewModelProvider.NewInstanceFacto
 
     private final CulaRepository mCulaRepository;
     private final int mLessonId;
-    private final int mMinKnowledgeLevel;
-    private final int mMaxKnowledgeLevel;
+    private final double mMinKnowledgeLevel;
+    private final double mMaxKnowledgeLevel;
     private final int mAmount;
 
 
-    public TrainingViewModelFactory(CulaRepository culaRepository, int number, int
-            minKnowledgeLevel, int maxKnowledgeLevel, int lessonId) {
+    TrainingViewModelFactory(CulaRepository culaRepository, int number, double
+            minKnowledgeLevel, double maxKnowledgeLevel, int lessonId) {
         mCulaRepository = culaRepository;
         mLessonId = lessonId;
         mMinKnowledgeLevel = minKnowledgeLevel;

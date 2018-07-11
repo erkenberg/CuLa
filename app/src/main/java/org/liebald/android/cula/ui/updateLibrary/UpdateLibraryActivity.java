@@ -148,8 +148,8 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         }
         String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.settings_select_language_key), "");
         if (entryId != -1) {
-            //TODO: replace with update method?
-            mCulaRepository.insertLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord,
+            //TODO: knowledgeLevel is changed, even if not actually changed in the UI.
+            mCulaRepository.updateLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord,
                     language, selectedKnowledgeLevel, new Date()));
         } else {
             mCulaRepository.insertLibraryEntry(new LibraryEntry(nativeWord, foreignWord, language, selectedKnowledgeLevel));

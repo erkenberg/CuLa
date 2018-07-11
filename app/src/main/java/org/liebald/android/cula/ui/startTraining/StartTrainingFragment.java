@@ -38,15 +38,14 @@ public class StartTrainingFragment extends Fragment {
     public static final String BUNDLE_EXTRA_LESSON_KEY = "Lesson";
 
     /**
-     * {@link Bundle} key for the KnowledgeLevel of words to be trained.
+     * {@link Bundle} key for the minimum KnowledgeLevel of words to be trained.
      */
-    public static final String BUNDLE_EXTRA_KNOWLEDGE_LEVEL_KEY = "KnowledgeLevel";
+    public static final String BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MIN = "KnowledgeLevelMin";
 
     /**
-     * {@link Bundle} key for the KnowledgeLevel range of words to be trained
-     * (exactly the knowledge level or also higher/lower).
+     * {@link Bundle} key for the maximum KnowledgeLevel range of words to be trained.
      */
-    public static final String BUNDLE_EXTRA_KNOWLEDGE_LEVEL_RANGE_KEY = "KnowledgeLevelRange";
+    public static final String BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MAX = "KnowledgeLevelMax";
 
     /**
      * {@link Bundle} key for the boolean indicating whether the training should be reversed.
@@ -152,18 +151,74 @@ public class StartTrainingFragment extends Fragment {
         Toast.makeText(getContext(), "Starting Training", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(getContext(), TrainingActivity.class);
-        intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_KEY, (String) mBinding
-                .spStartTrainingKnowledgeLevel.getSelectedItem());
-        intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_RANGE_KEY, (String) mBinding
-                .spStartTrainingKnowledgeLevelRange.getSelectedItem());
-        intent.putExtra(BUNDLE_EXTRA_LESSON_KEY, (String) mBinding.spStartTrainingLesson
-                .getSelectedItem());
-        intent.putExtra(BUNDLE_EXTRA_NUMWORDS_KEY, (String) mBinding.spStartTrainingNumberOfWords
-                .getSelectedItem());
-        intent.putExtra(BUNDLE_EXTRA_REVERSE_TRAINING_KEY, mBinding
-                .swStartTrainingReverseTraining.isChecked());
+        intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MIN, getSelectedMinKnowledgeLevel());
+        intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MAX, getSelectedMaxKnowledgeLevel());
+        intent.putExtra(BUNDLE_EXTRA_LESSON_KEY, getSelectedLessonId());
+        intent.putExtra(BUNDLE_EXTRA_NUMWORDS_KEY, getSelectedNumWords());
+        intent.putExtra(BUNDLE_EXTRA_REVERSE_TRAINING_KEY, getSelectedReverseTraining());
         startActivity(intent);
         //TODO: save selected options to sharedParameters for next session
+    }
+
+    private double getSelectedMinKnowledgeLevel() {
+        int selectedLevel = mBinding.spStartTrainingKnowledgeLevel.getSelectedItemPosition() + 1;
+        switch (mBinding
+                .spStartTrainingKnowledgeLevelRange.getSelectedItemPosition()) {
+            case 0:
+                return 0;
+            default:
+                if (selectedLevel == 1)
+                    return 0;
+                return selectedLevel - 0.5;
+        }
+
+    }
+
+
+    private double getSelectedMaxKnowledgeLevel() {
+        int selectedLevel = mBinding.spStartTrainingKnowledgeLevel.getSelectedItemPosition() + 1;
+        switch (mBinding
+                .spStartTrainingKnowledgeLevelRange.getSelectedItemPosition()) {
+            case 2:
+                return 5;
+            default:
+                if (selectedLevel == 5)
+                    return 5;
+                return selectedLevel + 0.5;
+        }
+    }
+
+    /**
+     * Returns the id of the selected lesson.
+     *
+     * @return The id of the selected lesson (-1 if any is selected).
+     */
+    private int getSelectedLessonId() {
+        if (mViewModel.getLessonEntries().getValue() == null || mBinding.spStartTrainingLesson
+                .getSelectedItemPosition() == 0)
+            return -1;
+        return mViewModel.getLessonEntries().getValue().get(mBinding.spStartTrainingLesson
+                .getSelectedItemPosition() - 1).getId();
+    }
+
+    /**
+     * Returns how many words should be trained.
+     *
+     * @return The number of words to learn.
+     */
+    private int getSelectedNumWords() {
+        return Integer.parseInt(mBinding.spStartTrainingNumberOfWords
+                .getSelectedItem().toString());
+    }
+
+    /**
+     * Returns whether reverse training is selected.
+     *
+     * @return true if reverse training is activated, false otherwise.
+     */
+    private boolean getSelectedReverseTraining() {
+        return mBinding
+                .swStartTrainingReverseTraining.isChecked();
     }
 
 }

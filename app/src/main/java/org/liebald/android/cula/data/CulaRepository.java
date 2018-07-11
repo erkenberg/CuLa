@@ -235,6 +235,15 @@ public class CulaRepository {
     }
 
     /**
+     * Updates the given {@link LibraryEntry}s to the Database.
+     *
+     * @param libraryEntries One or more {@link LibraryEntry}s to update in the Database
+     */
+    public void updateLibraryEntry(LibraryEntry... libraryEntries) {
+        mExecutors.diskIO().execute(() -> mLibraryDao.updateEntry(libraryEntries));
+    }
+
+    /**
      * Get all {@link LanguageEntry}s.
      *
      * @return All {@link LanguageEntry}s.
@@ -359,14 +368,14 @@ public class CulaRepository {
     }
 
 
-    public LiveData<List<LibraryEntry>> getTrainingEntries(int number, int
-            minKnowledgeLevel, int maxKnowledgeLevel, int lessonId) {
+    public LiveData<List<LibraryEntry>> getTrainingEntries(int number, double
+            minKnowledgeLevel, double maxKnowledgeLevel, int lessonId) {
         return mLibraryDao.getTrainingEntries(getCurrentLanguage(), number, minKnowledgeLevel,
                 maxKnowledgeLevel, lessonId);
     }
 
-    public LiveData<List<LibraryEntry>> getTrainingEntries(int number, int
-            minKnowledgeLevel, int maxKnowledgeLevel) {
+    public LiveData<List<LibraryEntry>> getTrainingEntries(int number, double
+            minKnowledgeLevel, double maxKnowledgeLevel) {
         return mLibraryDao.getTrainingEntries(getCurrentLanguage(), number, minKnowledgeLevel,
                 maxKnowledgeLevel);
     }

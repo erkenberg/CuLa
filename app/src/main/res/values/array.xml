@@ -33,6 +33,6 @@
         <item>@string/start_training_number_of_words_small</item>
         <item>@string/start_training_number_of_words_medium</item>
         <item>@string/start_training_number_of_words_large</item>
-        <item>@string/start_training_number_of_words_all</item>
+        <item>@string/start_training_number_of_words_50</item>
     </string-array>
 </resources>

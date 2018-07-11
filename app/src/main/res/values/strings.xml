@@ -83,8 +83,11 @@
     <string name="start_training_number_of_words_small" translatable="false">5</string>
     <string name="start_training_number_of_words_medium" translatable="false">10</string>
     <string name="start_training_number_of_words_large" translatable="false">25</string>
-    <string name="start_training_number_of_words_all">all</string>
+    <string name="start_training_number_of_words_50" translatable="false">50</string>
     <string name="start_training_lessons_any">Any</string>
     <string name="start_training_label_reverse_training">Reverse Training:</string>
+    <string name="activity_training_button_check">Check</string>
+    <string name="activity_training_hint_translated_word">Translated word</string>
+    <string name="activity_training_label_translate_word">Translate the following word:</string>
 
 </resources>

@@ -6,6 +6,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
@@ -38,6 +39,14 @@ public interface LibraryDao {
     @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated FROM " +
             "library WHERE language=:language ORDER by nativeWord desc")
     LiveData<List<LibraryEntry>> getAllEntries(String language);
+
+    /**
+     * Updates a {@link LibraryEntry} into the library table.
+     *
+     * @param libraryEntries A list of {@link LibraryEntry}s to update
+     */
+    @Update
+    void updateEntry(LibraryEntry... libraryEntries);
 
     /**
      * Gets the {@link LibraryEntry} in the library database table with the given id.
@@ -74,8 +83,8 @@ public interface LibraryDao {
             "library WHERE language=:language AND knowledgeLevel>=:minKnowledgeLevel AND " +
             "knowledgeLevel<=:maxKnowledgeLevel ORDER by " +
             "RANDOM() LIMIT :number")
-    LiveData<List<LibraryEntry>> getTrainingEntries(String language, int number, int
-            minKnowledgeLevel, int maxKnowledgeLevel);
+    LiveData<List<LibraryEntry>> getTrainingEntries(String language, int number, double
+            minKnowledgeLevel, double maxKnowledgeLevel);
 
 
     @Query("SELECT library.id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated " +
@@ -83,7 +92,7 @@ public interface LibraryDao {
             "language=:language AND knowledgeLevel>=:minKnowledgeLevel AND " +
             "knowledgeLevel<=:maxKnowledgeLevel AND :lessonId=:lessonId ORDER by RANDOM() LIMIT " +
             ":number")
-    LiveData<List<LibraryEntry>> getTrainingEntries(String language, int number, int
-            minKnowledgeLevel, int maxKnowledgeLevel, int lessonId);
+    LiveData<List<LibraryEntry>> getTrainingEntries(String language, int number, double
+            minKnowledgeLevel, double maxKnowledgeLevel, int lessonId);
 
 }
