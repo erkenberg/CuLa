@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
      * @param identifier The fragment to load.
      */
     private void selectItem(long identifier) {
+
+        //TODO: proper fragment management on rotation
         // Create a new fragment and specify the planet to show based on position
         Fragment fragment;
         switch ((int) identifier) {

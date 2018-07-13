@@ -15,6 +15,7 @@ import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.databinding.ActivityTrainingBinding;
 import org.liebald.android.cula.ui.startTraining.StartTrainingFragment;
 import org.liebald.android.cula.utilities.InjectorUtils;
+import org.liebald.android.cula.utilities.KnowledgeLevelUtils;
 
 public class TrainingActivity extends AppCompatActivity {
 
@@ -70,7 +71,11 @@ public class TrainingActivity extends AppCompatActivity {
                     Log.d("TEST", "size: " + libraryEntries.size() + " entry 1: " +
                             libraryEntries.get(0).toString());
                     showNextWord();
-                } else Log.d("TEST", "size: 0");
+                } else {
+                    Toast.makeText(this, R.string.start_training_warning_no_matching_words, Toast
+                            .LENGTH_LONG)
+                            .show();
+                }
             }
         });
     }
@@ -105,22 +110,29 @@ public class TrainingActivity extends AppCompatActivity {
         }
         String typedTranslation = mBinding.etTranslatedWord.getText().toString().trim()
                 .toLowerCase();
-        String realTranslation;
+        LibraryEntry currentEntry = mViewModel.getCurrentWord();
+        String correctTranslation;
         if (!reverseTraining) {
-            realTranslation = mViewModel.getCurrentWord().getForeignWord().trim().toLowerCase();
+            correctTranslation = currentEntry.getForeignWord().trim().toLowerCase();
         } else
-            realTranslation = mViewModel.getCurrentWord().getNativeWord().trim().toLowerCase();
+            correctTranslation = currentEntry.getNativeWord().trim().toLowerCase();
 
 
-        //TODO: use snackbar
-        //TODO: update word in database.
-        if (typedTranslation.equals(realTranslation)) {
+        double updatedKnowledgeLevel;
+
+        if (typedTranslation.equals(correctTranslation)) {
             Toast.makeText(this, "correct", Toast.LENGTH_SHORT).show();
+            updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowlevelAdjustment(currentEntry
+                    .getKnowledgeLevel(), true);
         } else {
-            Toast.makeText(this, "wrong: " + typedTranslation + " " + realTranslation, Toast
-                    .LENGTH_LONG)
-                    .show();
+            Toast.makeText(this, "wrong: " + typedTranslation + " " + correctTranslation, Toast
+                    .LENGTH_SHORT).show();
+            updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowlevelAdjustment(currentEntry
+                    .getKnowledgeLevel(), false);
         }
+        currentEntry.setKnowledgeLevel(updatedKnowledgeLevel);
+
+        mCulaRepository.updateLibraryEntry(currentEntry);
         showNextWord();
     }
 }

@@ -72,12 +72,16 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         // get the shared preferences
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        // if an ID is given as extra an existing entry should be loaded and updated instead of creating a new one.
+        // if an ID is given as extra an existing entry should be loaded and updated instead of
+        // creating a new one.
         int id;
-        if (intent.hasExtra(BUNDLE_EXTRA_UPDATE_KEY) && (id = intent.getIntExtra(BUNDLE_EXTRA_UPDATE_KEY, -1)) != -1) {
+        if (intent.hasExtra(BUNDLE_EXTRA_UPDATE_KEY) && (id = intent.getIntExtra
+                (BUNDLE_EXTRA_UPDATE_KEY, -1)) != -1) {
             mBinding.buttonAddWordPair.setVisibility(View.GONE);
-            UpdateLibraryViewModelFactory viewModelFactory = new UpdateLibraryViewModelFactory(mCulaRepository, id);
-            final UpdateLibraryViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(UpdateLibraryViewModel.class);
+            UpdateLibraryViewModelFactory viewModelFactory = new UpdateLibraryViewModelFactory
+                    (mCulaRepository, id);
+            final UpdateLibraryViewModel viewModel = ViewModelProviders.of(this,
+                    viewModelFactory).get(UpdateLibraryViewModel.class);
             viewModel.getEntry().observe(this, libraryEntry -> {
                 if (libraryEntry == null)
                     return;
@@ -85,13 +89,13 @@ public class UpdateLibraryActivity extends AppCompatActivity {
                 mBinding.editTextAddForeignWord.setText(libraryEntry.getForeignWord());
                 mBinding.editTextAddNativeWord.setText(libraryEntry.getNativeWord());
 
-                if (libraryEntry.getKnowledgeLevel() < 1.5)
+                if (libraryEntry.getKnowledgeLevel() < 1)
                     setKnowledgeLevelUI("1");
-                else if (libraryEntry.getKnowledgeLevel() < 2.5)
+                else if (libraryEntry.getKnowledgeLevel() < 2)
                     setKnowledgeLevelUI("2");
-                else if (libraryEntry.getKnowledgeLevel() < 3.5)
+                else if (libraryEntry.getKnowledgeLevel() < 3)
                     setKnowledgeLevelUI("3");
-                else if (libraryEntry.getKnowledgeLevel() < 4.5)
+                else if (libraryEntry.getKnowledgeLevel() < 4)
                     setKnowledgeLevelUI("4");
                 else
                     setKnowledgeLevelUI("5");
@@ -99,27 +103,28 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             });
 
         } else {
-            //on creating a new entry load the default knowledgelevel set in the settings.
-            setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string.settings_default_knowledgeLevel_key), "3"));
+            //on creating a new entry load the default knowledgeLevel set in the settings.
+            setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string
+                    .settings_default_knowledgeLevel_key), "3.5"));
         }
 
         //add an onCheckedChange listener to set the internal current knowledge level correctly.
         mBinding.radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_knowledgeLevel_1:
-                    selectedKnowledgeLevel = 1;
+                    selectedKnowledgeLevel = 0.5;
                     break;
                 case R.id.rb_knowledgeLevel_2:
-                    selectedKnowledgeLevel = 2;
+                    selectedKnowledgeLevel = 1.5;
                     break;
                 case R.id.rb_knowledgeLevel_3:
-                    selectedKnowledgeLevel = 3;
+                    selectedKnowledgeLevel = 2.5;
                     break;
                 case R.id.rb_knowledgeLevel_4:
-                    selectedKnowledgeLevel = 4;
+                    selectedKnowledgeLevel = 3.5;
                     break;
                 case R.id.rb_knowledgeLevel_5:
-                    selectedKnowledgeLevel = 5;
+                    selectedKnowledgeLevel = 4.5;
                     break;
             }
         });
@@ -137,22 +142,26 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         String foreignWord = mBinding.editTextAddForeignWord.getText().toString().trim();
         //TODO: replacable by snackbar?
         if (nativeWord.isEmpty()) {
-            Toast.makeText(this, "Fill in the native word!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.update_library_warning_native_word_missing, Toast
+                    .LENGTH_LONG).show();
             mBinding.editTextAddNativeWord.requestFocus();
             return;
         }
         if (foreignWord.isEmpty()) {
-            Toast.makeText(this, "Please provide a translation", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.update_library_warning_foreign_word_missing, Toast
+                    .LENGTH_LONG).show();
             mBinding.editTextAddForeignWord.requestFocus();
             return;
         }
-        String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.settings_select_language_key), "");
+        String language = PreferenceManager.getDefaultSharedPreferences(this).getString
+                (getString(R.string.settings_select_language_key), "");
         if (entryId != -1) {
             //TODO: knowledgeLevel is changed, even if not actually changed in the UI.
             mCulaRepository.updateLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord,
                     language, selectedKnowledgeLevel, new Date()));
         } else {
-            mCulaRepository.insertLibraryEntry(new LibraryEntry(nativeWord, foreignWord, language, selectedKnowledgeLevel));
+            mCulaRepository.insertLibraryEntry(new LibraryEntry(nativeWord, foreignWord,
+                    language, selectedKnowledgeLevel));
         }
 
         if (view.getId() == R.id.button_add_word_pair_return)
@@ -163,7 +172,8 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             mBinding.editTextAddNativeWord.requestFocus();
             setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string.settings_default_knowledgeLevel_key), "3"));
             //TODO: replace by snackbar?
-            Toast.makeText(this, "Added word pair to library", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.update_library_success_entry_added, Toast.LENGTH_LONG)
+                    .show();
         }
     }
 

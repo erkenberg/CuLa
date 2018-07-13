@@ -27,9 +27,13 @@
     <string name="update_library_hint_native_word">Add the native word</string>
     <string name="update_library_button_save_word">Save</string>
     <string name="update_library_button_save_word_return">Save &amp; return</string>
-    <string name="update_library_button_label_knowledgeLevel">How well do you know this word pair already?</string>
+    <string name="update_library_button_label_knowledgeLevel">How well do you know this word pair
+        already?</string>
     <string name="update_library_label_native_word">Native Word:</string>
     <string name="update_library_label_foreign_word">Foreign Word:</string>
+    <string name="update_library_warning_native_word_missing">Fill in the native word!</string>
+    <string name="update_library_warning_foreign_word_missing">Please provide a translation</string>
+    <string name="update_library_success_entry_added">Added word pair to library</string>
 
     <!-- Settings Strings-->
     <string name="settings_select_language_key" translatable="false">languages</string>
@@ -41,8 +45,10 @@
     <string name="settings_add_language_summary">Add a new language</string>
     <string name="settings_delete_language_key" translatable="false">deleteLanguage</string>
     <string name="settings_delete_language_title">Delete Language</string>
-    <string name="settings_delete_language_summary">Delete the currently selected language and all words for it.</string>
-    <string name="settings_delete_language_title_warning">Really remove this language and all words belonging to it?</string>
+    <string name="settings_delete_language_summary">Delete the currently selected language and
+        all words for it.</string>
+    <string name="settings_delete_language_title_warning">Really remove this language and all
+        words belonging to it?</string>
     <string name="settings_default_knowledgeLevel_title">Default Knowledge Level</string>
     <string name="settings_default_knowledgeLevel_key" translatable="false">defaultKnowledgeLevel</string>
     <string name="settings_default_knowledgeLevel_default">3</string>
@@ -69,7 +75,8 @@
     <string name="update_lesson_hint_name">Add the name of the lesson</string>
     <string name="update_lesson_hint_description">Add a description of the lesson</string>
     <string name="update_lesson_label_description">Lesson description</string>
-    <string name="update_lesson_label_mapping">Library entries belonging to the lesson (autosaved)</string>
+    <string name="update_lesson_label_mapping">Library entries belonging to the lesson
+        (autosaved)</string>
 
     <!-- Start Training strings-->
     <string name="start_training_label_instructions">Select your training settings:</string>
@@ -77,17 +84,23 @@
     <string name="start_training_label_number_of_words">Number of Words:</string>
     <string name="start_training_label_knowledge_level">Knowledge Level:</string>
     <string name="start_training_button">Start Training</string>
-    <string name="start_training_knowledgeLevel_range_less_or_equal" translatable="false"><![CDATA[<=]]></string>
-    <string name="start_training_knowledgeLevel_range_equal" translatable="false">=</string>
-    <string name="start_training_knowledgeLevel_range_more_or_equal" translatable="false"><![CDATA[>=]]></string>
+    <string name="start_training_knowledgeLevel_range_less_or_equal" translatable="false">at most
+    </string>
+    <string name="start_training_knowledgeLevel_range_equal" translatable="false">exactly</string>
+    <string name="start_training_knowledgeLevel_range_more_or_equal" translatable="false">at least
+    </string>
     <string name="start_training_number_of_words_small" translatable="false">5</string>
     <string name="start_training_number_of_words_medium" translatable="false">10</string>
     <string name="start_training_number_of_words_large" translatable="false">25</string>
     <string name="start_training_number_of_words_50" translatable="false">50</string>
     <string name="start_training_lessons_any">Any</string>
     <string name="start_training_label_reverse_training">Reverse Training:</string>
+    <string name="start_training_warning_no_matching_words">No Words match your settings.</string>
+
+    <!-- Training strings-->
     <string name="activity_training_button_check">Check</string>
     <string name="activity_training_hint_translated_word">Translated word</string>
     <string name="activity_training_label_translate_word">Translate the following word:</string>
+
 
 </resources>

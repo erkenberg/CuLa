@@ -50,7 +50,9 @@ public class LibraryFragmentRecyclerViewAdapter extends
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.mNativeWordView.setText(mValues.get(position).getNativeWord());
         holder.mForeignWordView.setText(mValues.get(position).getForeignWord());
-        holder.viewForeground.setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel(mContext, mValues.get(position).getKnowledgeLevel()));
+        //TODO: KnowledgeLevel changes not always reflected in the color.
+        holder.viewForeground.setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
+                (mContext, mValues.get(position).getKnowledgeLevel()));
 
     }
 
@@ -89,8 +91,12 @@ public class LibraryFragmentRecyclerViewAdapter extends
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     LibraryEntry newEntry = newLibraryEntries.get(newItemPosition);
                     LibraryEntry oldEntry = mValues.get(oldItemPosition);
-                    return newEntry.getId() == oldEntry.getId()
-                            && newEntry.getForeignWord().equals(oldEntry.getForeignWord()) && newEntry.getNativeWord().equals(oldEntry.getNativeWord()) && newEntry.getKnowledgeLevel() == oldEntry.getKnowledgeLevel();
+                    return newEntry.getId() == oldEntry.getId() && newEntry.getForeignWord()
+                            .equals(oldEntry.getForeignWord()) && newEntry.getNativeWord().equals
+                            (oldEntry.getNativeWord()) && newEntry.getKnowledgeLevel() ==
+                            oldEntry.getKnowledgeLevel() && oldEntry.getLanguage().equals(newEntry
+                            .getLanguage()) && oldEntry.getLastUpdated().equals(newEntry
+                            .getLastUpdated());
                 }
             });
             mValues = newLibraryEntries;
