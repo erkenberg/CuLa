@@ -19,6 +19,8 @@ public class TrainingViewModel extends ViewModel {
 
     private int currentIndex;
 
+    private int lessonEntryId;
+
     /**
      * Constructor.
      *
@@ -38,7 +40,12 @@ public class TrainingViewModel extends ViewModel {
                     mMaxKnowledgeLevel, mLessonId);
         }
         currentIndex = -1;
+        lessonEntryId = mLessonId;
 
+    }
+
+    public int getLessonEntryId() {
+        return lessonEntryId;
     }
 
 
@@ -78,6 +85,24 @@ public class TrainingViewModel extends ViewModel {
      */
     public LibraryEntry getCurrentWord() {
         return Objects.requireNonNull(entries.getValue()).get(currentIndex);
+    }
+
+    /**
+     * Returns the current position to learn.
+     *
+     * @return The current position to learn.
+     */
+    public int getLearningSetPosition() {
+        return currentIndex + 1;
+    }
+
+    /**
+     * Returns the size of the learning set.
+     *
+     * @return The size of the current learningset.
+     */
+    public int getLearningSetSize() {
+        return Objects.requireNonNull(entries.getValue()).size();
     }
 
 }

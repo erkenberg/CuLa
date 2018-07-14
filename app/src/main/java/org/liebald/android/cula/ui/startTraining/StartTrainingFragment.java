@@ -160,11 +160,16 @@ public class StartTrainingFragment extends Fragment {
         //TODO: save selected options to sharedParameters for next session
     }
 
+    /**
+     * Calculate the minimum KnowledgeLevel based on the selected spinner.
+     *
+     * @return The minimum KnowledgeLevel to check
+     */
     private double getSelectedMinKnowledgeLevel() {
         int selectedLevel = mBinding.spStartTrainingKnowledgeLevel.getSelectedItemPosition() + 1;
         switch (mBinding
                 .spStartTrainingKnowledgeLevelRange.getSelectedItemPosition()) {
-            case 0:
+            case 2:
                 return 0;
             default:
                 if (selectedLevel == 1)
@@ -174,12 +179,16 @@ public class StartTrainingFragment extends Fragment {
 
     }
 
-
+    /**
+     * Calculate the Maximum KnowledgeLevel based on the selected spinner.
+     *
+     * @return The maximum KnowledgeLevel to check
+     */
     private double getSelectedMaxKnowledgeLevel() {
         int selectedLevel = mBinding.spStartTrainingKnowledgeLevel.getSelectedItemPosition() + 1;
         switch (mBinding
                 .spStartTrainingKnowledgeLevelRange.getSelectedItemPosition()) {
-            case 2:
+            case 0:
                 return 5;
             default:
                 if (selectedLevel == 5)

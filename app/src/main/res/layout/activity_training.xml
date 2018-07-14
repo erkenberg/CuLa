@@ -41,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_label_word_to_translate" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/bt_check"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,5 +51,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_translated_word" />
+
+        <TextView
+            android:id="@+id/tv_label_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_check" />
     </android.support.constraint.ConstraintLayout>
 </layout>

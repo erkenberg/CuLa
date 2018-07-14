@@ -101,6 +101,7 @@
     <string name="activity_training_button_check">Check</string>
     <string name="activity_training_hint_translated_word">Translated word</string>
     <string name="activity_training_label_translate_word">Translate the following word:</string>
+    <string name="activity_training_label_progress">Progress: %1$d from %2$d</string>
 
 
 </resources>

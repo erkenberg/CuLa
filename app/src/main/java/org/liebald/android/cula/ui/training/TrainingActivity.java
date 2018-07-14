@@ -12,6 +12,7 @@ import android.widget.Toast;
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
+import org.liebald.android.cula.data.database.Entities.StatisticEntry;
 import org.liebald.android.cula.databinding.ActivityTrainingBinding;
 import org.liebald.android.cula.ui.startTraining.StartTrainingFragment;
 import org.liebald.android.cula.utilities.InjectorUtils;
@@ -95,6 +96,8 @@ public class TrainingActivity extends AppCompatActivity {
                 mBinding.tvLabelWordToTranslate.setText(nextEntry.getNativeWord());
             else
                 mBinding.tvLabelWordToTranslate.setText(nextEntry.getForeignWord());
+            mBinding.tvLabelProgress.setText(getString(R.string.activity_training_label_progress,
+                    mViewModel.getLearningSetPosition(), mViewModel.getLearningSetSize()));
         }
     }
 
@@ -119,20 +122,26 @@ public class TrainingActivity extends AppCompatActivity {
 
 
         double updatedKnowledgeLevel;
+        boolean trainingCorrect = typedTranslation.equals(correctTranslation);
 
-        if (typedTranslation.equals(correctTranslation)) {
+        if (trainingCorrect) {
             Toast.makeText(this, "correct", Toast.LENGTH_SHORT).show();
             updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowlevelAdjustment(currentEntry
                     .getKnowledgeLevel(), true);
+            mCulaRepository.insertStatisticsEntry(new StatisticEntry(currentEntry.getId(),
+                    null, 1));
         } else {
             Toast.makeText(this, "wrong: " + typedTranslation + " " + correctTranslation, Toast
                     .LENGTH_SHORT).show();
             updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowlevelAdjustment(currentEntry
                     .getKnowledgeLevel(), false);
+            mCulaRepository.insertStatisticsEntry(new StatisticEntry(currentEntry.getId(),
+                    null, 0));
         }
         currentEntry.setKnowledgeLevel(updatedKnowledgeLevel);
 
         mCulaRepository.updateLibraryEntry(currentEntry);
+
         showNextWord();
     }
 }

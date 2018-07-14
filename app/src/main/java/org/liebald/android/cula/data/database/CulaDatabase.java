@@ -10,11 +10,13 @@ import org.liebald.android.cula.data.database.Dao.LanguageDao;
 import org.liebald.android.cula.data.database.Dao.LessonDao;
 import org.liebald.android.cula.data.database.Dao.LibraryDao;
 import org.liebald.android.cula.data.database.Dao.QuoteDao;
+import org.liebald.android.cula.data.database.Dao.StatisticsDao;
 import org.liebald.android.cula.data.database.Entities.LanguageEntry;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
+import org.liebald.android.cula.data.database.Entities.StatisticEntry;
 
 /**
  * The Room Database for the App.
@@ -25,7 +27,8 @@ import org.liebald.android.cula.data.database.Entities.QuoteEntry;
                 LanguageEntry.class,
                 QuoteEntry.class,
                 LessonEntry.class,
-                LessonMappingEntry.class},
+                LessonMappingEntry.class,
+                StatisticEntry.class},
         exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class CulaDatabase extends RoomDatabase {
@@ -73,5 +76,13 @@ public abstract class CulaDatabase extends RoomDatabase {
      * @return The {@link QuoteDao}.
      */
     public abstract LessonDao lessonDao();
+
+    /**
+     * Gain access to the {@link StatisticsDao} for interacting with the statistics related
+     * database parts.
+     *
+     * @return The {@link StatisticsDao}.
+     */
+    public abstract StatisticsDao statisticsDao();
 
 }

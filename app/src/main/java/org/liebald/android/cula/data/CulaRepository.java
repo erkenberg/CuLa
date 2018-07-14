@@ -34,12 +34,14 @@ import org.liebald.android.cula.data.database.Dao.LanguageDao;
 import org.liebald.android.cula.data.database.Dao.LessonDao;
 import org.liebald.android.cula.data.database.Dao.LibraryDao;
 import org.liebald.android.cula.data.database.Dao.QuoteDao;
+import org.liebald.android.cula.data.database.Dao.StatisticsDao;
 import org.liebald.android.cula.data.database.Entities.LanguageEntry;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.data.database.Entities.MappingPOJO;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
+import org.liebald.android.cula.data.database.Entities.StatisticEntry;
 import org.liebald.android.cula.services.UpdateQuoteJobService;
 import org.liebald.android.cula.utilities.AppExecutors;
 
@@ -110,6 +112,7 @@ public class CulaRepository {
     private final LanguageDao mLanguageDao;
     private final QuoteDao mQuoteDao;
     private final LessonDao mLessonDao;
+    private final StatisticsDao mStatisticsDao;
     private final AppExecutors mExecutors;
     private final SharedPreferences mSharedPreferences;
     private final Context mContext;
@@ -117,6 +120,7 @@ public class CulaRepository {
 
     private CulaRepository(CulaDatabase database, AppExecutors appExecutors, SharedPreferences sharedPreferences, Context context) {
         mLibraryDao = database.libraryDao();
+        mStatisticsDao = database.statisticsDao();
         mExecutors = appExecutors;
         mLanguageDao = database.languageDao();
         mQuoteDao = database.quoteDao();
@@ -389,4 +393,14 @@ public class CulaRepository {
         //todo: find out how to use the string resource here instead of the hard coded key.
         return mSharedPreferences.getString("languages", "123");
     }
+
+    /**
+     * Adds the given {@link StatisticEntry}s to the Database.
+     *
+     * @param statisticEntries One or more {@link StatisticEntry}s to add to the Database
+     */
+    public void insertStatisticsEntry(StatisticEntry... statisticEntries) {
+        mExecutors.diskIO().execute(() -> mStatisticsDao.insertEntry(statisticEntries));
+    }
+
 }
