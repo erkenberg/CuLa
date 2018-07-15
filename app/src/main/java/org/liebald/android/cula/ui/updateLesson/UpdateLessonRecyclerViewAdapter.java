@@ -33,14 +33,17 @@ public class UpdateLessonRecyclerViewAdapter extends
 
     @NonNull
     @Override
-    public UpdateLessonRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UpdateLessonRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup
+                                                                                 parent, int
+                                                                                 viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.lesson_mapping_item, parent, false);
         return new UpdateLessonRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final UpdateLessonRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final UpdateLessonRecyclerViewAdapter.ViewHolder
+                                         holder, int position) {
         holder.mNativeWord.setText(mValues.get(position).getNative_word());
         holder.mForeignWord.setText(mValues.get(position).getForeign_word());
         holder.mPartOfLesson.setChecked(mValues.get(position).partOfLesson);
@@ -113,7 +116,8 @@ public class UpdateLessonRecyclerViewAdapter extends
             mPartOfLesson = view.findViewById(R.id.cb_lesson_mapping);
             mNativeWord = view.findViewById(R.id.tv_lesson_mapping_native_word);
             mForeignWord = view.findViewById(R.id.tv_lesson_mapping_foreign_word);
-            mPartOfLesson.setOnClickListener(v -> mListener.onLessonEntryClick(mPartOfLesson, mValues.get(getAdapterPosition()).getLibraryId()));
+            mPartOfLesson.setOnClickListener(v -> mListener.onLessonEntryClick(mPartOfLesson,
+                    mValues.get(getAdapterPosition()).getLibraryId()));
         }
 
     }

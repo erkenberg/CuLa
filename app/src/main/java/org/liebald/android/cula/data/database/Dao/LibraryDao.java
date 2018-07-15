@@ -31,14 +31,15 @@ public interface LibraryDao {
     void insertEntry(LibraryEntry... libraryEntry);
 
     /**
-     * Gets all {@link LibraryEntry}s in the library database table matching the given language.
+     * Gets all {@link LibraryEntry}s in the library database table matching the current language.
      *
-     * @param language The Language that must be included in all returned libraryEntries.
      * @return {@link LiveData} with all matching @{@link LibraryEntry}s.
      */
-    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated FROM " +
-            "library WHERE language=:language ORDER by nativeWord desc")
-    LiveData<List<LibraryEntry>> getAllEntries(String language);
+    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated " +
+            "FROM library " +
+            "WHERE language = (SELECT language FROM language WHERE isActive=1 LIMIT 1) " +
+            "ORDER BY nativeWord DESC")
+    LiveData<List<LibraryEntry>> getAllEntries();
 
     /**
      * Updates a {@link LibraryEntry} into the library table.
@@ -79,20 +80,26 @@ public interface LibraryDao {
     void deleteEntry(LibraryEntry entry);
 
 
-    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated FROM " +
-            "library WHERE language=:language AND knowledgeLevel>=:minKnowledgeLevel AND " +
-            "knowledgeLevel<=:maxKnowledgeLevel ORDER by " +
-            "RANDOM() LIMIT :number")
-    LiveData<List<LibraryEntry>> getTrainingEntries(String language, int number, double
+    @Query("SELECT id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated " +
+            "FROM library " +
+            "WHERE language = (SELECT language FROM language WHERE isActive=1 LIMIT 1) " +
+            "AND knowledgeLevel>=:minKnowledgeLevel " +
+            "AND knowledgeLevel<=:maxKnowledgeLevel " +
+            "ORDER by RANDOM() " +
+            "LIMIT :number")
+    LiveData<List<LibraryEntry>> getTrainingEntries(int number, double
             minKnowledgeLevel, double maxKnowledgeLevel);
 
 
     @Query("SELECT library.id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated " +
-            "FROM library LEFT OUTER JOIN lesson_mapping ON library.id  = libraryEntryId WHERE " +
-            "language=:language AND knowledgeLevel>=:minKnowledgeLevel AND " +
-            "knowledgeLevel<=:maxKnowledgeLevel AND :lessonId=:lessonId ORDER by RANDOM() LIMIT " +
-            ":number")
-    LiveData<List<LibraryEntry>> getTrainingEntries(String language, int number, double
+            "FROM library LEFT OUTER JOIN lesson_mapping ON library.id  = libraryEntryId " +
+            "WHERE language = (SELECT language FROM language WHERE isActive=1 LIMIT 1) " +
+            "AND knowledgeLevel>=:minKnowledgeLevel " +
+            "AND knowledgeLevel<=:maxKnowledgeLevel " +
+            "AND :lessonId=:lessonId " +
+            "ORDER by RANDOM() " +
+            "LIMIT :number")
+    LiveData<List<LibraryEntry>> getTrainingEntries(int number, double
             minKnowledgeLevel, double maxKnowledgeLevel, int lessonId);
 
 }

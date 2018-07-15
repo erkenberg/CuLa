@@ -33,6 +33,7 @@ public class TrainingActivity extends AppCompatActivity {
 
     private TrainingViewModel mViewModel;
     boolean reverseTraining;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

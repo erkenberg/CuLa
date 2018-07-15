@@ -27,7 +27,7 @@ public class LibraryFragmentRecyclerViewAdapter extends
 
     private final OnItemClickListener mListener;
     /**
-     * Context required to set the correct colors for the knowledgeLevel.
+     * Context required to set the correct colors for the level.
      */
     private final Context mContext;
     private List<LibraryEntry> mValues;
@@ -129,12 +129,14 @@ public class LibraryFragmentRecyclerViewAdapter extends
             mForeignWordView = view.findViewById(R.id.foreignWord);
             viewForeground = view.findViewById(R.id.view_foreground);
             viewBackground = view.findViewById(R.id.view_background);
-            viewForeground.setOnClickListener(v -> mListener.onLibraryEntryClick(v, mValues.get(getAdapterPosition()).getId()));
+            viewForeground.setOnClickListener(v -> mListener.onLibraryEntryClick(v, mValues.get
+                    (getAdapterPosition()).getId()));
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mNativeWordView.getText() + "'" + " '" + mForeignWordView
+            return super.toString() + " '" + mNativeWordView.getText() + "'" + " '" +
+                    mForeignWordView
                     .getText() + "'";
         }
     }

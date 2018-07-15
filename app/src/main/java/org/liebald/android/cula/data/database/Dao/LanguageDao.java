@@ -13,14 +13,16 @@ import org.liebald.android.cula.data.database.Entities.LanguageEntry;
 import java.util.List;
 
 /**
- * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase} related to the languages.
+ * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase}
+ * related to the languages.
  */
 @Dao
 public interface LanguageDao {
 
     /**
      * Inserts a {@link LanguageEntry} into the language table. If there is a conflicting id the
-     * {@link LanguageEntry} uses the {@link OnConflictStrategy} to abort if the the {@link LanguageEntry} already exists.
+     * {@link LanguageEntry} uses the {@link OnConflictStrategy} to abort if the the
+     * {@link LanguageEntry} already exists.
      * The required uniqueness of these values is defined in the {@link LanguageEntry}.
      *
      * @param languageEntries A list of {@link LanguageEntry}s to insert
@@ -28,12 +30,22 @@ public interface LanguageDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertEntry(LanguageEntry... languageEntries);
 
+    //TODO: make sure only one entry has isActive set to true at a time
+
+    /**
+     * Updates a {@link LanguageEntry} in the language table.
+     *
+     * @param language The language of the language to set to active
+     */
+    @Query("UPDATE language SET isActive = CASE WHEN language IS :language THEN 1 ELSE 0 END")
+    void setActiveLanguage(String language);
+
     /**
      * Gets all {@link LanguageEntry}s in the language database table.
      *
      * @return {@link LiveData} with all @{@link LanguageEntry}s.
      */
-    @Query("SELECT language FROM language ORDER by language desc")
+    @Query("SELECT language, isActive FROM language ORDER by language desc")
     LiveData<List<LanguageEntry>> getAllEntries();
 
 

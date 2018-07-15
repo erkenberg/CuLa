@@ -20,12 +20,19 @@ public class LanguageEntry {
     private String language;
 
     /**
+     * Defines whether this entry is the currently active entry.
+     */
+    private boolean isActive;
+
+    /**
      * Constructor for an {@link LanguageEntry}.
      *
      * @param language The stored native language word.
+     * @param isActive Defines whether this entry is the currently active entry.
      */
-    public LanguageEntry(@NonNull String language) {
+    public LanguageEntry(@NonNull String language, boolean isActive) {
         this.language = StringUtils.toFirstCharacterUpperCase(language);
+        this.isActive = isActive;
     }
 
     /**
@@ -38,5 +45,11 @@ public class LanguageEntry {
         return language;
     }
 
+    /**
+     * Defines whether this entry is the currently active entry.
+     */
+    public boolean isActive() {
+        return isActive;
+    }
 
 }

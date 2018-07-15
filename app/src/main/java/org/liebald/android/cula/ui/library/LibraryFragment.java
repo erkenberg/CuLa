@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,8 +57,18 @@ public class LibraryFragment extends Fragment implements
 
         if (getActivity() == null || getContext() == null)
             return;
-        LibraryViewModelFactory factory = InjectorUtils.provideLibraryViewModelFactory(getContext());
-        mViewModel = ViewModelProviders.of(getActivity(), factory).get(LibraryFragmentViewModel.class);
+        LibraryViewModelFactory factory = InjectorUtils.provideLibraryViewModelFactory(getContext
+                ());
+        mViewModel = ViewModelProviders.of(getActivity(), factory).get(LibraryFragmentViewModel
+                .class);
+
+        mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
+            mAdapter.swapEntries(libraryEntries);
+            if (mPosition == RecyclerView.NO_POSITION) {
+                mPosition = 0;
+            }
+            mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
+        });
 
     }
 
@@ -77,16 +85,20 @@ public class LibraryFragment extends Fragment implements
         if (getContext() == null)
             return mBinding.getRoot();
 
-        mBinding.recyclerViewLibraryList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mBinding.recyclerViewLibraryList.addItemDecoration(new DividerItemDecoration(getContext()
+                , DividerItemDecoration.VERTICAL));
         mAdapter = new LibraryFragmentRecyclerViewAdapter(this, getContext());
         mBinding.recyclerViewLibraryList.setAdapter(mAdapter);
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mBinding.recyclerViewLibraryList);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0,
+                ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mBinding
+                .recyclerViewLibraryList);
 
         //Set the setOnClickListener for the Floating Action Button
         mBinding.fabAddWord.setOnClickListener(v -> updateLibraryActivity());
-        mBinding.fabAddWord.setImageDrawable(new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_plus).color(Color.WHITE).sizeDp(24));
+        mBinding.fabAddWord.setImageDrawable(new IconicsDrawable(getContext()).icon(FontAwesome
+                .Icon.faw_plus).color(Color.WHITE).sizeDp(24));
 
         return mBinding.getRoot();
     }
@@ -104,7 +116,8 @@ public class LibraryFragment extends Fragment implements
             mViewModel.removeLibraryEntry(deletedIndex);
             // show undo option
             Snackbar snackbar = Snackbar
-                    .make(mBinding.libraryCoordinatorLayout, R.string.word_removed_from_library, Snackbar.LENGTH_LONG);
+                    .make(mBinding.libraryCoordinatorLayout, R.string.word_removed_from_library,
+                            Snackbar.LENGTH_LONG);
             snackbar.setAction(R.string.undo, (View view) -> {
                 Toast.makeText(getContext(), R.string.restored, Toast.LENGTH_SHORT).show();
                 mViewModel.restoreLatestDeletedLibraryEntry();
@@ -125,30 +138,5 @@ public class LibraryFragment extends Fragment implements
         Intent intent = new Intent(getContext(), UpdateLibraryActivity.class);
         intent.putExtra(UpdateLibraryActivity.BUNDLE_EXTRA_UPDATE_KEY, id);
         startActivity(intent);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        String currentLanguage = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(getResources().getString(R.string.settings_select_language_key), "");
-        Log.d(TAG, currentLanguage);
-        if (!mViewModel.getCurrentLanguage().equals(currentLanguage)) {
-            if (mViewModel.getLibraryEntries() != null)
-                mViewModel.getLibraryEntries().removeObservers(this);
-
-            mViewModel.setCurrentLanguage(currentLanguage);
-            mViewModel.languageChanged();
-            mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
-                mAdapter.swapEntries(libraryEntries);
-                if (mPosition == RecyclerView.NO_POSITION) {
-                    mPosition = 0;
-                }
-                mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
-            });
-        } else if (mViewModel.getLibraryEntries() != null) {
-            mAdapter.swapEntries(mViewModel.getLibraryEntries().getValue());
-        }
-
     }
 }

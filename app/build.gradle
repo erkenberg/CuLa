@@ -59,7 +59,9 @@ dependencies {
     implementation 'com.mikepenz:fontawesome-typeface:5.0.6.0@aar'
 
     // Firebase job dispatcher
-
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+
+    // Graph/chart drawer library
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
 }

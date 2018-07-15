@@ -103,7 +103,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             });
 
         } else {
-            //on creating a new entry load the default knowledgeLevel set in the settings.
+            //on creating a new entry load the default level set in the settings.
             setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string
                     .settings_default_knowledgeLevel_key), "3.5"));
         }
@@ -156,7 +156,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         String language = PreferenceManager.getDefaultSharedPreferences(this).getString
                 (getString(R.string.settings_select_language_key), "");
         if (entryId != -1) {
-            //TODO: knowledgeLevel is changed, even if not actually changed in the UI.
+            //TODO: level is changed, even if not actually changed in the UI.
             mCulaRepository.updateLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord,
                     language, selectedKnowledgeLevel, new Date()));
         } else {
@@ -170,7 +170,8 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             mBinding.editTextAddNativeWord.setText("");
             mBinding.editTextAddForeignWord.setText("");
             mBinding.editTextAddNativeWord.requestFocus();
-            setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string.settings_default_knowledgeLevel_key), "3"));
+            setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string
+                    .settings_default_knowledgeLevel_key), "3"));
             //TODO: replace by snackbar?
             Toast.makeText(this, R.string.update_library_success_entry_added, Toast.LENGTH_LONG)
                     .show();
@@ -180,7 +181,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
     /**
      * Toggles the correct KnowledgeLevel radiobutton in the UI.
      *
-     * @param knowledgeLevelString The knowledgeLevel to set
+     * @param knowledgeLevelString The level to set
      */
     private void setKnowledgeLevelUI(String knowledgeLevelString) {
         int knowledgeLevel = Integer.parseInt(knowledgeLevelString);

@@ -45,11 +45,11 @@ public class KnowledgeLevelUtils {
         // Increments/Decrements could be changed to a more dynamic approach (e.g. more or less
         // or depending on how often a word was trained.
         if (increaseLevel) {
-            newLevel = oldLevel + 1.5;
+            newLevel = oldLevel + 0.5;
             if (newLevel > LEVEL_MAX)
                 newLevel = LEVEL_MAX;
         } else {
-            newLevel = oldLevel - 1.5;
+            newLevel = oldLevel - 0.5;
             if (newLevel < LEVEL_MIN)
                 newLevel = LEVEL_MIN;
         }

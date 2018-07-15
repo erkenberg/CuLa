@@ -41,7 +41,8 @@ public abstract class CulaDatabase extends RoomDatabase {
         if (sInstance == null) {
             synchronized (LOCK) {
                 if (sInstance == null) {
-                    sInstance = Room.databaseBuilder(context.getApplicationContext(), CulaDatabase.class,
+                    sInstance = Room.databaseBuilder(context.getApplicationContext(),
+                            CulaDatabase.class,
                             CulaDatabase.DATABASE_NAME).build();
                 }
             }
@@ -50,14 +51,16 @@ public abstract class CulaDatabase extends RoomDatabase {
     }
 
     /**
-     * Gain access to the {@link LibraryDao} for interacting with the library related database parts.
+     * Gain access to the {@link LibraryDao} for interacting with the library related database
+     * parts.
      *
      * @return The {@link LibraryDao}.
      */
     public abstract LibraryDao libraryDao();
 
     /**
-     * Gain access to the {@link LanguageDao} for interacting with the language related database parts.
+     * Gain access to the {@link LanguageDao} for interacting with the language related database
+     * parts.
      *
      * @return The {@link LanguageDao}.
      */

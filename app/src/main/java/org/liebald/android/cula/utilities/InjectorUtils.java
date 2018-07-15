@@ -27,6 +27,7 @@ import org.liebald.android.cula.ui.library.LibraryViewModelFactory;
 import org.liebald.android.cula.ui.quote.QuoteViewModelFactory;
 import org.liebald.android.cula.ui.settings.SettingsViewModelFactory;
 import org.liebald.android.cula.ui.startTraining.StartTrainingViewModelFactory;
+import org.liebald.android.cula.ui.statistics.StatisticsViewModelFactory;
 
 /**
  * Provides static methods to inject the various classes needed for Sunshine
@@ -42,8 +43,10 @@ public class InjectorUtils {
     public static CulaRepository provideRepository(Context context) {
         CulaDatabase database = CulaDatabase.getInstance(context.getApplicationContext());
         AppExecutors executors = AppExecutors.getInstance();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return CulaRepository.getInstance(database, executors, sharedPreferences, context.getApplicationContext()
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
+                (context);
+        return CulaRepository.getInstance(database, executors, sharedPreferences, context
+                .getApplicationContext()
         );
     }
 
@@ -94,11 +97,23 @@ public class InjectorUtils {
     /**
      * Returns the {@link StartTrainingViewModelFactory} with access to the {@link CulaRepository}.
      *
-     * @param context {@link Context} of the Fragment using the {@link StartTrainingViewModelFactory}
+     * @param context {@link Context} of the Fragment using the
+     * {@link StartTrainingViewModelFactory}
      * @return The {@link StartTrainingViewModelFactory}.
      */
     public static StartTrainingViewModelFactory provideStartTrainingViewModelFactory(Context context) {
         CulaRepository repository = provideRepository(context.getApplicationContext());
         return new StartTrainingViewModelFactory(repository);
+    }
+
+    /**
+     * Returns the {@link StatisticsViewModelFactory} with access to the {@link CulaRepository}.
+     *
+     * @param context {@link Context} of the Fragment using the {@link StatisticsViewModelFactory}
+     * @return The {@link StatisticsViewModelFactory}.
+     */
+    public static StatisticsViewModelFactory provideStatisticsViewModelFactory(Context context) {
+        CulaRepository repository = provideRepository(context.getApplicationContext());
+        return new StatisticsViewModelFactory(repository);
     }
 }

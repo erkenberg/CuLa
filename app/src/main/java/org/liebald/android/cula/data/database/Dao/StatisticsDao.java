@@ -1,11 +1,16 @@
 package org.liebald.android.cula.data.database.Dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
+import android.arch.persistence.room.Query;
 
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Entities.StatisticEntry;
+import org.liebald.android.cula.data.database.Pojos.StatisticsLibraryWordCount;
+
+import java.util.List;
 
 /**
  * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase}
@@ -22,5 +27,17 @@ public interface StatisticsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertEntry(StatisticEntry... statisticEntries);
 
-
+    @Query("select " +
+            "  case " +
+            "    when knowledgeLevel between 0 and 1 then '0'" +
+            "    when knowledgeLevel between 1 and 2 then '1'" +
+            "    when knowledgeLevel between 2 and 3 then '2'" +
+            "    when knowledgeLevel between 3 and 4 then '3'" +
+            "    when knowledgeLevel between 4 and 5 then '4'" +
+            "  end as `level`," +
+            "  count(1) as `count` " +
+            "FROM library " +
+            "WHERE language = (SELECT language FROM language WHERE isActive=1 LIMIT 1) " +
+            "GROUP BY `level`")
+    LiveData<List<StatisticsLibraryWordCount>> getStatisticsLibraryCountByKnowledgeLevel();
 }

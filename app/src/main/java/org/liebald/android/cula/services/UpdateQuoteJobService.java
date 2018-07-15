@@ -20,6 +20,7 @@ public class UpdateQuoteJobService extends JobService {
      * Tag for logging.
      */
     private static final String TAG = UpdateQuoteJobService.class.getSimpleName();
+
     @Override
     public boolean onStartJob(JobParameters job) {
         Log.d(TAG, "Starting update for Quote of the Day");
@@ -33,7 +34,8 @@ public class UpdateQuoteJobService extends JobService {
             }
             if (jsonQuote != null) {
                 QuoteEntry quoteEntry = JsonUtils.parseQuoteJson(jsonQuote);
-                InjectorUtils.provideRepository(getApplicationContext()).insertQuoteEntry(quoteEntry);
+                InjectorUtils.provideRepository(getApplicationContext()).insertQuoteEntry
+                        (quoteEntry);
                 jobFinished(job, false);
             } else {
                 jobFinished(job, true);

@@ -53,7 +53,8 @@ public class LessonEntry {
      * @param lessonDescription The description of the {@link LessonEntry}.
      * @param language          The language this {@link LessonEntry} belongs to.
      */
-    public LessonEntry(int id, @NonNull String lessonName, @NonNull String lessonDescription, @NonNull String language) {
+    public LessonEntry(int id, @NonNull String lessonName, @NonNull String lessonDescription,
+                       @NonNull String language) {
         this(lessonName, lessonDescription, language);
         this.id = id;
     }
@@ -66,7 +67,8 @@ public class LessonEntry {
      * @param language          The language this {@link LessonEntry} belongs to.
      */
     @Ignore
-    public LessonEntry(@NonNull String lessonName, @NonNull String lessonDescription, String language) {
+    public LessonEntry(@NonNull String lessonName, @NonNull String lessonDescription, String
+            language) {
         this.lessonName = lessonName;
         this.lessonDescription = lessonDescription;
         this.language = language;

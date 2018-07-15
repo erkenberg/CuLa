@@ -24,7 +24,9 @@ import org.liebald.android.cula.data.database.Entities.MappingPOJO;
 import org.liebald.android.cula.databinding.ActivityUpdateLessonBinding;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
-public class UpdateLessonActivity extends AppCompatActivity implements UpdateLessonRecyclerViewAdapter.OnItemClickListener, CulaRepository.OnLessonEntryAddedListener {
+public class UpdateLessonActivity extends AppCompatActivity implements
+        UpdateLessonRecyclerViewAdapter.OnItemClickListener, CulaRepository
+        .OnLessonEntryAddedListener {
 
 
     /**
@@ -82,7 +84,8 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
 
         //create and set adapter for the mappings
         mAdapter = new UpdateLessonRecyclerViewAdapter(this);
-        mBinding.recyclerViewLessonMappingList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mBinding.recyclerViewLessonMappingList.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
         mBinding.recyclerViewLessonMappingList.setAdapter(mAdapter);
 
         //Get the intent that startet the activity for special treatments
@@ -93,7 +96,8 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
             id = intent.getIntExtra(BUNDLE_EXTRA_UPDATE_KEY, -1);
         }
         //create the view model
-        UpdateLessonViewModelFactory viewModelFactory = new UpdateLessonViewModelFactory(mCulaRepository, id);
+        UpdateLessonViewModelFactory viewModelFactory = new UpdateLessonViewModelFactory
+                (mCulaRepository, id);
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(UpdateLessonViewModel.class);
 
         // Only when editing an existing lesson the UI should be filled
@@ -123,7 +127,8 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
                 return;
             mViewModel.getEntry().removeObservers(this);
             mAdapter.swapEntries(mappingPOJOList);
-            Log.d(UpdateLessonActivity.class.getSimpleName(), "Elements in mapping list: " + mappingPOJOList.size());
+            Log.d(UpdateLessonActivity.class.getSimpleName(), "Elements in mapping list: " +
+                    mappingPOJOList.size());
             for (MappingPOJO pojo : mappingPOJOList)
                 Log.d(UpdateLessonActivity.class.getSimpleName(), pojo.toString());
         });
@@ -147,20 +152,24 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
             return;
         }
 
-        String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.settings_select_language_key), "");
+        String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString
+                (R.string.settings_select_language_key), "");
         if (entryId != -1) {
-            mCulaRepository.updateLessonEntry(new LessonEntry(entryId, lessonName, lessonDescription, language));
+            mCulaRepository.updateLessonEntry(new LessonEntry(entryId, lessonName,
+                    lessonDescription, language));
             //TODO: replace by snackbar?
             Toast.makeText(this, "Updated lesson", Toast.LENGTH_LONG).show();
         } else {
-            mCulaRepository.insertLessonEntry(this, new LessonEntry(lessonName, lessonDescription, language));
+            mCulaRepository.insertLessonEntry(this, new LessonEntry(lessonName,
+                    lessonDescription, language));
             //TODO: replace by snackbar?
             Toast.makeText(this, "Added lesson", Toast.LENGTH_LONG).show();
         }
 
         View v = this.getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context
+                    .INPUT_METHOD_SERVICE);
             if (imm != null)
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
@@ -182,9 +191,11 @@ public class UpdateLessonActivity extends AppCompatActivity implements UpdateLes
         if (mViewModel.getEntry().getValue() == null)
             return;
         if (check.isChecked()) {
-            mCulaRepository.insertLessonMappingEntry(new LessonMappingEntry(mViewModel.getEntry().getValue().getId(), id));
+            mCulaRepository.insertLessonMappingEntry(new LessonMappingEntry(mViewModel.getEntry()
+                    .getValue().getId(), id));
         } else {
-            mCulaRepository.deleteLessonMappingEntry(new LessonMappingEntry(mViewModel.getEntry().getValue().getId(), id));
+            mCulaRepository.deleteLessonMappingEntry(new LessonMappingEntry(mViewModel.getEntry()
+                    .getValue().getId(), id));
 
         }
     }

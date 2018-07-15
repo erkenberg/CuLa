@@ -26,7 +26,8 @@ import java.util.Objects;
 /**
  * The settings/preferences Fragment for configuration of the app.
  */
-public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences
+        .OnSharedPreferenceChangeListener {
 
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
@@ -49,19 +50,24 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         // Required empty public constructor
     }
 
+    private CulaRepository mRepository;
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // set the correct preference layout
         addPreferencesFromResource(R.xml.fragment_settings);
-
+        mRepository = InjectorUtils.provideRepository(Objects.requireNonNull(getContext()));
         // get the shared preferences
         if (getActivity() != null)
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         // get the ListPreference for the language settings (select, add, delete)
-        mLanguageListPreference = (ListPreference) findPreference(getResources().getString(R.string.settings_select_language_key));
-        Preference addLanguage = findPreference(getResources().getString(R.string.settings_add_language_key));
-        Preference deleteLanguage = findPreference(getResources().getString(R.string.settings_delete_language_key));
+        mLanguageListPreference = (ListPreference) findPreference(getResources().getString(R
+                .string.settings_select_language_key));
+        Preference addLanguage = findPreference(getResources().getString(R.string
+                .settings_add_language_key));
+        Preference deleteLanguage = findPreference(getResources().getString(R.string
+                .settings_delete_language_key));
 
         // set onClick listener for adding/deleting language buttons
         addLanguage.setOnPreferenceClickListener(preference -> {
@@ -75,14 +81,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         // get the ViewModel
         if (getContext() != null) {
-            SettingsViewModelFactory factory = InjectorUtils.provideLanguageViewModelFactory(getContext());
-            mViewModel = ViewModelProviders.of(getActivity(), factory).get(SettingsFragmentViewModel.class);
+            SettingsViewModelFactory factory = InjectorUtils.provideLanguageViewModelFactory
+                    (getContext());
+            mViewModel = ViewModelProviders.of(getActivity(), factory).get
+                    (SettingsFragmentViewModel.class);
         }
         //Load the language entries and update the ListPreference
         mViewModel.getLanguageEntries().observe(this, this::updateLanguageList);
-
-
-        onSharedPreferenceChanged(sharedPreferences, getString(R.string.settings_select_language_key));
 
     }
 
@@ -97,7 +102,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         final EditText newLanguageEditText = new EditText(context);
         newLanguageEditText.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(newLanguageEditText);
-        builder.setPositiveButton(R.string.add, (dialog, which) -> addNewLanguageToDb(newLanguageEditText.getText().toString()));
+        builder.setPositiveButton(R.string.add, (dialog, which) -> addNewLanguageToDb
+                (newLanguageEditText.getText().toString()));
         builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
         builder.show();
     }
@@ -107,12 +113,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      */
     private void addNewLanguageToDb(String newLanguage) {
         if (newLanguage == null || newLanguage.length() < 2 || newLanguage.length() > 20) {
-            Toast.makeText(getContext(), "Language must be between 2 and 20 characters ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Language must be between 2 and 20 characters ", Toast
+                    .LENGTH_SHORT).show();
             return;
         }
-        CulaRepository repository = InjectorUtils.provideRepository(Objects.requireNonNull(getContext()));
-        repository.insertLanguageEntry(new LanguageEntry(newLanguage));
-
+        mRepository.insertLanguageEntry(new LanguageEntry(newLanguage, false));
     }
 
     /**
@@ -120,10 +125,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      */
     private void deleteLanguageDialog() {
         Context context = Objects.requireNonNull(getContext());
-
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(getResources().getString(R.string.settings_delete_language_title_warning));
-        builder.setPositiveButton(R.string.ok, (dialog, which) -> deleteLanguageFromDb(mLanguageListPreference.getValue()));
+        builder.setPositiveButton(R.string.ok, (dialog, which) -> deleteLanguageFromDb
+                (mLanguageListPreference.getValue()));
         builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
         builder.show();
 
@@ -133,8 +138,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      * Deletes the current language from the app, including all words.
      */
     private void deleteLanguageFromDb(String language) {
-        CulaRepository repository = InjectorUtils.provideRepository(Objects.requireNonNull(getContext()));
-        repository.deleteLanguageEntry(new LanguageEntry(language));
+        CulaRepository repository = InjectorUtils.provideRepository(Objects.requireNonNull
+                (getContext()));
+        repository.deleteLanguageEntry(new LanguageEntry(language, false));
     }
 
     /**
@@ -143,20 +149,28 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      * @param languageEntries the new List of entries that should be shown.
      */
     private void updateLanguageList(List<LanguageEntry> languageEntries) {
+        int selected = 0;
         if (languageEntries.size() == 0) {
-            mLanguageListPreference.setSummary(getResources().getString(R.string.settings_select_language_default));
-            mLanguageListPreference.setEntries(new String[]{getResources().getString(R.string.settings_select_language_default)});
+            mLanguageListPreference.setSummary(getResources().getString(R.string
+                    .settings_select_language_default));
+            mLanguageListPreference.setEntries(new String[]{getResources().getString(R.string
+                    .settings_select_language_default)});
         } else {
             String[] entryValues = new String[languageEntries.size()];
             for (int i = 0; i < languageEntries.size(); i++) {
                 entryValues[i] = languageEntries.get(i).getLanguage();
+                if (languageEntries.get(i).isActive())
+                    selected = i;
+                Log.d(TAG, "Language: " + languageEntries.get(i).getLanguage() + " active: " +
+                        languageEntries.get(i).isActive());
             }
 
             mLanguageListPreference.setEntries(entryValues);
-            mLanguageListPreference.setValue(entryValues[0]);
+            mLanguageListPreference.setValue(entryValues[selected]);
             mLanguageListPreference.setEntryValues(entryValues);
             mLanguageListPreference.setSummary(mLanguageListPreference.getValue());
-            Log.d(TAG, "Update LanguageList: " + mLanguageListPreference.getValue() + " amount of languages: " + languageEntries.size());
+            Log.d(TAG, "Update LanguageList: " + mLanguageListPreference.getValue() + " amount " +
+                    "of languages: " + languageEntries.size());
         }
     }
 
@@ -165,14 +179,18 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Preference preference = findPreference(key);
         //check which preference changed and update the summary correctly.
-        if (preference instanceof ListPreference && key.equals(getResources().getString(R.string.settings_select_language_key))) {
+        if (preference instanceof ListPreference && key.equals(getResources().getString(R.string
+                .settings_select_language_key))) {
             ListPreference listPreference = (ListPreference) preference;
-            int index = listPreference.findIndexOfValue(sharedPreferences.getString(key, getResources().getString(R.string.settings_select_language_default)));
+            int index = listPreference.findIndexOfValue(sharedPreferences.getString(key,
+                    getResources().getString(R.string.settings_select_language_default)));
             if (index >= 0 && index < listPreference.getEntries().length) {
+                mRepository.setActiveLanguage(listPreference.getEntries()[index].toString());
                 preference.setSummary(listPreference.getEntries()[index]);
                 Log.d(TAG, "SharedPreferences was set to: " + listPreference.getEntries()[index]);
             }
-        } else if (preference instanceof ListPreference && key.equals(getResources().getString(R.string.settings_default_knowledgeLevel_key))) {
+        } else if (preference instanceof ListPreference && key.equals(getResources().getString(R
+                .string.settings_default_knowledgeLevel_key))) {
             ListPreference listPreference = (ListPreference) preference;
             preference.setSummary(listPreference.getEntry());
         }

@@ -19,6 +19,7 @@ import org.liebald.android.cula.ui.library.LibraryFragment;
 import org.liebald.android.cula.ui.quote.QuoteFragment;
 import org.liebald.android.cula.ui.settings.SettingsFragment;
 import org.liebald.android.cula.ui.startTraining.StartTrainingFragment;
+import org.liebald.android.cula.ui.statistics.StatisticsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int DRAWER_SETTINGS_KEY = 2;
     private static final int DRAWER_QUOTE_KEY = 3;
     private static final int DRAWER_LESSONS_KEY = 4;
+    private static final int DRAWER_STATISTICS_KEY = 5;
 
 
     @Override
@@ -53,22 +55,32 @@ public class MainActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(false)
                 .withDrawerWidthDp(250)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withIdentifier(DRAWER_QUOTE_KEY).withName(R.string.drawer_label_quote).withIcon(FontAwesome.Icon.faw_bookmark),
-                        new PrimaryDrawerItem().withIdentifier(DRAWER_TRAIN_KEY).withName(R.string.drawer_label_train).withIcon(FontAwesome.Icon.faw_pencil_alt),
-                        new PrimaryDrawerItem().withIdentifier(DRAWER_LIBRARY_KEY).withName(R.string.drawer_label_library).withIcon(FontAwesome.Icon.faw_book),
-                        new PrimaryDrawerItem().withIdentifier(DRAWER_LESSONS_KEY).withName(R.string.drawer_label_lessons).withIcon(FontAwesome.Icon.faw_address_book2),
+                        new PrimaryDrawerItem().withIdentifier(DRAWER_QUOTE_KEY).withName
+                                (R.string.drawer_label_quote).withIcon(FontAwesome.Icon
+                                .faw_bookmark),
+                        new PrimaryDrawerItem().withIdentifier(DRAWER_TRAIN_KEY).withName(R.string
+                                .drawer_label_train).withIcon(FontAwesome.Icon.faw_pencil_alt),
+                        new PrimaryDrawerItem().withIdentifier(DRAWER_LIBRARY_KEY).withName
+                                (R.string.drawer_label_library).withIcon(FontAwesome.Icon.faw_book),
+                        new PrimaryDrawerItem().withIdentifier(DRAWER_LESSONS_KEY).withName
+                                (R.string.drawer_label_lessons).withIcon(FontAwesome.Icon
+                                .faw_address_book2),
+                        new PrimaryDrawerItem().withIdentifier(DRAWER_STATISTICS_KEY).withName(R
+                                .string.drawer_label_statistics).withIcon(FontAwesome.Icon
+                                .faw_chart_line),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withIdentifier(DRAWER_SETTINGS_KEY).withName(R.string.drawer_label_settings).withIcon(FontAwesome.Icon.faw_cog)
+                        new SecondaryDrawerItem().withIdentifier(DRAWER_SETTINGS_KEY).withName(R
+                                .string.drawer_label_settings).withIcon(FontAwesome.Icon.faw_cog)
                 )
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     selectItem(drawerItem.getIdentifier());
                     return true;
                 })
-                .withSelectedItem(DRAWER_TRAIN_KEY)
+                .withSelectedItem(DRAWER_STATISTICS_KEY)
                 .build();
 
         drawer.closeDrawer();
-        selectItem(DRAWER_TRAIN_KEY);
+        selectItem(DRAWER_STATISTICS_KEY);
     }
 
 
@@ -97,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case DRAWER_TRAIN_KEY:
                 fragment = new StartTrainingFragment();
+                break;
+            case DRAWER_STATISTICS_KEY:
+                fragment = new StatisticsFragment();
                 break;
             default:
                 return;

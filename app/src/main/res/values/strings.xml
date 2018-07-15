@@ -102,6 +102,8 @@
     <string name="activity_training_hint_translated_word">Translated word</string>
     <string name="activity_training_label_translate_word">Translate the following word:</string>
     <string name="activity_training_label_progress">Progress: %1$d from %2$d</string>
+    <string name="drawer_label_statistics">Statistics</string>
+    <string name="statistics_label_words_by_level">Words in Library by Knowledge Level:</string>
 
 
 </resources>

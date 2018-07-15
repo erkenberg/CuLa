@@ -116,7 +116,8 @@ public class LessonsRecyclerViewAdapter extends
             mLessonDescription = view.findViewById(R.id.lesson_description);
             viewForeground = view.findViewById(R.id.view_foreground);
             viewBackground = view.findViewById(R.id.view_background);
-            viewForeground.setOnClickListener(v -> mListener.onLessonEntryClick(v, mValues.get(getAdapterPosition()).getId()));
+            viewForeground.setOnClickListener(v -> mListener.onLessonEntryClick(v, mValues.get
+                    (getAdapterPosition()).getId()));
         }
 
         @Override

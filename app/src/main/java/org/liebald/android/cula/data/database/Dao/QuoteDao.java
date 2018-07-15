@@ -10,12 +10,14 @@ import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 
 /**
- * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase} related to the {@link .QuoteEntry}s.
+ * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase}
+ * related to the {@link .QuoteEntry}s.
  */
 @Dao
 public interface QuoteDao {
 
     /**
+     * 6
      * Inserts a {@link QuoteEntry} into the quotes table. If there is a conflicting id the
      * {@link QuoteEntry} uses the {@link OnConflictStrategy} to replace the {@link QuoteEntry}.
      * The required uniqueness of these values is defined in the {@link QuoteEntry}.

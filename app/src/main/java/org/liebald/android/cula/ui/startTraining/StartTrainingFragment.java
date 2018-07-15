@@ -81,7 +81,8 @@ public class StartTrainingFragment extends Fragment {
         // Create the ViewModel for this fragment.
         StartTrainingViewModelFactory factory =
                 InjectorUtils.provideStartTrainingViewModelFactory(getContext());
-        mViewModel = ViewModelProviders.of(getActivity(), factory).get(StartTrainingViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity(), factory).get(StartTrainingViewModel
+                .class);
     }
 
     @Override

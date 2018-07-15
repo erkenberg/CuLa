@@ -50,7 +50,7 @@ public class LessonMappingEntry {
     /**
      * Constructor for an {@link LessonMappingEntry}.
      *
-     * @param id        The Id of the @{@link LessonMappingEntry}.
+     * @param id             The Id of the @{@link LessonMappingEntry}.
      * @param lessonEntryId  The id of the {@link LessonEntry} mapped to a {@link LibraryEntry}.
      * @param libraryEntryId The id of the {@link LibraryEntry} mapped to the {@link LessonEntry}.
      */

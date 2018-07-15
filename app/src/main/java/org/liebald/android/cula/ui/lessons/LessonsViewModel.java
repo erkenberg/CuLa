@@ -18,9 +18,6 @@ public class LessonsViewModel extends ViewModel {
     private CulaRepository mCulaRepository;
     private LessonEntry latestDeletedEntry = null;
 
-
-    private String mCurrentLanguage = "";
-
     /**
      * Constructor of the ViewModel.
      *
@@ -28,6 +25,7 @@ public class LessonsViewModel extends ViewModel {
      */
     LessonsViewModel(CulaRepository repository) {
         mCulaRepository = repository;
+        mLessonEntries = mCulaRepository.getAllLessonEntries();
     }
 
     /**
@@ -62,28 +60,4 @@ public class LessonsViewModel extends ViewModel {
         mCulaRepository.insertLessonEntry(dummyListener, latestDeletedEntry);
     }
 
-    /**
-     * Manually trigger an update when the language was changed.
-     */
-    public void languageChanged() {
-        mLessonEntries = mCulaRepository.getAllLessonEntries();
-    }
-
-    /**
-     * Get the currently displayed language.
-     *
-     * @return The currently managed language
-     */
-    public String getCurrentLanguage() {
-        return mCurrentLanguage;
-    }
-
-    /**
-     * Set the currently displayed language.
-     *
-     * @param mCurrentLanguage The new language.
-     */
-    public void setCurrentLanguage(String mCurrentLanguage) {
-        this.mCurrentLanguage = mCurrentLanguage;
-    }
 }

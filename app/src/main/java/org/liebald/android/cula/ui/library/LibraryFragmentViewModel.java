@@ -18,9 +18,6 @@ public class LibraryFragmentViewModel extends ViewModel {
     private CulaRepository mCulaRepository;
     private LibraryEntry latestDeletedEntry = null;
 
-
-    private String mCurrentLanguage = "";
-
     /**
      * Constructor of the ViewModel.
      *
@@ -28,7 +25,7 @@ public class LibraryFragmentViewModel extends ViewModel {
      */
     LibraryFragmentViewModel(CulaRepository repository) {
         mCulaRepository = repository;
-//        mLibraryEntries = repository.getAllLibraryEntries();
+        mLibraryEntries = repository.getAllLibraryEntries();
     }
 
     /**
@@ -60,28 +57,4 @@ public class LibraryFragmentViewModel extends ViewModel {
         mCulaRepository.insertLibraryEntry(latestDeletedEntry);
     }
 
-    /**
-     * Manually trigger an update when the language was changed.
-     */
-    public void languageChanged() {
-        mLibraryEntries = mCulaRepository.getAllLibraryEntries();
-    }
-
-    /**
-     * Get the currently displayed language.
-     *
-     * @return The currently managed language
-     */
-    public String getCurrentLanguage() {
-        return mCurrentLanguage;
-    }
-
-    /**
-     * Set the currently displayed language.
-     *
-     * @param mCurrentLanguage The new language.
-     */
-    public void setCurrentLanguage(String mCurrentLanguage) {
-        this.mCurrentLanguage = mCurrentLanguage;
-    }
 }

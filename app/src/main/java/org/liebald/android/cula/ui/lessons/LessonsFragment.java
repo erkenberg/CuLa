@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,8 +57,17 @@ public class LessonsFragment extends Fragment implements
 
         if (getActivity() == null || getContext() == null)
             return;
-        LessonsViewModelFactory factory = InjectorUtils.provideLessonsViewModelFactory(getContext());
+        LessonsViewModelFactory factory = InjectorUtils.provideLessonsViewModelFactory(getContext
+                ());
         mViewModel = ViewModelProviders.of(getActivity(), factory).get(LessonsViewModel.class);
+
+        mViewModel.getLessonEntries().observe(this, libraryEntries -> {
+            mAdapter.swapEntries(libraryEntries);
+            if (mPosition == RecyclerView.NO_POSITION) {
+                mPosition = 0;
+            }
+            mBinding.recyclerViewLessonsList.smoothScrollToPosition(mPosition);
+        });
 
     }
 
@@ -77,17 +84,21 @@ public class LessonsFragment extends Fragment implements
 
         if (getContext() == null)
             return mBinding.getRoot();
-        mBinding.recyclerViewLessonsList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mBinding.recyclerViewLessonsList.addItemDecoration(new DividerItemDecoration(getContext()
+                , DividerItemDecoration.VERTICAL));
         mAdapter = new LessonsRecyclerViewAdapter(this);
         mBinding.recyclerViewLessonsList.setAdapter(mAdapter);
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mBinding.recyclerViewLessonsList);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0,
+                ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mBinding
+                .recyclerViewLessonsList);
 
 
         //Set the setOnClickListener for the Floating Action Button
         mBinding.fabAddLesson.setOnClickListener(v -> updateLessonActivity());
-        mBinding.fabAddLesson.setImageDrawable(new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_plus).color(Color.WHITE).sizeDp(24));
+        mBinding.fabAddLesson.setImageDrawable(new IconicsDrawable(getContext()).icon(FontAwesome
+                .Icon.faw_plus).color(Color.WHITE).sizeDp(24));
 
         return mBinding.getRoot();
     }
@@ -105,7 +116,8 @@ public class LessonsFragment extends Fragment implements
             mViewModel.removeLessonEntry(deletedIndex);
             // show undo option
             Snackbar snackbar = Snackbar
-                    .make(mBinding.libraryCoordinatorLayout, R.string.lesson_deleted, Snackbar.LENGTH_LONG);
+                    .make(mBinding.libraryCoordinatorLayout, R.string.lesson_deleted, Snackbar
+                            .LENGTH_LONG);
             snackbar.setAction(R.string.undo, (View view) -> {
                 Toast.makeText(getContext(), R.string.restored, Toast.LENGTH_SHORT).show();
                 mViewModel.restoreLatestDeletedLessonEntry();
@@ -120,32 +132,6 @@ public class LessonsFragment extends Fragment implements
         startActivity(intent);
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        String currentLanguage = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(getResources().getString(R.string.settings_select_language_key), "");
-        Log.d(TAG, currentLanguage);
-        if (!mViewModel.getCurrentLanguage().equals(currentLanguage)) {
-            if (mViewModel.getLessonEntries() != null)
-                mViewModel.getLessonEntries().removeObservers(this);
-
-            mViewModel.setCurrentLanguage(currentLanguage);
-            mViewModel.languageChanged();
-            mViewModel.getLessonEntries().observe(this, libraryEntries -> {
-                mAdapter.swapEntries(libraryEntries);
-                if (mPosition == RecyclerView.NO_POSITION) {
-                    mPosition = 0;
-                }
-                mBinding.recyclerViewLessonsList.smoothScrollToPosition(mPosition);
-            });
-        } else if (mViewModel.getLessonEntries() != null) {
-            mAdapter.swapEntries(mViewModel.getLessonEntries().getValue());
-        }
-
-    }
-
     @Override
     public void onLessonEntryClick(View view, int id) {
 
@@ -153,6 +139,5 @@ public class LessonsFragment extends Fragment implements
         intent.putExtra(UpdateLessonActivity.BUNDLE_EXTRA_UPDATE_KEY, id);
         startActivity(intent);
     }
-
 
 }
