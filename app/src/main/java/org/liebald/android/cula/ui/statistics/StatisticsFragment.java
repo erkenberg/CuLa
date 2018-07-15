@@ -2,6 +2,7 @@ package org.liebald.android.cula.ui.statistics;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -71,35 +73,39 @@ public class StatisticsFragment extends Fragment {
         Log.d("test", "test " + libraryWordCountList.size());
         ArrayList<PieEntry> counts = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
+        Context context = Objects.requireNonNull(getContext());
 
         for (StatisticsLibraryWordCount entry : libraryWordCountList) {
-            counts.add(new PieEntry((float) entry
-                    .getCount(), entry.getLevel()));
-            colors.add(KnowledgeLevelUtils.getColorByKnowledgeLevel(Objects.requireNonNull
-                    (getContext()), entry
-                    .level));
+            counts.add(new PieEntry((float) entry.getCount(), KnowledgeLevelUtils
+                    .getNameByKnowledgeLevel(context, entry.level)));
+            colors.add(KnowledgeLevelUtils.getColorByKnowledgeLevel(context, entry.level));
         }
-
 
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(counts, "");
-        pieDataSet.setValueTextSize(24);
-
+        pieDataSet.setValueTextSize(22);
         pieDataSet.setColors(colors);
 
-
+        //Set the formatter to not display floats but integers.
         IValueFormatter formatter = (value, entry, dataSetIndex, viewPortHandler) -> Integer
                 .toString((int) value);
-
         pieDataSet.setValueFormatter(formatter);
+
+        Legend legend = mBinding.chart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setTextSize(18);
+        legend.setFormSize(18);
+        legend.setWordWrapEnabled(true);
 
         //create pie data object
         PieData pieData = new PieData(pieDataSet);
         mBinding.chart.setHoleRadius(0);
+
         mBinding.chart.setTransparentCircleRadius(0);
+        mBinding.chart.setDrawEntryLabels(false);
         mBinding.chart.setData(pieData);
         mBinding.chart.getDescription().setEnabled(false);
-        mBinding.chart.getLegend().setEnabled(false);
+        mBinding.chart.getLegend().setEnabled(true);
         mBinding.chart.invalidate();
     }
 

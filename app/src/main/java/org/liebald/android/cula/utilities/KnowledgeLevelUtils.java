@@ -10,14 +10,21 @@ public class KnowledgeLevelUtils {
     /**
      * The absolute minimum of the KnowledgeLevel.
      */
-    public static final int LEVEL_MIN = 0;
+    private static final int LEVEL_MIN = 0;
 
     /**
      * The absolute maximum of the KnowledgeLevel.
      */
-    public static final int LEVEL_MAX = 5;
+    private static final int LEVEL_MAX = 5;
 
 
+    /**
+     * Resolves the given knowledgeLevel to color.
+     *
+     * @param context        Context required to access the resources.
+     * @param knowledgeLevel The knowledgeLevel.
+     * @return The color of the given KnowledgeLevel.
+     */
     public static int getColorByKnowledgeLevel(Context context, double knowledgeLevel) {
         Resources res = context.getResources();
         if (knowledgeLevel < 1)
@@ -30,6 +37,27 @@ public class KnowledgeLevelUtils {
             return ResourcesCompat.getColor(res, R.color.knowledgeLevel_4, null);
         else
             return ResourcesCompat.getColor(res, R.color.knowledgeLevel_5, null);
+    }
+
+    /**
+     * Resolves the given knowledgeLevel to the fitting name.
+     *
+     * @param context        Context required to access the resources.
+     * @param knowledgeLevel The knowledgeLevel.
+     * @return The name of the given KnowledgeLevel
+     */
+    public static String getNameByKnowledgeLevel(Context context, double knowledgeLevel) {
+        Resources res = context.getResources();
+        if (knowledgeLevel < 1)
+            return res.getString(R.string.knowledgeLevel1);
+        else if (knowledgeLevel < 2)
+            return res.getString(R.string.knowledgeLevel2);
+        else if (knowledgeLevel < 3)
+            return res.getString(R.string.knowledgeLevel3);
+        else if (knowledgeLevel < 4)
+            return res.getString(R.string.knowledgeLevel4);
+        else
+            return res.getString(R.string.knowledgeLevel5);
     }
 
 

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         Toolbar toolbar = findViewById(R.id.toolbar);
-
+        //TODO: check if a language is selected, otherwise open settings and show a toast.
         //create the drawer and remember the `Drawer` result object
         drawer = new DrawerBuilder()
                 .withActivity(this)
