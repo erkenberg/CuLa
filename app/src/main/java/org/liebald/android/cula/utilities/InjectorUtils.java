@@ -18,6 +18,7 @@ package org.liebald.android.cula.utilities;
 
 import android.content.Context;
 
+import org.liebald.android.cula.MyApplication;
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.ui.lessons.LessonsViewModelFactory;
@@ -40,7 +41,8 @@ public class InjectorUtils {
      */
     //TODO: remove context
     public static CulaRepository provideRepository(Context context) {
-        CulaDatabase database = CulaDatabase.getInstance(context.getApplicationContext());
+        CulaDatabase database = CulaDatabase.getInstance(MyApplication.getContext());
+//        CulaDatabase database = CulaDatabase.getInstance(context.getApplicationContext());
         AppExecutors executors = AppExecutors.getInstance();
         return CulaRepository.getInstance(database, executors);
     }
