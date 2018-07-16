@@ -17,8 +17,6 @@
 package org.liebald.android.cula.utilities;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.support.v7.preference.PreferenceManager;
 
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.CulaDatabase;
@@ -40,15 +38,13 @@ public class InjectorUtils {
      * @param context {@link Context} of the caller using the {@link CulaRepository}
      * @return The {@link CulaRepository}
      */
+    //TODO: remove context
     public static CulaRepository provideRepository(Context context) {
         CulaDatabase database = CulaDatabase.getInstance(context.getApplicationContext());
         AppExecutors executors = AppExecutors.getInstance();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
-                (context);
-        return CulaRepository.getInstance(database, executors, sharedPreferences, context
-                .getApplicationContext()
-        );
+        return CulaRepository.getInstance(database, executors);
     }
+
 
     /**
      * Returns the {@link LibraryViewModelFactory} with access to the {@link CulaRepository}.

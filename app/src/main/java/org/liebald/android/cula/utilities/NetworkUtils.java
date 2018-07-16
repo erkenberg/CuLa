@@ -33,7 +33,7 @@ public class NetworkUtils {
             "http://api.forismatic.com/api/1.0/";
 
     private final static String PARAM_QUERY = "method";
-    private final static String PARAM_QUERY_VALUE = "getLibraryCount";
+    private final static String PARAM_QUERY_VALUE = "getQuote";
 
     private final static String PARAM_FORMAT = "format";
     private final static String PARAM_FORMAT_VALUE = "json";

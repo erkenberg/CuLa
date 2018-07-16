@@ -36,9 +36,10 @@ public class JsonUtils {
             String author = jsonQuote.getString(AUTHOR_KEY);
             return new QuoteEntry(text, author);
         } catch (JSONException exception) {
-            Log.e(JsonUtils.class.getSimpleName(), "Error parsing the json String: " + exception);
+            Log.e(JsonUtils.class.getSimpleName(), "Error parsing the json String: " + exception
+                    + " received json: " + json);
+            return new QuoteEntry("Error loading the Quote from the Internet", "The Internet");
         }
-        return null;
     }
 
 }

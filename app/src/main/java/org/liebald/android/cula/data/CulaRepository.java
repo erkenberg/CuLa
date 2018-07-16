@@ -18,16 +18,7 @@ package org.liebald.android.cula.data;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
-
-import com.firebase.jobdispatcher.FirebaseJobDispatcher;
-import com.firebase.jobdispatcher.GooglePlayDriver;
-import com.firebase.jobdispatcher.Job;
-import com.firebase.jobdispatcher.Lifetime;
-import com.firebase.jobdispatcher.RetryStrategy;
-import com.firebase.jobdispatcher.Trigger;
 
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Dao.LanguageDao;
@@ -43,7 +34,6 @@ import org.liebald.android.cula.data.database.Entities.MappingPOJO;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 import org.liebald.android.cula.data.database.Entities.StatisticEntry;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLibraryWordCount;
-import org.liebald.android.cula.services.UpdateQuoteJobService;
 import org.liebald.android.cula.utilities.AppExecutors;
 
 import java.util.Date;
@@ -53,23 +43,18 @@ import java.util.List;
  * Handles data operations in Cula.
  */
 public class CulaRepository {
-    private CulaRepository(CulaDatabase database, AppExecutors appExecutors, SharedPreferences
-            sharedPreferences, Context context) {
+
+    private CulaRepository(CulaDatabase database, AppExecutors appExecutors) {
         mLibraryDao = database.libraryDao();
         mStatisticsDao = database.statisticsDao();
         mExecutors = appExecutors;
         mLanguageDao = database.languageDao();
         mQuoteDao = database.quoteDao();
         mLessonDao = database.lessonDao();
-        mSharedPreferences = sharedPreferences;
-        mContext = context;
-
         //TODO: remove following testcode before publishing
         setDebugState();
-
-//TODO enable service again
-        //scheduleJobService();
     }
+
 
     /**
      * Tag for logging.
@@ -86,8 +71,6 @@ public class CulaRepository {
     private final LessonDao mLessonDao;
     private final StatisticsDao mStatisticsDao;
     private final AppExecutors mExecutors;
-    private final SharedPreferences mSharedPreferences;
-    private final Context mContext;
 
     /**
      * Singleton to make sure only one {@link CulaRepository} is used at a time.
@@ -96,16 +79,14 @@ public class CulaRepository {
      * {@link android.arch.persistence.room.Dao}s.
      * @param appExecutors      The {@link AppExecutors} used to execute all kind of queries of
      *                          the main thread.
-     * @param sharedPreferences The {@link SharedPreferences} used access the apps settings.
      * @return A new {@link CulaRepository} if none exists. If already an instance exists this is
      * returned instead of creating a new one.
      */
     public synchronized static CulaRepository getInstance(
-            CulaDatabase database, AppExecutors appExecutors, SharedPreferences
-            sharedPreferences, Context context) {
+            CulaDatabase database, AppExecutors appExecutors) {
         if (sInstance == null) {
             synchronized (LOCK) {
-                sInstance = new CulaRepository(database, appExecutors, sharedPreferences, context);
+                sInstance = new CulaRepository(database, appExecutors);
                 Log.d(TAG, "Made new repository");
             }
         }
@@ -167,34 +148,7 @@ public class CulaRepository {
 
     }
 
-    /**
-     * Schedules a Job service to regularly update the motivational quote.
-     */
-    private void scheduleJobService() {
-        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver
-                (mContext));
 
-        // Update the database immediately
-        Job myInstantJob = dispatcher.newJobBuilder()
-                .setService(UpdateQuoteJobService.class)
-                .setTag("updateQuoteJobServiceNow")
-                .build();
-        dispatcher.mustSchedule(myInstantJob);
-
-        // and also update it each 12-13 hours as recurring job
-        Job recurringJob = dispatcher.newJobBuilder()
-                .setService(UpdateQuoteJobService.class)
-                .setTag("updateQuoteJobServiceRecurrent")
-                .setLifetime(Lifetime.FOREVER)
-                .setRecurring(true)
-                .setTrigger(Trigger.executionWindow(
-                        12 * 60 * 60,
-                        13 * 60 * 60))
-                .setReplaceCurrent(true)
-                .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
-                .build();
-        dispatcher.mustSchedule(recurringJob);
-    }
 
     /**
      * Adds the given {@link LessonEntry}s to the Database.
@@ -404,16 +358,6 @@ public class CulaRepository {
         return mLibraryDao.getTrainingEntries(number, minKnowledgeLevel,
                 maxKnowledgeLevel);
     }
-
-//    /**
-//     * Get the currently selected language.
-//     *
-//     * @return The currently selected language.
-//     */
-//    private String getCurrentLanguage() {
-//        //todo: find out how to use the string resource here instead of the hard coded key.
-//        return mSharedPreferences.getString("languages", "123");
-//    }
 
     /**
      * Adds the given {@link StatisticEntry}s to the Database.

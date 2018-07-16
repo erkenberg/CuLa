@@ -6,6 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -14,6 +20,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import org.liebald.android.cula.R;
+import org.liebald.android.cula.services.UpdateQuoteJobService;
 import org.liebald.android.cula.ui.lessons.LessonsFragment;
 import org.liebald.android.cula.ui.library.LibraryFragment;
 import org.liebald.android.cula.ui.quote.QuoteFragment;
@@ -81,8 +88,40 @@ public class MainActivity extends AppCompatActivity {
 
         drawer.closeDrawer();
         selectItem(DRAWER_STATISTICS_KEY);
+
+
+        // Start the jobservice for the quotes
+        scheduleJobService();
     }
 
+
+    /**
+     * Schedules a Job service to regularly update the motivational quote.
+     */
+    private void scheduleJobService() {
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+
+        // Update the database immediately
+        Job myInstantJob = dispatcher.newJobBuilder()
+                .setService(UpdateQuoteJobService.class)
+                .setTag("updateQuoteJobServiceNow")
+                .build();
+        dispatcher.mustSchedule(myInstantJob);
+
+        // and also update it each 12-13 hours as recurring job
+        Job recurringJob = dispatcher.newJobBuilder()
+                .setService(UpdateQuoteJobService.class)
+                .setTag("updateQuoteJobServiceRecurrent")
+                .setLifetime(Lifetime.FOREVER)
+                .setRecurring(true)
+                .setTrigger(Trigger.executionWindow(
+                        12 * 60 * 60,
+                        13 * 60 * 60))
+                .setReplaceCurrent(true)
+                .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
+                .build();
+        dispatcher.mustSchedule(recurringJob);
+    }
 
     /**
      * Handler for the clicked navigation drawer items. Loads the correct fragment in the activity.
