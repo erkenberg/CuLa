@@ -5,7 +5,8 @@ import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.CulaDatabase;
 
 /**
- * Provides static methods to inject the various classes needed for Sunshine
+ * Provides Utility methods for injecting e.g. the {@link CulaRepository} in other classes (e.g.
+ * the Viewmodels).
  */
 public class InjectorUtils {
 

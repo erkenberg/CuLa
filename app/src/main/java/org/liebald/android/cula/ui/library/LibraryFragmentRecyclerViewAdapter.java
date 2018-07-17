@@ -50,7 +50,6 @@ public class LibraryFragmentRecyclerViewAdapter extends
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.mNativeWordView.setText(mValues.get(position).getNativeWord());
         holder.mForeignWordView.setText(mValues.get(position).getForeignWord());
-        //TODO: KnowledgeLevel changes not always reflected in the color.
         holder.viewForeground.setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
                 (mContext, mValues.get(position).getKnowledgeLevel()));
 

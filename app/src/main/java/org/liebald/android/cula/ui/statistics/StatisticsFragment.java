@@ -77,6 +77,7 @@ public class StatisticsFragment extends Fragment {
             counts.add(new PieEntry((float) entry.getCount(), KnowledgeLevelUtils
                     .getNameByKnowledgeLevel(context, entry.level)));
             colors.add(KnowledgeLevelUtils.getColorByKnowledgeLevel(context, entry.level));
+
         }
 
         //create the data set

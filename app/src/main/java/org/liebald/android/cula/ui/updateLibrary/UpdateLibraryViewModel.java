@@ -3,8 +3,8 @@ package org.liebald.android.cula.ui.updateLibrary;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
+import org.liebald.android.cula.utilities.InjectorUtils;
 
 /**
  * Viewmodel for the {@link UpdateLibraryActivity}.
@@ -16,11 +16,10 @@ public class UpdateLibraryViewModel extends ViewModel {
     /**
      * Constructor.
      *
-     * @param repository Takes the CulaRepository
      * @param entryId    Id of the {@link LibraryEntry} That should be loaded.
      */
-    public UpdateLibraryViewModel(CulaRepository repository, int entryId) {
-        entry = repository.getLibraryEntry(entryId);
+    public UpdateLibraryViewModel(int entryId) {
+        entry = InjectorUtils.provideRepository().getLibraryEntry(entryId);
     }
 
     /**

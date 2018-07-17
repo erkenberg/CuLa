@@ -29,10 +29,10 @@ public interface StatisticsDao {
 
     @Query("select " +
             "  case " +
-            "    when knowledgeLevel between 0 and 1 then '0'" +
-            "    when knowledgeLevel between 1 and 2 then '1'" +
-            "    when knowledgeLevel between 2 and 3 then '2'" +
-            "    when knowledgeLevel between 3 and 4 then '3'" +
+            "    when knowledgeLevel between 0 and 0.999999 then '0'" +
+            "    when knowledgeLevel between 1 and 1.999999 then '1'" +
+            "    when knowledgeLevel between 2 and 2.999999 then '2'" +
+            "    when knowledgeLevel between 3 and 3.999999 then '3'" +
             "    when knowledgeLevel between 4 and 5 then '4'" +
             "  end as `level`," +
             "  count(1) as `count` " +
