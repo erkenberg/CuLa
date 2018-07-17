@@ -71,7 +71,7 @@ public class UpdateLessonActivity extends AppCompatActivity implements
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_update_lesson);
 
         //get the Repository for db access
-        mCulaRepository = InjectorUtils.provideRepository(this);
+        mCulaRepository = InjectorUtils.provideRepository();
 
         //enable the back button
         if (getActionBar() != null)
@@ -96,8 +96,7 @@ public class UpdateLessonActivity extends AppCompatActivity implements
             id = intent.getIntExtra(BUNDLE_EXTRA_UPDATE_KEY, -1);
         }
         //create the view model
-        UpdateLessonViewModelFactory viewModelFactory = new UpdateLessonViewModelFactory
-                (mCulaRepository, id);
+        UpdateLessonViewModelFactory viewModelFactory = new UpdateLessonViewModelFactory(id);
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(UpdateLessonViewModel.class);
 
         // Only when editing an existing lesson the UI should be filled

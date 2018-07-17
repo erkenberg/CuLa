@@ -25,7 +25,6 @@ import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.databinding.FragmentLibraryBinding;
 import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
-import org.liebald.android.cula.utilities.InjectorUtils;
 
 /**
  * A fragment presenting a list of {@link LibraryEntry}s and the possibility to add new ones.
@@ -57,10 +56,7 @@ public class LibraryFragment extends Fragment implements
 
         if (getActivity() == null || getContext() == null)
             return;
-        LibraryViewModelFactory factory = InjectorUtils.provideLibraryViewModelFactory(getContext
-                ());
-        mViewModel = ViewModelProviders.of(getActivity(), factory).get(LibraryFragmentViewModel
-                .class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(LibraryFragmentViewModel.class);
 
         mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
             mAdapter.swapEntries(libraryEntries);

@@ -3,9 +3,9 @@ package org.liebald.android.cula.ui.quote;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
+import org.liebald.android.cula.utilities.InjectorUtils;
 
 /**
  * Viewmodel for the {@link UpdateLibraryActivity}.
@@ -17,10 +17,9 @@ public class QuoteViewModel extends ViewModel {
     /**
      * Constructor.
      *
-     * @param repository Takes the CulaRepository
      */
-    public QuoteViewModel(CulaRepository repository) {
-        quote = repository.getQuote();
+    public QuoteViewModel() {
+        quote = InjectorUtils.provideRepository().getQuote();
     }
 
     /**

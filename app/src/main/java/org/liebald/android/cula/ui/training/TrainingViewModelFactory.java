@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import org.liebald.android.cula.data.CulaRepository;
+import org.liebald.android.cula.utilities.InjectorUtils;
 
 public class TrainingViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
@@ -15,9 +16,9 @@ public class TrainingViewModelFactory extends ViewModelProvider.NewInstanceFacto
     private final int mAmount;
 
 
-    TrainingViewModelFactory(CulaRepository culaRepository, int number, double
+    TrainingViewModelFactory(int number, double
             minKnowledgeLevel, double maxKnowledgeLevel, int lessonId) {
-        mCulaRepository = culaRepository;
+        mCulaRepository = InjectorUtils.provideRepository();
         mLessonId = lessonId;
         mMinKnowledgeLevel = minKnowledgeLevel;
         mMaxKnowledgeLevel = maxKnowledgeLevel;

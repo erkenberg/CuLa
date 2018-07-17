@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
+import org.liebald.android.cula.utilities.InjectorUtils;
 
 import java.util.List;
 
@@ -20,11 +21,9 @@ public class LessonsViewModel extends ViewModel {
 
     /**
      * Constructor of the ViewModel.
-     *
-     * @param repository The repository needed for data operations.
      */
-    LessonsViewModel(CulaRepository repository) {
-        mCulaRepository = repository;
+    LessonsViewModel() {
+        mCulaRepository = InjectorUtils.provideRepository();
         mLessonEntries = mCulaRepository.getAllLessonEntries();
     }
 

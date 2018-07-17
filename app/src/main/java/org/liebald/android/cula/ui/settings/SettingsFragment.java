@@ -56,7 +56,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // set the correct preference layout
         addPreferencesFromResource(R.xml.fragment_settings);
-        mRepository = InjectorUtils.provideRepository(Objects.requireNonNull(getContext()));
+        mRepository = InjectorUtils.provideRepository();
         // get the shared preferences
         if (getActivity() != null)
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -81,10 +81,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         // get the ViewModel
         if (getContext() != null) {
-            SettingsViewModelFactory factory = InjectorUtils.provideLanguageViewModelFactory
-                    (getContext());
-            mViewModel = ViewModelProviders.of(getActivity(), factory).get
-                    (SettingsFragmentViewModel.class);
+            mViewModel = ViewModelProviders.of(getActivity()).get(SettingsFragmentViewModel.class);
         }
         //Load the language entries and update the ListPreference
         mViewModel.getLanguageEntries().observe(this, this::updateLanguageList);
@@ -138,8 +135,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      * Deletes the current language from the app, including all words.
      */
     private void deleteLanguageFromDb(String language) {
-        CulaRepository repository = InjectorUtils.provideRepository(Objects.requireNonNull
-                (getContext()));
+        CulaRepository repository = InjectorUtils.provideRepository();
         repository.deleteLanguageEntry(new LanguageEntry(language, false));
     }
 

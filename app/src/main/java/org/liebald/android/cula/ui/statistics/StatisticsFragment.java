@@ -21,7 +21,6 @@ import com.github.mikephil.charting.formatter.IValueFormatter;
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLibraryWordCount;
 import org.liebald.android.cula.databinding.FragmentStatisticsBinding;
-import org.liebald.android.cula.utilities.InjectorUtils;
 import org.liebald.android.cula.utilities.KnowledgeLevelUtils;
 
 import java.util.ArrayList;
@@ -47,9 +46,8 @@ public class StatisticsFragment extends Fragment {
 
         if (getActivity() == null || getContext() == null)
             return;
-        StatisticsViewModelFactory factory = InjectorUtils.provideStatisticsViewModelFactory
-                (getContext());
-        mViewModel = ViewModelProviders.of(getActivity(), factory).get(StatisticsViewModel.class);
+
+        mViewModel = ViewModelProviders.of(getActivity()).get(StatisticsViewModel.class);
 
     }
 

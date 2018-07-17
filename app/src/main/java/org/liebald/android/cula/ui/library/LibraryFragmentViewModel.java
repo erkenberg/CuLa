@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
+import org.liebald.android.cula.utilities.InjectorUtils;
 
 import java.util.List;
 
@@ -21,11 +22,10 @@ public class LibraryFragmentViewModel extends ViewModel {
     /**
      * Constructor of the ViewModel.
      *
-     * @param repository The repository needed for data operations.
      */
-    LibraryFragmentViewModel(CulaRepository repository) {
-        mCulaRepository = repository;
-        mLibraryEntries = repository.getAllLibraryEntries();
+    LibraryFragmentViewModel() {
+        mCulaRepository = InjectorUtils.provideRepository();
+        mLibraryEntries = mCulaRepository.getAllLibraryEntries();
     }
 
     /**

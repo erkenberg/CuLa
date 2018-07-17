@@ -42,7 +42,7 @@ public class TrainingActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_training);
 
         // get DB access
-        mCulaRepository = InjectorUtils.provideRepository(this);
+        mCulaRepository = InjectorUtils.provideRepository();
 
         //set back button
         if (getActionBar() != null)
@@ -62,8 +62,8 @@ public class TrainingActivity extends AppCompatActivity {
                 .BUNDLE_EXTRA_REVERSE_TRAINING_KEY, false);
 
         //create the view model
-        TrainingViewModelFactory viewModelFactory = new TrainingViewModelFactory(mCulaRepository,
-                amountOfWords, minKnowledgeLevel, maxKnowledgeLevel, lessonId);
+        TrainingViewModelFactory viewModelFactory = new TrainingViewModelFactory(amountOfWords,
+                minKnowledgeLevel, maxKnowledgeLevel, lessonId);
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(TrainingViewModel.class);
         mViewModel.getEntries().observe(this, libraryEntries -> {
             if (libraryEntries != null) {

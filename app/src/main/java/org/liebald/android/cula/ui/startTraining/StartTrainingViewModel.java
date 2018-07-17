@@ -3,9 +3,9 @@ package org.liebald.android.cula.ui.startTraining;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
+import org.liebald.android.cula.utilities.InjectorUtils;
 
 import java.util.List;
 
@@ -18,11 +18,9 @@ public class StartTrainingViewModel extends ViewModel {
 
     /**
      * Constructor.
-     *
-     * @param repository Takes the CulaRepository
      */
-    StartTrainingViewModel(CulaRepository repository) {
-        mLessonEntries = repository.getAllLessonEntries();
+    StartTrainingViewModel() {
+        mLessonEntries = InjectorUtils.provideRepository().getAllLessonEntries();
     }
 
     /**

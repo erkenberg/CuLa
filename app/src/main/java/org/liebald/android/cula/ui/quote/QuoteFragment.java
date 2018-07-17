@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.databinding.FragmentQuoteBinding;
-import org.liebald.android.cula.utilities.InjectorUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,8 +34,7 @@ public class QuoteFragment extends Fragment {
 
         if (getActivity() == null || getContext() == null)
             return;
-        QuoteViewModelFactory factory = InjectorUtils.provideQuoteViewModelFactory(getContext());
-        mViewModel = ViewModelProviders.of(getActivity(), factory).get(QuoteViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(QuoteViewModel.class);
 
     }
 

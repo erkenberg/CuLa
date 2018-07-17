@@ -25,7 +25,6 @@ import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.databinding.FragmentLessonsBinding;
 import org.liebald.android.cula.ui.updateLesson.UpdateLessonActivity;
-import org.liebald.android.cula.utilities.InjectorUtils;
 
 /**
  * A fragment presenting a list of {@link LessonEntry}s and the possibility to add new ones.
@@ -57,9 +56,7 @@ public class LessonsFragment extends Fragment implements
 
         if (getActivity() == null || getContext() == null)
             return;
-        LessonsViewModelFactory factory = InjectorUtils.provideLessonsViewModelFactory(getContext
-                ());
-        mViewModel = ViewModelProviders.of(getActivity(), factory).get(LessonsViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(LessonsViewModel.class);
 
         mViewModel.getLessonEntries().observe(this, libraryEntries -> {
             mAdapter.swapEntries(libraryEntries);

@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel;
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.data.database.Entities.MappingPOJO;
+import org.liebald.android.cula.utilities.InjectorUtils;
 
 import java.util.List;
 
@@ -21,11 +22,10 @@ class UpdateLessonViewModel extends ViewModel {
     /**
      * Constructor.
      *
-     * @param repository Takes the {@link CulaRepository}
      * @param entryId    Id of the {@link LessonEntry} which should be loaded.
      */
-    UpdateLessonViewModel(CulaRepository repository, int entryId) {
-        mCulaRepository = repository;
+    UpdateLessonViewModel(int entryId) {
+        mCulaRepository = InjectorUtils.provideRepository();
         updateViewModel(entryId);
     }
 

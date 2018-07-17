@@ -17,7 +17,6 @@ import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.databinding.FragmentStartTrainingBinding;
 import org.liebald.android.cula.ui.training.TrainingActivity;
-import org.liebald.android.cula.utilities.InjectorUtils;
 
 import java.util.Objects;
 
@@ -79,10 +78,8 @@ public class StartTrainingFragment extends Fragment {
         if (getActivity() == null || getContext() == null)
             return;
         // Create the ViewModel for this fragment.
-        StartTrainingViewModelFactory factory =
-                InjectorUtils.provideStartTrainingViewModelFactory(getContext());
-        mViewModel = ViewModelProviders.of(getActivity(), factory).get(StartTrainingViewModel
-                .class);
+
+        mViewModel = ViewModelProviders.of(getActivity()).get(StartTrainingViewModel.class);
     }
 
     @Override

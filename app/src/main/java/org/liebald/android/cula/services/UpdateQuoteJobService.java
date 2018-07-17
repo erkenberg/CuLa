@@ -34,7 +34,7 @@ public class UpdateQuoteJobService extends JobService {
             }
             if (jsonQuote != null) {
                 QuoteEntry quoteEntry = JsonUtils.parseQuoteJson(jsonQuote);
-                InjectorUtils.provideRepository(getApplicationContext()).insertQuoteEntry
+                InjectorUtils.provideRepository().insertQuoteEntry
                         (quoteEntry);
                 jobFinished(job, false);
             } else {

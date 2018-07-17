@@ -62,7 +62,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_update_library);
 
         // get DB access
-        mCulaRepository = InjectorUtils.provideRepository(this);
+        mCulaRepository = InjectorUtils.provideRepository();
 
         //set back button
         if (getActionBar() != null)

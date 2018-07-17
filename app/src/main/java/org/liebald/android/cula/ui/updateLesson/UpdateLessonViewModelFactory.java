@@ -4,15 +4,11 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import org.liebald.android.cula.data.CulaRepository;
-
 public class UpdateLessonViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
-    private final CulaRepository mCulaRepository;
     private final int mEntryId;
 
-    public UpdateLessonViewModelFactory(CulaRepository culaRepository, int entryId) {
-        mCulaRepository = culaRepository;
+    public UpdateLessonViewModelFactory(int entryId) {
         mEntryId = entryId;
     }
 
@@ -20,6 +16,6 @@ public class UpdateLessonViewModelFactory extends ViewModelProvider.NewInstanceF
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new UpdateLessonViewModel(mCulaRepository, mEntryId);
+        return (T) new UpdateLessonViewModel(mEntryId);
     }
 }
