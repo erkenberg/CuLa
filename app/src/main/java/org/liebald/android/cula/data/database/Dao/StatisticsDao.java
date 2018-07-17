@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Entities.StatisticEntry;
+import org.liebald.android.cula.data.database.Pojos.StatisticsActivityEntry;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLibraryWordCount;
 
 import java.util.List;
@@ -27,17 +28,34 @@ public interface StatisticsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertEntry(StatisticEntry... statisticEntries);
 
-    @Query("select " +
-            "  case " +
-            "    when knowledgeLevel between 0 and 0.999999 then '0'" +
-            "    when knowledgeLevel between 1 and 1.999999 then '1'" +
-            "    when knowledgeLevel between 2 and 2.999999 then '2'" +
-            "    when knowledgeLevel between 3 and 3.999999 then '3'" +
-            "    when knowledgeLevel between 4 and 5 then '4'" +
-            "  end as `level`," +
-            "  count(1) as `count` " +
+    /**
+     * Groups all entries in the library table of the database by knowledgeLevel and counts how
+     * many entries are in each category (0-0.99999, 1-1.999999,...,4-5)
+     *
+     * @return The result as {@link List} of {@link StatisticsLibraryWordCount}, {@link List}
+     * size depending on the amount of KnowledgeLevel ranges with words in it.
+     */
+    @Query("SELECT " +
+            "  CASE " +
+            "    WHEN knowledgeLevel BETWEEN 0 AND 0.999999 THEN '0'" +
+            "    WHEN knowledgeLevel BETWEEN 1 AND 1.999999 THEN '1'" +
+            "    WHEN knowledgeLevel BETWEEN 2 AND 2.999999 THEN '2'" +
+            "    WHEN knowledgeLevel BETWEEN 3 AND 3.999999 THEN '3'" +
+            "    WHEN knowledgeLevel BETWEEN 4 AND 5 THEN '4'" +
+            "  END AS `level`," +
+            "  count(1) AS `count` " +
             "FROM library " +
             "WHERE language = (SELECT language FROM language WHERE isActive=1 LIMIT 1) " +
             "GROUP BY `level`")
     LiveData<List<StatisticsLibraryWordCount>> getStatisticsLibraryCountByKnowledgeLevel();
+
+
+    //Based on https://stackoverflow.com/questions/40199091/group-by-day-when-column-is-in
+    // -unixtimestamp
+    @Query("SELECT strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch') as date, " +
+            "COUNT(*) as activity " +
+            "FROM statistics " +
+            "GROUP BY strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch')" +
+            "ORDER BY strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch') ASC")
+    LiveData<List<StatisticsActivityEntry>> getStatisticsActivity();
 }

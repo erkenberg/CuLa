@@ -27,7 +27,7 @@ public class LibraryFragmentRecyclerViewAdapter extends
 
     private final OnItemClickListener mListener;
     /**
-     * Context required to set the correct colors for the level.
+     * Context required to set the correct colors for the day.
      */
     private final Context mContext;
     private List<LibraryEntry> mValues;

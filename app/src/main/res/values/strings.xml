@@ -104,6 +104,7 @@
     <string name="activity_training_label_progress">Progress: %1$d from %2$d</string>
     <string name="drawer_label_statistics">Statistics</string>
     <string name="statistics_label_words_by_level">Words in Library by Knowledge Level:</string>
+    <string name="statistics_label_activity">Activity over the last days:</string>
 
 
 </resources>

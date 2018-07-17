@@ -45,18 +45,39 @@ public class MappingPOJO {
                 '}';
     }
 
+    /**
+     * Getter for the Id of the {@link LibraryEntry} linked to this entry.
+     *
+     * @return The Id of the {@link LibraryEntry}
+     */
     public int getLibraryId() {
         return libraryId;
     }
 
+    /**
+     * Getter for the native Word of the {@link LibraryEntry} linked to this entry.
+     *
+     * @return The native Word of the {@link LibraryEntry}
+     */
     public String getNative_word() {
         return native_word;
     }
 
+    /**
+     * Getter for the foreign Word of the {@link LibraryEntry} linked to this entry.
+     *
+     * @return The foreign Word of the {@link LibraryEntry}
+     */
     public String getForeign_word() {
         return foreign_word;
     }
 
+    /**
+     * Boolean that defines whether this entry is part of the lesson that was given to the query
+     * returning a list of {@link MappingPOJO}s.
+     *
+     * @return True if part of that lesson, false otherwise.
+     */
     public boolean isPartOfLesson() {
         return partOfLesson;
     }

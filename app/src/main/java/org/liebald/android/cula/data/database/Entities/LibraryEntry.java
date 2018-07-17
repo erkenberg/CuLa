@@ -49,7 +49,7 @@ public class LibraryEntry {
     private String language;
 
     /**
-     * The level of the {@link LibraryEntry}.
+     * The day of the {@link LibraryEntry}.
      */
     private double knowledgeLevel;
 
@@ -67,7 +67,7 @@ public class LibraryEntry {
      * @param nativeWord  The stored native language word.
      * @param foreignWord The translation of the word in the foreign language.
      * @param language The language this {@link LibraryEntry} belongs to.
-     * @param knowledgeLevel The level of this {@link LibraryEntry}.
+     * @param knowledgeLevel The day of this {@link LibraryEntry}.
      * @param lastUpdated Timestamp of the last update of the {@link LibraryEntry}
      */
     public LibraryEntry(int id, @NonNull String nativeWord, @NonNull String foreignWord, @NonNull
@@ -83,7 +83,7 @@ public class LibraryEntry {
      * @param nativeWord  The stored native language word.
      * @param foreignWord The translation of the word in the foreign language.
      * @param language The language this {@link LibraryEntry} belongs to.
-     * @param knowledgeLevel The level of this {@link LibraryEntry}.
+     * @param knowledgeLevel The day of this {@link LibraryEntry}.
      */
     @Ignore
     public LibraryEntry(@NonNull String nativeWord, @NonNull String foreignWord, @NonNull String language, double knowledgeLevel) {
@@ -100,7 +100,7 @@ public class LibraryEntry {
      * @param nativeWord     The stored native language word.
      * @param foreignWord    The translation of the word in the foreign language.
      * @param language       The language this {@link LibraryEntry} belongs to.
-     * @param knowledgeLevel The level of this {@link LibraryEntry}.
+     * @param knowledgeLevel The day of this {@link LibraryEntry}.
      * @param lastUpdated    Timestamp of the last update of the {@link LibraryEntry}
      */
     @Ignore
@@ -143,18 +143,18 @@ public class LibraryEntry {
     }
 
     /**
-     * Getter for the knowledge level of the {@link LibraryEntry}.
+     * Getter for the knowledge day of the {@link LibraryEntry}.
      *
-     * @return knowledge level of the {@link LibraryEntry}.
+     * @return knowledge day of the {@link LibraryEntry}.
      */
     public double getKnowledgeLevel() {
         return knowledgeLevel;
     }
 
     /**
-     * Setter for the knowledge level of the {@link LibraryEntry}.
+     * Setter for the knowledge day of the {@link LibraryEntry}.
      *
-     * @param knowledgeLevel knowledge level of the {@link LibraryEntry}.
+     * @param knowledgeLevel knowledge day of the {@link LibraryEntry}.
      */
     public void setKnowledgeLevel(double knowledgeLevel) {
         this.knowledgeLevel = knowledgeLevel;
@@ -197,7 +197,7 @@ public class LibraryEntry {
                 ", nativeWord='" + nativeWord + '\'' +
                 ", foreignWord='" + foreignWord + '\'' +
                 ", language='" + language + '\'' +
-                ", level=" + knowledgeLevel +
+                ", day=" + knowledgeLevel +
                 ", lastUpdated=" + lastUpdated +
                 '}';
     }

@@ -64,8 +64,8 @@ public class KnowledgeLevelUtils {
     /**
      * Calculates a new KnowledgeLevel depending on whether it should be increased or decreased.
      *
-     * @param oldLevel      The last level which serves as ase
-     * @param increaseLevel if true the level is incremented, if false decremented.
+     * @param oldLevel      The last day which serves as ase
+     * @param increaseLevel if true the day is incremented, if false decremented.
      * @return The updated KnowledgeLevel
      */
     public static double calculateKnowlevelAdjustment(double oldLevel, boolean increaseLevel) {

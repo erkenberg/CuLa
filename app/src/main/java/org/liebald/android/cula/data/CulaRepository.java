@@ -30,9 +30,10 @@ import org.liebald.android.cula.data.database.Entities.LanguageEntry;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
-import org.liebald.android.cula.data.database.Pojos.MappingPOJO;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 import org.liebald.android.cula.data.database.Entities.StatisticEntry;
+import org.liebald.android.cula.data.database.Pojos.MappingPOJO;
+import org.liebald.android.cula.data.database.Pojos.StatisticsActivityEntry;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLibraryWordCount;
 import org.liebald.android.cula.utilities.AppExecutors;
 
@@ -127,6 +128,32 @@ public class CulaRepository {
         insertLessonMappingEntry(new LessonMappingEntry(5, 2, 8));
         insertLessonMappingEntry(new LessonMappingEntry(6, 3, 7));
         insertLessonMappingEntry(new LessonMappingEntry(7, 3, 8));
+
+        insertStatisticsEntry(new StatisticEntry(1, 1, 1, 0, new Date()));
+        insertStatisticsEntry(new StatisticEntry(2, 1, 1, 0, new Date()));
+        insertStatisticsEntry(new StatisticEntry(3, 1, 1, 0, new Date()));
+        insertStatisticsEntry(new StatisticEntry(4, 1, 1, 0, new Date()));
+        insertStatisticsEntry(new StatisticEntry(5, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000)));
+        insertStatisticsEntry(new StatisticEntry(6, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000)));
+        insertStatisticsEntry(new StatisticEntry(7, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 2)));
+        insertStatisticsEntry(new StatisticEntry(8, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 2)));
+        insertStatisticsEntry(new StatisticEntry(9, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 2)));
+        insertStatisticsEntry(new StatisticEntry(10, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 4)));
+        insertStatisticsEntry(new StatisticEntry(11, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 4)));
+        insertStatisticsEntry(new StatisticEntry(12, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 4)));
+        insertStatisticsEntry(new StatisticEntry(13, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 4)));
+        insertStatisticsEntry(new StatisticEntry(14, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 5)));
+
 
         //print the current entries in the db to the log console.
         mExecutors.diskIO().execute(() ->
@@ -368,8 +395,18 @@ public class CulaRepository {
         mExecutors.diskIO().execute(() -> mStatisticsDao.insertEntry(statisticEntries));
     }
 
+    /**
+     * Gets a {@link List} of {@link StatisticsLibraryWordCount} entries, where each entry
+     * contains the amount of words for each knowledgeLevel range (0-0.9999, 1-1.9999,...).
+     *
+     * @return The List of {@link StatisticsLibraryWordCount}s
+     */
     public LiveData<List<StatisticsLibraryWordCount>> getStatisticsLibraryCountByKnowledgeLevel() {
         return mStatisticsDao.getStatisticsLibraryCountByKnowledgeLevel();
+    }
+
+    public LiveData<List<StatisticsActivityEntry>> getStatisticsActivity() {
+        return mStatisticsDao.getStatisticsActivity();
     }
 
 

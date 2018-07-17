@@ -45,7 +45,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
     private int entryId = -1;
 
     /**
-     * The currently selected knowledge level.
+     * The currently selected knowledge day.
      */
     private double selectedKnowledgeLevel;
 
@@ -103,12 +103,12 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             });
 
         } else {
-            //on creating a new entry load the default level set in the settings.
+            //on creating a new entry load the default day set in the settings.
             setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string
                     .settings_default_knowledgeLevel_key), "3.5"));
         }
 
-        //add an onCheckedChange listener to set the internal current knowledge level correctly.
+        //add an onCheckedChange listener to set the internal current knowledge day correctly.
         mBinding.radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_knowledgeLevel_1:
@@ -156,7 +156,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         String language = PreferenceManager.getDefaultSharedPreferences(this).getString
                 (getString(R.string.settings_select_language_key), "");
         if (entryId != -1) {
-            //TODO: level is changed, even if not actually changed in the UI.
+            //TODO: day is changed, even if not actually changed in the UI.
             mCulaRepository.updateLibraryEntry(new LibraryEntry(entryId, nativeWord, foreignWord,
                     language, selectedKnowledgeLevel, new Date()));
         } else {
@@ -181,7 +181,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
     /**
      * Toggles the correct KnowledgeLevel radiobutton in the UI.
      *
-     * @param knowledgeLevelString The level to set
+     * @param knowledgeLevelString The day to set
      */
     private void setKnowledgeLevelUI(String knowledgeLevelString) {
         int knowledgeLevel = Integer.parseInt(knowledgeLevelString);
