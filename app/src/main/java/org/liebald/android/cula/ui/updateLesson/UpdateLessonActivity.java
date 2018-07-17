@@ -20,7 +20,7 @@ import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
-import org.liebald.android.cula.data.database.Entities.MappingPOJO;
+import org.liebald.android.cula.data.database.Pojos.MappingPOJO;
 import org.liebald.android.cula.databinding.ActivityUpdateLessonBinding;
 import org.liebald.android.cula.utilities.InjectorUtils;
 

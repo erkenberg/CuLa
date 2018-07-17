@@ -1,6 +1,8 @@
-package org.liebald.android.cula.data.database.Entities;
+package org.liebald.android.cula.data.database.Pojos;
 
 import android.arch.persistence.room.ColumnInfo;
+
+import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 
 /**
  * Simple POJO that contains the required data of a {@link LibraryEntry} to map it to a lesson.

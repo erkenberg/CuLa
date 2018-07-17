@@ -11,7 +11,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import org.liebald.android.cula.R;
-import org.liebald.android.cula.data.database.Entities.MappingPOJO;
+import org.liebald.android.cula.data.database.Pojos.MappingPOJO;
 
 import java.util.ArrayList;
 import java.util.List;

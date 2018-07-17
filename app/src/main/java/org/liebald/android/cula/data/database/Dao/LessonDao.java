@@ -12,7 +12,7 @@ import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Entities.LessonEntry;
 import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
-import org.liebald.android.cula.data.database.Entities.MappingPOJO;
+import org.liebald.android.cula.data.database.Pojos.MappingPOJO;
 
 import java.util.List;
 

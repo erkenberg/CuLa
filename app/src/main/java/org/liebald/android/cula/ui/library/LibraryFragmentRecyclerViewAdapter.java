@@ -67,6 +67,7 @@ public class LibraryFragmentRecyclerViewAdapter extends
              * shows the four methods you need to override to return a DiffUtil callback. The
              * old list is the current list stored in mValues, where the new list is the new
              * values passed in from the observing the database.
+             * Based on the Diffultil used in parts of the Udacity Android nanodegree course.
              */
 
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
