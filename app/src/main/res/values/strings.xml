@@ -105,6 +105,8 @@
     <string name="drawer_label_statistics">Statistics</string>
     <string name="statistics_label_words_by_level">Words in Library by Knowledge Level:</string>
     <string name="statistics_label_activity">Activity over the last days:</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 
 </resources>

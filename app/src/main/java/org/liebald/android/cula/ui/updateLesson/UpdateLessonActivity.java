@@ -28,6 +28,8 @@ public class UpdateLessonActivity extends AppCompatActivity implements
         UpdateLessonRecyclerViewAdapter.OnItemClickListener, CulaRepository
         .OnLessonEntryAddedListener {
 
+    private static final String TAG = UpdateLessonActivity.class.getSimpleName();
+
 
     /**
      * When the intend passed to this activity contains a bundle with this extra
@@ -154,11 +156,14 @@ public class UpdateLessonActivity extends AppCompatActivity implements
         String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString
                 (R.string.settings_select_language_key), "");
         if (entryId != -1) {
+            Log.d(TAG, "Updating existing lesson: " + entryId);
+
             mCulaRepository.updateLessonEntry(new LessonEntry(entryId, lessonName,
                     lessonDescription, language));
             //TODO: replace by snackbar?
             Toast.makeText(this, "Updated lesson", Toast.LENGTH_LONG).show();
         } else {
+            Log.d(TAG, "Inserting new lesson");
             mCulaRepository.insertLessonEntry(this, new LessonEntry(lessonName,
                     lessonDescription, language));
             //TODO: replace by snackbar?

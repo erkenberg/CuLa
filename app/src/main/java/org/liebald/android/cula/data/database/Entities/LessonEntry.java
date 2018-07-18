@@ -67,7 +67,8 @@ public class LessonEntry {
      * @param language          The language this {@link LessonEntry} belongs to.
      */
     @Ignore
-    public LessonEntry(@NonNull String lessonName, @NonNull String lessonDescription, String
+    public LessonEntry(@NonNull String lessonName, @NonNull String lessonDescription, @NonNull
+            String
             language) {
         this.lessonName = lessonName;
         this.lessonDescription = lessonDescription;

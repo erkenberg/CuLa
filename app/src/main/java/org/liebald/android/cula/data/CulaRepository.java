@@ -34,6 +34,7 @@ import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 import org.liebald.android.cula.data.database.Entities.StatisticEntry;
 import org.liebald.android.cula.data.database.Pojos.MappingPOJO;
 import org.liebald.android.cula.data.database.Pojos.StatisticsActivityEntry;
+import org.liebald.android.cula.data.database.Pojos.StatisticsLastTrainingDate;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLibraryWordCount;
 import org.liebald.android.cula.utilities.AppExecutors;
 
@@ -417,6 +418,15 @@ public class CulaRepository {
         calendar.setTime(new Date());
         calendar.add(Calendar.DAY_OF_YEAR, -14);
         return mStatisticsDao.getStatisticsActivity(calendar.getTime());
+    }
+
+    /**
+     * Get the date of the last training.
+     *
+     * @return Date of the last training.
+     */
+    public LiveData<StatisticsLastTrainingDate> getLastTrainingDate() {
+        return mStatisticsDao.getLastTrainingDate();
     }
 
 

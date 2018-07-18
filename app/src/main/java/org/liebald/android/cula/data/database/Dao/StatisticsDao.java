@@ -9,6 +9,7 @@ import android.arch.persistence.room.Query;
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Entities.StatisticEntry;
 import org.liebald.android.cula.data.database.Pojos.StatisticsActivityEntry;
+import org.liebald.android.cula.data.database.Pojos.StatisticsLastTrainingDate;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLibraryWordCount;
 
 import java.util.Date;
@@ -58,6 +59,7 @@ public interface StatisticsDao {
      * @param date The date after which the activity should be queried.
      * @return The List of {@link StatisticsActivityEntry} for all active days.
      */
+    //TODO: currently includes all languages! Filter for current language
     //Based on https://stackoverflow.com/questions/40199091/group-by-day-when-column-is-in
     // -unixtimestamp
     @Query("SELECT strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch') as date, " +
@@ -67,4 +69,13 @@ public interface StatisticsDao {
             "GROUP BY strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch')" +
             "ORDER BY strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch') ASC")
     LiveData<List<StatisticsActivityEntry>> getStatisticsActivity(Date date);
+
+
+    /**
+     * Get the date of the last training.
+     *
+     * @return Date of the last training.
+     */
+    @Query("SELECT max(trainingDate) AS lastActive FROM statistics ")
+    LiveData<StatisticsLastTrainingDate> getLastTrainingDate();
 }
