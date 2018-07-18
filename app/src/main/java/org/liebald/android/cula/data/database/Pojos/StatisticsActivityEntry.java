@@ -26,6 +26,25 @@ public class StatisticsActivityEntry {
         return activity;
     }
 
+    /**
+     * Default constructor.
+     */
+    public StatisticsActivityEntry() {
+        //empty constructor for room
+    }
+
+    /**
+     * Creates a new {@link StatisticsActivityEntry} with the given parameters.
+     *
+     * @param date     The Date of this {@link StatisticsActivityEntry} as String.
+     * @param activity The activity count of the given day.
+     */
+    @Ignore
+    public StatisticsActivityEntry(String date, int activity) {
+        this.date = date;
+        this.activity = activity;
+    }
+
     @Ignore
     @Override
     public String toString() {

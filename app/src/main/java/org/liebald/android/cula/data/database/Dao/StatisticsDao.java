@@ -11,6 +11,7 @@ import org.liebald.android.cula.data.database.Entities.StatisticEntry;
 import org.liebald.android.cula.data.database.Pojos.StatisticsActivityEntry;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLibraryWordCount;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,12 +51,20 @@ public interface StatisticsDao {
     LiveData<List<StatisticsLibraryWordCount>> getStatisticsLibraryCountByKnowledgeLevel();
 
 
+    /**
+     * Returns the activity of the user after the given date. For each active day a
+     * {@link StatisticsActivityEntry} is added to the list. Days without activity have no entry.
+     *
+     * @param date The date after which the activity should be queried.
+     * @return The List of {@link StatisticsActivityEntry} for all active days.
+     */
     //Based on https://stackoverflow.com/questions/40199091/group-by-day-when-column-is-in
     // -unixtimestamp
     @Query("SELECT strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch') as date, " +
             "COUNT(*) as activity " +
             "FROM statistics " +
+            "WHERE trainingDate>:date " +
             "GROUP BY strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch')" +
             "ORDER BY strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch') ASC")
-    LiveData<List<StatisticsActivityEntry>> getStatisticsActivity();
+    LiveData<List<StatisticsActivityEntry>> getStatisticsActivity(Date date);
 }

@@ -35,6 +35,7 @@ import org.liebald.android.cula.utilities.KnowledgeLevelUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -79,19 +80,65 @@ public class StatisticsFragment extends Fragment {
         });
 
         mViewModel.getActivity().observe(this, activityList -> {
-            Log.d(TAG, "" + activityList);
             if (activityList != null && activityList.size() > 0) {
-                updateActivityGraph(activityList);
+                updateActivityGraph(fillMissingActivityDays(activityList));
 
             }
         });
-
-
         return mBinding.getRoot();
     }
 
+    private List<StatisticsActivityEntry> fillMissingActivityDays(List<StatisticsActivityEntry>
+                                                                          activityList) {
+        List<StatisticsActivityEntry> fullList = new ArrayList<>();
+        int index = 0;
+        for (String date : getLastDaysAsString(14)) {
+            if (activityList != null && activityList.size() > index && activityList.get(index)
+                    .date.equals(date)) {
+                fullList.add(activityList.get(index));
+                index++;
+            } else {
+                fullList.add(new StatisticsActivityEntry(date, 0));
+            }
 
+        }
+
+        return fullList;
+    }
+
+
+    /**
+     * Helper method to get the string representations of the last 14 days in the format 2018-07-17.
+     *
+     * @param days The amount of days in the past from todays date to return.
+     * @return The {@link List} of dates ast String.
+     */
+    private List<String> getLastDaysAsString(int days) {
+        List<String> dayList = new ArrayList<>(days);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_YEAR, -days);
+        for (int counter = days; counter > 0; counter--) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            dayList.add(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).format(calendar
+                    .getTime()));
+        }
+        // one final entry to make the graph look nice
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        dayList.add(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).format(calendar
+                .getTime()));
+        return dayList;
+    }
+
+    /**
+     * Updates the activity Graph with the given list of {@link StatisticsActivityEntry}s
+     *
+     * @param activityList The entries to visualize
+     */
     private void updateActivityGraph(List<StatisticsActivityEntry> activityList) {
+        for (StatisticsActivityEntry entry : activityList) {
+            Log.d(TAG, entry.toString());
+        }
 
         LineChart mChart = mBinding.chartActivity;
         // disable description and legend
@@ -111,22 +158,23 @@ public class StatisticsFragment extends Fragment {
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(true);
         xAxis.setLabelRotationAngle(310);
+        xAxis.setValueFormatter((value, axis) -> new SimpleDateFormat("dd.MM.", Locale.GERMANY)
+                .format(new Date(((long) value))));
+        xAxis.setLabelCount(7, true);
 
         YAxis yAxis = mChart.getAxisLeft();
-        yAxis.setLabelCount(6, false);
+        yAxis.setLabelCount(4, false);
         yAxis.setTextColor(Color.BLACK);
         yAxis.setTextSize(14f);
-
+        yAxis.setAxisMinimum(0f);
+        yAxis.setValueFormatter((value, axis) -> String.valueOf((int) value));
         yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         yAxis.setDrawGridLines(false);
         mChart.getAxisRight().setEnabled(false);
 
-        // add data
+        // add data, need floats for the X axis
         ArrayList<Entry> yVals = new ArrayList<>();
-
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
-
-
         for (StatisticsActivityEntry entry : activityList) {
 
             Date date;
@@ -137,24 +185,14 @@ public class StatisticsFragment extends Fragment {
                 Log.d(TAG, "Exception parsing a date from the database: " + e);
                 continue;
             }
-
             yVals.add(new Entry(date.getTime(), entry.getActivity()));
         }
 
-        xAxis.setValueFormatter((value, axis) -> new SimpleDateFormat("dd.MM.", Locale.GERMANY)
-                .format(new Date(((long)
-                value))));
-        xAxis.setLabelCount(Math.min(7, yVals.size()), true);
-
-        Log.d(TAG, "" + yVals);
-
+        //create the linedataset and format it.
         int color = ResourcesCompat.getColor(getResources(), R.color.secondaryColor, null);
         LineDataSet lineDataSet;
-
         lineDataSet = new LineDataSet(yVals, "");
-
-        lineDataSet.setMode(LineDataSet.Mode.LINEAR);
-//        lineDataSet.setCubicIntensity(0.2f);
+        lineDataSet.setMode(LineDataSet.Mode.STEPPED);
         lineDataSet.setDrawCircles(false);
         lineDataSet.setDrawFilled(true);
         lineDataSet.setLineWidth(2f);
@@ -168,10 +206,7 @@ public class StatisticsFragment extends Fragment {
 
         // set data
         mChart.setData(data);
-
         mChart.animateXY(1000, 1000);
-
-        // dont forget to refresh the drawing
         mChart.invalidate();
 
     }

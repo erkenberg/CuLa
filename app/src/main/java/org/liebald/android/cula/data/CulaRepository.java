@@ -37,6 +37,7 @@ import org.liebald.android.cula.data.database.Pojos.StatisticsActivityEntry;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLibraryWordCount;
 import org.liebald.android.cula.utilities.AppExecutors;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -405,8 +406,17 @@ public class CulaRepository {
         return mStatisticsDao.getStatisticsLibraryCountByKnowledgeLevel();
     }
 
+    /**
+     * Returns the activity during the last 14 days. For each active day a
+     * {@link StatisticsActivityEntry} is added to the list. Days without activity have no entry.
+     *
+     * @return The List of {@link StatisticsActivityEntry} for all active days.
+     */
     public LiveData<List<StatisticsActivityEntry>> getStatisticsActivity() {
-        return mStatisticsDao.getStatisticsActivity();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_YEAR, -14);
+        return mStatisticsDao.getStatisticsActivity(calendar.getTime());
     }
 
 
