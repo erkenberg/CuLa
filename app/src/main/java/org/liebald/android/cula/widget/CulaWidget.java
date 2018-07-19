@@ -14,6 +14,8 @@ import org.liebald.android.cula.data.CulaRepository;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLastTrainingDate;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
+import java.util.Date;
+
 /**
  * Implementation of App Widget functionality.
  */
@@ -31,22 +33,38 @@ public class CulaWidget extends AppWidgetProvider {
             @Override
             public void onChanged(@Nullable StatisticsLastTrainingDate date) {
                 liveData.removeObserver(this);
-                if (date == null || date.lastActive == null)
-                    Log.d(TAG, "date null");
-                else
-                    Log.d(TAG, "date: " + date.lastActive.toString());
+                updateLastLearned(context, appWidgetManager, appWidgetId, date);
             }
         });
 
+    }
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
+    private static void updateLastLearned(Context context, AppWidgetManager appWidgetManager, int
+            appWidgetId, StatisticsLastTrainingDate date) {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.cula_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+
+        String text;
+        if (date == null || date.lastActive == null) {
+            text = context.getString(R.string.widget_last_learned_never);
+            Log.d(TAG, "date null");
+        } else {
+            long hoursSinceLastLearned = (new Date().getTime() - date.lastActive.getTime()) /
+                    (1000 * 60 * 60);
+            if (hoursSinceLastLearned < 24)
+                text = context.getString(R.string.widget_last_learned_recently);
+            else if (hoursSinceLastLearned < 24 * 3)
+                text = context.getString(R.string.widget_last_learned_last_3_days);
+            else if (hoursSinceLastLearned < 24 * 7)
+                text = context.getString(R.string.widget_last_learned_last_7_days);
+            else
+                text = context.getString(R.string.widget_last_learned_not);
+            Log.d(TAG, "date of last activity: " + date.lastActive.toString());
+        }
+        views.setTextViewText(R.id.tv_widget_last_learned, text);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
-
     }
 
     @Override

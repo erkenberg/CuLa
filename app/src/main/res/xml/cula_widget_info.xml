@@ -3,7 +3,7 @@
     android:initialKeyguardLayout="@layout/cula_widget"
     android:initialLayout="@layout/cula_widget"
     android:minHeight="110dp"
-    android:minWidth="180dp"
+    android:minWidth="240dp"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="3600000"
     android:widgetCategory="home_screen" />
