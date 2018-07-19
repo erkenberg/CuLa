@@ -2,6 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/widget"
+    android:background="@color/colorPrimary"
     android:padding="@dimen/widget_margin">
 
     <TextView
@@ -10,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:contentDescription="@string/widget_description_last_learned"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:textStyle="bold|italic" />
 
     <TextView
@@ -19,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:contentDescription="@string/widget_description_worst_lesson"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:textStyle="bold|italic" />
 
 </LinearLayout>

@@ -85,9 +85,18 @@ public class StatisticsFragment extends Fragment {
 
             }
         });
+
+
         return mBinding.getRoot();
     }
 
+    /**
+     * Helper method to fill the list of StatisticsActivityEntries retrieved from the database
+     * with 0 values for inactive days.
+     *
+     * @param activityList The list with all activities >0.
+     * @return A full list for the last 14 days containing also 0 values (= no training).
+     */
     private List<StatisticsActivityEntry> fillMissingActivityDays(List<StatisticsActivityEntry>
                                                                           activityList) {
         List<StatisticsActivityEntry> fullList = new ArrayList<>();
@@ -136,10 +145,6 @@ public class StatisticsFragment extends Fragment {
      * @param activityList The entries to visualize
      */
     private void updateActivityGraph(List<StatisticsActivityEntry> activityList) {
-        for (StatisticsActivityEntry entry : activityList) {
-            Log.d(TAG, entry.toString());
-        }
-
         LineChart mChart = mBinding.chartActivity;
         // disable description and legend
         mChart.getDescription().setEnabled(false);
@@ -180,7 +185,6 @@ public class StatisticsFragment extends Fragment {
             Date date;
             try {
                 date = format.parse(entry.getDate());
-                System.out.println(date);
             } catch (ParseException e) {
                 Log.d(TAG, "Exception parsing a date from the database: " + e);
                 continue;
@@ -206,7 +210,7 @@ public class StatisticsFragment extends Fragment {
 
         // set data
         mChart.setData(data);
-        mChart.animateXY(1000, 1000);
+        mChart.animateXY(500, 1500);
         mChart.invalidate();
 
     }

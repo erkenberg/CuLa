@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 
 import org.liebald.android.cula.data.database.CulaDatabase;
 import org.liebald.android.cula.data.database.Entities.StatisticEntry;
+import org.liebald.android.cula.data.database.Pojos.LessonKnowledgeLevel;
 import org.liebald.android.cula.data.database.Pojos.StatisticsActivityEntry;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLastTrainingDate;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLibraryWordCount;
@@ -78,4 +79,19 @@ public interface StatisticsDao {
      */
     @Query("SELECT max(trainingDate) AS lastActive FROM statistics ")
     LiveData<StatisticsLastTrainingDate> getLastTrainingDate();
+
+
+    /**
+     * Returns the lesson with the lowest KnowledgeLevel
+     *
+     * @return LessonKnowledgeLevel holding the result wrapped in LiveData.
+     */
+    @Query("SELECT lessonName,avg(knowledgeLevel) AS average " +
+            "FROM lesson JOIN lesson_mapping ON lesson.id=lesson_mapping.lessonEntryId " +
+            "JOIN library ON lesson_mapping.libraryEntryId = library.id " +
+            "WHERE lesson.language = (SELECT language FROM language WHERE isActive=1 LIMIT 1)" +
+            "GROUP BY lessonName " +
+            "ORDER BY avg(knowledgeLevel) ASC " +
+            "LIMIT 1")
+    LiveData<LessonKnowledgeLevel> getWorstLesson();
 }

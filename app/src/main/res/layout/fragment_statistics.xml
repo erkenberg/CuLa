@@ -6,7 +6,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <LinearLayout
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -16,18 +17,23 @@
             android:layout_height="wrap_content"
             style="@style/TextAppearance.AppCompat.Subhead"
             android:text="@string/statistics_label_words_by_level"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:textAlignment="center" />
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/chart_word_count"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="300dp"
             android:layout_margin="8dp" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/statistics_label_activity"
             android:textAlignment="center" />
@@ -36,7 +42,7 @@
             android:id="@+id/chart_activity"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_margin="4dp" />
+            android:layout_margin="8dp" />
 
     </LinearLayout>
     </ScrollView>

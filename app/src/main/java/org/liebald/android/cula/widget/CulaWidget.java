@@ -1,17 +1,22 @@
 package org.liebald.android.cula.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import org.liebald.android.cula.R;
 import org.liebald.android.cula.data.CulaRepository;
+import org.liebald.android.cula.data.database.Pojos.LessonKnowledgeLevel;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLastTrainingDate;
+import org.liebald.android.cula.ui.main.MainActivity;
 import org.liebald.android.cula.utilities.InjectorUtils;
 
 import java.util.Date;
@@ -25,24 +30,48 @@ public class CulaWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.cula_widget);
+        Intent configIntent = new Intent(context, MainActivity.class);
 
-        Log.d(TAG, "");
+        PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+
+        remoteViews.setOnClickPendingIntent(R.id.widget, configPendingIntent);
+
         CulaRepository repository = InjectorUtils.provideRepository();
-        LiveData<StatisticsLastTrainingDate> liveData = repository.getLastTrainingDate();
-        liveData.observeForever(new Observer<StatisticsLastTrainingDate>() {
+        LiveData<StatisticsLastTrainingDate> lastTrainingDate = repository.getLastTrainingDate();
+        lastTrainingDate.observeForever(new Observer<StatisticsLastTrainingDate>() {
             @Override
             public void onChanged(@Nullable StatisticsLastTrainingDate date) {
-                liveData.removeObserver(this);
-                updateLastLearned(context, appWidgetManager, appWidgetId, date);
+                lastTrainingDate.removeObserver(this);
+                updateLastLearned(context, appWidgetManager, appWidgetId, remoteViews, date);
             }
         });
 
+        LiveData<LessonKnowledgeLevel> worstLesson = repository.getWorstLesson();
+        worstLesson.observeForever(new Observer<LessonKnowledgeLevel>() {
+            @Override
+            public void onChanged(@Nullable LessonKnowledgeLevel lessonKnowledgeLevel) {
+                worstLesson.removeObserver(this);
+                updateWorstLesson(context, appWidgetManager, appWidgetId, remoteViews,
+                        lessonKnowledgeLevel);
+            }
+        });
+
+
     }
 
+    /**
+     * Updates the widget text for the reminder when a user trained the last time.
+     *
+     * @param context
+     * @param appWidgetManager
+     * @param appWidgetId
+     * @param views
+     * @param date
+     */
     private static void updateLastLearned(Context context, AppWidgetManager appWidgetManager, int
-            appWidgetId, StatisticsLastTrainingDate date) {
+            appWidgetId, RemoteViews views, StatisticsLastTrainingDate date) {
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.cula_widget);
 
         String text;
         if (date == null || date.lastActive == null) {
@@ -64,6 +93,29 @@ public class CulaWidget extends AppWidgetProvider {
         views.setTextViewText(R.id.tv_widget_last_learned, text);
 
         // Instruct the widget manager to update the widget
+        appWidgetManager.updateAppWidget(appWidgetId, views);
+    }
+
+    /**
+     * Update the text for the worst Lesson in the widget.
+     *
+     * @param context
+     * @param appWidgetManager
+     * @param appWidgetId
+     * @param views
+     * @param lessonKnowledgeLevel
+     */
+    private static void updateWorstLesson(Context context, AppWidgetManager appWidgetManager, int
+            appWidgetId, RemoteViews views, LessonKnowledgeLevel lessonKnowledgeLevel) {
+        if (lessonKnowledgeLevel == null)
+            views.setViewVisibility(R.id.tv_widget_lesson_proposal, View.GONE);
+        else {
+            views.setViewVisibility(R.id.tv_widget_lesson_proposal, View.VISIBLE);
+            views.setTextViewText(R.id.tv_widget_lesson_proposal, context.getString(R.string
+                    .widget_lesson_proposal, lessonKnowledgeLevel.lessonName));
+            Log.d(TAG, "Worst Lesson: " + lessonKnowledgeLevel.lessonName + " average: " +
+                    "" + lessonKnowledgeLevel.average);
+        }
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 

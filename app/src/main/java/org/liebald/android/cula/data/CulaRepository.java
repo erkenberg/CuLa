@@ -32,6 +32,7 @@ import org.liebald.android.cula.data.database.Entities.LessonMappingEntry;
 import org.liebald.android.cula.data.database.Entities.LibraryEntry;
 import org.liebald.android.cula.data.database.Entities.QuoteEntry;
 import org.liebald.android.cula.data.database.Entities.StatisticEntry;
+import org.liebald.android.cula.data.database.Pojos.LessonKnowledgeLevel;
 import org.liebald.android.cula.data.database.Pojos.MappingPOJO;
 import org.liebald.android.cula.data.database.Pojos.StatisticsActivityEntry;
 import org.liebald.android.cula.data.database.Pojos.StatisticsLastTrainingDate;
@@ -54,7 +55,7 @@ public class CulaRepository {
         mLanguageDao = database.languageDao();
         mQuoteDao = database.quoteDao();
         mLessonDao = database.lessonDao();
-        //TODO: remove following testcode before publishing
+        //TODO: remove setDebugState() testcode before publishing
         setDebugState();
     }
 
@@ -100,7 +101,7 @@ public class CulaRepository {
      * For debugging purposes prefill database with specified data.
      */
     private void setDebugState() {
-        mExecutors.diskIO().execute(mLibraryDao::deleteAll);
+//        mExecutors.diskIO().execute(mLibraryDao::deleteAll);
         insertLanguageEntry(new LanguageEntry("German", true));
         insertLanguageEntry(new LanguageEntry("Greek", false));
         insertLibraryEntry(new LibraryEntry(1, "native1", "foreign", "German", 1.1, new Date()));
@@ -155,8 +156,24 @@ public class CulaRepository {
                 - 86400000 * 4)));
         insertStatisticsEntry(new StatisticEntry(14, 1, 1, 0, new Date(new Date().getTime()
                 - 86400000 * 5)));
-
-
+        insertStatisticsEntry(new StatisticEntry(15, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 7)));
+        insertStatisticsEntry(new StatisticEntry(16, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 7)));
+        insertStatisticsEntry(new StatisticEntry(17, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 8)));
+        insertStatisticsEntry(new StatisticEntry(18, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 10)));
+        insertStatisticsEntry(new StatisticEntry(19, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 10)));
+        insertStatisticsEntry(new StatisticEntry(20, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 10)));
+        insertStatisticsEntry(new StatisticEntry(21, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 10)));
+        insertStatisticsEntry(new StatisticEntry(18, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 10)));
+        insertStatisticsEntry(new StatisticEntry(22, 1, 1, 0, new Date(new Date().getTime()
+                - 86400000 * 10)));
         //print the current entries in the db to the log console.
         mExecutors.diskIO().execute(() ->
                 Log.d(CulaRepository.class.getSimpleName(), "Database has now " + mLibraryDao
@@ -423,10 +440,19 @@ public class CulaRepository {
     /**
      * Get the date of the last training.
      *
-     * @return Date of the last training.
+     * @return Date of the last training wrapped in LiveData.
      */
     public LiveData<StatisticsLastTrainingDate> getLastTrainingDate() {
         return mStatisticsDao.getLastTrainingDate();
+    }
+
+    /**
+     * Returns the lesson with the lowest KnowledgeLevel
+     *
+     * @return LessonKnowledgeLevel holding the result wrapped in LiveData.
+     */
+    public LiveData<LessonKnowledgeLevel> getWorstLesson() {
+        return mStatisticsDao.getWorstLesson();
     }
 
 

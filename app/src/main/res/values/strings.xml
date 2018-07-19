@@ -105,19 +105,22 @@
     <string name="activity_training_label_progress">Progress: %1$d from %2$d</string>
 
     <!-- Statistics strings-->
-    <string name="statistics_label_words_by_level">Words in Library by Knowledge Level:</string>
-    <string name="statistics_label_activity">Activity over the last days:</string>
+    <string name="statistics_label_words_by_level">Library size by KnowledgeLevel for
+        current language:</string>
+    <string name="statistics_label_activity">Activity over the last 2 weeks (all languages):</string>
 
     <!-- App widget strings-->
-    <!--<string name="add_widget">Add widget</string>-->
     <string name="widget_description_last_learned">Last time you trained with CuLa</string>
     <string name="widget_description_worst_lesson">Currently worst lesson.</string>
     <string name="widget_last_learned_never">Time to train with Cula.</string>
-    <string name="widget_last_learned_recently">You trained recently, very good, keep it up!</string>
+    <string name="widget_last_learned_recently">You trained recently, very good. Keep it
+        up!</string>
     <string name="widget_last_learned_last_3_days">You trained during the last days, keep
-        it up!</string>
+        on training!</string>
     <string name="widget_last_learned_last_7_days">Your last training was already some days
         ago. You should train regularly.</string>
     <string name="widget_last_learned_not">You didn\'t train for over a week, try to train
         more regularly.</string>
+    <string name="widget_lesson_proposal">Maybe have a look at the <b>%1$s</b> lesson next.</string>
+
 </resources>
