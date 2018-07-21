@@ -7,7 +7,7 @@
         android:id="@+id/library_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.sliebald.android.cula.ui.startTraining.StartTrainingFragment">
+        tools:context="com.sliebald.cula.ui.startTraining.StartTrainingFragment">
 
         <TextView
             android:id="@+id/tv_label_start_training_instructions"

@@ -6,7 +6,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.sliebald.android.cula.ui.training.TrainingActivity">
+        tools:context="com.sliebald.cula.ui.training.TrainingActivity">
 
         <TextView
             android:id="@+id/tv_label_translate_word"
