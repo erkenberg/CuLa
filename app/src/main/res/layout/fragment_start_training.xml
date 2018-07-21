@@ -38,7 +38,7 @@
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:text="@string/start_training_label_lesson"
             app:layout_constraintStart_toStartOf="@+id/tv_label_start_training_number_of_words"
             app:layout_constraintTop_toBottomOf="@+id/tv_label_start_training_number_of_words" />
@@ -48,7 +48,7 @@
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:text="@string/start_training_label_knowledge_level"
             app:layout_constraintStart_toStartOf="@+id/tv_label_start_training_lesson"
             app:layout_constraintTop_toBottomOf="@+id/tv_label_start_training_lesson" />
@@ -58,14 +58,15 @@
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:text="@string/start_training_label_reverse_training"
             app:layout_constraintStart_toStartOf="@+id/tv_label_start_training_knowledge_level"
-            app:layout_constraintTop_toBottomOf="@+id/tv_label_start_training_knowledge_level" />
+            app:layout_constraintTop_toBottomOf="@+id/sp_start_training_knowledge_level_range" />
 
         <Spinner
             android:id="@+id/sp_start_training_number_of_words"
             android:layout_width="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tv_label_start_training_number_of_words"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="200dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_label_start_training_lesson"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
@@ -88,21 +90,24 @@
             android:id="@+id/sp_start_training_knowledge_level_range"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_label_start_training_knowledge_level"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toEndOf="@+id/tv_label_start_training_knowledge_level"
-            app:layout_constraintTop_toTopOf="@+id/tv_label_start_training_knowledge_level" />
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_start_training_knowledge_level" />
 
         <Spinner
             android:id="@+id/sp_start_training_knowledge_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_label_start_training_knowledge_level"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/sp_start_training_knowledge_level_range"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toEndOf="@+id/sp_start_training_knowledge_level_range"
-            app:layout_constraintTop_toTopOf="@+id/tv_label_start_training_knowledge_level" />
+            app:layout_constraintTop_toTopOf="@+id/sp_start_training_knowledge_level_range" />
 
         <Switch
             android:id="@+id/sw_start_training_reverse_training"

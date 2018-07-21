@@ -56,11 +56,11 @@
     <string name="settings_default_knowledgeLevel_summary">@string/knowledgeLevel3</string>
 
     <!-- Knowledge Levels-->
-    <string name="knowledgeLevel1">Unknown</string>
-    <string name="knowledgeLevel2">Bad</string>
-    <string name="knowledgeLevel3">Average</string>
-    <string name="knowledgeLevel4">Good</string>
-    <string name="knowledgeLevel5">Perfect</string>
+    <string name="knowledgeLevel1">1 - Unknown</string>
+    <string name="knowledgeLevel2">2 - Bad</string>
+    <string name="knowledgeLevel3">3 - Average</string>
+    <string name="knowledgeLevel4">4 - Good</string>
+    <string name="knowledgeLevel5">5 - Perfect</string>
     <string name="knowledgeLevel1_key" translatable="false">1</string>
     <string name="knowledgeLevel2_key" translatable="false">2</string>
     <string name="knowledgeLevel3_key" translatable="false">3</string>
