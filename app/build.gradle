@@ -64,4 +64,15 @@ dependencies {
     // Graph/chart drawer library
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
+    //firebase dependencies, 16.0.1 is available according to android studio but throws exceptions
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+
+    //firebase crashlytics
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
+
 }
+
+// add gradle firebase /google services plugin
+apply plugin: 'com.google.gms.google-services'
+//firebase crashlytics
+apply plugin: 'io.fabric'
