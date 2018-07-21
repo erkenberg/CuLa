@@ -18,6 +18,9 @@ import com.sliebald.cula.databinding.FragmentQuoteBinding;
  */
 public class QuoteFragment extends Fragment {
 
+    public static final String TAG = QuoteFragment.class.getSimpleName();
+
+
     private FragmentQuoteBinding mBinding;
 
     private QuoteViewModel mViewModel;

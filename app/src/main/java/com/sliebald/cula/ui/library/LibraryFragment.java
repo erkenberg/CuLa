@@ -32,7 +32,7 @@ public class LibraryFragment extends Fragment implements
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
         LibraryRecyclerViewAdapter.OnItemClickListener {
 
-    private static final String TAG = LibraryFragment.class.getSimpleName();
+    public static final String TAG = LibraryFragment.class.getSimpleName();
     private int mPosition = RecyclerView.NO_POSITION;
     private FragmentLibraryBinding mBinding;
 
@@ -52,11 +52,15 @@ public class LibraryFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getActivity() == null || getContext() == null)
             return;
         mViewModel = ViewModelProviders.of(getActivity()).get(LibraryViewModel.class);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
             mAdapter.swapEntries(libraryEntries);
             if (mPosition == RecyclerView.NO_POSITION) {
@@ -64,7 +68,6 @@ public class LibraryFragment extends Fragment implements
             }
             mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
         });
-
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.Objects;
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences
         .OnSharedPreferenceChangeListener {
 
-    private static final String TAG = SettingsFragment.class.getSimpleName();
+    public static final String TAG = SettingsFragment.class.getSimpleName();
 
     /**
      * The {@link SharedPreferences} used to store the preferences.

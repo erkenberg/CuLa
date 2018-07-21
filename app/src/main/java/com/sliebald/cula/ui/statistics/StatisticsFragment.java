@@ -43,7 +43,7 @@ import java.util.Objects;
 
 public class StatisticsFragment extends Fragment {
 
-    private static final String TAG = StatisticsFragment.class.getSimpleName();
+    public static final String TAG = StatisticsFragment.class.getSimpleName();
     private FragmentStatisticsBinding mBinding;
 
     private StatisticsViewModel mViewModel;

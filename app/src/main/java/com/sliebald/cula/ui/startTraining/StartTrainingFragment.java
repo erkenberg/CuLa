@@ -26,6 +26,7 @@ import java.util.Objects;
 public class StartTrainingFragment extends Fragment {
 
 
+
     /**
      * {@link Bundle} key for the amount of words to be trained.
      */
@@ -52,9 +53,13 @@ public class StartTrainingFragment extends Fragment {
     public static final String BUNDLE_EXTRA_REVERSE_TRAINING_KEY = "ReverseTraining";
 
     /**
-     * Tag for logging.
+     * Tag for logging and fragment identification.
      */
-    private static final String TAG = StartTrainingFragment.class.getSimpleName();
+    public static final String TAG = StartTrainingFragment.class.getSimpleName();
+    /**
+     * Key for the savedInstanceState selected lesson.
+     */
+    private static final String SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY = "selectedLesson";
 
 
     /**
@@ -136,6 +141,11 @@ public class StartTrainingFragment extends Fragment {
                 lesson_adapter.setDropDownViewResource(android.R.layout
                         .simple_spinner_dropdown_item);
                 mBinding.spStartTrainingLesson.setAdapter(lesson_adapter);
+                if (savedInstanceState != null && savedInstanceState.containsKey
+                        (SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY))
+                    mBinding.spStartTrainingLesson.setSelection(savedInstanceState.getInt
+                            (SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY, 0));
+
             }
         });
         return mBinding.getRoot();
@@ -229,4 +239,11 @@ public class StartTrainingFragment extends Fragment {
                 .swStartTrainingReverseTraining.isChecked();
     }
 
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY, mBinding
+                .spStartTrainingLesson.getSelectedItemPosition());
+    }
 }

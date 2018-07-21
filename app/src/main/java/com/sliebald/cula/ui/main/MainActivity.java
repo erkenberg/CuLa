@@ -45,12 +45,13 @@ public class MainActivity extends AppCompatActivity {
      */
     private Drawer drawer;
 
-    private static final int DRAWER_TRAIN_KEY = 0;
+    private static final int DRAWER_START_TRAINING_KEY = 0;
     private static final int DRAWER_LIBRARY_KEY = 1;
     private static final int DRAWER_SETTINGS_KEY = 2;
     private static final int DRAWER_QUOTE_KEY = 3;
     private static final int DRAWER_LESSONS_KEY = 4;
     private static final int DRAWER_STATISTICS_KEY = 5;
+    private static final String SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY = "activeDrawerItem";
 
     private MainViewModel mViewModel;
 
@@ -67,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
         //check whether there is a language set as active.
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        long active_item = DRAWER_QUOTE_KEY;
+        if (savedInstanceState != null && savedInstanceState.containsKey
+                (SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY))
+            active_item = savedInstanceState.getLong(SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY,
+                    active_item);
+
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -77,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withIdentifier(DRAWER_QUOTE_KEY).withName
                                 (R.string.drawer_label_quote).withIcon(FontAwesome.Icon
                                 .faw_bookmark),
-                        new PrimaryDrawerItem().withIdentifier(DRAWER_TRAIN_KEY).withName(R.string
+                        new PrimaryDrawerItem().withIdentifier(DRAWER_START_TRAINING_KEY)
+                                .withName(R.string
                                 .drawer_label_train).withIcon(FontAwesome.Icon.faw_pencil_alt),
                         new PrimaryDrawerItem().withIdentifier(DRAWER_LIBRARY_KEY).withName
                                 (R.string.drawer_label_library).withIcon(FontAwesome.Icon.faw_book),
@@ -95,11 +103,14 @@ public class MainActivity extends AppCompatActivity {
                     selectItem(drawerItem.getIdentifier(), false);
                     return true;
                 })
-                .withSelectedItem(DRAWER_QUOTE_KEY)
+                .withSelectedItem(active_item)
                 .build();
 
         drawer.closeDrawer();
-        selectItem(DRAWER_QUOTE_KEY, true);
+        if (savedInstanceState == null || !savedInstanceState.containsKey
+                (SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY))
+            selectItem(active_item, true);
+
         mViewModel.getActiveLanguage().observe(this, this::checkActiveLesson);
 
 
@@ -172,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void selectItem(long identifier, boolean firstCall) {
 
-        //TODO: proper fragment management on rotation
+        //TODO: really the best way to always create a new fragment each time?
         // Create a new fragment and specify the planet to show based on position
         Fragment fragment;
         if (!firstCall && identifier != DRAWER_SETTINGS_KEY && mViewModel.getActiveLanguage() !=
@@ -182,37 +193,73 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Please add/select a language.", Toast.LENGTH_LONG).show();
 
         }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        String tag = "";
         switch ((int) identifier) {
             case DRAWER_LIBRARY_KEY:
-                fragment = new LibraryFragment();
+                tag = LibraryFragment.TAG;
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null)
+                    fragment = new LibraryFragment();
                 break;
             case DRAWER_SETTINGS_KEY:
-                fragment = new SettingsFragment();
+                tag = SettingsFragment.TAG;
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null)
+                    fragment = new SettingsFragment();
                 break;
             case DRAWER_QUOTE_KEY:
-                fragment = new QuoteFragment();
+                tag = QuoteFragment.TAG;
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null)
+                    fragment = new QuoteFragment();
                 break;
             case DRAWER_LESSONS_KEY:
-                fragment = new LessonsFragment();
+                tag = LessonsFragment.TAG;
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null)
+                    fragment = new LessonsFragment();
                 break;
-            case DRAWER_TRAIN_KEY:
-                fragment = new StartTrainingFragment();
+            case DRAWER_START_TRAINING_KEY:
+                tag = StartTrainingFragment.TAG;
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null)
+                    fragment = new StartTrainingFragment();
                 break;
             case DRAWER_STATISTICS_KEY:
-                fragment = new StatisticsFragment();
+                tag = StatisticsFragment.TAG;
+                fragment = fragmentManager.findFragmentByTag(tag);
+                if (fragment == null)
+                    fragment = new StatisticsFragment();
                 break;
             default:
                 return;
         }
-
         drawer.closeDrawer();
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, fragment)
+                .replace(R.id.content_frame, fragment, tag)
+                .addToBackStack(null)
                 .commit();
+        fragmentManager.executePendingTransactions();
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putLong(SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY, drawer.getCurrentSelection());
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            finish();
+        }
     }
 
 }

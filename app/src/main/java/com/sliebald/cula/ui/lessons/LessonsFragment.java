@@ -32,13 +32,27 @@ public class LessonsFragment extends Fragment implements
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
         LessonsRecyclerViewAdapter.OnItemClickListener {
 
-    private static final String TAG = LessonsFragment.class.getSimpleName();
+    /**
+     * Tag for logging and fragment identification.
+     */
+    public static final String TAG = LessonsFragment.class.getSimpleName();
     private int mPosition = RecyclerView.NO_POSITION;
+
+    /**
+     * Databinding of the layout.
+     */
     private FragmentLessonsBinding mBinding;
 
+    /**
+     * Viewmodel of the Fragment.
+     */
     private LessonsViewModel mViewModel;
 
+    /**
+     * The adapter used to show the lessons.
+     */
     private LessonsRecyclerViewAdapter mAdapter;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -57,6 +71,12 @@ public class LessonsFragment extends Fragment implements
             return;
         mViewModel = ViewModelProviders.of(getActivity()).get(LessonsViewModel.class);
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mViewModel.getLessonEntries().observe(this, libraryEntries -> {
             mAdapter.swapEntries(libraryEntries);
             if (mPosition == RecyclerView.NO_POSITION) {
@@ -64,7 +84,6 @@ public class LessonsFragment extends Fragment implements
             }
             mBinding.recyclerViewLessonsList.smoothScrollToPosition(mPosition);
         });
-
     }
 
     @Override
