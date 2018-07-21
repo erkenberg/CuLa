@@ -37,9 +37,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     SharedPreferences sharedPreferences;
 
     /**
-     * The {@link SettingsFragmentViewModel} for the settings.
+     * The {@link SettingsViewModel} for the settings.
      */
-    private SettingsFragmentViewModel mViewModel;
+    private SettingsViewModel mViewModel;
 
     /**
      * The {@link ListPreference} for selecting the current language.
@@ -81,7 +81,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         // get the ViewModel
         if (getContext() != null) {
-            mViewModel = ViewModelProviders.of(getActivity()).get(SettingsFragmentViewModel.class);
+            mViewModel = ViewModelProviders.of(getActivity()).get(SettingsViewModel.class);
         }
         //Load the language entries and update the ListPreference
         mViewModel.getLanguageEntries().observe(this, this::updateLanguageList);
@@ -114,7 +114,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                     .LENGTH_SHORT).show();
             return;
         }
-        mRepository.insertLanguageEntry(new LanguageEntry(newLanguage, false));
+        mRepository.insertLanguageEntry(new LanguageEntry(newLanguage, true));
     }
 
     /**

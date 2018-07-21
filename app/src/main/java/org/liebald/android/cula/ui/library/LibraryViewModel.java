@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * {@link ViewModel} for the {@link LibraryFragment}.
  */
-public class LibraryFragmentViewModel extends ViewModel {
+public class LibraryViewModel extends ViewModel {
 
     private LiveData<List<LibraryEntry>> mLibraryEntries;
     private CulaRepository mCulaRepository;
@@ -23,7 +23,7 @@ public class LibraryFragmentViewModel extends ViewModel {
      * Constructor of the ViewModel.
      *
      */
-    LibraryFragmentViewModel() {
+    LibraryViewModel() {
         mCulaRepository = InjectorUtils.provideRepository();
         mLibraryEntries = mCulaRepository.getAllLibraryEntries();
     }
@@ -46,7 +46,7 @@ public class LibraryFragmentViewModel extends ViewModel {
         if (mLibraryEntries == null || mLibraryEntries.getValue() == null)
             return;
         latestDeletedEntry = mLibraryEntries.getValue().get(index);
-        Log.d(LibraryFragmentViewModel.class.getSimpleName(), latestDeletedEntry.toString());
+        Log.d(LibraryViewModel.class.getSimpleName(), latestDeletedEntry.toString());
         mCulaRepository.deleteLibraryEntry(latestDeletedEntry);
     }
 

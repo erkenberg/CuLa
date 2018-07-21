@@ -31,15 +31,15 @@ import org.liebald.android.cula.ui.updateLibrary.UpdateLibraryActivity;
  */
 public class LibraryFragment extends Fragment implements
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
-        LibraryFragmentRecyclerViewAdapter.OnItemClickListener {
+        LibraryRecyclerViewAdapter.OnItemClickListener {
 
     private static final String TAG = LibraryFragment.class.getSimpleName();
     private int mPosition = RecyclerView.NO_POSITION;
     private FragmentLibraryBinding mBinding;
 
-    private LibraryFragmentViewModel mViewModel;
+    private LibraryViewModel mViewModel;
 
-    private LibraryFragmentRecyclerViewAdapter mAdapter;
+    private LibraryRecyclerViewAdapter mAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,7 +56,7 @@ public class LibraryFragment extends Fragment implements
 
         if (getActivity() == null || getContext() == null)
             return;
-        mViewModel = ViewModelProviders.of(getActivity()).get(LibraryFragmentViewModel.class);
+        mViewModel = ViewModelProviders.of(getActivity()).get(LibraryViewModel.class);
 
         mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
             mAdapter.swapEntries(libraryEntries);
@@ -83,7 +83,7 @@ public class LibraryFragment extends Fragment implements
 
         mBinding.recyclerViewLibraryList.addItemDecoration(new DividerItemDecoration(getContext()
                 , DividerItemDecoration.VERTICAL));
-        mAdapter = new LibraryFragmentRecyclerViewAdapter(this, getContext());
+        mAdapter = new LibraryRecyclerViewAdapter(this, getContext());
         mBinding.recyclerViewLibraryList.setAdapter(mAdapter);
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0,
@@ -105,7 +105,7 @@ public class LibraryFragment extends Fragment implements
      */
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof LibraryFragmentRecyclerViewAdapter.ViewHolder) {
+        if (viewHolder instanceof LibraryRecyclerViewAdapter.ViewHolder) {
 
             final int deletedIndex = viewHolder.getAdapterPosition();
             // remove the item from the viewModel

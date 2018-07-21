@@ -22,8 +22,8 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link LibraryEntry}.
  */
-public class LibraryFragmentRecyclerViewAdapter extends
-        RecyclerView.Adapter<LibraryFragmentRecyclerViewAdapter.ViewHolder> {
+public class LibraryRecyclerViewAdapter extends
+        RecyclerView.Adapter<LibraryRecyclerViewAdapter.ViewHolder> {
 
     private final OnItemClickListener mListener;
     /**
@@ -32,7 +32,7 @@ public class LibraryFragmentRecyclerViewAdapter extends
     private final Context mContext;
     private List<LibraryEntry> mValues;
 
-    LibraryFragmentRecyclerViewAdapter(OnItemClickListener listener, Context context) {
+    LibraryRecyclerViewAdapter(OnItemClickListener listener, Context context) {
         mValues = new ArrayList<>();
         mListener = listener;
         mContext = context;

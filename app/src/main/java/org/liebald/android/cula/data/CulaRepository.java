@@ -325,6 +325,15 @@ public class CulaRepository {
     }
 
     /**
+     * Gets the active Language {@link LanguageEntry}s in the language database table.
+     *
+     * @return {@link LiveData} with the active @{@link LanguageEntry}s. Null if none is active.
+     */
+    public LiveData<LanguageEntry> getActiveLanguage() {
+        return mLanguageDao.getActiveLanguage();
+    }
+
+    /**
      * Updates the given {@link LessonEntry}s to the Database.
      *
      * @param lessonEntries One or more {@link LessonEntry}s to update in the Database

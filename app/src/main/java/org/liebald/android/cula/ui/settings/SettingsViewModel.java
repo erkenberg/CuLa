@@ -9,7 +9,7 @@ import org.liebald.android.cula.utilities.InjectorUtils;
 import java.util.List;
 
 
-public class SettingsFragmentViewModel extends ViewModel {
+public class SettingsViewModel extends ViewModel {
 
     private LiveData<List<LanguageEntry>> mLanguageEntries;
 
@@ -17,7 +17,7 @@ public class SettingsFragmentViewModel extends ViewModel {
      * Constructor of the ViewModel.
      *
      */
-    SettingsFragmentViewModel() {
+    SettingsViewModel() {
         mLanguageEntries = InjectorUtils.provideRepository().getAllLanguageEntries();
     }
 

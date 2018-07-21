@@ -39,7 +39,7 @@
     <!-- Settings Strings-->
     <string name="settings_select_language_key" translatable="false">languages</string>
     <string name="settings_select_language_title">Select language</string>
-    <string name="settings_select_language_default">No language selected</string>
+    <string name="settings_select_language_default">Add a new language</string>
     <string name="settings_select_language_summary">Select your language to train</string>
     <string name="settings_add_language_key" translatable="false">addLanguage</string>
     <string name="settings_add_language_title">Add language</string>

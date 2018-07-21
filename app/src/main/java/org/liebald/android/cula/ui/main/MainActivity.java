@@ -1,10 +1,15 @@
 package org.liebald.android.cula.ui.main;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -20,6 +25,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 
 import org.liebald.android.cula.R;
+import org.liebald.android.cula.data.database.Entities.LanguageEntry;
 import org.liebald.android.cula.services.UpdateQuoteJobService;
 import org.liebald.android.cula.ui.lessons.LessonsFragment;
 import org.liebald.android.cula.ui.library.LibraryFragment;
@@ -47,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int DRAWER_LESSONS_KEY = 4;
     private static final int DRAWER_STATISTICS_KEY = 5;
 
+    private MainViewModel mViewModel;
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         //TODO: check if a language is selected, otherwise open settings and show a toast.
         //create the drawer and remember the `Drawer` result object
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        //check whether there is a language set as active.
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -80,18 +93,47 @@ public class MainActivity extends AppCompatActivity {
                                 .string.drawer_label_settings).withIcon(FontAwesome.Icon.faw_cog)
                 )
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
-                    selectItem(drawerItem.getIdentifier());
+                    selectItem(drawerItem.getIdentifier(), false);
                     return true;
                 })
-                .withSelectedItem(DRAWER_STATISTICS_KEY)
+                .withSelectedItem(DRAWER_QUOTE_KEY)
                 .build();
 
         drawer.closeDrawer();
-        selectItem(DRAWER_STATISTICS_KEY);
+        selectItem(DRAWER_QUOTE_KEY, true);
+        mViewModel.getActiveLanguage().observe(this, this::checkActiveLesson);
 
 
         // Start the jobservice for the quotes
         scheduleJobService();
+    }
+
+
+    /**
+     * Checks that the active language is set correctly in the sharedPreferences. Also makes sure
+     * that if no language is selected the user is forwarded to the settings and given a hint.
+     *
+     * @param languageEntry The currently active language in the database. If null none is set to
+     *                      active.
+     */
+    private void checkActiveLesson(LanguageEntry languageEntry) {
+        String preferencesLanguage = sharedPreferences.getString(getResources().getString(R.string
+                .settings_select_language_key), "");
+        if (languageEntry == null) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(getResources().getString(R.string
+                    .settings_select_language_key), "");
+            editor.apply();
+        } else if (!languageEntry.getLanguage().equals(preferencesLanguage)) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(getResources().getString(R.string
+                    .settings_select_language_key), languageEntry.getLanguage());
+            editor.apply();
+            Log.d(TAG, "Currently active language, preferences: " + sharedPreferences
+                    .getString(getResources().getString(R.string.settings_select_language_key),
+                            "") + "database: " + languageEntry.getLanguage());
+        }
+
     }
 
 
@@ -127,12 +169,20 @@ public class MainActivity extends AppCompatActivity {
      * Handler for the clicked navigation drawer items. Loads the correct fragment in the activity.
      *
      * @param identifier The fragment to load.
+     * @param firstCall Indicates whether this method is called for the first time.
      */
-    private void selectItem(long identifier) {
+    private void selectItem(long identifier, boolean firstCall) {
 
         //TODO: proper fragment management on rotation
         // Create a new fragment and specify the planet to show based on position
         Fragment fragment;
+        if (!firstCall && identifier != DRAWER_SETTINGS_KEY && mViewModel.getActiveLanguage() !=
+                null && mViewModel.getActiveLanguage().getValue() == null) {
+            identifier = DRAWER_SETTINGS_KEY;
+            drawer.setSelection(DRAWER_SETTINGS_KEY);
+            Toast.makeText(this, "Please add/select a language.", Toast.LENGTH_LONG).show();
+
+        }
         switch ((int) identifier) {
             case DRAWER_LIBRARY_KEY:
                 fragment = new LibraryFragment();

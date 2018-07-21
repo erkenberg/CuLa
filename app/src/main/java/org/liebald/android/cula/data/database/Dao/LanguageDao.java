@@ -62,4 +62,12 @@ public interface LanguageDao {
      */
     @Delete
     void deleteEntry(LanguageEntry entry);
+
+    /**
+     * Gets the active Language {@link LanguageEntry}s in the language database table.
+     *
+     * @return {@link LiveData} with the active @{@link LanguageEntry}s. Null if none is active.
+     */
+    @Query("SELECT language, isActive FROM language WHERE isActive=1 LIMIT 1")
+    LiveData<LanguageEntry> getActiveLanguage();
 }
