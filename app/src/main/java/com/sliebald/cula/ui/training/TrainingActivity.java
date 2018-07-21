@@ -20,6 +20,11 @@ import com.sliebald.cula.utilities.KnowledgeLevelUtils;
 
 public class TrainingActivity extends AppCompatActivity {
 
+    /**
+     * Tag of this activity.
+     */
+    private static final String TAG = TrainingActivity.class.getSimpleName();
+
 
     /**
      * The databinding for the Layout.
@@ -31,7 +36,14 @@ public class TrainingActivity extends AppCompatActivity {
      */
     private CulaRepository mCulaRepository;
 
+    /**
+     * ViewModel of the activity.
+     */
     private TrainingViewModel mViewModel;
+
+    /**
+     * Boolean defining whether reverse training should be done
+     */
     boolean reverseTraining;
 
     @Override
@@ -43,7 +55,7 @@ public class TrainingActivity extends AppCompatActivity {
 
         // get DB access
         mCulaRepository = InjectorUtils.provideRepository();
-
+        Log.d(TAG, "SAVED STATE: " + savedInstanceState);
         //set back button
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,13 +82,14 @@ public class TrainingActivity extends AppCompatActivity {
                 //we don't need updates during training.
                 mViewModel.getEntries().removeObservers(this);
                 if (libraryEntries.size() > 0) {
-                    Log.d("TEST", "size: " + libraryEntries.size() + " entry 1: " +
+                    Log.d(TAG, "size: " + libraryEntries.size() + " entry 1: " +
                             libraryEntries.get(0).toString());
-                    showNextWord();
+                    showWord(savedInstanceState == null);
                 } else {
                     Toast.makeText(this, R.string.start_training_warning_no_matching_words, Toast
                             .LENGTH_LONG)
                             .show();
+                    finish();
                 }
             }
         });
@@ -84,15 +97,21 @@ public class TrainingActivity extends AppCompatActivity {
 
     /**
      * Display the next word to learn.
+     * @param nextWord True if the next word should be displayed, false if the current one should
+     *                be shown.
      */
-    private void showNextWord() {
+    private void showWord(boolean nextWord) {
         if (!mViewModel.hasNextEntry()) {
             //TODO: show statistics or similar instead of just returning.
             finish();
         } else {
             mBinding.etTranslatedWord.getText().clear();
             mBinding.etTranslatedWord.requestFocus();
-            LibraryEntry nextEntry = mViewModel.getNextEntry();
+            LibraryEntry nextEntry;
+            if (nextWord)
+                nextEntry = mViewModel.getNextEntry();
+            else
+                nextEntry = mViewModel.getCurrentWord();
             if (!reverseTraining)
                 mBinding.tvLabelWordToTranslate.setText(nextEntry.getNativeWord());
             else
@@ -143,6 +162,6 @@ public class TrainingActivity extends AppCompatActivity {
 
         mCulaRepository.updateLibraryEntry(currentEntry);
 
-        showNextWord();
+        showWord(true);
     }
 }

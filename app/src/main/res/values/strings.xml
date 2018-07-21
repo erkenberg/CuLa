@@ -52,7 +52,7 @@
         words belonging to it?</string>
     <string name="settings_default_knowledgeLevel_title">Default Knowledge Level</string>
     <string name="settings_default_knowledgeLevel_key" translatable="false">defaultKnowledgeLevel</string>
-    <string name="settings_default_knowledgeLevel_default">3</string>
+    <string name="settings_default_knowledgeLevel_default">2.5</string>
     <string name="settings_default_knowledgeLevel_summary">@string/knowledgeLevel3</string>
 
     <!-- Knowledge Levels-->

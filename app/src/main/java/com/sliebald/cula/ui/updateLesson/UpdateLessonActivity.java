@@ -3,7 +3,6 @@ package com.sliebald.cula.ui.updateLesson;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,10 +23,16 @@ import com.sliebald.cula.data.database.Pojos.MappingPOJO;
 import com.sliebald.cula.databinding.ActivityUpdateLessonBinding;
 import com.sliebald.cula.utilities.InjectorUtils;
 
+/**
+ * Activity that manages editing and adding lessons.
+ */
 public class UpdateLessonActivity extends AppCompatActivity implements
         UpdateLessonRecyclerViewAdapter.OnItemClickListener, CulaRepository
         .OnLessonEntryAddedListener {
 
+    /**
+     * Tag of this activity.
+     */
     private static final String TAG = UpdateLessonActivity.class.getSimpleName();
 
 
@@ -49,20 +54,10 @@ public class UpdateLessonActivity extends AppCompatActivity implements
     private CulaRepository mCulaRepository;
 
     /**
-     * The entryId of an entry that is updated. Only used when !=-1.
-     */
-    //todo: move to viewmodel?
-    private int entryId = -1;
-
-    /**
      * Adapter for the list of words that could belong to the lesson.
      */
     private UpdateLessonRecyclerViewAdapter mAdapter;
 
-    /**
-     * The shared preferences for accessing default values.
-     */
-    private SharedPreferences mSharedPreferences;
 
     private UpdateLessonViewModel mViewModel;
 
@@ -78,8 +73,6 @@ public class UpdateLessonActivity extends AppCompatActivity implements
         //enable the back button
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         //Make sure the keyboard doesn't show on activity start.
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -100,14 +93,20 @@ public class UpdateLessonActivity extends AppCompatActivity implements
         //create the view model
         UpdateLessonViewModelFactory viewModelFactory = new UpdateLessonViewModelFactory(id);
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(UpdateLessonViewModel.class);
+        if (savedInstanceState == null)
+            mViewModel.setEntryID(id);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         // Only when editing an existing lesson the UI should be filled
-        if (id != -1) {
+        if (mViewModel.getEntryID() != -1) {
             updateUI();
         } else {
             mBinding.tvLabelAddLessonMappings.setVisibility(View.INVISIBLE);
         }
-
     }
 
     /**
@@ -120,8 +119,6 @@ public class UpdateLessonActivity extends AppCompatActivity implements
             mViewModel.getEntry().removeObservers(this);
             mBinding.etAddLessonName.setText(lessonEntry.getLessonName());
             mBinding.etAddLessonDescription.setText(lessonEntry.getLessonDescription());
-            entryId = lessonEntry.getId();
-
         });
         mViewModel.getMapping().observe(this, mappingPOJOList -> {
             if (mappingPOJOList == null)
@@ -147,7 +144,6 @@ public class UpdateLessonActivity extends AppCompatActivity implements
         String lessonName = mBinding.etAddLessonName.getText().toString().trim();
         String lessonDescription = mBinding.etAddLessonDescription.getText().toString().trim();
         if (lessonName.isEmpty()) {
-            //TODO: replacable by snackbar?
             Toast.makeText(this, "Lesson name can't be empty", Toast.LENGTH_LONG).show();
             mBinding.etAddLessonName.requestFocus();
             return;
@@ -155,22 +151,19 @@ public class UpdateLessonActivity extends AppCompatActivity implements
 
         String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString
                 (R.string.settings_select_language_key), "");
-        if (entryId != -1) {
-            Log.d(TAG, "Updating existing lesson: " + entryId);
+        if (mViewModel.getEntryID() != -1) {
+            Log.d(TAG, "Updating existing lesson: " + mViewModel.getEntryID());
 
-            mCulaRepository.updateLessonEntry(new LessonEntry(entryId, lessonName,
+            mCulaRepository.updateLessonEntry(new LessonEntry(mViewModel.getEntryID(), lessonName,
                     lessonDescription, language));
-            //TODO: replace by snackbar?
             Toast.makeText(this, "Updated lesson", Toast.LENGTH_LONG).show();
         } else {
             Log.d(TAG, "Inserting new lesson");
             mCulaRepository.insertLessonEntry(this, new LessonEntry(lessonName,
                     lessonDescription, language));
-            //TODO: replace by snackbar?
             Toast.makeText(this, "Added lesson", Toast.LENGTH_LONG).show();
         }
 
-        View v = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context
                     .INPUT_METHOD_SERVICE);
@@ -208,11 +201,11 @@ public class UpdateLessonActivity extends AppCompatActivity implements
     public void onLessonEntryAdded(long[] ids) {
         //Currently we only add one lesson at a time, therefore we just check the first element.
         if (ids.length > 0) {
-            entryId = (int) ids[0];
-            mViewModel.updateViewModel(entryId);
+            mViewModel.setEntryID((int) ids[0]);
+//            mViewModel.updateViewModel(mViewModel.getEntryID());
+            Log.d(TAG, "entryID: " + ids[0]);
             runOnUiThread(this::updateUI);
         }
     }
-
 
 }

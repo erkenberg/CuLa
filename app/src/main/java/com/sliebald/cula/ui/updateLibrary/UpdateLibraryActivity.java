@@ -89,23 +89,16 @@ public class UpdateLibraryActivity extends AppCompatActivity {
                 mBinding.editTextAddForeignWord.setText(libraryEntry.getForeignWord());
                 mBinding.editTextAddNativeWord.setText(libraryEntry.getNativeWord());
 
-                if (libraryEntry.getKnowledgeLevel() < 1)
-                    setKnowledgeLevelUI("1");
-                else if (libraryEntry.getKnowledgeLevel() < 2)
-                    setKnowledgeLevelUI("2");
-                else if (libraryEntry.getKnowledgeLevel() < 3)
-                    setKnowledgeLevelUI("3");
-                else if (libraryEntry.getKnowledgeLevel() < 4)
-                    setKnowledgeLevelUI("4");
-                else
-                    setKnowledgeLevelUI("5");
+                setKnowledgeLevelUI(libraryEntry.getKnowledgeLevel());
+
                 entryId = libraryEntry.getId();
             });
 
         } else {
             //on creating a new entry load the default day set in the settings.
-            setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string
-                    .settings_default_knowledgeLevel_key), "3.5"));
+            setKnowledgeLevelUI(Double.parseDouble(mSharedPreferences.getString(getString(R.string
+                    .settings_default_knowledgeLevel_key), getString
+                    (R.string.settings_default_knowledgeLevel_default))));
         }
 
         //add an onCheckedChange listener to set the internal current knowledge day correctly.
@@ -170,8 +163,9 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             mBinding.editTextAddNativeWord.setText("");
             mBinding.editTextAddForeignWord.setText("");
             mBinding.editTextAddNativeWord.requestFocus();
-            setKnowledgeLevelUI(mSharedPreferences.getString(getString(R.string
-                    .settings_default_knowledgeLevel_key), "3"));
+            setKnowledgeLevelUI(Double.parseDouble(mSharedPreferences.getString(getString(R.string
+                    .settings_default_knowledgeLevel_key), getString
+                    (R.string.settings_default_knowledgeLevel_default))));
             //TODO: replace by snackbar?
             Toast.makeText(this, R.string.update_library_success_entry_added, Toast.LENGTH_LONG)
                     .show();
@@ -181,28 +175,22 @@ public class UpdateLibraryActivity extends AppCompatActivity {
     /**
      * Toggles the correct KnowledgeLevel radiobutton in the UI.
      *
-     * @param knowledgeLevelString The day to set
+     * @param knowledgeLevel The knowledgeLevel to display
      */
-    private void setKnowledgeLevelUI(String knowledgeLevelString) {
-        int knowledgeLevel = Integer.parseInt(knowledgeLevelString);
+    private void setKnowledgeLevelUI(double knowledgeLevel) {
         selectedKnowledgeLevel = knowledgeLevel;
-        switch (knowledgeLevel) {
-            case 1:
-                mBinding.rbKnowledgeLevel1.toggle();
-                break;
-            case 2:
-                mBinding.rbKnowledgeLevel2.toggle();
-                break;
-            case 3:
-                mBinding.rbKnowledgeLevel3.toggle();
-                break;
-            case 4:
-                mBinding.rbKnowledgeLevel4.toggle();
-                break;
-            case 5:
-                mBinding.rbKnowledgeLevel5.toggle();
-                break;
-        }
+
+        if (knowledgeLevel < 1)
+            mBinding.rbKnowledgeLevel1.toggle();
+        else if (knowledgeLevel < 2)
+            mBinding.rbKnowledgeLevel2.toggle();
+        else if (knowledgeLevel < 3)
+            mBinding.rbKnowledgeLevel3.toggle();
+        else if (knowledgeLevel < 4)
+            mBinding.rbKnowledgeLevel4.toggle();
+        else
+            mBinding.rbKnowledgeLevel5.toggle();
+
     }
 
 }
