@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * {@link ViewModel} for the {@link UpdateLibraryActivity}.
  */
-class TrainingViewModel extends ViewModel {
+public class TrainingViewModel extends ViewModel {
 
     private final LiveData<List<LibraryEntry>> entries;
 
@@ -28,7 +28,7 @@ class TrainingViewModel extends ViewModel {
      * @param mMinKnowledgeLevel The maxKnowledgeLevel to load
      * @param mMaxKnowledgeLevel The minKnowledgeLevel to load
      */
-    TrainingViewModel(CulaRepository repository, int mAmount, double
+    public TrainingViewModel(CulaRepository repository, int mAmount, double
             mMinKnowledgeLevel, double mMaxKnowledgeLevel, int mLessonId) {
         if (mLessonId < 0) {
             entries = repository.getTrainingEntries(mAmount, mMinKnowledgeLevel,

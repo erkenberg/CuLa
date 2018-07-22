@@ -12,14 +12,14 @@ import java.util.List;
 /**
  * {@link ViewModel} for the {@link UpdateLibraryActivity}.
  */
-class StartTrainingViewModel extends ViewModel {
+public class StartTrainingViewModel extends ViewModel {
 
     private final LiveData<List<LessonEntry>> mLessonEntries;
 
     /**
      * Constructor.
      */
-    StartTrainingViewModel() {
+    public StartTrainingViewModel() {
         mLessonEntries = InjectorUtils.provideRepository().getAllLessonEntries();
     }
 

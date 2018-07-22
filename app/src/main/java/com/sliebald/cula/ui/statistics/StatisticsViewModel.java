@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * {@link ViewModel}  for the {@link UpdateLibraryActivity}.
  */
-class StatisticsViewModel extends ViewModel {
+public class StatisticsViewModel extends ViewModel {
 
     private final LiveData<List<StatisticsLibraryWordCount>> libraryCount;
     private final LiveData<List<StatisticsActivityEntry>> activity;
@@ -22,7 +22,7 @@ class StatisticsViewModel extends ViewModel {
     /**
      * Constructor.
      */
-    StatisticsViewModel() {
+    public StatisticsViewModel() {
         CulaRepository mRepository = InjectorUtils.provideRepository();
         libraryCount = mRepository.getStatisticsLibraryCountByKnowledgeLevel();
         activity = mRepository.getStatisticsActivity();

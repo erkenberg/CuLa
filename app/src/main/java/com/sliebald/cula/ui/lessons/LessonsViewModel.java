@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * {@link ViewModel} for the {@link LessonsFragment}.
  */
-class LessonsViewModel extends ViewModel {
+public class LessonsViewModel extends ViewModel {
 
     private final LiveData<List<LessonEntry>> mLessonEntries;
     private final CulaRepository mCulaRepository;
@@ -22,7 +22,7 @@ class LessonsViewModel extends ViewModel {
     /**
      * Constructor of the ViewModel.
      */
-    LessonsViewModel() {
+    public LessonsViewModel() {
         mCulaRepository = InjectorUtils.provideRepository();
         mLessonEntries = mCulaRepository.getAllLessonEntries();
     }

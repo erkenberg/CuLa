@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * {@link ViewModel} for the {@link LibraryFragment}.
  */
-class LibraryViewModel extends ViewModel {
+public class LibraryViewModel extends ViewModel {
 
     private final LiveData<List<LibraryEntry>> mLibraryEntries;
     private final CulaRepository mCulaRepository;
@@ -23,7 +23,7 @@ class LibraryViewModel extends ViewModel {
      * Constructor of the ViewModel.
      *
      */
-    LibraryViewModel() {
+    public LibraryViewModel() {
         mCulaRepository = InjectorUtils.provideRepository();
         mLibraryEntries = mCulaRepository.getAllLibraryEntries();
     }

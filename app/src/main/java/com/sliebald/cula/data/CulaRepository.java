@@ -20,6 +20,8 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
 import android.util.Log;
 
+import com.sliebald.cula.MyApplication;
+import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.CulaDatabase;
 import com.sliebald.cula.data.database.Dao.LanguageDao;
 import com.sliebald.cula.data.database.Dao.LessonDao;
@@ -55,6 +57,11 @@ public class CulaRepository {
         mLanguageDao = database.languageDao();
         mQuoteDao = database.quoteDao();
         mLessonDao = database.lessonDao();
+
+        insertQuoteEntry(new QuoteEntry(1, MyApplication.getContext().getString(R.string
+                .quote_initial_text), MyApplication.getContext().getString(R.string
+                .quote_initial_author)));
+
         //TODO: remove setDebugState() test code before publishing
         setDebugState();
     }
@@ -113,8 +120,6 @@ public class CulaRepository {
         insertLibraryEntry(new LibraryEntry(7, "native7", "foreign7", "Greek", 4, new Date()));
         insertLibraryEntry(new LibraryEntry(8, "native8", "foreign8", "Greek", 4, new Date()));
 
-        insertQuoteEntry(new QuoteEntry(1, "TestQuote of the Day with a rather medium long text",
-                "Stefan"));
 
         OnLessonEntryAddedListener dummyListener = ids -> {
         };
@@ -302,6 +307,7 @@ public class CulaRepository {
      * @param quoteEntries One or more {@link QuoteEntry}s to add to the Database
      */
     public void insertQuoteEntry(QuoteEntry... quoteEntries) {
+        Log.d(TAG, "Insert quote: " + quoteEntries[0].toString());
         mExecutors.diskIO().execute(() -> mQuoteDao.insertEntry(quoteEntries));
     }
 

@@ -188,23 +188,26 @@ public class MainActivity extends AppCompatActivity {
     private void scheduleJobService() {
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
 
-        // Update the database immediately
-        Job myInstantJob = dispatcher.newJobBuilder()
-                .setService(UpdateQuoteJobService.class)
-                .setTag("updateQuoteJobServiceNow")
-                .build();
-        dispatcher.mustSchedule(myInstantJob);
+        // Update the database immediately, only added if this job isn't running already.
+//        Job myInstantJob = dispatcher.newJobBuilder()
+//                .setService(UpdateQuoteJobService.class)
+//                .setTag("updateQuoteJobService")
+//                .setRecurring(false)
+//                .build();
+//        dispatcher.mustSchedule(myInstantJob);
 
-        // and also update it each 12-13 hours as recurring job
+        // and also update it each 12-13 hours as recurring job, only added if this job isn't
+        // running already.
+        //TODO: Recurring doesn't seem to work properly
         Job recurringJob = dispatcher.newJobBuilder()
                 .setService(UpdateQuoteJobService.class)
-                .setTag("updateQuoteJobServiceRecurrent")
+                .setTag("updateQuoteJobService")
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(true)
                 .setTrigger(Trigger.executionWindow(
                         12 * 60 * 60,
                         13 * 60 * 60))
-                .setReplaceCurrent(true)
+                .setReplaceCurrent(false)
                 .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
                 .build();
         dispatcher.mustSchedule(recurringJob);

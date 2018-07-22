@@ -9,7 +9,7 @@ import com.sliebald.cula.utilities.InjectorUtils;
 /**
  * {@link ViewModel}  for the {@link UpdateLibraryActivity}.
  */
-class UpdateLibraryViewModel extends ViewModel {
+public class UpdateLibraryViewModel extends ViewModel {
 
     private final LiveData<LibraryEntry> entry;
 

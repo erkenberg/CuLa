@@ -99,4 +99,14 @@ public class QuoteEntry {
     public void setCreatedAt(@NonNull Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "QuoteEntry{" +
+                "text='" + text + '\'' +
+                ", author='" + author + '\'' +
+                ", id=" + id +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

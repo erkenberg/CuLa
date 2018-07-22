@@ -35,7 +35,7 @@ public class UpdateQuoteJobService extends JobService {
                 QuoteEntry quoteEntry = JsonUtils.parseQuoteJson(jsonQuote);
                 InjectorUtils.provideRepository().insertQuoteEntry
                         (quoteEntry);
-                jobFinished(job, false);
+                jobFinished(job, true);
             } else {
                 jobFinished(job, true);
             }
@@ -47,6 +47,6 @@ public class UpdateQuoteJobService extends JobService {
     @Override
     public boolean onStopJob(JobParameters job) {
         Log.d(TAG, "OnStop was called");
-        return true;
+        return false;
     }
 }

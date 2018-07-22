@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * {@link ViewModel}  for the {@link UpdateLessonActivity}.
  */
-class UpdateLessonViewModel extends ViewModel {
+public class UpdateLessonViewModel extends ViewModel {
 
     private LiveData<LessonEntry> entry;
     private LiveData<List<MappingPOJO>> mapping;
@@ -29,7 +29,7 @@ class UpdateLessonViewModel extends ViewModel {
      *
      * @param entryId    Id of the {@link LessonEntry} which should be loaded.
      */
-    UpdateLessonViewModel(int entryId) {
+    public UpdateLessonViewModel(int entryId) {
         mCulaRepository = InjectorUtils.provideRepository();
         entryID = -1;
         updateViewModel(entryId);

@@ -132,5 +132,10 @@
     <string name="widget_last_learned_not">You didn\'t train for over a week, try to train
         more regularly.</string>
     <string name="widget_lesson_proposal">Maybe have a look at the <b>%1$s</b> lesson next.</string>
+    <string name="quote_initial_text">Welcome to CuLa, the Customizable Language Trainer.
+        <br /> As first step you should add the language you want to learn in the settings.
+        <br />I hope you have a lot of fun with CuLa.</string>
+    <string name="quote_initial_author">Stefan</string>
+
 
 </resources>
