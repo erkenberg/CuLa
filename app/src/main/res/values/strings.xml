@@ -136,6 +136,8 @@
         <br /> As first step you should add the language you want to learn in the settings.
         <br />I hope you have a lot of fun with CuLa.</string>
     <string name="quote_initial_author">Stefan</string>
+    <string name="title_update_library_entry">Update Library</string>
+    <string name="title_update_lesson_entry">Update Lesson</string>
 
 
 </resources>

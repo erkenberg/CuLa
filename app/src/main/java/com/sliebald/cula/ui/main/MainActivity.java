@@ -82,6 +82,15 @@ public class MainActivity extends AppCompatActivity {
      */
     private static final String SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY = "activeDrawerItem";
 
+    /**
+     * Key for the savedInstanceState for the {@link Toolbar} title.
+     */
+    private static final String SAVED_INSTANCE_STATE_TOOLBAR_TITLE = "toolbarTitle";
+    /**
+     * Key for the savedInstanceState for the {@link Toolbar} subtitle.
+     */
+    private static final String SAVED_INSTANCE_STATE_TOOLBAR_SUBTITLE = "toolbarSubTitle";
+
     private MainViewModel mViewModel;
 
     private SharedPreferences sharedPreferences;
@@ -104,10 +113,19 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         long active_item = DRAWER_QUOTE_KEY;
-        if (savedInstanceState != null && savedInstanceState.containsKey
-                (SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY))
-            active_item = savedInstanceState.getLong(SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY,
-                    active_item);
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY))
+                active_item = savedInstanceState.getLong
+                        (SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY,
+                                active_item);
+            if (savedInstanceState.containsKey(SAVED_INSTANCE_STATE_TOOLBAR_TITLE))
+                mBinding.toolbar.setTitle(savedInstanceState.getString
+                        (SAVED_INSTANCE_STATE_TOOLBAR_TITLE));
+            if (savedInstanceState.containsKey(SAVED_INSTANCE_STATE_TOOLBAR_SUBTITLE))
+                mBinding.toolbar.setSubtitle(savedInstanceState.getString
+                        (SAVED_INSTANCE_STATE_TOOLBAR_SUBTITLE));
+
+        }
 
         drawer = new DrawerBuilder()
                 .withActivity(this)
@@ -240,6 +258,8 @@ public class MainActivity extends AppCompatActivity {
                 fragment = fragmentManager.findFragmentByTag(tag);
                 if (fragment == null)
                     fragment = new LibraryFragment();
+                Log.d(TAG, "test1");
+                mBinding.toolbar.setTitle(R.string.drawer_label_library);
                 break;
             case DRAWER_SETTINGS_KEY:
                 tag = SettingsFragment.TAG;
@@ -252,28 +272,36 @@ public class MainActivity extends AppCompatActivity {
                 fragment = fragmentManager.findFragmentByTag(tag);
                 if (fragment == null)
                     fragment = new QuoteFragment();
+                mBinding.toolbar.setTitle(R.string.drawer_label_quote);
                 break;
             case DRAWER_LESSONS_KEY:
                 tag = LessonsFragment.TAG;
                 fragment = fragmentManager.findFragmentByTag(tag);
                 if (fragment == null)
                     fragment = new LessonsFragment();
+                mBinding.toolbar.setTitle(R.string.drawer_label_lessons);
                 break;
             case DRAWER_START_TRAINING_KEY:
                 tag = StartTrainingFragment.TAG;
                 fragment = fragmentManager.findFragmentByTag(tag);
                 if (fragment == null)
                     fragment = new StartTrainingFragment();
+                mBinding.toolbar.setTitle(R.string.drawer_label_train);
                 break;
             case DRAWER_STATISTICS_KEY:
                 tag = StatisticsFragment.TAG;
                 fragment = fragmentManager.findFragmentByTag(tag);
                 if (fragment == null)
                     fragment = new StatisticsFragment();
+                mBinding.toolbar.setTitle(R.string.drawer_label_statistics);
                 break;
             default:
                 return;
         }
+        if (mViewModel.getActiveLanguage() != null && mViewModel.getActiveLanguage().getValue()
+                != null && identifier != DRAWER_SETTINGS_KEY)
+            mBinding.toolbar.setSubtitle(mViewModel.getActiveLanguage().getValue().getLanguage());
+
         drawer.closeDrawer();
 
         // Insert the fragment by replacing any existing fragment
@@ -288,6 +316,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putLong(SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY, drawer.getCurrentSelection());
+        if (mBinding.toolbar.getTitle() != null)
+            outState.putString(SAVED_INSTANCE_STATE_TOOLBAR_TITLE,
+                    mBinding.toolbar.getTitle().toString());
+        if (mBinding.toolbar.getSubtitle() != null)
+            outState.putString(SAVED_INSTANCE_STATE_TOOLBAR_SUBTITLE,
+                    mBinding.toolbar.getSubtitle().toString());
 
         super.onSaveInstanceState(outState);
     }

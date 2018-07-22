@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -53,12 +54,17 @@ public class TrainingActivity extends AppCompatActivity {
         // create DataBinding
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_training);
 
+
         // get DB access
         mCulaRepository = InjectorUtils.provideRepository();
         Log.d(TAG, "SAVED STATE: " + savedInstanceState);
         //set back button
-        if (getActionBar() != null)
-            getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.drawer_label_train);
+            getSupportActionBar().setSubtitle(PreferenceManager.getDefaultSharedPreferences(this)
+                    .getString(getString(R.string.settings_select_language_key), ""));
+        }
 
         // get the intent that started the learning activity and extract the relevant values.
         Intent intent = getIntent();

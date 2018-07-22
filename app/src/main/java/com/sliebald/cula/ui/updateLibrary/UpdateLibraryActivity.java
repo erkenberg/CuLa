@@ -61,9 +61,15 @@ public class UpdateLibraryActivity extends AppCompatActivity {
         // create Data binding
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_update_library);
 
+
         // get DB access
         mCulaRepository = InjectorUtils.provideRepository();
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.title_update_library_entry);
+            getSupportActionBar().setSubtitle(PreferenceManager.getDefaultSharedPreferences(this)
+                    .getString(getString(R.string.settings_select_language_key), ""));
+        }
         //set back button
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -88,11 +94,10 @@ public class UpdateLibraryActivity extends AppCompatActivity {
                 viewModel.getEntry().removeObservers(this);
                 mBinding.editTextAddForeignWord.setText(libraryEntry.getForeignWord());
                 mBinding.editTextAddNativeWord.setText(libraryEntry.getNativeWord());
-
                 setKnowledgeLevelUI(libraryEntry.getKnowledgeLevel());
-
                 entryId = libraryEntry.getId();
             });
+
 
         } else {
             //on creating a new entry load the default day set in the settings.

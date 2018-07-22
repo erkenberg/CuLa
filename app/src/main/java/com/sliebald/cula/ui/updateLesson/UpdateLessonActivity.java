@@ -70,9 +70,13 @@ public class UpdateLessonActivity extends AppCompatActivity implements
         //get the Repository for db access
         mCulaRepository = InjectorUtils.provideRepository();
 
-        //enable the back button
-        if (getActionBar() != null)
-            getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.title_update_lesson_entry);
+            getSupportActionBar().setSubtitle(PreferenceManager.getDefaultSharedPreferences(this)
+                    .getString(getString(R.string.settings_select_language_key), ""));
+        }
+
 
         //Make sure the keyboard doesn't show on activity start.
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -153,6 +157,7 @@ public class UpdateLessonActivity extends AppCompatActivity implements
 
         String language = PreferenceManager.getDefaultSharedPreferences(this).getString(getString
                 (R.string.settings_select_language_key), "");
+
         if (mViewModel.getEntryID() != -1) {
             Log.d(TAG, "Updating existing lesson: " + mViewModel.getEntryID());
             mCulaRepository.updateLessonEntry(new LessonEntry(mViewModel.getEntryID(), lessonName,
