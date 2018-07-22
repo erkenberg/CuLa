@@ -83,7 +83,6 @@ public class LessonsFragment extends Fragment implements
                                 Snackbar.LENGTH_LONG);
                 snackbar.setAction(R.string.add, (View view) -> updateLessonActivity());
                 snackbar.show();
-                return;
             }
             mAdapter.swapEntries(lessonEntries);
             if (mPosition == RecyclerView.NO_POSITION) {
@@ -140,11 +139,11 @@ public class LessonsFragment extends Fragment implements
             Snackbar snackbar = Snackbar
                     .make(mBinding.lessonCoordinatorLayout, R.string.lesson_deleted, Snackbar
                             .LENGTH_LONG);
-            snackbar.setAction(R.string.undo, (View view) -> {
-                Snackbar.make(mBinding.lessonCoordinatorLayout, R.string.restored, Snackbar
-                        .LENGTH_SHORT);
-                mViewModel.restoreLatestDeletedLessonEntry();
-            });
+//            snackbar.setAction(R.string.undo, (View view) -> {
+//                Snackbar.make(mBinding.lessonCoordinatorLayout, R.string.restored, Snackbar
+//                        .LENGTH_SHORT);
+//                mViewModel.restoreLatestDeletedLessonEntry();
+//            });
             snackbar.show();
         }
     }

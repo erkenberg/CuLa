@@ -49,14 +49,15 @@ public class LessonsViewModel extends ViewModel {
         mCulaRepository.deleteLessonEntry(latestDeletedEntry);
     }
 
-    /**
-     * Restore the latest deleted entry.
-     */
-    public void restoreLatestDeletedLessonEntry() {
-        //TODO: currently the lesson mappings are still gone.
-        CulaRepository.OnLessonEntryAddedListener dummyListener = ids -> {
-        };
-        mCulaRepository.insertLessonEntry(dummyListener, latestDeletedEntry);
-    }
+//    /**
+//     * Restore the latest deleted entry.
+//     */
+    //TODO: implement working version
+//    public void restoreLatestDeletedLessonEntry() {
+//        //TODO: currently the lesson mappings are still gone.
+//        CulaRepository.OnLessonEntryAddedListener dummyListener = ids -> {
+//        };
+//        mCulaRepository.insertLessonEntry(dummyListener, latestDeletedEntry);
+//    }
 
 }
