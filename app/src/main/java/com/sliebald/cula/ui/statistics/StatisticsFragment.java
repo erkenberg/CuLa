@@ -177,7 +177,7 @@ public class StatisticsFragment extends Fragment {
         mChart.getAxisRight().setEnabled(false);
 
         // add data, need floats for the X axis
-        ArrayList<Entry> yVals = new ArrayList<>();
+        ArrayList<Entry> yValues = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
         for (StatisticsActivityEntry entry : activityList) {
 
@@ -188,13 +188,13 @@ public class StatisticsFragment extends Fragment {
                 Log.d(TAG, "Exception parsing a date from the database: " + e);
                 continue;
             }
-            yVals.add(new Entry(date.getTime(), entry.getActivity()));
+            yValues.add(new Entry(date.getTime(), entry.getActivity()));
         }
 
-        //create the linedataset and format it.
+        //create the line data set and format it.
         int color = ResourcesCompat.getColor(getResources(), R.color.secondaryColor, null);
         LineDataSet lineDataSet;
-        lineDataSet = new LineDataSet(yVals, "");
+        lineDataSet = new LineDataSet(yValues, "");
         lineDataSet.setMode(LineDataSet.Mode.STEPPED);
         lineDataSet.setDrawCircles(false);
         lineDataSet.setDrawFilled(true);
@@ -203,7 +203,7 @@ public class StatisticsFragment extends Fragment {
         lineDataSet.setFillColor(color);
         lineDataSet.setFillAlpha(100);
 
-        // create a data object with the dataset
+        // create a data object with the data set
         LineData data = new LineData(lineDataSet);
         data.setDrawValues(false);
 

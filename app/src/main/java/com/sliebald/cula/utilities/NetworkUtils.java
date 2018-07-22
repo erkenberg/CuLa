@@ -25,7 +25,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 /**
- * Utilityclass for simple network REST API requests
+ * Utility class for simple network REST API requests
  */
 public class NetworkUtils {
 

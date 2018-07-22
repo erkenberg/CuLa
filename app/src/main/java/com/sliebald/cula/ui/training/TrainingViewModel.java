@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Viewmodel for the {@link UpdateLibraryActivity}.
+ * {@link ViewModel} for the {@link UpdateLibraryActivity}.
  */
 class TrainingViewModel extends ViewModel {
 
@@ -91,7 +91,7 @@ class TrainingViewModel extends ViewModel {
     /**
      * Returns the size of the learning set.
      *
-     * @return The size of the current learningset.
+     * @return The size of the current learning set.
      */
     public int getLearningSetSize() {
         return Objects.requireNonNull(entries.getValue()).size();

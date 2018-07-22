@@ -11,7 +11,7 @@ import com.sliebald.cula.utilities.InjectorUtils;
 import java.util.List;
 
 /**
- * Viewmodel for the {@link UpdateLessonActivity}.
+ * {@link ViewModel}  for the {@link UpdateLessonActivity}.
  */
 class UpdateLessonViewModel extends ViewModel {
 

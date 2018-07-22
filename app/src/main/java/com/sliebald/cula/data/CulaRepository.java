@@ -55,7 +55,7 @@ public class CulaRepository {
         mLanguageDao = database.languageDao();
         mQuoteDao = database.quoteDao();
         mLessonDao = database.lessonDao();
-        //TODO: remove setDebugState() testcode before publishing
+        //TODO: remove setDebugState() test code before publishing
         setDebugState();
     }
 
@@ -98,7 +98,7 @@ public class CulaRepository {
     }
 
     /**
-     * For debugging purposes prefill database with specified data.
+     * For debugging purposes pre-fill database with specified data.
      */
     private void setDebugState() {
 //        mExecutors.diskIO().execute(mLibraryDao::deleteAll);

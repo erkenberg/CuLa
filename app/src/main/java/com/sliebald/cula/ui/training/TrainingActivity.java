@@ -27,7 +27,7 @@ public class TrainingActivity extends AppCompatActivity {
 
 
     /**
-     * The databinding for the Layout.
+     * The data binding for the Layout.
      */
     private ActivityTrainingBinding mBinding;
 
@@ -157,7 +157,7 @@ public class TrainingActivity extends AppCompatActivity {
             correct.getView().setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
                     (this, 5));
             correct.show();
-            updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowlevelAdjustment(currentEntry
+            updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowledgeLevelAdjustment(currentEntry
                     .getKnowledgeLevel(), true);
             mCulaRepository.insertStatisticsEntry(new StatisticEntry(currentEntry.getId(),
                     null, 1));
@@ -167,7 +167,7 @@ public class TrainingActivity extends AppCompatActivity {
             wrong.getView().setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
                     (this, 0));
             wrong.show();
-            updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowlevelAdjustment(currentEntry
+            updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowledgeLevelAdjustment(currentEntry
                     .getKnowledgeLevel(), false);
             mCulaRepository.insertStatisticsEntry(new StatisticEntry(currentEntry.getId(),
                     null, 0));

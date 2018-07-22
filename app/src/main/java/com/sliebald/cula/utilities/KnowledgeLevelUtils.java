@@ -68,7 +68,7 @@ public class KnowledgeLevelUtils {
      * @param increaseLevel if true the day is incremented, if false decremented.
      * @return The updated KnowledgeLevel
      */
-    public static double calculateKnowlevelAdjustment(double oldLevel, boolean increaseLevel) {
+    public static double calculateKnowledgeLevelAdjustment(double oldLevel, boolean increaseLevel) {
         double newLevel;
         // Increments/Decrements could be changed to a more dynamic approach (e.g. more or less
         // or depending on how often a word was trained.

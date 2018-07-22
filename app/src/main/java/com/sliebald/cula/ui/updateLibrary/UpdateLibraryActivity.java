@@ -30,7 +30,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
     public static final String BUNDLE_EXTRA_UPDATE_KEY = "LibraryEntryId";
 
     /**
-     * The databinding for the Layout.
+     * The data binding for the Layout.
      */
     private ActivityUpdateLibraryBinding mBinding;
 
@@ -58,7 +58,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // create Databinding
+        // create Data binding
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_update_library);
 
         // get DB access

@@ -1,7 +1,7 @@
 package com.sliebald.cula.utilities;
 
 /**
- * Helperclass for string manipulation.
+ * Helper class for string manipulation.
  */
 public class StringUtils {
 

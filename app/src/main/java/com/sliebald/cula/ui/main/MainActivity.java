@@ -47,12 +47,39 @@ public class MainActivity extends AppCompatActivity {
      */
     private Drawer drawer;
 
-    private static final int DRAWER_START_TRAINING_KEY = 6;
+    /**
+     * Key for the Library entry in the navigation drawer.
+     */
     private static final int DRAWER_LIBRARY_KEY = 1;
+
+    /**
+     * Key for the Settings entry in the navigation drawer.
+     */
     private static final int DRAWER_SETTINGS_KEY = 2;
+
+    /**
+     * Key for the Quote entry in the navigation drawer.
+     */
     private static final int DRAWER_QUOTE_KEY = 3;
+
+    /**
+     * Key for the Lesson entry in the navigation drawer.
+     */
     private static final int DRAWER_LESSONS_KEY = 4;
+
+    /**
+     * Key for the Statistics entry in the navigation drawer.
+     */
     private static final int DRAWER_STATISTICS_KEY = 5;
+
+    /**
+     * Key for the Training entry in the navigation drawer.
+     */
+    private static final int DRAWER_START_TRAINING_KEY = 6;
+
+    /**
+     * Key for the savedInstanceState for the selected item in the navigation drawer.
+     */
     private static final String SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY = "activeDrawerItem";
 
     private MainViewModel mViewModel;
@@ -60,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     /**
-     * The databinding for the Layout.
+     * The data binding for the Layout.
      */
     private MainActivityBinding mBinding;
 

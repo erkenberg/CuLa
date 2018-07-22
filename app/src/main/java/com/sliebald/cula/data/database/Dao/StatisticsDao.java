@@ -62,7 +62,7 @@ public interface StatisticsDao {
      * @return The List of {@link StatisticsActivityEntry} for all active days.
      */
     //Based on https://stackoverflow.com/questions/40199091/group-by-day-when-column-is-in
-    // -unixtimestamp
+    // -unix timestamp
     @Query("SELECT strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch') as date, " +
             "COUNT(*) as activity " +
             "FROM statistics " +

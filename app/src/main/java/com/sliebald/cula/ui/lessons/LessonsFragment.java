@@ -38,12 +38,12 @@ public class LessonsFragment extends Fragment implements
     private int mPosition = RecyclerView.NO_POSITION;
 
     /**
-     * Databinding of the layout.
+     * Data binding of the layout.
      */
     private FragmentLessonsBinding mBinding;
 
     /**
-     * Viewmodel of the Fragment.
+     * {@link android.arch.lifecycle.ViewModel} of the Fragment.
      */
     private LessonsViewModel mViewModel;
 

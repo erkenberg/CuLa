@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Helperclass for parsing JSON objects retrieved from http://forismatic.com.
+ * Helper class for parsing JSON objects retrieved from http://forismatic.com.
  */
 public class JsonUtils {
 

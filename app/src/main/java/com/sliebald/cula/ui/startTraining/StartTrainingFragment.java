@@ -71,7 +71,7 @@ public class StartTrainingFragment extends Fragment {
 
 
     /**
-     * The Databinding for the layout.
+     * The data binding for the layout.
      */
     private FragmentStartTrainingBinding mBinding;
 

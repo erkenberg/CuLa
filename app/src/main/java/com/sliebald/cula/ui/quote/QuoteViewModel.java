@@ -8,7 +8,7 @@ import com.sliebald.cula.ui.updateLibrary.UpdateLibraryActivity;
 import com.sliebald.cula.utilities.InjectorUtils;
 
 /**
- * Viewmodel for the {@link UpdateLibraryActivity}.
+ * {@link ViewModel} for the {@link UpdateLibraryActivity}.
  */
 class QuoteViewModel extends ViewModel {
 

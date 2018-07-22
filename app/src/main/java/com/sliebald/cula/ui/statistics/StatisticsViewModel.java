@@ -12,7 +12,7 @@ import com.sliebald.cula.utilities.InjectorUtils;
 import java.util.List;
 
 /**
- * Viewmodel for the {@link UpdateLibraryActivity}.
+ * {@link ViewModel}  for the {@link UpdateLibraryActivity}.
  */
 class StatisticsViewModel extends ViewModel {
 

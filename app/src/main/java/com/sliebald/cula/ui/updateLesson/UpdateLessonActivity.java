@@ -44,7 +44,7 @@ public class UpdateLessonActivity extends AppCompatActivity implements
     public static final String BUNDLE_EXTRA_UPDATE_KEY = "LessonEntryId";
 
     /**
-     * The databinding for the Layout.
+     * The data binding for the Layout.
      */
     private ActivityUpdateLessonBinding mBinding;
 
@@ -64,7 +64,7 @@ public class UpdateLessonActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //load databinding
+        //load data binding
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_update_lesson);
 
         //get the Repository for db access
@@ -83,7 +83,7 @@ public class UpdateLessonActivity extends AppCompatActivity implements
                 DividerItemDecoration.VERTICAL));
         mBinding.recyclerViewLessonMappingList.setAdapter(mAdapter);
 
-        //Get the intent that startet the activity for special treatments
+        //Get the intent that started the activity for special treatments
         Intent intent = getIntent();
         int id = -1;
         // If an existing entry should be updated the id of the entry is given:
