@@ -13,13 +13,13 @@ import java.util.Objects;
 /**
  * Viewmodel for the {@link UpdateLibraryActivity}.
  */
-public class TrainingViewModel extends ViewModel {
+class TrainingViewModel extends ViewModel {
 
     private final LiveData<List<LibraryEntry>> entries;
 
     private int currentIndex;
 
-    private int lessonEntryId;
+    private final int lessonEntryId;
 
     /**
      * Constructor.

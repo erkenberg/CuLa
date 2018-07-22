@@ -130,7 +130,7 @@ public class LessonsFragment extends Fragment implements
      * The swiped item  will be removed with an undo option.
      */
     @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof LessonsRecyclerViewAdapter.ViewHolder) {
 
             final int deletedIndex = viewHolder.getAdapterPosition();
@@ -149,13 +149,13 @@ public class LessonsFragment extends Fragment implements
         }
     }
 
-    void updateLessonActivity() {
+    private void updateLessonActivity() {
         Intent intent = new Intent(getContext(), UpdateLessonActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void onLessonEntryClick(View view, int id) {
+    public void onLessonEntryClick(int id) {
 
         Intent intent = new Intent(getContext(), UpdateLessonActivity.class);
         intent.putExtra(UpdateLessonActivity.BUNDLE_EXTRA_UPDATE_KEY, id);

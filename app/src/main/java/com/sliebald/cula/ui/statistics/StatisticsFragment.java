@@ -100,7 +100,7 @@ public class StatisticsFragment extends Fragment {
                                                                           activityList) {
         List<StatisticsActivityEntry> fullList = new ArrayList<>();
         int index = 0;
-        for (String date : getLastDaysAsString(14)) {
+        for (String date : getLastDaysAsString()) {
             if (activityList != null && activityList.size() > index && activityList.get(index)
                     .date.equals(date)) {
                 fullList.add(activityList.get(index));
@@ -118,10 +118,10 @@ public class StatisticsFragment extends Fragment {
     /**
      * Helper method to get the string representations of the last 14 days in the format 2018-07-17.
      *
-     * @param days The amount of days in the past from todays date to return.
      * @return The {@link List} of dates ast String.
      */
-    private List<String> getLastDaysAsString(int days) {
+    private List<String> getLastDaysAsString() {
+        int days = 14;
         List<String> dayList = new ArrayList<>(days);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());

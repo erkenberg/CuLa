@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sliebald.cula.R;
@@ -84,7 +83,8 @@ public class LessonsRecyclerViewAdapter extends
                     return newEntry.getId() == oldEntry.getId()
                             && newEntry.getLanguage().equals(oldEntry.getLanguage())
                             && newEntry.getLessonName().equals(oldEntry.getLessonName())
-                            && newEntry.getLessonDescription() == oldEntry.getLessonDescription();
+                            && newEntry.getLessonDescription().equals(oldEntry
+                            .getLessonDescription());
                 }
             });
             mValues = newLessonEntries;
@@ -100,7 +100,7 @@ public class LessonsRecyclerViewAdapter extends
     }
 
     public interface OnItemClickListener {
-        void onLessonEntryClick(View view, int id);
+        void onLessonEntryClick(int id);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -108,15 +108,13 @@ public class LessonsRecyclerViewAdapter extends
         final TextView mLessonName;
         final TextView mLessonDescription;
         final LinearLayout viewForeground;
-        final RelativeLayout viewBackground;
 
         ViewHolder(View view) {
             super(view);
             mLessonName = view.findViewById(R.id.lesson_name);
             mLessonDescription = view.findViewById(R.id.lesson_description);
             viewForeground = view.findViewById(R.id.view_foreground);
-            viewBackground = view.findViewById(R.id.view_background);
-            viewForeground.setOnClickListener(v -> mListener.onLessonEntryClick(v, mValues.get
+            viewForeground.setOnClickListener(v -> mListener.onLessonEntryClick(mValues.get
                     (getAdapterPosition()).getId()));
         }
 

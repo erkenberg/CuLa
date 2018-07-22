@@ -31,19 +31,19 @@ public class LessonEntry {
      * The name of the lesson.
      */
     @NonNull
-    private String lessonName;
+    private final String lessonName;
 
     /**
      * The description of the lesson.
      */
     @NonNull
-    private String lessonDescription;
+    private final String lessonDescription;
 
     /**
      * To which language as described in an {@link LanguageEntry} does this word belong.
      */
     @NonNull
-    private String language;
+    private final String language;
 
     /**
      * Constructor for an {@link LessonEntry}.

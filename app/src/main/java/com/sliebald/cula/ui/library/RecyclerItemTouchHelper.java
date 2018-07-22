@@ -6,8 +6,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 //TODO: merge with  RecyclerItemTouchHelper from lessons
-public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
-    private RecyclerItemTouchHelperListener listener;
+class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
+    private final RecyclerItemTouchHelperListener listener;
 
     public RecyclerItemTouchHelper(int dragDirs, int swipeDirs, RecyclerItemTouchHelperListener
             listener) {

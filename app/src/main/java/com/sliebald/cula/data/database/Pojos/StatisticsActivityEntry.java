@@ -16,7 +16,7 @@ public class StatisticsActivityEntry {
      * How many LibraryEntries are in that range of the KnowledgeLevel.
      */
     @ColumnInfo(name = "activity")
-    public int activity;
+    private int activity;
 
     public String getDate() {
         return date;
@@ -24,6 +24,14 @@ public class StatisticsActivityEntry {
 
     public int getActivity() {
         return activity;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setActivity(int activity) {
+        this.activity = activity;
     }
 
     /**

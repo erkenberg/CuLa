@@ -39,12 +39,12 @@ public class LessonMappingEntry {
     /**
      * The id of the {@link LibraryEntry} mapped to the {@link LessonEntry}.
      */
-    private int libraryEntryId;
+    private final int libraryEntryId;
 
     /**
      * The id of the {@link LessonEntry} mapped to a {@link LibraryEntry}.
      */
-    private int lessonEntryId;
+    private final int lessonEntryId;
 
 
     /**

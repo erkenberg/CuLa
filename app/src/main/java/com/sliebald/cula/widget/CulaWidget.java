@@ -28,8 +28,8 @@ public class CulaWidget extends AppWidgetProvider {
 
     private static final String TAG = CulaWidget.class.getSimpleName();
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.cula_widget);
         Intent configIntent = new Intent(context, MainActivity.class);
 
@@ -63,11 +63,11 @@ public class CulaWidget extends AppWidgetProvider {
     /**
      * Updates the widget text for the reminder when a user trained the last time.
      *
-     * @param context
-     * @param appWidgetManager
-     * @param appWidgetId
-     * @param views
-     * @param date
+     * @param context Context of the Widget.
+     * @param appWidgetManager The {@link AppWidgetManager}.
+     * @param appWidgetId The appWidgetId
+     * @param views The {@link RemoteViews} of the widget
+     * @param date The date of the last training activity.
      */
     private static void updateLastLearned(Context context, AppWidgetManager appWidgetManager, int
             appWidgetId, RemoteViews views, StatisticsLastTrainingDate date) {
@@ -99,11 +99,13 @@ public class CulaWidget extends AppWidgetProvider {
     /**
      * Update the text for the worst Lesson in the widget.
      *
-     * @param context
-     * @param appWidgetManager
-     * @param appWidgetId
-     * @param views
-     * @param lessonKnowledgeLevel
+     * @param context Context of the Widget.
+     * @param appWidgetManager The {@link AppWidgetManager}.
+     * @param appWidgetId The appWidgetId
+     * @param views The {@link RemoteViews} of the widget
+     * @param lessonKnowledgeLevel The {@link LessonKnowledgeLevel} containing name and
+     *                             Knowledge Level average
+     *                             of the worst Lesson
      */
     private static void updateWorstLesson(Context context, AppWidgetManager appWidgetManager, int
             appWidgetId, RemoteViews views, LessonKnowledgeLevel lessonKnowledgeLevel) {

@@ -41,18 +41,18 @@ public class StatisticEntry {
     /**
      * The id of the {@link LibraryEntry} that was trained
      */
-    private int libraryEntryID;
+    private final int libraryEntryID;
 
     /**
      * The id of the {@link LessonEntry} of the lesson that was trained.
      */
-    private Integer lessonEntryID;
+    private final Integer lessonEntryID;
 
 
     /**
      * Specifies how successful was the training. Can take values between 0 and 1.
      */
-    private double successRate;
+    private final double successRate;
 
     /**
      * Timestamp when the {@link StatisticEntry} was last updated.

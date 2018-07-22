@@ -108,6 +108,8 @@ public interface LessonDao {
      * @return {@link LiveData} with the {@link List} of @{@link MappingPOJO}s.
      */
     //TODO: probably not the most efficient query.
+    //TODO: find a way to avoid showing 'partOfLesson' as invalid, it is just the defined name
+    // (AS partOfLesson)
     @Query("SELECT id, foreignWord, nativeWord, " +
             "CASE WHEN EXISTS(SELECT Id FROM lesson_mapping WHERE libraryEntryId=library.id AND " +
             "lessonEntryId=:id) THEN 1 ELSE 0 END AS partOfLesson " +

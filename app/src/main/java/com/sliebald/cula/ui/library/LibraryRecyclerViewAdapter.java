@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sliebald.cula.R;
@@ -121,14 +120,12 @@ public class LibraryRecyclerViewAdapter extends
         final TextView mNativeWordView;
         final TextView mForeignWordView;
         final LinearLayout viewForeground;
-        final RelativeLayout viewBackground;
 
         ViewHolder(View view) {
             super(view);
             mNativeWordView = view.findViewById(R.id.nativeWord);
             mForeignWordView = view.findViewById(R.id.foreignWord);
             viewForeground = view.findViewById(R.id.view_foreground);
-            viewBackground = view.findViewById(R.id.view_background);
             viewForeground.setOnClickListener(v -> mListener.onLibraryEntryClick(v, mValues.get
                     (getAdapterPosition()).getId()));
         }

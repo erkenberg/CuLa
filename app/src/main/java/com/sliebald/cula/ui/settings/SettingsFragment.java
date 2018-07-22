@@ -34,7 +34,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     /**
      * The {@link SharedPreferences} used to store the preferences.
      */
-    SharedPreferences mSharedPreferences;
+    private SharedPreferences mSharedPreferences;
 
     /**
      * The {@link SettingsViewModel} for the settings.

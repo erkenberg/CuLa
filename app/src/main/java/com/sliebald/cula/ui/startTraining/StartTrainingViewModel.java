@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * {@link ViewModel} for the {@link UpdateLibraryActivity}.
  */
-public class StartTrainingViewModel extends ViewModel {
+class StartTrainingViewModel extends ViewModel {
 
-    private LiveData<List<LessonEntry>> mLessonEntries;
+    private final LiveData<List<LessonEntry>> mLessonEntries;
 
     /**
      * Constructor.

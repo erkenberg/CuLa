@@ -15,19 +15,33 @@ public class MappingPOJO {
      * Id of the {@link LibraryEntry}.
      */
     @ColumnInfo(name = "id")
-    public int libraryId;
-
+    private int libraryId;
     /**
      * Native word of the {@link LibraryEntry}.
      */
     @ColumnInfo(name = "nativeWord")
-    public String native_word;
-
+    private String native_word;
     /**
      * Foreign word of the {@link LibraryEntry}.
      */
     @ColumnInfo(name = "foreignWord")
-    public String foreign_word;
+    private String foreign_word;
+
+    public void setLibraryId(int libraryId) {
+        this.libraryId = libraryId;
+    }
+
+    public void setNative_word(String native_word) {
+        this.native_word = native_word;
+    }
+
+    public void setForeign_word(String foreign_word) {
+        this.foreign_word = foreign_word;
+    }
+
+    public void setPartOfLesson(boolean partOfLesson) {
+        this.partOfLesson = partOfLesson;
+    }
 
     /**
      * Info whether the {@link LibraryEntry} is part of the lesson that was queried.

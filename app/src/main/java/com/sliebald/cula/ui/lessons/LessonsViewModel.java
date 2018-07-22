@@ -13,10 +13,10 @@ import java.util.List;
 /**
  * {@link ViewModel} for the {@link LessonsFragment}.
  */
-public class LessonsViewModel extends ViewModel {
+class LessonsViewModel extends ViewModel {
 
-    private LiveData<List<LessonEntry>> mLessonEntries;
-    private CulaRepository mCulaRepository;
+    private final LiveData<List<LessonEntry>> mLessonEntries;
+    private final CulaRepository mCulaRepository;
     private LessonEntry latestDeletedEntry = null;
 
     /**

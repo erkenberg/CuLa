@@ -38,6 +38,7 @@ public interface StatisticsDao {
      * @return The result as {@link List} of {@link StatisticsLibraryWordCount}, {@link List}
      * size depending on the amount of KnowledgeLevel ranges with words in it.
      */
+    //TODO: find a way to avoid showing 'level' as invalid, it is just the defined name (AS level)
     @Query("SELECT " +
             "  CASE " +
             "    WHEN knowledgeLevel BETWEEN 0 AND 0.999999 THEN '0'" +
@@ -60,7 +61,6 @@ public interface StatisticsDao {
      * @param date The date after which the activity should be queried.
      * @return The List of {@link StatisticsActivityEntry} for all active days.
      */
-    //TODO: currently includes all languages! Filter for current language
     //Based on https://stackoverflow.com/questions/40199091/group-by-day-when-column-is-in
     // -unixtimestamp
     @Query("SELECT strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch') as date, " +

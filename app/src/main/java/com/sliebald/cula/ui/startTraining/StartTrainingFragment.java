@@ -33,7 +33,7 @@ public class StartTrainingFragment extends Fragment {
     /**
      * Request code for training activity.
      */
-    public static final int RESULT_KEY_REQUEST_CODE = 42;
+    private static final int RESULT_KEY_REQUEST_CODE = 42;
 
     /**
      * {@link Bundle} key for the amount of words to be trained.
@@ -164,7 +164,7 @@ public class StartTrainingFragment extends Fragment {
      *
      * @param view The button that called this method.
      */
-    public void startTraining(View view) {
+    private void startTraining(View view) {
         Intent intent = new Intent(getContext(), TrainingActivity.class);
         intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MIN, getSelectedMinKnowledgeLevel());
         intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MAX, getSelectedMaxKnowledgeLevel());

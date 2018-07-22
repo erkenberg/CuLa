@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-public class UpdateLessonViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+class UpdateLessonViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final int mEntryId;
 

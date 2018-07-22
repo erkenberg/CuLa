@@ -13,10 +13,10 @@ import java.util.List;
 /**
  * {@link ViewModel} for the {@link LibraryFragment}.
  */
-public class LibraryViewModel extends ViewModel {
+class LibraryViewModel extends ViewModel {
 
-    private LiveData<List<LibraryEntry>> mLibraryEntries;
-    private CulaRepository mCulaRepository;
+    private final LiveData<List<LibraryEntry>> mLibraryEntries;
+    private final CulaRepository mCulaRepository;
     private LibraryEntry latestDeletedEntry = null;
 
     /**
@@ -45,9 +45,11 @@ public class LibraryViewModel extends ViewModel {
     public void removeLibraryEntry(int index) {
         if (mLibraryEntries == null || mLibraryEntries.getValue() == null)
             return;
-        latestDeletedEntry = mLibraryEntries.getValue().get(index);
-        Log.d(LibraryViewModel.class.getSimpleName(), latestDeletedEntry.toString());
-        mCulaRepository.deleteLibraryEntry(latestDeletedEntry);
+        if (index < mLibraryEntries.getValue().size()) {
+            latestDeletedEntry = mLibraryEntries.getValue().get(index);
+            Log.d(LibraryViewModel.class.getSimpleName(), latestDeletedEntry.toString());
+            mCulaRepository.deleteLibraryEntry(latestDeletedEntry);
+        }
     }
 
     /**

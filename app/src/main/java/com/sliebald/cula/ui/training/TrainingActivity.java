@@ -44,7 +44,7 @@ public class TrainingActivity extends AppCompatActivity {
     /**
      * Boolean defining whether reverse training should be done
      */
-    boolean reverseTraining;
+    private boolean reverseTraining;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

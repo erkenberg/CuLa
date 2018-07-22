@@ -17,12 +17,12 @@ public class LanguageEntry {
      */
     @PrimaryKey
     @NonNull
-    private String language;
+    private final String language;
 
     /**
      * Defines whether this entry is the currently active entry.
      */
-    private boolean isActive;
+    private final boolean isActive;
 
     /**
      * Constructor for an {@link LanguageEntry}.

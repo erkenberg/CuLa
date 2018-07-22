@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.utilities.InjectorUtils;
 
-public class TrainingViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+class TrainingViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final CulaRepository mCulaRepository;
     private final int mLessonId;

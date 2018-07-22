@@ -15,7 +15,7 @@ public class StatisticsLibraryWordCount {
      * How many LibraryEntries are in that range of the KnowledgeLevel.
      */
     @ColumnInfo(name = "count")
-    public int count;
+    private int count;
 
     public double getLevel() {
         return level;
@@ -23,5 +23,13 @@ public class StatisticsLibraryWordCount {
 
     public int getCount() {
         return count;
+    }
+
+    public void setLevel(double level) {
+        this.level = level;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

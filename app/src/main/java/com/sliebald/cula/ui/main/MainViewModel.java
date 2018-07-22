@@ -7,9 +7,9 @@ import com.sliebald.cula.data.database.Entities.LanguageEntry;
 import com.sliebald.cula.utilities.InjectorUtils;
 
 
-public class MainViewModel extends ViewModel {
+class MainViewModel extends ViewModel {
 
-    private LiveData<LanguageEntry> mActiveLanguage;
+    private final LiveData<LanguageEntry> mActiveLanguage;
 
     /**
      * Constructor of the ViewModel.

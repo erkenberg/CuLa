@@ -14,12 +14,12 @@ import java.util.List;
 /**
  * Viewmodel for the {@link UpdateLibraryActivity}.
  */
-public class StatisticsViewModel extends ViewModel {
+class StatisticsViewModel extends ViewModel {
 
-    private LiveData<List<StatisticsLibraryWordCount>> libraryCount;
-    private LiveData<List<StatisticsActivityEntry>> activity;
+    private final LiveData<List<StatisticsLibraryWordCount>> libraryCount;
+    private final LiveData<List<StatisticsActivityEntry>> activity;
 
-    private CulaRepository mRepository;
+    private final CulaRepository mRepository;
 
     /**
      * Constructor.

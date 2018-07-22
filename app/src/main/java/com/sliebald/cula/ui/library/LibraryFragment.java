@@ -133,7 +133,7 @@ public class LibraryFragment extends Fragment implements
         }
     }
 
-    void updateLibraryActivity() {
+    private void updateLibraryActivity() {
         Intent intent = new Intent(getContext(), UpdateLibraryActivity.class);
         startActivity(intent);
     }

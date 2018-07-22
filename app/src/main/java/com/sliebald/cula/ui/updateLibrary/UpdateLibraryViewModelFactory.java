@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.sliebald.cula.data.CulaRepository;
 
-public class UpdateLibraryViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+class UpdateLibraryViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final int mEntryId;
 

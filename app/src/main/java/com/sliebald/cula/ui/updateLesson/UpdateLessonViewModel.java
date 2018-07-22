@@ -17,7 +17,7 @@ class UpdateLessonViewModel extends ViewModel {
 
     private LiveData<LessonEntry> entry;
     private LiveData<List<MappingPOJO>> mapping;
-    private CulaRepository mCulaRepository;
+    private final CulaRepository mCulaRepository;
 
     /**
      * The entryId of an entry that is updated. -1 means a new entry is being edited.

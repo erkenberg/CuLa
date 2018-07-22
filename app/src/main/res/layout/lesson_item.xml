@@ -40,7 +40,7 @@
         android:background="@android:color/white"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
         android:orientation="vertical">
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_marginStart="8dp"
             android:paddingBottom="4dp"
             android:paddingTop="4dp"
-            android:textAppearance="?attr/textAppearanceListItem"
+            android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="lessonName" />
 
         <TextView
@@ -62,7 +62,7 @@
             android:layout_marginStart="12dp"
             android:paddingBottom="4dp"
             android:paddingTop="4dp"
-            android:textAppearance="?attr/textAppearanceListItem"
+            android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="lessonDescription" />
     </LinearLayout>
 

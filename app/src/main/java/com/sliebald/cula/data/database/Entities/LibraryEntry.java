@@ -33,20 +33,20 @@ public class LibraryEntry {
      * The word in the native language.
      */
     @NonNull
-    private String nativeWord;
+    private final String nativeWord;
 
     /**
      * The word in the foreign language.
      */
     @NonNull
-    private String foreignWord;
+    private final String foreignWord;
 
 
     /**
      * To which language as described in an {@link LanguageEntry} does this word belong.
      */
     @NonNull
-    private String language;
+    private final String language;
 
     /**
      * The day of the {@link LibraryEntry}.
