@@ -111,7 +111,7 @@ public class LibraryRecyclerViewAdapter extends
     }
 
     public interface OnItemClickListener {
-        void onLibraryEntryClick(View view, int id);
+        void onLibraryEntryClick(int id);
 
     }
 
@@ -126,7 +126,7 @@ public class LibraryRecyclerViewAdapter extends
             mNativeWordView = view.findViewById(R.id.nativeWord);
             mForeignWordView = view.findViewById(R.id.foreignWord);
             viewForeground = view.findViewById(R.id.view_foreground);
-            viewForeground.setOnClickListener(v -> mListener.onLibraryEntryClick(v, mValues.get
+            viewForeground.setOnClickListener(v -> mListener.onLibraryEntryClick(mValues.get
                     (getAdapterPosition()).getId()));
         }
 

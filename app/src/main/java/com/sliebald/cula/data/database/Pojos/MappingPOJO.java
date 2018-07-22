@@ -9,6 +9,7 @@ import com.sliebald.cula.data.database.Entities.LibraryEntry;
  * LessonID not stored, since only entries for a single lesson will be queried at a time and the
  * lessonID is therefore implicit.
  */
+@SuppressWarnings("unused")
 public class MappingPOJO {
 
     /**

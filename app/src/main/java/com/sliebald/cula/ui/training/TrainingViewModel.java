@@ -19,8 +19,6 @@ class TrainingViewModel extends ViewModel {
 
     private int currentIndex;
 
-    private final int lessonEntryId;
-
     /**
      * Constructor.
      *
@@ -40,14 +38,7 @@ class TrainingViewModel extends ViewModel {
                     mMaxKnowledgeLevel, mLessonId);
         }
         currentIndex = -1;
-        lessonEntryId = mLessonId;
-
     }
-
-    public int getLessonEntryId() {
-        return lessonEntryId;
-    }
-
 
     /**
      * Return The {@link LiveData} {@link List} of all {@link LibraryEntry}s that should be
@@ -64,6 +55,7 @@ class TrainingViewModel extends ViewModel {
      *
      * @return The next entry to learn.
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean hasNextEntry() {
         return Objects.requireNonNull(entries.getValue()).size() > currentIndex + 1;
     }

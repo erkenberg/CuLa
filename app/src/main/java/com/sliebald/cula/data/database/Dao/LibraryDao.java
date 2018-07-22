@@ -68,12 +68,6 @@ public interface LibraryDao {
     int getLibrarySize();
 
     /**
-     * Delete all entries from the library table.
-     */
-    @Query("DELETE from library")
-    void deleteAll();
-
-    /**
      * Delete the given entry from the library table.
      */
     @Delete

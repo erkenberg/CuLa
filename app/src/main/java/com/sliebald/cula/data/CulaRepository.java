@@ -56,7 +56,7 @@ public class CulaRepository {
         mQuoteDao = database.quoteDao();
         mLessonDao = database.lessonDao();
         //TODO: remove setDebugState() testcode before publishing
-//        setDebugState();
+        setDebugState();
     }
 
 

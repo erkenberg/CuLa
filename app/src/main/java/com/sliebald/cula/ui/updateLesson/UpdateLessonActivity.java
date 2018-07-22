@@ -180,9 +180,8 @@ public class UpdateLessonActivity extends AppCompatActivity implements
     /**
      * Callback for the return button.
      *
-     * @param view The view that was clicked.
      */
-    public void returnWithoutSave(View view) {
+    public void returnWithoutSave(@SuppressWarnings("unused") View view) {
         finish();
     }
 

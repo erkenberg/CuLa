@@ -103,7 +103,7 @@ public class StartTrainingFragment extends Fragment {
                 container, false);
 
         // set listener for start training button
-        mBinding.btStartTraining.setOnClickListener(this::startTraining);
+        mBinding.btStartTraining.setOnClickListener(view -> startTraining());
 
         //TODO: set initially selected options based on last session (sharedParameters).
 
@@ -162,9 +162,8 @@ public class StartTrainingFragment extends Fragment {
     /**
      * Start the training Activity with correct settings.
      *
-     * @param view The button that called this method.
      */
-    private void startTraining(View view) {
+    private void startTraining() {
         Intent intent = new Intent(getContext(), TrainingActivity.class);
         intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MIN, getSelectedMinKnowledgeLevel());
         intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MAX, getSelectedMaxKnowledgeLevel());

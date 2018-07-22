@@ -79,7 +79,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
                 (BUNDLE_EXTRA_UPDATE_KEY, -1)) != -1) {
             mBinding.buttonAddWordPair.setVisibility(View.GONE);
             UpdateLibraryViewModelFactory viewModelFactory = new UpdateLibraryViewModelFactory
-                    (mCulaRepository, id);
+                    (id);
             final UpdateLibraryViewModel viewModel = ViewModelProviders.of(this,
                     viewModelFactory).get(UpdateLibraryViewModel.class);
             viewModel.getEntry().observe(this, libraryEntry -> {

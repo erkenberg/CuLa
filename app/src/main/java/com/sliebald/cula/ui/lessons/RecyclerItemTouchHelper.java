@@ -62,16 +62,12 @@ class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        listener.onSwiped(viewHolder, viewHolder.getAdapterPosition());
+        listener.onSwiped(viewHolder);
     }
 
-    @Override
-    public int convertToAbsoluteDirection(int flags, int layoutDirection) {
-        return super.convertToAbsoluteDirection(flags, layoutDirection);
-    }
 
     public interface RecyclerItemTouchHelperListener {
-        void onSwiped(RecyclerView.ViewHolder viewHolder, int position);
+        void onSwiped(RecyclerView.ViewHolder viewHolder);
     }
 }
 

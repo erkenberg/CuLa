@@ -112,7 +112,7 @@ public class LibraryFragment extends Fragment implements
      * The swiped item  will be removed with an undo option.
      */
     @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+    public void onSwiped(RecyclerView.ViewHolder viewHolder) {
         if (viewHolder instanceof LibraryRecyclerViewAdapter.ViewHolder) {
 
             final int deletedIndex = viewHolder.getAdapterPosition();
@@ -139,7 +139,7 @@ public class LibraryFragment extends Fragment implements
     }
 
     @Override
-    public void onLibraryEntryClick(View view, int id) {
+    public void onLibraryEntryClick(int id) {
         Intent intent = new Intent(getContext(), UpdateLibraryActivity.class);
         intent.putExtra(UpdateLibraryActivity.BUNDLE_EXTRA_UPDATE_KEY, id);
         startActivity(intent);

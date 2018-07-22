@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.support.v7.preference.PreferenceManager;
 import android.text.InputType;
 import android.util.Log;
 import android.widget.EditText;
@@ -30,11 +29,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         .OnSharedPreferenceChangeListener {
 
     public static final String TAG = SettingsFragment.class.getSimpleName();
-
-    /**
-     * The {@link SharedPreferences} used to store the preferences.
-     */
-    private SharedPreferences mSharedPreferences;
 
     /**
      * The {@link SettingsViewModel} for the settings.
@@ -59,9 +53,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         // set the correct preference layout
         addPreferencesFromResource(R.xml.fragment_settings);
         mRepository = InjectorUtils.provideRepository();
-        // get the shared preferences
-        if (getActivity() != null)
-            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         // get the ListPreference for the language settings (select, add, delete)
         mLanguageListPreference = (ListPreference) findPreference(getResources().getString(R
@@ -82,7 +73,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         });
 
         // get the ViewModel
-        if (getContext() != null) {
+        if (getActivity() != null && getContext() != null) {
             mViewModel = ViewModelProviders.of(getActivity()).get(SettingsViewModel.class);
         }
         //Load the language entries and update the ListPreference

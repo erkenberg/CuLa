@@ -17,6 +17,7 @@ public class StatisticsLibraryWordCount {
     @ColumnInfo(name = "count")
     private int count;
 
+    @SuppressWarnings("unused")
     public double getLevel() {
         return level;
     }
@@ -25,6 +26,7 @@ public class StatisticsLibraryWordCount {
         return count;
     }
 
+    @SuppressWarnings("unused")
     public void setLevel(double level) {
         this.level = level;
     }

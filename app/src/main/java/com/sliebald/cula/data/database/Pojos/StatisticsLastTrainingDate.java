@@ -10,8 +10,4 @@ public class StatisticsLastTrainingDate {
     @ColumnInfo(name = "lastActive")
     public Date lastActive;
 
-    public Date getLastActive() {
-        return lastActive;
-    }
-
 }

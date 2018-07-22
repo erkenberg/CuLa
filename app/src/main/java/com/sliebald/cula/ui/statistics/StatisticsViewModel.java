@@ -19,13 +19,11 @@ class StatisticsViewModel extends ViewModel {
     private final LiveData<List<StatisticsLibraryWordCount>> libraryCount;
     private final LiveData<List<StatisticsActivityEntry>> activity;
 
-    private final CulaRepository mRepository;
-
     /**
      * Constructor.
      */
     StatisticsViewModel() {
-        mRepository = InjectorUtils.provideRepository();
+        CulaRepository mRepository = InjectorUtils.provideRepository();
         libraryCount = mRepository.getStatisticsLibraryCountByKnowledgeLevel();
         activity = mRepository.getStatisticsActivity();
     }

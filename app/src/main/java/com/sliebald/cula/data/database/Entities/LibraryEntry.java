@@ -186,6 +186,7 @@ public class LibraryEntry {
      *
      * @param lastUpdated time of the last update of {@link LibraryEntry}.
      */
+    @SuppressWarnings("unused")
     public void setLastUpdated(@NonNull Date lastUpdated) {
         this.lastUpdated = lastUpdated;
     }

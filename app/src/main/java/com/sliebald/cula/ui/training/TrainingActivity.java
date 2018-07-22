@@ -122,9 +122,9 @@ public class TrainingActivity extends AppCompatActivity {
     /**
      * Check the current word and move to the next.
      *
-     * @param view The clicked check button.
+     * @param  view The clicked button
      */
-    public void checkWord(View view) {
+    public void checkWord(@SuppressWarnings("unused") View view) {
         if (!mViewModel.hasNextEntry()) {
             //TODO: show statistics or similar instead of just returning.
             finish();

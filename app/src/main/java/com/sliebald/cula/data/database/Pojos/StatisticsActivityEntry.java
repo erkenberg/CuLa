@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Ignore;
 
 
+@SuppressWarnings("unused")
 public class StatisticsActivityEntry {
 
     /**
