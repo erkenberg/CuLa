@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.sliebald.cula.Analytics;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.databinding.FragmentStartTrainingBinding;
@@ -165,6 +166,7 @@ public class StartTrainingFragment extends Fragment {
      */
     private void startTraining() {
         Intent intent = new Intent(getContext(), TrainingActivity.class);
+
         intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MIN, getSelectedMinKnowledgeLevel());
         intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MAX, getSelectedMaxKnowledgeLevel());
         intent.putExtra(BUNDLE_EXTRA_LESSON_KEY, getSelectedLessonId());

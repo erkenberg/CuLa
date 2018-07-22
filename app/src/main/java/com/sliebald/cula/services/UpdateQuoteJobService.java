@@ -29,13 +29,13 @@ public class UpdateQuoteJobService extends JobService {
             try {
                 jsonQuote = NetworkUtils.getResponseFromHttpUrl(NetworkUtils.getQuoteOfTheDayUrl());
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Error: ",e);
             }
             if (jsonQuote != null) {
                 QuoteEntry quoteEntry = JsonUtils.parseQuoteJson(jsonQuote);
                 InjectorUtils.provideRepository().insertQuoteEntry
                         (quoteEntry);
-                jobFinished(job, true);
+                jobFinished(job, false);
             } else {
                 jobFinished(job, true);
             }

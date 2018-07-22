@@ -15,9 +15,6 @@ import android.util.Log;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
-import com.firebase.jobdispatcher.Lifetime;
-import com.firebase.jobdispatcher.RetryStrategy;
-import com.firebase.jobdispatcher.Trigger;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -168,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Start the jobservice for the quotes
-        scheduleJobService();
     }
 
 
@@ -200,36 +196,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Schedules a Job service to regularly update the motivational quote.
-     */
-    private void scheduleJobService() {
-        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
-
-        // Update the database immediately, only added if this job isn't running already.
-//        Job myInstantJob = dispatcher.newJobBuilder()
-//                .setService(UpdateQuoteJobService.class)
-//                .setTag("updateQuoteJobService")
-//                .setRecurring(false)
-//                .build();
-//        dispatcher.mustSchedule(myInstantJob);
-
-        // and also update it each 12-13 hours as recurring job, only added if this job isn't
-        // running already.
-        //TODO: Recurring doesn't seem to work properly
-        Job recurringJob = dispatcher.newJobBuilder()
-                .setService(UpdateQuoteJobService.class)
-                .setTag("updateQuoteJobService")
-                .setLifetime(Lifetime.FOREVER)
-                .setRecurring(true)
-                .setTrigger(Trigger.executionWindow(
-                        12 * 60 * 60,
-                        13 * 60 * 60))
-                .setReplaceCurrent(false)
-                .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
-                .build();
-        dispatcher.mustSchedule(recurringJob);
-    }
 
     /**
      * Handler for the clicked navigation drawer items. Loads the correct fragment in the activity.

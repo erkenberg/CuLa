@@ -17,6 +17,7 @@
             android:text="@string/activity_training_label_translate_word"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/textSize_normal"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -28,7 +29,9 @@
             android:layout_marginTop="@dimen/distance_normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/textSize_medium"
             app:layout_constraintTop_toBottomOf="@+id/tv_label_translate_word" />
+
 
         <EditText
             android:id="@+id/et_translated_word"

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.sliebald.cula.Analytics;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
@@ -54,6 +55,7 @@ public class TrainingActivity extends AppCompatActivity {
         // create DataBinding
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_training);
 
+        Analytics.logEventStartTraining(this);
 
         // get DB access
         mCulaRepository = InjectorUtils.provideRepository();
@@ -107,6 +109,8 @@ public class TrainingActivity extends AppCompatActivity {
     private void showWord(boolean nextWord) {
         if (!mViewModel.hasNextEntry()) {
             //TODO: show statistics or similar instead of just returning.
+            Analytics.logEventStopTraining(this);
+
             finish();
         } else {
             mBinding.etTranslatedWord.getText().clear();
