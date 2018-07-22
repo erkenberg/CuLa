@@ -15,7 +15,7 @@
             android:layout_height="@dimen/ic_delete"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/padd_10"
+            android:layout_marginEnd="@dimen/distance_normal"
             android:contentDescription="@string/delete"
             android:src="@drawable/ic_delete_white_24dp" />
 
@@ -23,11 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/padd_10"
+            android:layout_marginStart="@dimen/distance_normal"
             android:layout_toStartOf="@id/delete_icon"
             android:text="@string/delete"
             android:textColor="#fff"
-            android:textSize="13sp" />
+            android:textSize="@dimen/textSize_small" />
 
     </RelativeLayout>
 
@@ -46,10 +46,10 @@
             android:id="@+id/lesson_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp"
+            android:layout_marginEnd="@dimen/distance_normal"
+            android:layout_marginStart="@dimen/distance_normal"
+            android:paddingBottom="@dimen/distance_small"
+            android:paddingTop="@dimen/distance_small"
             android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="lessonName" />
 
@@ -57,10 +57,11 @@
             android:id="@+id/lesson_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="12dp"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp"
+            android:layout_marginEnd="@dimen/distance_medium"
+            android:layout_marginStart="@dimen/distance_medium"
+            android:paddingBottom="@dimen/distance_small"
+            android:paddingTop="@dimen/distance_small"
+            android:textColor="@color/grey"
             android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="lessonDescription" />
     </LinearLayout>

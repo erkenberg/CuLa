@@ -16,7 +16,6 @@ public class InjectorUtils {
      *
      * @return The {@link CulaRepository}
      */
-    //TODO: remove context
     public static CulaRepository provideRepository() {
         CulaDatabase database = CulaDatabase.getInstance(MyApplication.getContext());
         AppExecutors executors = AppExecutors.getInstance();

@@ -15,7 +15,7 @@
             android:layout_height="@dimen/ic_delete"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/padd_10"
+            android:layout_marginEnd="@dimen/distance_normal"
             android:contentDescription="@string/delete"
             android:src="@drawable/ic_delete_white_24dp" />
 
@@ -23,11 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/padd_10"
+            android:layout_marginStart="@dimen/distance_normal"
             android:layout_toStartOf="@id/delete_icon"
             android:text="@string/delete"
             android:textColor="#fff"
-            android:textSize="13sp" />
+            android:textSize="@dimen/textSize_small" />
 
     </RelativeLayout>
 
@@ -47,17 +47,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="24dp"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp"
+            android:layout_marginStart="@dimen/distance_large"
+            android:paddingBottom="@dimen/distance_normal"
+            android:paddingTop="@dimen/distance_normal"
             android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="language" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="@dimen/distance_small"
+            android:layout_marginTop="@dimen/distance_small"
             android:background="@color/colorPrimaryDark" />
 
         <TextView
@@ -65,9 +65,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="24dp"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp"
+            android:layout_marginStart="@dimen/distance_large"
+            android:paddingBottom="@dimen/distance_normal"
+            android:paddingTop="@dimen/distance_normal"
             android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="foreignWord" />
     </LinearLayout>

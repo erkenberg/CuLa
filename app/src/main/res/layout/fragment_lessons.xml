@@ -20,10 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            app:elevation="6dp"
+            android:layout_margin="@dimen/distance_medium"
+            app:elevation="@dimen/fab_elevation"
             app:fabSize="normal"
-            app:pressedTranslationZ="6dp" />
+            app:pressedTranslationZ="@dimen/fab_elevation_translationZ" />
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

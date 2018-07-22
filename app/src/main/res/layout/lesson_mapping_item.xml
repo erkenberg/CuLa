@@ -8,7 +8,7 @@
         android:id="@+id/cb_lesson_mapping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/distance_small"
         android:scaleX="1.4"
         android:scaleY="1.4" />
 
@@ -22,7 +22,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="5"
-        android:padding="4dp"
+        android:padding="@dimen/distance_small"
         android:gravity="center_vertical"
         tools:text="Native Word" />
 
@@ -36,9 +36,9 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="6"
-        android:padding="4dp"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
+        android:padding="@dimen/distance_small"
+        android:paddingEnd="@dimen/distance_normal"
+        android:paddingStart="@dimen/distance_normal"
         android:gravity="center_vertical"
         tools:text="Foreign Word" />
 </LinearLayout>

@@ -11,6 +11,10 @@
     <string name="drawer_label_lessons">Lessons</string>
     <string name="drawer_label_statistics">Statistics</string>
 
+    <!--Toolbar titles, drawer item names are used for fragments-->
+    <string name="title_update_library_entry">Update Library</string>
+    <string name="title_update_lesson_entry">Update Lesson</string>
+
     <!-- Library Strings-->
     <string name="library_word_deleted">Word removed from Library!</string>
     <string name="library_add_first_word">Add word: </string>
@@ -132,12 +136,12 @@
     <string name="widget_last_learned_not">You didn\'t train for over a week, try to train
         more regularly.</string>
     <string name="widget_lesson_proposal">Maybe have a look at the <b>%1$s</b> lesson next.</string>
+
+    <!--Quote strings-->
     <string name="quote_initial_text">Welcome to CuLa, the Customizable Language Trainer.
         <br /> As first step you should add the language you want to learn in the settings.
         <br />I hope you have a lot of fun with CuLa.</string>
     <string name="quote_initial_author">Stefan</string>
-    <string name="title_update_library_entry">Update Library</string>
-    <string name="title_update_lesson_entry">Update Lesson</string>
 
 
 </resources>

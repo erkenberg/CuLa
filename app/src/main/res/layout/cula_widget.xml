@@ -12,18 +12,18 @@
         android:id="@+id/tv_widget_last_learned"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/distance_small"
         android:contentDescription="@string/widget_description_last_learned"
-        android:textSize="14sp"
+        android:textSize="@dimen/textSize_small"
         android:textStyle="bold|italic" />
 
     <TextView
         android:id="@+id/tv_widget_lesson_proposal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/distance_small"
         android:contentDescription="@string/widget_description_worst_lesson"
-        android:textSize="14sp"
+        android:textSize="@dimen/textSize_small"
         android:textStyle="bold|italic" />
 
 </LinearLayout>
