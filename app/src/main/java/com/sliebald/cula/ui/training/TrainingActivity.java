@@ -4,10 +4,10 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
@@ -86,9 +86,7 @@ public class TrainingActivity extends AppCompatActivity {
                             libraryEntries.get(0).toString());
                     showWord(savedInstanceState == null);
                 } else {
-                    Toast.makeText(this, R.string.start_training_warning_no_matching_words, Toast
-                            .LENGTH_LONG)
-                            .show();
+                    setResult(StartTrainingFragment.RESULT_KEY_NO_MATCHING_ENTRIES);
                     finish();
                 }
             }
@@ -131,8 +129,17 @@ public class TrainingActivity extends AppCompatActivity {
             //TODO: show statistics or similar instead of just returning.
             finish();
         }
+
+
         String typedTranslation = mBinding.etTranslatedWord.getText().toString().trim()
                 .toLowerCase();
+
+        if (typedTranslation.isEmpty()) {
+            Snackbar.make(mBinding.activityTraining, R.string
+                    .activity_training_empty_translation, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
         LibraryEntry currentEntry = mViewModel.getCurrentWord();
         String correctTranslation;
         if (!reverseTraining) {
@@ -145,23 +152,28 @@ public class TrainingActivity extends AppCompatActivity {
         boolean trainingCorrect = typedTranslation.equals(correctTranslation);
 
         if (trainingCorrect) {
-            Toast.makeText(this, "correct", Toast.LENGTH_SHORT).show();
+            Snackbar correct = Snackbar.make(mBinding.activityTraining, R.string.correct, Snackbar
+                    .LENGTH_SHORT);
+            correct.getView().setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
+                    (this, 5));
+            correct.show();
             updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowlevelAdjustment(currentEntry
                     .getKnowledgeLevel(), true);
             mCulaRepository.insertStatisticsEntry(new StatisticEntry(currentEntry.getId(),
                     null, 1));
         } else {
-            Toast.makeText(this, "wrong: " + typedTranslation + " " + correctTranslation, Toast
-                    .LENGTH_SHORT).show();
+            Snackbar wrong = Snackbar.make(mBinding.activityTraining, R.string.wrong, Snackbar
+                    .LENGTH_SHORT);
+            wrong.getView().setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
+                    (this, 0));
+            wrong.show();
             updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowlevelAdjustment(currentEntry
                     .getKnowledgeLevel(), false);
             mCulaRepository.insertStatisticsEntry(new StatisticEntry(currentEntry.getId(),
                     null, 0));
         }
         currentEntry.setKnowledgeLevel(updatedKnowledgeLevel);
-
         mCulaRepository.updateLibraryEntry(currentEntry);
-
         showWord(true);
     }
 }

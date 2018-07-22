@@ -16,7 +16,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -77,8 +76,16 @@ public class LessonsFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-        mViewModel.getLessonEntries().observe(this, libraryEntries -> {
-            mAdapter.swapEntries(libraryEntries);
+        mViewModel.getLessonEntries().observe(this, lessonEntries -> {
+            if (lessonEntries == null || lessonEntries.size() == 0) {
+                Snackbar snackbar = Snackbar
+                        .make(mBinding.lessonCoordinatorLayout, R.string.lesson_add_first_lesson,
+                                Snackbar.LENGTH_LONG);
+                snackbar.setAction(R.string.add, (View view) -> updateLessonActivity());
+                snackbar.show();
+                return;
+            }
+            mAdapter.swapEntries(lessonEntries);
             if (mPosition == RecyclerView.NO_POSITION) {
                 mPosition = 0;
             }
@@ -131,13 +138,13 @@ public class LessonsFragment extends Fragment implements
             mViewModel.removeLessonEntry(deletedIndex);
             // show undo option
             Snackbar snackbar = Snackbar
-                    .make(mBinding.libraryCoordinatorLayout, R.string.lesson_deleted, Snackbar
+                    .make(mBinding.lessonCoordinatorLayout, R.string.lesson_deleted, Snackbar
                             .LENGTH_LONG);
             snackbar.setAction(R.string.undo, (View view) -> {
-                Toast.makeText(getContext(), R.string.restored, Toast.LENGTH_SHORT).show();
+                Snackbar.make(mBinding.lessonCoordinatorLayout, R.string.restored, Snackbar
+                        .LENGTH_SHORT);
                 mViewModel.restoreLatestDeletedLessonEntry();
             });
-            snackbar.setActionTextColor(Color.YELLOW);
             snackbar.show();
         }
     }

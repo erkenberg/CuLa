@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
@@ -25,7 +25,15 @@ import java.util.Objects;
  */
 public class StartTrainingFragment extends Fragment {
 
+    /**
+     * Result returned when no entries are matching to the given settings.
+     */
+    public static final int RESULT_KEY_NO_MATCHING_ENTRIES = -1;
 
+    /**
+     * Request code for training activity.
+     */
+    public static final int RESULT_KEY_REQUEST_CODE = 42;
 
     /**
      * {@link Bundle} key for the amount of words to be trained.
@@ -157,16 +165,25 @@ public class StartTrainingFragment extends Fragment {
      * @param view The button that called this method.
      */
     public void startTraining(View view) {
-        Toast.makeText(getContext(), "Starting Training", Toast.LENGTH_SHORT).show();
-
         Intent intent = new Intent(getContext(), TrainingActivity.class);
         intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MIN, getSelectedMinKnowledgeLevel());
         intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MAX, getSelectedMaxKnowledgeLevel());
         intent.putExtra(BUNDLE_EXTRA_LESSON_KEY, getSelectedLessonId());
         intent.putExtra(BUNDLE_EXTRA_NUMWORDS_KEY, getSelectedNumWords());
         intent.putExtra(BUNDLE_EXTRA_REVERSE_TRAINING_KEY, getSelectedReverseTraining());
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_KEY_REQUEST_CODE);
         //TODO: save selected options to sharedParameters for next session
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_KEY_REQUEST_CODE && resultCode ==
+                RESULT_KEY_NO_MATCHING_ENTRIES) {
+            Snackbar.make(mBinding.fragmentStartTraining, R.string
+                    .start_training_warning_no_matching_words, Snackbar.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     /**

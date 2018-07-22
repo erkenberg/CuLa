@@ -2,14 +2,15 @@ package com.sliebald.cula.ui.main;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -25,6 +26,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LanguageEntry;
+import com.sliebald.cula.databinding.MainActivityBinding;
 import com.sliebald.cula.services.UpdateQuoteJobService;
 import com.sliebald.cula.ui.lessons.LessonsFragment;
 import com.sliebald.cula.ui.library.LibraryFragment;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private Drawer drawer;
 
-    private static final int DRAWER_START_TRAINING_KEY = 0;
+    private static final int DRAWER_START_TRAINING_KEY = 6;
     private static final int DRAWER_LIBRARY_KEY = 1;
     private static final int DRAWER_SETTINGS_KEY = 2;
     private static final int DRAWER_QUOTE_KEY = 3;
@@ -57,12 +59,18 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+    /**
+     * The databinding for the Layout.
+     */
+    private MainActivityBinding mBinding;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        //TODO: check if a language is selected, otherwise open settings and show a toast.
         //create the drawer and remember the `Drawer` result object
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         //check whether there is a language set as active.
@@ -188,14 +196,14 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment;
         if (!firstCall && identifier != DRAWER_SETTINGS_KEY && mViewModel.getActiveLanguage() !=
                 null && mViewModel.getActiveLanguage().getValue() == null) {
-            identifier = DRAWER_SETTINGS_KEY;
             drawer.setSelection(DRAWER_SETTINGS_KEY);
-            Toast.makeText(this, "Please add/select a language.", Toast.LENGTH_LONG).show();
-
+            Snackbar.make(mBinding.mainLinearLayout, R.string.settings_add_language_summary,
+                    Snackbar.LENGTH_LONG).show();
+            return;
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        String tag = "";
+        String tag;
         switch ((int) identifier) {
             case DRAWER_LIBRARY_KEY:
                 tag = LibraryFragment.TAG;

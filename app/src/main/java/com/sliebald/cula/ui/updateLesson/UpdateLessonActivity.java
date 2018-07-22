@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.util.Log;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
-import android.widget.Toast;
 
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
@@ -127,8 +127,8 @@ public class UpdateLessonActivity extends AppCompatActivity implements
             mAdapter.swapEntries(mappingPOJOList);
             Log.d(UpdateLessonActivity.class.getSimpleName(), "Elements in mapping list: " +
                     mappingPOJOList.size());
-            for (MappingPOJO pojo : mappingPOJOList)
-                Log.d(UpdateLessonActivity.class.getSimpleName(), pojo.toString());
+            for (MappingPOJO mappingPOJO : mappingPOJOList)
+                Log.d(UpdateLessonActivity.class.getSimpleName(), mappingPOJO.toString());
         });
         mBinding.tvLabelAddLessonMappings.setVisibility(View.VISIBLE);
     }
@@ -144,7 +144,9 @@ public class UpdateLessonActivity extends AppCompatActivity implements
         String lessonName = mBinding.etAddLessonName.getText().toString().trim();
         String lessonDescription = mBinding.etAddLessonDescription.getText().toString().trim();
         if (lessonName.isEmpty()) {
-            Toast.makeText(this, "Lesson name can't be empty", Toast.LENGTH_LONG).show();
+            Snackbar.make(mBinding.activityUpdateLesson, R.string
+                    .update_lesson_toast_lesson_name_empty, Snackbar.LENGTH_SHORT)
+                    .show();
             mBinding.etAddLessonName.requestFocus();
             return;
         }
@@ -153,15 +155,18 @@ public class UpdateLessonActivity extends AppCompatActivity implements
                 (R.string.settings_select_language_key), "");
         if (mViewModel.getEntryID() != -1) {
             Log.d(TAG, "Updating existing lesson: " + mViewModel.getEntryID());
-
             mCulaRepository.updateLessonEntry(new LessonEntry(mViewModel.getEntryID(), lessonName,
                     lessonDescription, language));
-            Toast.makeText(this, "Updated lesson", Toast.LENGTH_LONG).show();
+            Snackbar.make(mBinding.activityUpdateLesson, R.string
+                    .update_lesson_toast_lesson_updated, Snackbar.LENGTH_SHORT).show();
+
         } else {
             Log.d(TAG, "Inserting new lesson");
             mCulaRepository.insertLessonEntry(this, new LessonEntry(lessonName,
                     lessonDescription, language));
-            Toast.makeText(this, "Added lesson", Toast.LENGTH_LONG).show();
+            Snackbar.make(mBinding.activityUpdateLesson, R.string
+                    .update_lesson_toast_lesson_added, Snackbar.LENGTH_SHORT).show();
+
         }
 
         if (view != null) {

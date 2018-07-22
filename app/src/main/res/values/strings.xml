@@ -12,7 +12,8 @@
     <string name="drawer_label_statistics">Statistics</string>
 
     <!-- Library Strings-->
-    <string name="word_removed_from_library">Word removed from Library!</string>
+    <string name="library_word_deleted">Word removed from Library!</string>
+    <string name="library_add_first_word">Add word: </string>
 
     <!-- General purpose strings -->
     <string name="undo">UNDO</string>
@@ -22,6 +23,8 @@
     <string name="ok">OK</string>
     <string name="button_return">Return</string>
     <string name="cancel">Cancel</string>
+    <string name="correct">Correct</string>
+    <string name="wrong">Wrong</string>
 
     <!-- Update Library Strings-->
     <string name="update_library_hint_foreign_word">Add the foreign word</string>
@@ -54,6 +57,7 @@
     <string name="settings_default_knowledgeLevel_key" translatable="false">defaultKnowledgeLevel</string>
     <string name="settings_default_knowledgeLevel_default">2.5</string>
     <string name="settings_default_knowledgeLevel_summary">@string/knowledgeLevel3</string>
+    <string name="settings_warning_invalid_language_length">Language must be between 2 and 20 characters</string>
 
     <!-- Knowledge Levels-->
     <string name="knowledgeLevel1">1 - Unknown</string>
@@ -70,6 +74,7 @@
 
     <!-- Lesson Overview Strings -->
     <string name="lesson_deleted">Lesson deleted</string>
+    <string name="lesson_add_first_lesson">Add Lesson: </string>
 
     <!-- Update Lesson strings-->
     <string name="update_lesson_label_name">Name of the Lesson</string>
@@ -78,6 +83,9 @@
     <string name="update_lesson_label_description">Lesson description</string>
     <string name="update_lesson_label_mapping">Library entries belonging to the lesson
         (autosaved)</string>
+    <string name="update_lesson_toast_lesson_added">Added lesson</string>
+    <string name="update_lesson_toast_lesson_updated">Updated lesson</string>
+    <string name="update_lesson_toast_lesson_name_empty">Lesson name can\'t be empty</string>
 
     <!-- Start Training strings-->
     <string name="start_training_label_instructions">Select your training settings:</string>
@@ -103,6 +111,8 @@
     <string name="activity_training_hint_translated_word">Translated word</string>
     <string name="activity_training_label_translate_word">Translate the following word:</string>
     <string name="activity_training_label_progress">Progress: %1$d from %2$d</string>
+    <string name="activity_training_empty_translation">Enter a translation!</string>
+
 
     <!-- Statistics strings-->
     <string name="statistics_label_words_by_level">Library size by KnowledgeLevel for

@@ -16,7 +16,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -62,6 +61,13 @@ public class LibraryFragment extends Fragment implements
     public void onResume() {
         super.onResume();
         mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
+            if (libraryEntries == null || libraryEntries.size() == 0) {
+                Snackbar snackbar = Snackbar
+                        .make(mBinding.libraryCoordinatorLayout, R.string.library_add_first_word,
+                                Snackbar.LENGTH_LONG);
+                snackbar.setAction(R.string.add, (View view) -> updateLibraryActivity());
+                snackbar.show();
+            }
             mAdapter.swapEntries(libraryEntries);
             if (mPosition == RecyclerView.NO_POSITION) {
                 mPosition = 0;
@@ -114,11 +120,13 @@ public class LibraryFragment extends Fragment implements
             mViewModel.removeLibraryEntry(deletedIndex);
             // show undo option
             Snackbar snackbar = Snackbar
-                    .make(mBinding.libraryCoordinatorLayout, R.string.word_removed_from_library,
+                    .make(mBinding.libraryCoordinatorLayout, R.string.library_word_deleted,
                             Snackbar.LENGTH_LONG);
             snackbar.setAction(R.string.undo, (View view) -> {
-                Toast.makeText(getContext(), R.string.restored, Toast.LENGTH_SHORT).show();
+
                 mViewModel.restoreLatestDeletedLibraryEntry();
+                Snackbar.make(mBinding.libraryCoordinatorLayout, R.string.restored, Snackbar
+                        .LENGTH_SHORT).show();
             });
             snackbar.setActionTextColor(Color.YELLOW);
             snackbar.show();
@@ -127,7 +135,6 @@ public class LibraryFragment extends Fragment implements
 
     void updateLibraryActivity() {
         Intent intent = new Intent(getContext(), UpdateLibraryActivity.class);
-        // intent.putExtra(UpdateLibraryActivity.BUNDLE_EXTRA_UPDATE_KEY, 1);
         startActivity(intent);
     }
 

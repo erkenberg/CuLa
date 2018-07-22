@@ -6,9 +6,9 @@ import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
@@ -133,16 +133,17 @@ public class UpdateLibraryActivity extends AppCompatActivity {
     public void commitLibraryEntry(View view) {
         String nativeWord = mBinding.editTextAddNativeWord.getText().toString().trim();
         String foreignWord = mBinding.editTextAddForeignWord.getText().toString().trim();
-        //TODO: replacable by snackbar?
         if (nativeWord.isEmpty()) {
-            Toast.makeText(this, R.string.update_library_warning_native_word_missing, Toast
-                    .LENGTH_LONG).show();
+            Snackbar.make(mBinding.activityUpdateLibrary, R.string
+                    .update_library_warning_native_word_missing, Snackbar.LENGTH_SHORT).show();
+
             mBinding.editTextAddNativeWord.requestFocus();
             return;
         }
         if (foreignWord.isEmpty()) {
-            Toast.makeText(this, R.string.update_library_warning_foreign_word_missing, Toast
-                    .LENGTH_LONG).show();
+            Snackbar.make(mBinding.activityUpdateLibrary, R.string
+                    .update_library_warning_foreign_word_missing, Snackbar.LENGTH_SHORT).show();
+
             mBinding.editTextAddForeignWord.requestFocus();
             return;
         }
@@ -166,9 +167,9 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             setKnowledgeLevelUI(Double.parseDouble(mSharedPreferences.getString(getString(R.string
                     .settings_default_knowledgeLevel_key), getString
                     (R.string.settings_default_knowledgeLevel_default))));
-            //TODO: replace by snackbar?
-            Toast.makeText(this, R.string.update_library_success_entry_added, Toast.LENGTH_LONG)
-                    .show();
+            Snackbar.make(mBinding.activityUpdateLibrary, R.string
+                    .update_library_success_entry_added, Snackbar.LENGTH_SHORT).show();
+
         }
     }
 
