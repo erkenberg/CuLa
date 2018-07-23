@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "645611682111",
+    "firebase_url": "https://cula-b9115.firebaseio.com",
+    "project_id": "cula-b9115",
+    "storage_bucket": "cula-b9115.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645611682111:android:d61bb61285f4216e",
+        "android_client_info": {
+          "package_name": "com.sliebald.cula"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "645611682111-sg1eah90ijnnuq5ur0t9ii6tklkdhm45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzwYknnudnvw_TaSkKx959Qu3Z48Xq6Ao"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
