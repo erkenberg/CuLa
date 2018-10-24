@@ -1,6 +1,6 @@
 package com.sliebald.cula.data.database.Pojos;
 
-import android.arch.persistence.room.ColumnInfo;
+import androidx.room.ColumnInfo;
 
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 

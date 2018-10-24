@@ -1,7 +1,7 @@
 package com.sliebald.cula.ui.updateLesson;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LessonEntry;

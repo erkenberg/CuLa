@@ -1,20 +1,17 @@
 package com.sliebald.cula.ui.main;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.PreferenceManager;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 
-import com.firebase.jobdispatcher.FirebaseJobDispatcher;
-import com.firebase.jobdispatcher.GooglePlayDriver;
-import com.firebase.jobdispatcher.Job;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -24,7 +21,6 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LanguageEntry;
 import com.sliebald.cula.databinding.MainActivityBinding;
-import com.sliebald.cula.services.UpdateQuoteJobService;
 import com.sliebald.cula.ui.lessons.LessonsFragment;
 import com.sliebald.cula.ui.library.LibraryFragment;
 import com.sliebald.cula.ui.quote.QuoteFragment;

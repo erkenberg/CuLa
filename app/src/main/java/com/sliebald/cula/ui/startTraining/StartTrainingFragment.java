@@ -1,19 +1,18 @@
 package com.sliebald.cula.ui.startTraining;
 
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.sliebald.cula.Analytics;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.databinding.FragmentStartTrainingBinding;

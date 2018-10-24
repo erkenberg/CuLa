@@ -1,7 +1,7 @@
 package com.sliebald.cula.data.database.Pojos;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Ignore;
+import androidx.room.ColumnInfo;
+import androidx.room.Ignore;
 
 
 @SuppressWarnings("unused")

@@ -17,7 +17,7 @@
 package com.sliebald.cula.data;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 import android.util.Log;
 
 import com.sliebald.cula.MyApplication;
@@ -87,7 +87,7 @@ public class CulaRepository {
      * Singleton to make sure only one {@link CulaRepository} is used at a time.
      *
      * @param database          The {@link CulaDatabase} to access all
-     * {@link android.arch.persistence.room.Dao}s.
+     * {@link androidx.room.Dao}s.
      * @param appExecutors      The {@link AppExecutors} used to execute all kind of queries of
      *                          the main thread.
      * @return A new {@link CulaRepository} if none exists. If already an instance exists this is
