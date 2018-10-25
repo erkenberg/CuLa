@@ -59,13 +59,12 @@ dependencies {
     //Material drawer dependencies:
     //https://github.com/mikepenz/MaterialDrawer
     //check for newest releases here: https://github.com/mikepenz/MaterialDrawer/releases
-    implementation('com.mikepenz:materialdrawer:6.0.7@aar') {
+    implementation('com.mikepenz:materialdrawer:6.1.1') {
         transitive = true
     }
     // Icons to use
-    implementation 'com.mikepenz:fontawesome-typeface:5.0.6.0@aar'
-    // Firebase job dispatcher
-    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+    implementation 'com.mikepenz:fontawesome-typeface:5.3.1.1@aar'
+
     // Graph/chart drawer library
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     //firebase dependencies, 16.0.1 is available according to android studio but throws exceptions

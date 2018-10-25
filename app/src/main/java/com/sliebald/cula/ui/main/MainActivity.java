@@ -1,17 +1,10 @@
 package com.sliebald.cula.ui.main;
 
-import androidx.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -23,10 +16,17 @@ import com.sliebald.cula.data.database.Entities.LanguageEntry;
 import com.sliebald.cula.databinding.MainActivityBinding;
 import com.sliebald.cula.ui.lessons.LessonsFragment;
 import com.sliebald.cula.ui.library.LibraryFragment;
-import com.sliebald.cula.ui.quote.QuoteFragment;
 import com.sliebald.cula.ui.settings.SettingsFragment;
 import com.sliebald.cula.ui.startTraining.StartTrainingFragment;
 import com.sliebald.cula.ui.statistics.StatisticsFragment;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,10 +50,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private static final int DRAWER_SETTINGS_KEY = 2;
 
-    /**
-     * Key for the Quote entry in the navigation drawer.
-     */
-    private static final int DRAWER_QUOTE_KEY = 3;
 
     /**
      * Key for the Lesson entry in the navigation drawer.
@@ -105,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         //check whether there is a language set as active.
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        long active_item = DRAWER_QUOTE_KEY;
+        long active_item = DRAWER_START_TRAINING_KEY;
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(SAVED_INSTANCE_STATE_ACTIVE_DRAWER_ITEM_KEY))
                 active_item = savedInstanceState.getLong
@@ -127,9 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(false)
                 .withDrawerWidthDp(250)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withIdentifier(DRAWER_QUOTE_KEY).withName
-                                (R.string.drawer_label_quote).withIcon(FontAwesome.Icon
-                                .faw_bookmark),
+
                         new PrimaryDrawerItem().withIdentifier(DRAWER_START_TRAINING_KEY)
                                 .withName(R.string
                                 .drawer_label_train).withIcon(FontAwesome.Icon.faw_pencil_alt),
@@ -137,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                                 (R.string.drawer_label_library).withIcon(FontAwesome.Icon.faw_book),
                         new PrimaryDrawerItem().withIdentifier(DRAWER_LESSONS_KEY).withName
                                 (R.string.drawer_label_lessons).withIcon(FontAwesome.Icon
-                                .faw_address_book2),
+                                .faw_address_book1),
                         new PrimaryDrawerItem().withIdentifier(DRAWER_STATISTICS_KEY).withName(R
                                 .string.drawer_label_statistics).withIcon(FontAwesome.Icon
                                 .faw_chart_line),
@@ -160,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
         mViewModel.getActiveLanguage().observe(this, this::checkActiveLesson);
 
 
-        // Start the jobservice for the quotes
     }
 
 
@@ -229,13 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 if (fragment == null)
                     fragment = new SettingsFragment();
                 break;
-            case DRAWER_QUOTE_KEY:
-                tag = QuoteFragment.TAG;
-                fragment = fragmentManager.findFragmentByTag(tag);
-                if (fragment == null)
-                    fragment = new QuoteFragment();
-                mBinding.toolbar.setTitle(R.string.drawer_label_quote);
-                break;
+
             case DRAWER_LESSONS_KEY:
                 tag = LessonsFragment.TAG;
                 fragment = fragmentManager.findFragmentByTag(tag);

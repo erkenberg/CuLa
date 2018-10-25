@@ -1,9 +1,7 @@
 # App Components:
-## Quote of the day
-* Loads a motivational Quote from the Internet and displays it
 
 ## Train:
-* select trainint parameters like:
+* select training parameters like:
   * amount of words
   * Lesson
   * KnowledgeLevel of words to Train

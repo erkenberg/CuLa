@@ -17,22 +17,17 @@
 package com.sliebald.cula.data;
 
 import android.annotation.SuppressLint;
-import androidx.lifecycle.LiveData;
 import android.util.Log;
 
-import com.sliebald.cula.MyApplication;
-import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.CulaDatabase;
 import com.sliebald.cula.data.database.Dao.LanguageDao;
 import com.sliebald.cula.data.database.Dao.LessonDao;
 import com.sliebald.cula.data.database.Dao.LibraryDao;
-import com.sliebald.cula.data.database.Dao.QuoteDao;
 import com.sliebald.cula.data.database.Dao.StatisticsDao;
 import com.sliebald.cula.data.database.Entities.LanguageEntry;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.data.database.Entities.LessonMappingEntry;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
-import com.sliebald.cula.data.database.Entities.QuoteEntry;
 import com.sliebald.cula.data.database.Entities.StatisticEntry;
 import com.sliebald.cula.data.database.Pojos.LessonKnowledgeLevel;
 import com.sliebald.cula.data.database.Pojos.MappingPOJO;
@@ -45,6 +40,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+
 /**
  * Handles data operations in Cula.
  */
@@ -55,12 +52,8 @@ public class CulaRepository {
         mStatisticsDao = database.statisticsDao();
         mExecutors = appExecutors;
         mLanguageDao = database.languageDao();
-        mQuoteDao = database.quoteDao();
         mLessonDao = database.lessonDao();
 
-        insertQuoteEntry(new QuoteEntry(1, MyApplication.getContext().getString(R.string
-                .quote_initial_text), MyApplication.getContext().getString(R.string
-                .quote_initial_author)));
 
         //TODO: remove setDebugState() test code before publishing
         setDebugState();
@@ -78,7 +71,6 @@ public class CulaRepository {
     private static CulaRepository sInstance;
     private final LibraryDao mLibraryDao;
     private final LanguageDao mLanguageDao;
-    private final QuoteDao mQuoteDao;
     private final LessonDao mLessonDao;
     private final StatisticsDao mStatisticsDao;
     private final AppExecutors mExecutors;
@@ -301,24 +293,6 @@ public class CulaRepository {
         mExecutors.diskIO().execute(() -> mLanguageDao.setActiveLanguage(language));
     }
 
-    /**
-     * Adds the given {@link QuoteEntry}s to the Database.
-     *
-     * @param quoteEntries One or more {@link QuoteEntry}s to add to the Database
-     */
-    public void insertQuoteEntry(QuoteEntry... quoteEntries) {
-        Log.d(TAG, "Insert quote: " + quoteEntries[0].toString());
-        mExecutors.diskIO().execute(() -> mQuoteDao.insertEntry(quoteEntries));
-    }
-
-    /**
-     * Load a new {@link QuoteEntry} and return it wrapped in {@link LiveData}.
-     *
-     * @return The {@link LiveData} wrapped {@link QuoteEntry}
-     */
-    public LiveData<QuoteEntry> getQuote() {
-        return mQuoteDao.getLatestEntry();
-    }
 
 
     /**

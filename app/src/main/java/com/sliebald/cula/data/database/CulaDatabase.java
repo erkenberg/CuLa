@@ -1,22 +1,21 @@
 package com.sliebald.cula.data.database;
 
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 import android.content.Context;
 
 import com.sliebald.cula.data.database.Dao.LanguageDao;
 import com.sliebald.cula.data.database.Dao.LessonDao;
 import com.sliebald.cula.data.database.Dao.LibraryDao;
-import com.sliebald.cula.data.database.Dao.QuoteDao;
 import com.sliebald.cula.data.database.Dao.StatisticsDao;
 import com.sliebald.cula.data.database.Entities.LanguageEntry;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.data.database.Entities.LessonMappingEntry;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
-import com.sliebald.cula.data.database.Entities.QuoteEntry;
 import com.sliebald.cula.data.database.Entities.StatisticEntry;
+
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 /**
  * The Room Database for the App.
@@ -25,7 +24,6 @@ import com.sliebald.cula.data.database.Entities.StatisticEntry;
         entities = {
                 LibraryEntry.class,
                 LanguageEntry.class,
-                QuoteEntry.class,
                 LessonEntry.class,
                 LessonMappingEntry.class,
                 StatisticEntry.class},
@@ -66,17 +64,11 @@ public abstract class CulaDatabase extends RoomDatabase {
      */
     public abstract LanguageDao languageDao();
 
-    /**
-     * Gain access to the {@link QuoteDao} for interacting with the quote related database parts.
-     *
-     * @return The {@link QuoteDao}.
-     */
-    public abstract QuoteDao quoteDao();
 
     /**
      * Gain access to the {@link LessonDao} for interacting with the lesson related database parts.
      *
-     * @return The {@link QuoteDao}.
+     * @return The {@link LessonDao}.
      */
     public abstract LessonDao lessonDao();
 

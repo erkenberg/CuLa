@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sliebald.cula">
 
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyApplication"
@@ -31,14 +30,6 @@
         <activity
             android:name=".ui.training.TrainingActivity"
             android:parentActivityName=".ui.main.MainActivity" />
-
-        <service
-            android:name=".services.UpdateQuoteJobService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
 
         <receiver android:name=".widget.CulaWidget">
             <intent-filter>
