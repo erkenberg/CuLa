@@ -3,7 +3,7 @@
     <color name="primaryColor">#00acc1</color>
     <color name="primaryLightColor">#5ddef4</color>
     <color name="primaryDarkColor">#007c91</color>
-    <color name="secondaryColor">#ffa000</color>
+    <color name="secondaryColor">#ff6e40</color>
     <color name="bg_row_background">#fa315b</color>
     <color name="knowledgeLevel_1">#dd2c00</color>
     <color name="knowledgeLevel_2">#ffab00</color>

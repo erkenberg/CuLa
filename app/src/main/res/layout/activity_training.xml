@@ -37,6 +37,7 @@
             android:id="@+id/et_translated_word"
             android:layout_width="@dimen/training_translation_edit_text_width"
             android:layout_height="wrap_content"
+            android:textColor="@color/secondaryColor"
             android:hint="@string/activity_training_hint_translated_word"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,5 +64,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bt_check" />
+
+        <ProgressBar
+            android:id="@+id/pg_progress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/distance_medium"
+            android:indeterminate="false"
+            android:max="100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_progress" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

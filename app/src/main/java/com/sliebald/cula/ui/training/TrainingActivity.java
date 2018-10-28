@@ -1,15 +1,12 @@
 package com.sliebald.cula.ui.training;
 
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.Analytics;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
@@ -19,6 +16,10 @@ import com.sliebald.cula.databinding.ActivityTrainingBinding;
 import com.sliebald.cula.ui.startTraining.StartTrainingFragment;
 import com.sliebald.cula.utilities.InjectorUtils;
 import com.sliebald.cula.utilities.KnowledgeLevelUtils;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 public class TrainingActivity extends AppCompatActivity {
 
@@ -124,8 +125,13 @@ public class TrainingActivity extends AppCompatActivity {
                 mBinding.tvLabelWordToTranslate.setText(nextEntry.getNativeWord());
             else
                 mBinding.tvLabelWordToTranslate.setText(nextEntry.getForeignWord());
+            // Print the current progress
             mBinding.tvLabelProgress.setText(getString(R.string.activity_training_label_progress,
                     mViewModel.getLearningSetPosition(), mViewModel.getLearningSetSize()));
+            // Update the progressbar
+            int progress = ((mViewModel.getLearningSetPosition() - 1) * 100) / mViewModel
+                    .getLearningSetSize();
+            mBinding.pgProgress.setProgress(progress);
         }
     }
 
