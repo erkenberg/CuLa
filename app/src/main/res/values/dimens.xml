@@ -20,14 +20,16 @@
     <dimen name="training_translation_edit_text_width">200dp</dimen>
 
     <dimen name="textSize_small">14sp</dimen>
-    <dimen name="textSize_normal">18sp</dimen>
-    <dimen name="textSize_medium">22sp</dimen>
+    <dimen name="textSize_normal">16sp</dimen>
+    <dimen name="textSize_medium">20sp</dimen>
+    <dimen name="textSize_large">24sp</dimen>
+
     <dimen name="textSize_xxLarge">80sp</dimen>
 
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="fab_elevation_translationZ">6dp</dimen>
 
-    <dimen name="label_width_startTraining">140dp</dimen>
+    <dimen name="label_width_startTraining">160dp</dimen>
     <dimen name="statistics_chart_word_count_height">300dp</dimen>
     <dimen name="statistics_chart_activity_height">300dp</dimen>
 

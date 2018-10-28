@@ -26,4 +26,39 @@
         <item name="android:textColor">@color/grey</item>
     </style>
 
+    <style name="LabelStartTraining" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:layout_marginStart">@dimen/distance_medium</item>
+        <item name="android:layout_marginLeft">@dimen/distance_medium</item>
+        <item name="android:layout_marginEnd">@dimen/distance_medium</item>
+        <item name="android:layout_marginRight">@dimen/distance_medium</item>
+        <item name="android:layout_marginTop">@dimen/distance_large</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="LabelHeadline" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/primaryDarkColor</item>
+        <item name="android:layout_marginStart">@dimen/distance_medium</item>
+        <item name="android:layout_marginLeft">@dimen/distance_medium</item>
+        <item name="android:layout_marginEnd">@dimen/distance_medium</item>
+        <item name="android:layout_marginRight">@dimen/distance_medium</item>
+        <item name="android:layout_marginTop">@dimen/distance_medium</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/textSize_large</item>
+    </style>
+
+    <style name="SpinnerStartTraining" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/primaryDarkColor</item>
+        <item name="android:layout_marginStart">@dimen/distance_medium</item>
+        <item name="android:layout_marginLeft">@dimen/distance_medium</item>
+        <item name="android:layout_marginEnd">@dimen/distance_medium</item>
+        <item name="android:layout_marginRight">@dimen/distance_medium</item>
+        <item name="android:layout_marginTop">@dimen/distance_small</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
 </resources>
