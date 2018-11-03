@@ -1,14 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'cula'
-            keyPassword 'password'
-            storeFile file('../keystore.jks')
-            storePassword 'password'
-        }
-    }
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.sliebald.cula"
@@ -27,7 +20,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
     }
     compileOptions {
@@ -51,8 +43,8 @@ dependencies {
     implementation 'androidx.preference:preference:1.0.0'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
     // android architecture components
-    implementation 'androidx.room:room-runtime:2.1.0-alpha01'
-    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha01"
+    implementation 'androidx.room:room-runtime:2.1.0-alpha02'
+    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha02"
     implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
@@ -68,7 +60,7 @@ dependencies {
     // Graph/chart drawer library
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     //firebase dependencies, 16.0.1 is available according to android studio but throws exceptions
-    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-core:16.0.5'
     //firebase crashlytics
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
 }
