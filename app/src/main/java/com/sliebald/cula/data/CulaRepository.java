@@ -19,6 +19,7 @@ package com.sliebald.cula.data;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import com.sliebald.cula.BuildConfig;
 import com.sliebald.cula.data.database.CulaDatabase;
 import com.sliebald.cula.data.database.Dao.LanguageDao;
 import com.sliebald.cula.data.database.Dao.LessonDao;
@@ -55,8 +56,10 @@ public class CulaRepository {
         mLessonDao = database.lessonDao();
 
 
-        //TODO: remove setDebugState() test code before publishing
-        setDebugState();
+        //Adding test data to database for testing
+        if (BuildConfig.DEBUG) {
+            setDebugState();
+        }
     }
 
 

@@ -1,24 +1,25 @@
 package com.sliebald.cula.ui.startTraining;
 
 
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.databinding.FragmentStartTrainingBinding;
 import com.sliebald.cula.ui.training.TrainingActivity;
 
 import java.util.Objects;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 /**
  * The fragment for starting a training session.
@@ -113,7 +114,7 @@ public class StartTrainingFragment extends Fragment {
                         R.array.training_number_of_words, android.R.layout.simple_spinner_item);
         num_words_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBinding.spStartTrainingNumberOfWords.setAdapter(num_words_adapter);
-        mBinding.spStartTrainingNumberOfWords.setSelection(1);
+        mBinding.spStartTrainingNumberOfWords.setSelectedIndex(1);
 
         // Set the correct Entries for the Knowledge Level Range Spinner.
         ArrayAdapter<CharSequence> knowledgeLevel_range_adapter =
@@ -122,7 +123,7 @@ public class StartTrainingFragment extends Fragment {
         knowledgeLevel_range_adapter.setDropDownViewResource(android.R.layout
                 .simple_spinner_dropdown_item);
         mBinding.spStartTrainingKnowledgeLevelRange.setAdapter(knowledgeLevel_range_adapter);
-        mBinding.spStartTrainingKnowledgeLevelRange.setSelection(2);
+        mBinding.spStartTrainingKnowledgeLevelRange.setSelectedIndex(2);
 
         // Set the correct Entries for the Knowledge Level Spinner.
         ArrayAdapter<CharSequence> knowledgeLevel_adapter =
@@ -131,7 +132,7 @@ public class StartTrainingFragment extends Fragment {
         knowledgeLevel_adapter.setDropDownViewResource(android.R.layout
                 .simple_spinner_dropdown_item);
         mBinding.spStartTrainingKnowledgeLevel.setAdapter(knowledgeLevel_adapter);
-        mBinding.spStartTrainingKnowledgeLevel.setSelection(4);
+        mBinding.spStartTrainingKnowledgeLevel.setSelectedIndex(4);
 
         // Set the correct Entries for the Lessons taken from the database.
         mViewModel.getLessonEntries().observe(this, entries -> {
@@ -151,7 +152,7 @@ public class StartTrainingFragment extends Fragment {
                 mBinding.spStartTrainingLesson.setAdapter(lesson_adapter);
                 if (savedInstanceState != null && savedInstanceState.containsKey
                         (SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY))
-                    mBinding.spStartTrainingLesson.setSelection(savedInstanceState.getInt
+                    mBinding.spStartTrainingLesson.setSelectedIndex(savedInstanceState.getInt
                             (SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY, 0));
 
             }
@@ -192,9 +193,9 @@ public class StartTrainingFragment extends Fragment {
      * @return The minimum KnowledgeLevel to check
      */
     private double getSelectedMinKnowledgeLevel() {
-        int selectedLevel = mBinding.spStartTrainingKnowledgeLevel.getSelectedItemPosition() + 1;
+        int selectedLevel = mBinding.spStartTrainingKnowledgeLevel.getSelectedIndex() + 1;
         switch (mBinding
-                .spStartTrainingKnowledgeLevelRange.getSelectedItemPosition()) {
+                .spStartTrainingKnowledgeLevelRange.getSelectedIndex()) {
             case 2:
                 return 0;
             default:
@@ -211,9 +212,9 @@ public class StartTrainingFragment extends Fragment {
      * @return The maximum KnowledgeLevel to check
      */
     private double getSelectedMaxKnowledgeLevel() {
-        int selectedLevel = mBinding.spStartTrainingKnowledgeLevel.getSelectedItemPosition() + 1;
+        int selectedLevel = mBinding.spStartTrainingKnowledgeLevel.getSelectedIndex() + 1;
         switch (mBinding
-                .spStartTrainingKnowledgeLevelRange.getSelectedItemPosition()) {
+                .spStartTrainingKnowledgeLevelRange.getSelectedIndex()) {
             case 0:
                 return 5;
             default:
@@ -230,10 +231,11 @@ public class StartTrainingFragment extends Fragment {
      */
     private int getSelectedLessonId() {
         if (mViewModel.getLessonEntries().getValue() == null || mBinding.spStartTrainingLesson
-                .getSelectedItemPosition() == 0)
+                .getSelectedIndex()
+                == 0)
             return -1;
         return mViewModel.getLessonEntries().getValue().get(mBinding.spStartTrainingLesson
-                .getSelectedItemPosition() - 1).getId();
+                .getSelectedIndex() - 1).getId();
     }
 
     /**
@@ -242,8 +244,9 @@ public class StartTrainingFragment extends Fragment {
      * @return The number of words to learn.
      */
     private int getSelectedNumWords() {
-        return Integer.parseInt(mBinding.spStartTrainingNumberOfWords
-                .getSelectedItem().toString());
+        return Integer.parseInt(mBinding.spStartTrainingNumberOfWords.getItems().get(mBinding
+                .spStartTrainingNumberOfWords.getSelectedIndex())
+                .toString());
     }
 
     /**
@@ -261,6 +264,6 @@ public class StartTrainingFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY, mBinding
-                .spStartTrainingLesson.getSelectedItemPosition());
+                .spStartTrainingLesson.getSelectedIndex());
     }
 }
