@@ -4,7 +4,7 @@
 * select training parameters like:
   * amount of words
   * Lesson
-  * KnowledgeLevel of words to Train
+  * KnowledgeLevel of words to train
 * start the training for the currently selected language
 
 ## Library:
@@ -49,6 +49,7 @@
  * open CulaRepository.java (in package com.sliebald.cula.data) and comment out the following line in the constructor:
   * setDebugState();
  * Afterwards the App is setup without any prefils.
+ * only enabled for debug version, release version should ship without dummy prefill
 
 # google services used:
  * room database for persistence
@@ -64,19 +65,7 @@
   * in the firebase console of the project click on Crashlytics
   * should directly work after starting the app once
  * configure google analytics keys in the firebase console:
- 
 
-# Added Keystore:
-* The added keystore is just for Udacity Android nanodegree purpose and not in active use for a real published app!
-* The defaults below should already be in the apps build.gradle and should therefore work by default. The text just describes how they were created.
-* keystore: 
-  * keystore.jks in project directory
-  * password: password
-  * key alias: cula
-  * key password: password
-* Usage 
-  * set up in app->open module settings-> Signing -> new -> setup with the data from above
-  * in module settings -> Build types for release: Signing config set to just created signing config
   
   
 # Initial Design can be found here (some parts are not implemented yet, some are additional):
