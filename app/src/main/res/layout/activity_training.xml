@@ -9,16 +9,25 @@
         android:layout_height="match_parent"
         tools:context="com.sliebald.cula.ui.training.TrainingActivity">
 
+        <include
+            android:id="@+id/training_progress"
+            layout="@layout/training_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_label_translate_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance_medium"
+            android:layout_marginTop="@dimen/distance_normal"
             android:text="@string/activity_training_label_translate_word"
+            android:textSize="@dimen/textSize_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/textSize_normal"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/training_progress" />
 
         <TextView
             android:id="@+id/tv_label_word_to_translate"
@@ -29,7 +38,9 @@
             android:layout_marginTop="@dimen/distance_normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/textSize_medium"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize_large"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/tv_label_translate_word" />
 
 
@@ -37,11 +48,11 @@
             android:id="@+id/et_translated_word"
             android:layout_width="@dimen/training_translation_edit_text_width"
             android:layout_height="wrap_content"
-            android:textColor="@color/secondaryColor"
             android:hint="@string/activity_training_hint_translated_word"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/textSize_large"
             app:layout_constraintTop_toBottomOf="@+id/tv_label_word_to_translate" />
 
         <Button
@@ -56,25 +67,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_translated_word" />
 
-        <TextView
-            android:id="@+id/tv_label_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance_medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_check" />
-
-        <ProgressBar
-            android:id="@+id/pg_progress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/distance_medium"
-            android:indeterminate="false"
-            android:max="100"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_label_progress" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -126,12 +126,13 @@ public class TrainingActivity extends AppCompatActivity {
             else
                 mBinding.tvLabelWordToTranslate.setText(nextEntry.getForeignWord());
             // Print the current progress
-            mBinding.tvLabelProgress.setText(getString(R.string.activity_training_label_progress,
+            mBinding.trainingProgress.tvLabelProgress.setText(getString(R.string
+                            .activity_training_label_progress,
                     mViewModel.getLearningSetPosition(), mViewModel.getLearningSetSize()));
             // Update the progressbar
             int progress = ((mViewModel.getLearningSetPosition() - 1) * 100) / mViewModel
                     .getLearningSetSize();
-            mBinding.pgProgress.setProgress(progress);
+            mBinding.trainingProgress.pgProgress.setProgress(progress);
         }
     }
 

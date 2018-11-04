@@ -12,4 +12,6 @@
     <color name="knowledgeLevel_4">#aeea00</color>
     <color name="knowledgeLevel_5">#00c853</color>
     <color name="grey">#9e9e9e</color>
+    <color name="black">#000000</color>
+
 </resources>
