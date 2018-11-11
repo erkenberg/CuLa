@@ -28,6 +28,7 @@
     <string name="cancel">Cancel</string>
     <string name="correct">Correct</string>
     <string name="wrong">Wrong</string>
+    <string name="skip">Skip</string>
 
     <!-- Update Library Strings-->
     <string name="update_library_hint_foreign_word">Add the foreign word</string>
@@ -114,8 +115,13 @@
     <string name="activity_training_hint_translated_word">Translated word</string>
     <string name="activity_training_label_translate_word">Translate the following word:</string>
     <string name="activity_training_label_progress">Progress: %1$d from %2$d</string>
-    <string name="activity_training_empty_translation">Enter a translation!</string>
-    <string name="activity_training_wrong_translation">Wrong, correct translation:\t</string>
+    <string name="activity_training_skip_word">Skip word?
+        translation!</string>
+    <string name="activity_training_wrong_translation">, correct translation for
+        %1$s:&#160;</string>
+    <string name="activity_training_skip_translation">Correct translation for
+        %1$s:&#160;</string>
+    <string name="activity_training_training_finished">Training finished</string>
 
 
     <!-- Statistics strings-->

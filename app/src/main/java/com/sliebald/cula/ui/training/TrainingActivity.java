@@ -11,6 +11,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.Analytics;
@@ -149,24 +150,18 @@ public class TrainingActivity extends AppCompatActivity {
      * @param  view The clicked button
      */
     public void checkWord(@SuppressWarnings("unused") View view) {
-
+        //todo: refactor snackbar creation, lots of boilerplate code.
         // If there is no next word to train, return
         if (!mViewModel.hasNextEntry()) {
             //TODO: show statistics or similar instead of just returning.
+            Toast.makeText(this, R.string.activity_training_training_finished, Toast.LENGTH_SHORT)
+                    .show();
             finish();
         }
 
 
         String typedTranslation = mBinding.etTranslatedWord.getText().toString().trim()
                 .toLowerCase();
-
-        // check whether actually something entered
-        if (typedTranslation.isEmpty()) {
-            Snackbar.make(mBinding.activityTraining, R.string
-                    .activity_training_empty_translation, Snackbar.LENGTH_SHORT).show();
-            return;
-        }
-
         // get the correct translation
         LibraryEntry currentEntry = mViewModel.getCurrentWord();
         String correctTranslation;
@@ -175,16 +170,58 @@ public class TrainingActivity extends AppCompatActivity {
         } else
             correctTranslation = currentEntry.getNativeWord().trim().toLowerCase();
 
+        // check whether actually something entered and ask if they want to skip the word if not.
+        if (typedTranslation.isEmpty()) {
+
+            Snackbar skipBar = Snackbar.make(mBinding.activityTraining, R.string
+                    .activity_training_skip_word, Snackbar.LENGTH_LONG);
+
+            skipBar.setAction(R.string.skip, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SpannableStringBuilder snackbarText = new SpannableStringBuilder();
+                    snackbarText.append(getString(R.string
+                            .activity_training_skip_translation, mBinding.tvLabelWordToTranslate
+                            .getText
+                                    ().toString()));
+                    int correctStart = snackbarText.length();
+                    snackbarText.append(correctTranslation);
+                    snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor
+                            (getApplicationContext(), R.color
+                                    .colorPrimary)), correctStart, snackbarText.length(), Spannable
+                            .SPAN_EXCLUSIVE_EXCLUSIVE);
+                    snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
+                            snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    snackbarText.setSpan(new RelativeSizeSpan(1.2f), correctStart, snackbarText
+                                    .length(),
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
+                            .LENGTH_LONG).show();
+                    showWord(true);
+                }
+            });
+            skipBar.show();
+
+
+            return;
+        }
+
+
 
         //check whether the trained word was correct and act accordingly
         double updatedKnowledgeLevel;
         boolean trainingCorrect = typedTranslation.equals(correctTranslation);
 
         if (trainingCorrect) {
-            Snackbar correct = Snackbar.make(mBinding.activityTraining, R.string.correct, Snackbar
+            SpannableStringBuilder snackbarText = new SpannableStringBuilder();
+            snackbarText.append(getString(R.string.correct));
+            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color
+                    .green)), 0, snackbarText.length(), Spannable
+                    .SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new StyleSpan(Typeface.BOLD), 0,
+                    snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            Snackbar correct = Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
                     .LENGTH_SHORT);
-            correct.getView().setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
-                    (this, 5));
             correct.show();
             updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowledgeLevelAdjustment(currentEntry
                     .getKnowledgeLevel(), true);
@@ -193,23 +230,26 @@ public class TrainingActivity extends AppCompatActivity {
         } else {
             // create and format the snackbar feedback
             SpannableStringBuilder snackbarText = new SpannableStringBuilder();
+            snackbarText.append(getString(R.string.wrong));
+            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color
+                    .red)), 0, snackbarText.length(), Spannable
+                    .SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new StyleSpan(Typeface.BOLD), 0,
+                    snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             snackbarText.append(getString(R.string
-                    .activity_training_wrong_translation));
+                    .activity_training_wrong_translation, mBinding.tvLabelWordToTranslate.getText
+                    ().toString()));
             int correctStart = snackbarText.length();
             snackbarText.append(correctTranslation);
             snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color
-                    .colorPrimaryLight)), correctStart, snackbarText.length(), Spannable
+                    .colorPrimary)), correctStart, snackbarText.length(), Spannable
                     .SPAN_EXCLUSIVE_EXCLUSIVE);
             snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
                     snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            snackbarText.setSpan(new RelativeSizeSpan(1.3f), correctStart, snackbarText.length(),
+            snackbarText.setSpan(new RelativeSizeSpan(1.2f), correctStart, snackbarText.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
-                    snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             Snackbar wrong = Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
                     .LENGTH_LONG);
-            wrong.getView().setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
-                    (this, 0));
             wrong.show();
             updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowledgeLevelAdjustment(currentEntry
                     .getKnowledgeLevel(), false);
