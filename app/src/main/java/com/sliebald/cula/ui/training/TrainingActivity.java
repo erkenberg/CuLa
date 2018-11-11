@@ -1,8 +1,14 @@
 package com.sliebald.cula.ui.training;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 
@@ -18,6 +24,7 @@ import com.sliebald.cula.utilities.InjectorUtils;
 import com.sliebald.cula.utilities.KnowledgeLevelUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -184,8 +191,23 @@ public class TrainingActivity extends AppCompatActivity {
             mCulaRepository.insertStatisticsEntry(new StatisticEntry(currentEntry.getId(),
                     null, 1));
         } else {
-            Snackbar wrong = Snackbar.make(mBinding.activityTraining, R.string.wrong, Snackbar
-                    .LENGTH_SHORT);
+            // create and format the snackbar feedback
+            SpannableStringBuilder snackbarText = new SpannableStringBuilder();
+            snackbarText.append(getString(R.string
+                    .activity_training_wrong_translation));
+            int correctStart = snackbarText.length();
+            snackbarText.append(correctTranslation);
+            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color
+                    .colorPrimaryLight)), correctStart, snackbarText.length(), Spannable
+                    .SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
+                    snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new RelativeSizeSpan(1.3f), correctStart, snackbarText.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
+                    snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            Snackbar wrong = Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
+                    .LENGTH_LONG);
             wrong.getView().setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
                     (this, 0));
             wrong.show();
