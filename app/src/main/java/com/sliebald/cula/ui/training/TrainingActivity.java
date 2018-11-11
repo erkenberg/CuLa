@@ -142,6 +142,8 @@ public class TrainingActivity extends AppCompatActivity {
      * @param  view The clicked button
      */
     public void checkWord(@SuppressWarnings("unused") View view) {
+
+        // If there is no next word to train, return
         if (!mViewModel.hasNextEntry()) {
             //TODO: show statistics or similar instead of just returning.
             finish();
@@ -151,12 +153,14 @@ public class TrainingActivity extends AppCompatActivity {
         String typedTranslation = mBinding.etTranslatedWord.getText().toString().trim()
                 .toLowerCase();
 
+        // check whether actually something entered
         if (typedTranslation.isEmpty()) {
             Snackbar.make(mBinding.activityTraining, R.string
                     .activity_training_empty_translation, Snackbar.LENGTH_SHORT).show();
             return;
         }
 
+        // get the correct translation
         LibraryEntry currentEntry = mViewModel.getCurrentWord();
         String correctTranslation;
         if (!reverseTraining) {
@@ -165,6 +169,7 @@ public class TrainingActivity extends AppCompatActivity {
             correctTranslation = currentEntry.getNativeWord().trim().toLowerCase();
 
 
+        //check whether the trained word was correct and act accordingly
         double updatedKnowledgeLevel;
         boolean trainingCorrect = typedTranslation.equals(correctTranslation);
 
