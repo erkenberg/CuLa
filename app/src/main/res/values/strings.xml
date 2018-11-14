@@ -57,11 +57,31 @@
         all words for it.</string>
     <string name="settings_delete_language_title_warning">Really remove this language and all
         words belonging to it?</string>
-    <string name="settings_default_knowledgeLevel_title">Default Knowledge Level</string>
-    <string name="settings_default_knowledgeLevel_key" translatable="false">defaultKnowledgeLevel</string>
-    <string name="settings_default_knowledgeLevel_default">2.5</string>
-    <string name="settings_default_knowledgeLevel_summary">@string/knowledgeLevel3</string>
     <string name="settings_warning_invalid_language_length">Language must be between 2 and 20 characters</string>
+
+    <string name="settings_default_knowledgeLevel_title">Default knowledge level for new
+        Words</string>
+    <string name="settings_default_knowledgeLevel_key" translatable="false">defaultKnowledgeLevel</string>
+    <string name="settings_default_knowledgeLevel_default" translatable="false">@string/knowledgeLevel3_key</string>
+    <string name="settings_default_knowledgeLevel_summary">@string/knowledgeLevel3</string>
+
+
+    <string name="settings_punish_wrong_training_key" translatable="false">punishTrainingAmountKey
+    </string>
+    <string name="settings_reward_correct_training_key" translatable="false">rewardTrainingAmountKey
+    </string>
+    <string name="settings_punish_wrong_training_title">Knowledge decrease on wrong training
+    </string>
+    <string name="settings_reward_correct_training_title" translatable="false">Knowledge increase on correct training
+    </string>
+
+    <string name="settings_adapt_training_low_key" translatable="false">0.25</string>
+    <string name="settings_adapt_training_medium_key" translatable="false">0.5</string>
+    <string name="settings_adapt_training_high_key" translatable="false">1</string>
+    <string name="settings_adapt_training_low">Low</string>
+    <string name="settings_adapt_training_medium">Medium</string>
+    <string name="settings_adapt_training_high">High</string>
+
 
     <!-- Knowledge Levels-->
     <string name="knowledgeLevel1">1 - Unknown</string>

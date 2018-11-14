@@ -5,7 +5,32 @@
     android:layout_height="match_parent"
     tools:context=".ui.settings.SettingsFragment">
 
-    <androidx.preference.PreferenceCategory android:title="Language Settings" />
+    <androidx.preference.PreferenceCategory android:title="Default Settings">
+        <ListPreference
+            android:defaultValue="@string/settings_default_knowledgeLevel_default"
+            android:entries="@array/knowledgeLevel"
+            android:entryValues="@array/knowledgeLevel_value"
+            android:key="@string/settings_default_knowledgeLevel_key"
+            android:summary="@string/settings_default_knowledgeLevel_summary"
+            android:title="@string/settings_default_knowledgeLevel_title" />
+
+        <ListPreference
+            android:defaultValue="@string/settings_adapt_training_medium"
+            android:entries="@array/settings_adapt_training"
+            android:entryValues="@array/settings_adapt_training_values"
+            android:key="@string/settings_reward_correct_training_key"
+            android:summary="@string/settings_adapt_training_medium"
+            android:title="@string/settings_reward_correct_training_title" />
+
+        <ListPreference
+            android:defaultValue="@string/settings_adapt_training_medium"
+            android:entries="@array/settings_adapt_training"
+            android:entryValues="@array/settings_adapt_training_values"
+            android:key="@string/settings_punish_wrong_training_key"
+            android:summary="@string/settings_adapt_training_medium"
+            android:title="@string/settings_punish_wrong_training_title" />
+    </androidx.preference.PreferenceCategory>
+    <androidx.preference.PreferenceCategory android:title="Language Settings">
     <ListPreference
         android:defaultValue="@string/settings_select_language_default"
         android:entries="@array/languages"
@@ -25,14 +50,6 @@
         android:persistent="false"
         android:summary="@string/settings_delete_language_summary"
         android:title="@string/settings_delete_language_title" />
+    </androidx.preference.PreferenceCategory>
 
-    <androidx.preference.PreferenceCategory android:title="Default Settings" />
-
-    <ListPreference
-        android:defaultValue="@string/settings_default_knowledgeLevel_default"
-        android:entries="@array/knowledgeLevel"
-        android:entryValues="@array/knowledgeLevel_value"
-        android:key="@string/settings_default_knowledgeLevel_key"
-        android:summary="@string/settings_default_knowledgeLevel_summary"
-        android:title="@string/settings_default_knowledgeLevel_title" />
 </androidx.preference.PreferenceScreen>

@@ -1,19 +1,14 @@
 package com.sliebald.cula.ui.settings;
 
 
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import android.text.InputType;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LanguageEntry;
@@ -21,6 +16,12 @@ import com.sliebald.cula.utilities.InjectorUtils;
 
 import java.util.List;
 import java.util.Objects;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 
 /**
  * The settings/preferences Fragment for configuration of the app.
@@ -187,6 +188,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             }
         } else if (preference instanceof ListPreference && key.equals(getResources().getString(R
                 .string.settings_default_knowledgeLevel_key))) {
+            ListPreference listPreference = (ListPreference) preference;
+            preference.setSummary(listPreference.getEntry());
+        } else if (preference instanceof ListPreference && key.equals(getResources().getString(R
+                .string.settings_reward_correct_training_key))) {
+            ListPreference listPreference = (ListPreference) preference;
+            preference.setSummary(listPreference.getEntry());
+        } else if (preference instanceof ListPreference && key.equals(getResources().getString(R
+                .string.settings_punish_wrong_training_key))) {
             ListPreference listPreference = (ListPreference) preference;
             preference.setSummary(listPreference.getEntry());
         }
