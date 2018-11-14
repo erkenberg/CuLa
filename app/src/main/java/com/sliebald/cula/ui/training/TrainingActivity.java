@@ -176,29 +176,26 @@ public class TrainingActivity extends AppCompatActivity {
             Snackbar skipBar = Snackbar.make(mBinding.activityTraining, R.string
                     .activity_training_skip_word, Snackbar.LENGTH_LONG);
 
-            skipBar.setAction(R.string.skip, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    SpannableStringBuilder snackbarText = new SpannableStringBuilder();
-                    snackbarText.append(getString(R.string
-                            .activity_training_skip_translation, mBinding.tvLabelWordToTranslate
-                            .getText
-                                    ().toString()));
-                    int correctStart = snackbarText.length();
-                    snackbarText.append(correctTranslation);
-                    snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor
-                            (getApplicationContext(), R.color
-                                    .colorPrimary)), correctStart, snackbarText.length(), Spannable
-                            .SPAN_EXCLUSIVE_EXCLUSIVE);
-                    snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
-                            snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    snackbarText.setSpan(new RelativeSizeSpan(1.2f), correctStart, snackbarText
-                                    .length(),
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
-                            .LENGTH_LONG).show();
-                    showWord(true);
-                }
+            skipBar.setAction(R.string.skip, view1 -> {
+                SpannableStringBuilder snackbarText = new SpannableStringBuilder();
+                snackbarText.append(getString(R.string
+                        .activity_training_skip_translation, mBinding.tvLabelWordToTranslate
+                        .getText
+                                ().toString()));
+                int correctStart = snackbarText.length();
+                snackbarText.append(correctTranslation);
+                snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor
+                        (getApplicationContext(), R.color
+                                .colorPrimary)), correctStart, snackbarText.length(), Spannable
+                        .SPAN_EXCLUSIVE_EXCLUSIVE);
+                snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
+                        snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                snackbarText.setSpan(new RelativeSizeSpan(1.2f), correctStart, snackbarText
+                                .length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
+                        .LENGTH_LONG).show();
+                showWord(true);
             });
             skipBar.show();
 

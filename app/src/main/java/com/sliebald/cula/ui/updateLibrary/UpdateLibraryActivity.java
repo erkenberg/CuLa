@@ -1,15 +1,12 @@
 package com.sliebald.cula.ui.updateLibrary;
 
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
@@ -18,13 +15,16 @@ import com.sliebald.cula.utilities.InjectorUtils;
 
 import java.util.Date;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
 public class UpdateLibraryActivity extends AppCompatActivity {
 
 
     /**
      * When the intend passed to this activity contains a bundle with this extra
-     * an existing {@link LibraryEntry}
-     * should be updated instead of adding a new one.
+     * an existing {@link LibraryEntry} should be updated instead of adding a new one.
      * The id of the entry is passed as the value of the key.
      */
     public static final String BUNDLE_EXTRA_UPDATE_KEY = "LibraryEntryId";
