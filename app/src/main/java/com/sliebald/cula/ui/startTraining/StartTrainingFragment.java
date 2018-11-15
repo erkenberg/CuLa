@@ -137,7 +137,6 @@ public class StartTrainingFragment extends Fragment {
         // Set the correct Entries for the Lessons taken from the database.
         mViewModel.getLessonEntries().observe(this, entries -> {
             if (entries != null) {
-                mViewModel.getLessonEntries().removeObservers(this);
                 String[] lessonNames = new String[entries.size() + 1];
                 lessonNames[0] = getResources().getString(R.string.start_training_lessons_any);
                 int index = 1;
