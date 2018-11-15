@@ -1,28 +1,28 @@
 package com.sliebald.cula.ui.library;
 
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.databinding.FragmentLibraryBinding;
 import com.sliebald.cula.ui.updateLibrary.UpdateLibraryActivity;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A fragment presenting a list of {@link LibraryEntry}s and the possibility to add new ones.
@@ -89,8 +89,6 @@ public class LibraryFragment extends Fragment implements
         if (getContext() == null)
             return mBinding.getRoot();
 
-        mBinding.recyclerViewLibraryList.addItemDecoration(new DividerItemDecoration(getContext()
-                , DividerItemDecoration.VERTICAL));
         mAdapter = new LibraryRecyclerViewAdapter(this, getContext());
         mBinding.recyclerViewLibraryList.setAdapter(mAdapter);
 

@@ -10,6 +10,7 @@
     <dimen name="widget_minHeight">40dp</dimen>
     <dimen name="widget_minWidth">320dp</dimen>
 
+    <dimen name="distance_super_small">2dp</dimen>
     <dimen name="distance_small">4dp</dimen>
     <dimen name="distance_normal">8dp</dimen>
     <dimen name="distance_medium">16dp</dimen>
@@ -32,5 +33,9 @@
     <dimen name="label_width_startTraining">160dp</dimen>
     <dimen name="statistics_chart_word_count_height">300dp</dimen>
     <dimen name="statistics_chart_activity_height">300dp</dimen>
+
+    <dimen name="cardCornerRadius">6dp</dimen>
+    <dimen name="cardElevation">8dp</dimen>
+    <dimen name="cardTranslationZ">6dp</dimen>
 
 </resources>
