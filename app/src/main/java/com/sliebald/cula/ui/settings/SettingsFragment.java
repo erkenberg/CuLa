@@ -120,7 +120,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private void deleteLanguageDialog() {
         Context context = Objects.requireNonNull(getContext());
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(getResources().getString(R.string.settings_delete_language_title_warning));
+        builder.setTitle(getString(R.string.settings_delete_language_title_warning,
+                mLanguageListPreference.getValue()));
+        builder.setMessage(getResources().getString(R.string
+                .settings_delete_language_message_warning));
         builder.setPositiveButton(R.string.ok, (dialog, which) -> deleteLanguageFromDb
                 (mLanguageListPreference.getValue()));
         builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
@@ -186,18 +189,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 listPreference.setValue(listPreference.getEntries()[index].toString());
                 Log.d(TAG, "SharedPreferences was set to: " + listPreference.getEntries()[index]);
             }
-        } else if (preference instanceof ListPreference && key.equals(getResources().getString(R
-                .string.settings_default_knowledgeLevel_key))) {
-            ListPreference listPreference = (ListPreference) preference;
-            preference.setSummary(listPreference.getEntry());
-        } else if (preference instanceof ListPreference && key.equals(getResources().getString(R
-                .string.settings_reward_correct_training_key))) {
-            ListPreference listPreference = (ListPreference) preference;
-            preference.setSummary(listPreference.getEntry());
-        } else if (preference instanceof ListPreference && key.equals(getResources().getString(R
-                .string.settings_punish_wrong_training_key))) {
-            ListPreference listPreference = (ListPreference) preference;
-            preference.setSummary(listPreference.getEntry());
         }
     }
 

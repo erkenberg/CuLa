@@ -55,15 +55,14 @@
     <string name="settings_delete_language_title">Delete Language</string>
     <string name="settings_delete_language_summary">Delete the currently selected language and
         all words for it.</string>
-    <string name="settings_delete_language_title_warning">Really remove this language and all
-        words belonging to it?</string>
+    <string name="settings_delete_language_title_warning">Delete Language: %1$s </string>
+    <string name="settings_delete_language_message_warning">Are you sure that you want to
+        delete the selected language and all words belonging to it? </string>
     <string name="settings_warning_invalid_language_length">Language must be between 2 and 20 characters</string>
 
     <string name="settings_default_knowledgeLevel_title">Default knowledge level for new
         Words</string>
     <string name="settings_default_knowledgeLevel_key" translatable="false">defaultKnowledgeLevel</string>
-    <string name="settings_default_knowledgeLevel_default" translatable="false">@string/knowledgeLevel3_key</string>
-    <string name="settings_default_knowledgeLevel_summary">@string/knowledgeLevel3</string>
 
 
     <string name="settings_punish_wrong_training_key" translatable="false">punishTrainingAmountKey

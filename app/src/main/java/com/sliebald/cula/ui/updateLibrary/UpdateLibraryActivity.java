@@ -103,7 +103,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             //on creating a new entry load the default day set in the settings.
             setKnowledgeLevelUI(Double.parseDouble(mSharedPreferences.getString(getString(R.string
                     .settings_default_knowledgeLevel_key), getString
-                    (R.string.settings_default_knowledgeLevel_default))));
+                    (R.string.knowledgeLevel3))));
         }
 
         //add an onCheckedChange listener to set the internal current knowledge day correctly.
@@ -171,7 +171,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
             mBinding.editTextAddNativeWord.requestFocus();
             setKnowledgeLevelUI(Double.parseDouble(mSharedPreferences.getString(getString(R.string
                     .settings_default_knowledgeLevel_key), getString
-                    (R.string.settings_default_knowledgeLevel_default))));
+                    (R.string.knowledgeLevel3))));
             Snackbar.make(mBinding.activityUpdateLibrary, R.string
                     .update_library_success_entry_added, Snackbar.LENGTH_SHORT).show();
 
