@@ -89,7 +89,6 @@ public class TrainingActivity extends AppCompatActivity {
                 .BUNDLE_EXTRA_LESSON_KEY, -1);
         reverseTraining = intent.getBooleanExtra(StartTrainingFragment
                 .BUNDLE_EXTRA_REVERSE_TRAINING_KEY, false);
-
         //create the view model
         TrainingViewModelFactory viewModelFactory = new TrainingViewModelFactory(amountOfWords,
                 minKnowledgeLevel, maxKnowledgeLevel, lessonId);

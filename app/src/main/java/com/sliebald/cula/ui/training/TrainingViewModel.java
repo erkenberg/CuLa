@@ -1,14 +1,14 @@
 package com.sliebald.cula.ui.training;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
-
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.ui.updateLibrary.UpdateLibraryActivity;
 
 import java.util.List;
 import java.util.Objects;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 /**
  * {@link ViewModel} for the {@link UpdateLibraryActivity}.
@@ -28,7 +28,7 @@ public class TrainingViewModel extends ViewModel {
      * @param mMinKnowledgeLevel The maxKnowledgeLevel to load
      * @param mMaxKnowledgeLevel The minKnowledgeLevel to load
      */
-    public TrainingViewModel(CulaRepository repository, int mAmount, double
+    TrainingViewModel(CulaRepository repository, int mAmount, double
             mMinKnowledgeLevel, double mMaxKnowledgeLevel, int mLessonId) {
         if (mLessonId < 0) {
             entries = repository.getTrainingEntries(mAmount, mMinKnowledgeLevel,
@@ -56,7 +56,7 @@ public class TrainingViewModel extends ViewModel {
      * @return The next entry to learn.
      */
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public boolean hasNextEntry() {
+    boolean hasNextEntry() {
         return Objects.requireNonNull(entries.getValue()).size() > currentIndex + 1;
     }
 
@@ -65,7 +65,7 @@ public class TrainingViewModel extends ViewModel {
      *
      * @return The next {@link LibraryEntry} to learn.
      */
-    public LibraryEntry getNextEntry() {
+    LibraryEntry getNextEntry() {
         return Objects.requireNonNull(entries.getValue()).get(++currentIndex);
     }
 
@@ -75,7 +75,7 @@ public class TrainingViewModel extends ViewModel {
      *
      * @return The current {@link LibraryEntry} to learn.
      */
-    public LibraryEntry getCurrentWord() {
+    LibraryEntry getCurrentWord() {
         return Objects.requireNonNull(entries.getValue()).get(currentIndex);
     }
 
@@ -84,7 +84,7 @@ public class TrainingViewModel extends ViewModel {
      *
      * @return The current position to learn.
      */
-    public int getLearningSetPosition() {
+    int getLearningSetPosition() {
         return currentIndex + 1;
     }
 
@@ -93,7 +93,7 @@ public class TrainingViewModel extends ViewModel {
      *
      * @return The size of the current learning set.
      */
-    public int getLearningSetSize() {
+    int getLearningSetSize() {
         return Objects.requireNonNull(entries.getValue()).size();
     }
 
