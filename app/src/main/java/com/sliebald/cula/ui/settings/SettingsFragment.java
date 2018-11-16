@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SeekBarPreference;
 
 /**
  * The settings/preferences Fragment for configuration of the app.
@@ -40,6 +41,28 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      * The {@link ListPreference} for selecting the current language.
      */
     private ListPreference mLanguageListPreference;
+
+    /**
+     * {@link androidx.preference.Preference.OnPreferenceChangeListener} for the KnowledgeLevel
+     * adaption {@link SeekBarPreference}s.
+     */
+    Preference.OnPreferenceChangeListener mTrainingSeekBarPreferenceChangeListener;
+    /**
+     * {@link androidx.preference.Preference.OnPreferenceClickListener} for the KnowledgeLevel
+     * adaption {@link SeekBarPreference}s.
+     */
+    Preference.OnPreferenceClickListener mTrainingSeekBarPreferenceClickListener;
+    /**
+     * The {@link SeekBarPreference} used to configure how much the KnowledgeLevel of a word
+     * should be incremented on correct training.
+     */
+    private SeekBarPreference mCorrectTrainingSeekBarPreference;
+    /**
+     * The {@link SeekBarPreference} used to configure how much the KnowledgeLevel of a word
+     * should be decremented on wrong training.
+     */
+    private SeekBarPreference mWrongTrainingSeekBarPreference;
+
 
     private Preference mDeleteLanguage;
 
@@ -80,6 +103,61 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         //Load the language entries and update the ListPreference
         mViewModel.getLanguageEntries().observe(this, this::updateLanguageList);
 
+        // Set up the SeekBarPreferences for updating how much the KnowledgeLevel of a word should
+        // change when trained.
+        mCorrectTrainingSeekBarPreference = (SeekBarPreference) findPreference(getResources()
+                .getString(R.string.settings_reward_correct_training_key));
+        mWrongTrainingSeekBarPreference = (SeekBarPreference) findPreference(getResources()
+                .getString(R.string.settings_punish_wrong_training_key));
+
+        mTrainingSeekBarPreferenceChangeListener =
+                (preference, newValue) -> {
+                    //update the summary. Using a SummaryProvider should be the better way but
+                    // does only  update once reloading the fragment.
+                    preference.setSummary(getString(R.string
+                            .settings_adapt_knowledge_level_summary, ((int) newValue) * 10));
+                    return true;
+                };
+        mCorrectTrainingSeekBarPreference.setOnPreferenceChangeListener
+                (mTrainingSeekBarPreferenceChangeListener);
+        mWrongTrainingSeekBarPreference.setOnPreferenceChangeListener
+                (mTrainingSeekBarPreferenceChangeListener);
+
+        // When clicking on the SeekBarPreference the users should get feedback.
+        mTrainingSeekBarPreferenceClickListener = preference -> {
+            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+            int changeRate = ((SeekBarPreference) preference).getValue() * 10;
+            if (preference.getKey().equals(getString(R.string
+                    .settings_reward_correct_training_key))) {
+                alertDialog.setTitle(getString(R.string.settings_reward_correct_training_title));
+                alertDialog.setMessage(getString(R.string
+                        .settings_reward_correct_training_explanation, changeRate));
+            } else {
+                alertDialog.setTitle(getString(R.string.settings_punish_wrong_training_title));
+                alertDialog.setMessage(getString(R.string
+                        .settings_punish_wrong_training_explanation, changeRate));
+            }
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
+                    (dialog, which) -> dialog.dismiss());
+            alertDialog.show();
+            return true;
+        };
+        mCorrectTrainingSeekBarPreference.setOnPreferenceClickListener
+                (mTrainingSeekBarPreferenceClickListener);
+        mWrongTrainingSeekBarPreference.setOnPreferenceClickListener
+                (mTrainingSeekBarPreferenceClickListener);
+
+        initializePreferences();
+    }
+
+    /**
+     * Initialize the preferences. Most Importantly: summaries.
+     */
+    private void initializePreferences() {
+        mCorrectTrainingSeekBarPreference.callChangeListener(mCorrectTrainingSeekBarPreference
+                .getValue());
+        mWrongTrainingSeekBarPreference.callChangeListener(mWrongTrainingSeekBarPreference
+                .getValue());
     }
 
     /**

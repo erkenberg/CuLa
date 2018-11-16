@@ -71,10 +71,6 @@ public class KnowledgeLevelUtils {
      */
     public static double calculateKnowledgeLevelAdjustment(double oldLevel, boolean increaseLevel) {
         double newLevel;
-        // Increments/Decrements could be changed to a more dynamic approach (e.g. more or less
-        // or depending on how often a word was trained.
-        //TODO: adapt knowledge Level based on chosen preference instead of fixed 0.5
-
         if (increaseLevel) {
             newLevel = oldLevel + PreferenceUtils.getKnowledgeIncrementCorrectTraining();
             if (newLevel > LEVEL_MAX)

@@ -8,7 +8,7 @@
 
     <androidx.preference.PreferenceCategory android:title="Default Settings">
         <ListPreference
-            android:defaultValue="@string/knowledgeLevel3"
+            android:defaultValue="@string/knowledgeLevel3_value"
             android:entries="@array/knowledgeLevel"
             android:entryValues="@array/knowledgeLevel_value"
             android:key="@string/settings_default_knowledgeLevel_key"
@@ -29,21 +29,6 @@
             android:title="@string/settings_punish_wrong_training_title"
             app:showSeekBarValue="false" />
 
-        <!--<ListPreference
-            android:defaultValue="@string/settings_adapt_training_medium"
-            android:entries="@array/settings_adapt_training"
-            android:entryValues="@array/settings_adapt_training_values"
-            android:key=""
-            app:useSimpleSummaryProvider="true"
-            android:title="@string/settings_reward_correct_training_title" />
-
-        <ListPreference
-            android:defaultValue="@string/settings_adapt_training_medium"
-            android:entries="@array/settings_adapt_training"
-            android:entryValues="@array/settings_adapt_training_values"
-            android:key="@string/settings_punish_wrong_training_key"
-            app:useSimpleSummaryProvider="true"
-            android:title="@string/settings_punish_wrong_training_title" />-->
     </androidx.preference.PreferenceCategory>
     <androidx.preference.PreferenceCategory android:title="Language Settings">
     <ListPreference

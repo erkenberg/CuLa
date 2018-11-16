@@ -61,7 +61,7 @@
     <string name="settings_warning_invalid_language_length">Language must be between 2 and 20 characters</string>
 
     <string name="settings_default_knowledgeLevel_title">Default knowledge level for new
-        Words</string>
+        words</string>
     <string name="settings_default_knowledgeLevel_key" translatable="false">defaultKnowledgeLevel</string>
 
 
@@ -71,8 +71,18 @@
     </string>
     <string name="settings_punish_wrong_training_title">Knowledge decrease on wrong training
     </string>
-    <string name="settings_reward_correct_training_title" translatable="false">Knowledge increase on correct training
+    <string name="settings_reward_correct_training_title">Knowledge increase on correct training
     </string>
+    <string name="settings_punish_wrong_training_explanation">With this setting you can control
+        how much the Knowledge Level of a word should be decreased if you translate it incorrectly
+        during training.\nCurrently decrease by %1d%% of a complete Knowledge Level.
+    </string>
+    <string name="settings_reward_correct_training_explanation">With this setting you can control
+        how much the Knowledge Level of a word should be increased if you translate it correctly
+        during training.
+        .\nCurrently increase by %1d%% of a complete Knowledge Level.
+    </string>
+    <string name="settings_adapt_knowledge_level_summary">%1$d%% of a Knowledge Level</string>
 
     <!-- Knowledge Levels-->
     <string name="knowledgeLevel1">1 - Unknown</string>
@@ -80,11 +90,11 @@
     <string name="knowledgeLevel3">3 - Average</string>
     <string name="knowledgeLevel4">4 - Good</string>
     <string name="knowledgeLevel5">5 - Perfect</string>
-    <string name="knowledgeLevel1_key" translatable="false">0.5</string>
-    <string name="knowledgeLevel2_key" translatable="false">1.5</string>
-    <string name="knowledgeLevel3_key" translatable="false">2.5</string>
-    <string name="knowledgeLevel4_key" translatable="false">3.5</string>
-    <string name="knowledgeLevel5_key" translatable="false">4.5</string>
+    <string name="knowledgeLevel1_value" translatable="false">0.5</string>
+    <string name="knowledgeLevel2_value" translatable="false">1.5</string>
+    <string name="knowledgeLevel3_value" translatable="false">2.5</string>
+    <string name="knowledgeLevel4_value" translatable="false">3.5</string>
+    <string name="knowledgeLevel5_value" translatable="false">4.5</string>
 
 
     <!-- Lesson Overview Strings -->
