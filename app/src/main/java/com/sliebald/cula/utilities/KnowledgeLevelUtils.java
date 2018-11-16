@@ -1,12 +1,8 @@
 package com.sliebald.cula.utilities;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
-import android.widget.Toast;
 
-import com.sliebald.cula.MyApplication;
 import com.sliebald.cula.R;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -78,27 +74,18 @@ public class KnowledgeLevelUtils {
         // Increments/Decrements could be changed to a more dynamic approach (e.g. more or less
         // or depending on how often a word was trained.
         //TODO: adapt knowledge Level based on chosen preference instead of fixed 0.5
-        Context context = MyApplication.getContext();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
-                context);
 
         if (increaseLevel) {
-            newLevel = oldLevel + Double.parseDouble(sharedPreferences.getString(context
-                    .getString(R.string.settings_reward_correct_training_key), context.getString
-                    (R.string.settings_adapt_training_medium)));
+            newLevel = oldLevel + PreferenceUtils.getKnowledgeIncrementCorrectTraining();
             if (newLevel > LEVEL_MAX)
                 newLevel = LEVEL_MAX;
 
         } else {
-            newLevel = oldLevel - Double.parseDouble(sharedPreferences.getString(context
-                    .getString(R.string.settings_punish_wrong_training_key), context.getString(R
-                    .string.settings_adapt_training_medium)));
+            newLevel = oldLevel - PreferenceUtils.getKnowledgeDecrementWrongTraining();
             if (newLevel < LEVEL_MIN)
                 newLevel = LEVEL_MIN;
         }
         newLevel = Math.round(newLevel * 100D) / 100D;
-        Toast.makeText(context, "" + oldLevel + " -> " + newLevel, Toast.LENGTH_SHORT).show();
-
         return newLevel;
     }
 

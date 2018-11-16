@@ -65,22 +65,14 @@
     <string name="settings_default_knowledgeLevel_key" translatable="false">defaultKnowledgeLevel</string>
 
 
-    <string name="settings_punish_wrong_training_key" translatable="false">punishTrainingAmountKey
+    <string name="settings_punish_wrong_training_key" translatable="false">punishTrainingKey
     </string>
-    <string name="settings_reward_correct_training_key" translatable="false">rewardTrainingAmountKey
+    <string name="settings_reward_correct_training_key" translatable="false">rewardTrainingKey
     </string>
     <string name="settings_punish_wrong_training_title">Knowledge decrease on wrong training
     </string>
     <string name="settings_reward_correct_training_title" translatable="false">Knowledge increase on correct training
     </string>
-
-    <string name="settings_adapt_training_low_key" translatable="false">0.25</string>
-    <string name="settings_adapt_training_medium_key" translatable="false">0.5</string>
-    <string name="settings_adapt_training_high_key" translatable="false">1</string>
-    <string name="settings_adapt_training_low">Low</string>
-    <string name="settings_adapt_training_medium">Medium</string>
-    <string name="settings_adapt_training_high">High</string>
-
 
     <!-- Knowledge Levels-->
     <string name="knowledgeLevel1">1 - Unknown</string>
