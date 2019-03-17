@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_update_library"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/activity_update_library"
         tools:context="com.sliebald.cula.ui.updateLibrary.UpdateLibraryActivity">
 
         <TextView
@@ -14,9 +14,9 @@
             style="@style/Label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/distance_medium"
             android:layout_marginStart="@dimen/distance_medium"
             android:layout_marginTop="@dimen/distance_normal"
+            android:layout_marginEnd="@dimen/distance_medium"
             android:text="@string/update_library_label_native_word"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,13 +27,13 @@
             android:id="@+id/edit_text_add_native_word"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/distance_xLarge"
             android:layout_marginStart="@dimen/distance_xLarge"
+            android:layout_marginEnd="@dimen/distance_xLarge"
             android:hint="@string/update_library_hint_native_word"
             android:inputType="text"
             android:nextFocusForward="@id/edit_text_add_foreign_word"
-            android:paddingEnd="@dimen/distance_medium"
             android:paddingStart="@dimen/distance_medium"
+            android:paddingEnd="@dimen/distance_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_label_add_native_word" />
@@ -43,9 +43,9 @@
             style="@style/Label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/distance_medium"
             android:layout_marginStart="@dimen/distance_medium"
             android:layout_marginTop="@dimen/distance_normal"
+            android:layout_marginEnd="@dimen/distance_medium"
             android:text="@string/update_library_label_foreign_word"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,8 +59,8 @@
             android:hint="@string/update_library_hint_foreign_word"
             android:inputType="text"
             android:nextFocusForward="@id/edit_text_add_foreign_word"
-            android:paddingEnd="@dimen/distance_medium"
             android:paddingStart="@dimen/distance_medium"
+            android:paddingEnd="@dimen/distance_medium"
             app:layout_constraintEnd_toEndOf="@+id/edit_text_add_native_word"
             app:layout_constraintStart_toStartOf="@+id/edit_text_add_native_word"
             app:layout_constraintTop_toBottomOf="@+id/tv_label_add_foreign_word" />
@@ -70,9 +70,9 @@
             style="@style/Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/distance_medium"
             android:layout_marginStart="@dimen/distance_medium"
             android:layout_marginTop="@dimen/distance_normal"
+            android:layout_marginEnd="@dimen/distance_medium"
             android:text="@string/update_library_button_label_knowledgeLevel"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"

@@ -65,8 +65,8 @@
             style="@style/SpinnerStartTraining"
             android:layout_width="0dp"
             android:layout_marginEnd="@dimen/distance_small"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_label_start_training_knowledge_level" />
 
         <com.jaredrummler.materialspinner.MaterialSpinner
@@ -91,8 +91,8 @@
             android:id="@+id/sw_start_training_reverse_training"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/Switch"
             android:layout_marginEnd="@dimen/distance_medium"
+            android:theme="@style/Switch"
             app:layout_constraintBottom_toBottomOf="@+id/tv_label_start_training_reverse"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_label_start_training_reverse" />

@@ -48,6 +48,20 @@ import androidx.lifecycle.LiveData;
  */
 public class CulaRepository {
 
+    /**
+     * Tag for logging.
+     */
+    private static final String TAG = CulaRepository.class.getSimpleName();
+    // For Singleton instantiation
+    private static final Object LOCK = new Object();
+    @SuppressLint("StaticFieldLeak")
+    private static CulaRepository sInstance;
+    private final LibraryDao mLibraryDao;
+    private final LanguageDao mLanguageDao;
+    private final LessonDao mLessonDao;
+    private final StatisticsDao mStatisticsDao;
+    private final AppExecutors mExecutors;
+
     private CulaRepository(CulaDatabase database, AppExecutors appExecutors) {
         mLibraryDao = database.libraryDao();
         mStatisticsDao = database.statisticsDao();
@@ -62,29 +76,13 @@ public class CulaRepository {
         }
     }
 
-
-    /**
-     * Tag for logging.
-     */
-    private static final String TAG = CulaRepository.class.getSimpleName();
-
-    // For Singleton instantiation
-    private static final Object LOCK = new Object();
-    @SuppressLint("StaticFieldLeak")
-    private static CulaRepository sInstance;
-    private final LibraryDao mLibraryDao;
-    private final LanguageDao mLanguageDao;
-    private final LessonDao mLessonDao;
-    private final StatisticsDao mStatisticsDao;
-    private final AppExecutors mExecutors;
-
     /**
      * Singleton to make sure only one {@link CulaRepository} is used at a time.
      *
-     * @param database          The {@link CulaDatabase} to access all
-     * {@link androidx.room.Dao}s.
-     * @param appExecutors      The {@link AppExecutors} used to execute all kind of queries of
-     *                          the main thread.
+     * @param database     The {@link CulaDatabase} to access all
+     *                     {@link androidx.room.Dao}s.
+     * @param appExecutors The {@link AppExecutors} used to execute all kind of queries of
+     *                     the main thread.
      * @return A new {@link CulaRepository} if none exists. If already an instance exists this is
      * returned instead of creating a new one.
      */
@@ -195,7 +193,6 @@ public class CulaRepository {
     }
 
 
-
     /**
      * Adds the given {@link LessonEntry}s to the Database.
      * If the {@link LessonEntry} already exists, nothing is done.
@@ -288,17 +285,6 @@ public class CulaRepository {
     }
 
     /**
-     * Sets the active language in the database.
-     *
-     * @param language The active language
-     */
-    public void setActiveLanguage(String language) {
-        mExecutors.diskIO().execute(() -> mLanguageDao.setActiveLanguage(language));
-    }
-
-
-
-    /**
      * Get all {@link LessonEntry}s.
      *
      * @return All {@link LessonEntry}s.
@@ -317,20 +303,21 @@ public class CulaRepository {
     }
 
     /**
+     * Sets the active language in the database.
+     *
+     * @param language The active language
+     */
+    public void setActiveLanguage(String language) {
+        mExecutors.diskIO().execute(() -> mLanguageDao.setActiveLanguage(language));
+    }
+
+    /**
      * Updates the given {@link LessonEntry}s to the Database.
      *
      * @param lessonEntries One or more {@link LessonEntry}s to update in the Database
      */
     public void updateLessonEntry(LessonEntry... lessonEntries) {
         mExecutors.diskIO().execute(() -> mLessonDao.updateEntry(lessonEntries));
-    }
-
-    /**
-     * A callback when one or more {@link LessonEntry}s were added to the database.
-     * Contains the Ids of the new entries
-     */
-    public interface OnLessonEntryAddedListener {
-        void onLessonEntryAdded(long[] ids);
     }
 
     /**
@@ -383,7 +370,6 @@ public class CulaRepository {
     public LiveData<List<MappingPOJO>> getMappingEntries(int id) {
         return mLessonDao.getLessonMappingById(id);
     }
-
 
     public LiveData<List<LibraryEntry>> getTrainingEntries(int number, double
             minKnowledgeLevel, double maxKnowledgeLevel, int lessonId) {
@@ -445,6 +431,14 @@ public class CulaRepository {
      */
     public LiveData<LessonKnowledgeLevel> getWorstLesson() {
         return mStatisticsDao.getWorstLesson();
+    }
+
+    /**
+     * A callback when one or more {@link LessonEntry}s were added to the database.
+     * Contains the Ids of the new entries
+     */
+    public interface OnLessonEntryAddedListener {
+        void onLessonEntryAdded(long[] ids);
     }
 
 

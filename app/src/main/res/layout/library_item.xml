@@ -53,28 +53,28 @@
             android:id="@+id/nativeWord"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="@dimen/distance_large"
-            android:paddingBottom="@dimen/distance_normal"
+            android:layout_weight="1"
             android:paddingTop="@dimen/distance_normal"
+            android:paddingBottom="@dimen/distance_normal"
             android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="language" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/distance_small"
             android:layout_marginTop="@dimen/distance_small"
+            android:layout_marginBottom="@dimen/distance_small"
             android:background="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/foreignWord"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="@dimen/distance_large"
-            android:paddingBottom="@dimen/distance_normal"
+            android:layout_weight="1"
             android:paddingTop="@dimen/distance_normal"
+            android:paddingBottom="@dimen/distance_normal"
             android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="foreignWord" />
     </LinearLayout>

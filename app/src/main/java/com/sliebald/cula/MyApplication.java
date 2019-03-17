@@ -11,12 +11,6 @@ public class MyApplication extends Application {
 
     private static MyApplication mContext;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mContext = this;
-    }
-
     /**
      * Get the Application context of the App.
      *
@@ -24,5 +18,11 @@ public class MyApplication extends Application {
      */
     public static MyApplication getContext() {
         return mContext;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mContext = this;
     }
 }

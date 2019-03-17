@@ -3,11 +3,8 @@ package com.sliebald.cula.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -20,6 +17,10 @@ import com.sliebald.cula.ui.main.MainActivity;
 import com.sliebald.cula.utilities.InjectorUtils;
 
 import java.util.Date;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 /**
  * Implementation of App Widget functionality.
@@ -63,11 +64,11 @@ public class CulaWidget extends AppWidgetProvider {
     /**
      * Updates the widget text for the reminder when a user trained the last time.
      *
-     * @param context Context of the Widget.
+     * @param context          Context of the Widget.
      * @param appWidgetManager The {@link AppWidgetManager}.
-     * @param appWidgetId The appWidgetId
-     * @param views The {@link RemoteViews} of the widget
-     * @param date The date of the last training activity.
+     * @param appWidgetId      The appWidgetId
+     * @param views            The {@link RemoteViews} of the widget
+     * @param date             The date of the last training activity.
      */
     private static void updateLastLearned(Context context, AppWidgetManager appWidgetManager, int
             appWidgetId, RemoteViews views, StatisticsLastTrainingDate date) {
@@ -99,10 +100,10 @@ public class CulaWidget extends AppWidgetProvider {
     /**
      * Update the text for the worst Lesson in the widget.
      *
-     * @param context Context of the Widget.
-     * @param appWidgetManager The {@link AppWidgetManager}.
-     * @param appWidgetId The appWidgetId
-     * @param views The {@link RemoteViews} of the widget
+     * @param context              Context of the Widget.
+     * @param appWidgetManager     The {@link AppWidgetManager}.
+     * @param appWidgetId          The appWidgetId
+     * @param views                The {@link RemoteViews} of the widget
      * @param lessonKnowledgeLevel The {@link LessonKnowledgeLevel} containing name and
      *                             Knowledge Level average
      *                             of the worst Lesson

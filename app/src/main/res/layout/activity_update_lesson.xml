@@ -8,9 +8,9 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/activity_update_lesson"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/activity_update_lesson"
             tools:context="com.sliebald.cula.ui.updateLibrary.UpdateLibraryActivity">
 
             <TextView
@@ -18,9 +18,9 @@
                 style="@style/Label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/distance_medium"
                 android:layout_marginStart="@dimen/distance_medium"
                 android:layout_marginTop="@dimen/distance_normal"
+                android:layout_marginEnd="@dimen/distance_medium"
                 android:text="@string/update_lesson_label_name"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -31,13 +31,13 @@
                 android:id="@+id/et_add_lesson_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/distance_xLarge"
                 android:layout_marginStart="@dimen/distance_xLarge"
+                android:layout_marginEnd="@dimen/distance_xLarge"
                 android:hint="@string/update_lesson_hint_name"
                 android:inputType="text"
                 android:nextFocusForward="@id/et_add_lesson_description"
-                android:paddingEnd="@dimen/distance_medium"
                 android:paddingStart="@dimen/distance_medium"
+                android:paddingEnd="@dimen/distance_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_label_add_lesson_name" />
@@ -47,9 +47,9 @@
                 style="@style/Label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/distance_medium"
                 android:layout_marginStart="@dimen/distance_medium"
                 android:layout_marginTop="@dimen/distance_normal"
+                android:layout_marginEnd="@dimen/distance_medium"
                 android:text="@string/update_lesson_label_description"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -62,8 +62,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/update_lesson_hint_description"
                 android:inputType="text"
-                android:paddingEnd="@dimen/distance_medium"
                 android:paddingStart="@dimen/distance_medium"
+                android:paddingEnd="@dimen/distance_medium"
                 app:layout_constraintEnd_toEndOf="@+id/et_add_lesson_name"
                 app:layout_constraintStart_toStartOf="@+id/et_add_lesson_name"
                 app:layout_constraintTop_toBottomOf="@+id/tv_label_add_lesson_description" />
@@ -101,9 +101,9 @@
                 style="@style/Label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/distance_medium"
                 android:layout_marginStart="@dimen/distance_medium"
                 android:layout_marginTop="@dimen/distance_medium"
+                android:layout_marginEnd="@dimen/distance_medium"
                 android:text="@string/update_lesson_label_mapping"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"

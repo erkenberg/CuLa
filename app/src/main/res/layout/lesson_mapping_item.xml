@@ -22,8 +22,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="5"
-        android:padding="@dimen/distance_small"
         android:gravity="center_vertical"
+        android:padding="@dimen/distance_small"
         tools:text="Native Word" />
 
     <View
@@ -36,9 +36,9 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="6"
-        android:padding="@dimen/distance_small"
-        android:paddingEnd="@dimen/distance_normal"
-        android:paddingStart="@dimen/distance_normal"
         android:gravity="center_vertical"
+        android:padding="@dimen/distance_small"
+        android:paddingStart="@dimen/distance_normal"
+        android:paddingEnd="@dimen/distance_normal"
         tools:text="Foreign Word" />
 </LinearLayout>
