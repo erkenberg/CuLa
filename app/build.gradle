@@ -70,6 +70,10 @@ dependencies {
     // material drawer: https://github.com/jaredrummler/MaterialSpinner
     implementation 'com.jaredrummler:material-spinner:1.3.0'
 
+    // Android navigation component
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+    implementation 'android.arch.navigation:navigation-ui:1.0.0'
+
 }
 
 // add gradle firebase /google services plugin

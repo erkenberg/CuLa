@@ -11,6 +11,7 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.sliebald.cula.MainViewModel;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LanguageEntry;
 import com.sliebald.cula.databinding.MainActivityBinding;
@@ -93,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.main_activity);
+        setContentView(R.layout.main_activity_old);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.main_activity_old);
         Toolbar toolbar = findViewById(R.id.toolbar);
         //create the drawer and remember the `Drawer` result object
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
@@ -200,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         if (!firstCall && identifier != DRAWER_SETTINGS_KEY && mViewModel.getActiveLanguage() !=
                 null && mViewModel.getActiveLanguage().getValue() == null) {
             drawer.setSelection(DRAWER_SETTINGS_KEY);
-            Snackbar.make(mBinding.mainLinearLayout, R.string.settings_add_language_summary,
+            Snackbar.make(mBinding.drawerLayout, R.string.settings_add_language_summary,
                     Snackbar.LENGTH_LONG).show();
             return;
         }

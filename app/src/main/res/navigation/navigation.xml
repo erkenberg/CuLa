@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/startTraining_dest">
+
+    <fragment
+        android:id="@+id/startTraining_dest"
+        android:name="com.sliebald.cula.ui.startTraining.StartTrainingFragment"
+        android:label="@string/drawer_label_train"
+        tools:layout="@layout/fragment_start_training" />
+    <fragment
+        android:id="@+id/library_dest"
+        android:name="com.sliebald.cula.ui.library.LibraryFragment"
+        android:label="@string/drawer_label_library"
+        tools:layout="@layout/fragment_library" />
+    <fragment
+        android:id="@+id/lessons_dest"
+        android:name="com.sliebald.cula.ui.lessons.LessonsFragment"
+        android:label="@string/drawer_label_lessons"
+        tools:layout="@layout/fragment_lessons" />
+    <fragment
+        android:id="@+id/statistics_dest"
+        android:name="com.sliebald.cula.ui.statistics.StatisticsFragment"
+        android:label="@string/drawer_label_statistics"
+        tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/settings_dest"
+        android:name="com.sliebald.cula.ui.settings.SettingsFragment"
+        android:label="@string/drawer_label_settings"
+        tools:layout="@xml/fragment_settings" />
+
+</navigation>
