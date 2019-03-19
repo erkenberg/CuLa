@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity_old);
 
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.main_activity);
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         tlds.add(R.id.library_dest);
         tlds.add(R.id.lessons_dest);
         tlds.add(R.id.statistics_dest);
-        tlds.add(R.id.settings_dest);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(tlds).setDrawerLayout(mBinding.drawerLayout).build();
 
@@ -93,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                     .getString(getResources().getString(R.string.settings_select_language_key),
                             "") + "database: " + languageEntry.getLanguage());
         }
+        //reflect the active language to the toolbar subtitle
         if (languageEntry != null)
             mBinding.toolbar.setSubtitle(languageEntry.getLanguage());
     }
