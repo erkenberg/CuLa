@@ -7,7 +7,7 @@
         android:id="@+id/activity_training"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.sliebald.cula.ui.training.TrainingActivity">
+        tools:context="com.sliebald.cula.ui.training.TrainingFragment">
 
         <include
             android:id="@+id/training_progress"
@@ -61,7 +61,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/distance_normal"
-            android:onClick="checkWord"
             android:text="@string/activity_training_button_check"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

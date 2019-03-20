@@ -80,3 +80,5 @@ dependencies {
 apply plugin: 'com.google.gms.google-services'
 //firebase crashlytics
 apply plugin: 'io.fabric'
+// safeargs
+apply plugin: "androidx.navigation.safeargs"

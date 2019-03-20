@@ -9,7 +9,11 @@
         android:id="@+id/startTraining_dest"
         android:name="com.sliebald.cula.ui.startTraining.StartTrainingFragment"
         android:label="@string/drawer_label_train"
-        tools:layout="@layout/fragment_start_training" />
+        tools:layout="@layout/fragment_start_training">
+        <action
+            android:id="@+id/action_startTraining_dest_to_training_dest"
+            app:destination="@id/training_dest" />
+    </fragment>
     <fragment
         android:id="@+id/library_dest"
         android:name="com.sliebald.cula.ui.library.LibraryFragment"
@@ -30,5 +34,34 @@
         android:name="com.sliebald.cula.ui.settings.SettingsFragment"
         android:label="@string/drawer_label_settings"
         tools:layout="@xml/fragment_settings" />
+    <fragment
+        android:id="@+id/training_dest"
+        android:name="com.sliebald.cula.ui.training.TrainingFragment"
+        android:label="fragment_training"
+        tools:layout="@layout/fragment_training">
+        <action
+            android:id="@+id/action_training_dest_to_startTraining_dest"
+            app:popUpTo="@id/startTraining_dest" />
+        <argument
+            android:name="numWords"
+            android:defaultValue="10"
+            app:argType="integer" />
+        <argument
+            android:name="lessonId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="reverseTraining"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="minKnowledgeLevel"
+            android:defaultValue="0.0"
+            app:argType="float" />
+        <argument
+            android:name="maxKnowledgeLevel"
+            android:defaultValue="5.0"
+            app:argType="float" />
+    </fragment>
 
 </navigation>

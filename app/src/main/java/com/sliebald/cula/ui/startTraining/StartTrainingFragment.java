@@ -12,7 +12,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.databinding.FragmentStartTrainingBinding;
-import com.sliebald.cula.ui.training.TrainingActivity;
 
 import java.util.Objects;
 
@@ -20,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 /**
  * The fragment for starting a training session.
@@ -36,30 +36,6 @@ public class StartTrainingFragment extends Fragment {
      */
     private static final int RESULT_KEY_REQUEST_CODE = 42;
 
-    /**
-     * {@link Bundle} key for the amount of words to be trained.
-     */
-    public static final String BUNDLE_EXTRA_NUMWORDS_KEY = "NumberOfWords";
-
-    /**
-     * {@link Bundle} key for the Lesson to be trained.
-     */
-    public static final String BUNDLE_EXTRA_LESSON_KEY = "Lesson";
-
-    /**
-     * {@link Bundle} key for the minimum KnowledgeLevel of words to be trained.
-     */
-    public static final String BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MIN = "KnowledgeLevelMin";
-
-    /**
-     * {@link Bundle} key for the maximum KnowledgeLevel range of words to be trained.
-     */
-    public static final String BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MAX = "KnowledgeLevelMax";
-
-    /**
-     * {@link Bundle} key for the boolean indicating whether the training should be reversed.
-     */
-    public static final String BUNDLE_EXTRA_REVERSE_TRAINING_KEY = "ReverseTraining";
 
     /**
      * Tag for logging and fragment identification.
@@ -164,14 +140,13 @@ public class StartTrainingFragment extends Fragment {
      *
      */
     private void startTraining() {
-        Intent intent = new Intent(getContext(), TrainingActivity.class);
-
-        intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MIN, getSelectedMinKnowledgeLevel());
-        intent.putExtra(BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MAX, getSelectedMaxKnowledgeLevel());
-        intent.putExtra(BUNDLE_EXTRA_LESSON_KEY, getSelectedLessonId());
-        intent.putExtra(BUNDLE_EXTRA_NUMWORDS_KEY, getSelectedNumWords());
-        intent.putExtra(BUNDLE_EXTRA_REVERSE_TRAINING_KEY, getSelectedReverseTraining());
-        startActivityForResult(intent, RESULT_KEY_REQUEST_CODE);
+        StartTrainingFragmentDirections.ActionStartTrainingDestToTrainingDest action = StartTrainingFragmentDirections.actionStartTrainingDestToTrainingDest();
+        action.setLessonId(getSelectedLessonId());
+        action.setReverseTraining(getSelectedReverseTraining());
+        action.setMinKnowledgeLevel((float) getSelectedMinKnowledgeLevel());
+        action.setMaxKnowledgeLevel((float) getSelectedMaxKnowledgeLevel());
+        action.setNumWords(getSelectedNumWords());
+        Navigation.findNavController(getView()).navigate(action);
         //TODO: save selected options to sharedParameters for next session
     }
 

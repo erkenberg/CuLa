@@ -1,46 +1,48 @@
 package com.sliebald.cula.ui.training;
 
-import android.content.Intent;
+
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.sliebald.cula.Analytics;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.data.database.Entities.StatisticEntry;
-import com.sliebald.cula.databinding.ActivityTrainingBinding;
-import com.sliebald.cula.ui.startTraining.StartTrainingFragment;
+import com.sliebald.cula.databinding.FragmentTrainingBinding;
 import com.sliebald.cula.utilities.InjectorUtils;
 import com.sliebald.cula.utilities.KnowledgeLevelUtils;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-public class TrainingActivity extends AppCompatActivity {
+
+public class TrainingFragment extends Fragment {
+
 
     /**
      * Tag of this activity.
      */
-    private static final String TAG = TrainingActivity.class.getSimpleName();
+    private static final String TAG = TrainingFragment.class.getSimpleName();
 
 
     /**
      * The data binding for the Layout.
      */
-    private ActivityTrainingBinding mBinding;
+    private FragmentTrainingBinding mBinding;
 
     /**
      * The {@link CulaRepository} that provides access to all data sources.
@@ -57,38 +59,29 @@ public class TrainingActivity extends AppCompatActivity {
      */
     private boolean reverseTraining;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         // create DataBinding
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_training);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_training, container, false);
 
-        Analytics.logEventStartTraining(this);
+        mBinding.btCheck.setOnClickListener(v -> checkWord());
 
         // get DB access
         mCulaRepository = InjectorUtils.provideRepository();
-        Log.d(TAG, "SAVED STATE: " + savedInstanceState);
-        //set back button
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(R.string.drawer_label_train);
-            getSupportActionBar().setSubtitle(PreferenceManager.getDefaultSharedPreferences(this)
-                    .getString(getString(R.string.settings_select_language_key), ""));
-        }
 
-        // get the intent that started the learning activity and extract the relevant values.
-        Intent intent = getIntent();
-        int amountOfWords = intent.getIntExtra(StartTrainingFragment.BUNDLE_EXTRA_NUMWORDS_KEY,
-                10);
-        double minKnowledgeLevel = intent.getDoubleExtra(StartTrainingFragment
-                .BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MIN, 0);
-        double maxKnowledgeLevel = intent.getDoubleExtra(StartTrainingFragment
-                .BUNDLE_EXTRA_KNOWLEDGE_LEVEL_MAX, 5);
-        int lessonId = intent.getIntExtra(StartTrainingFragment
-                .BUNDLE_EXTRA_LESSON_KEY, -1);
-        reverseTraining = intent.getBooleanExtra(StartTrainingFragment
-                .BUNDLE_EXTRA_REVERSE_TRAINING_KEY, false);
+
+        // get the fragmentArgs that started the learning activity and extract the relevant values.
+        //TODO: dummy fragmentArgs
+        TrainingFragmentArgs fragmentArgs = TrainingFragmentArgs.fromBundle(getArguments());
+        int amountOfWords = fragmentArgs.getNumWords();
+        double minKnowledgeLevel = fragmentArgs.getMinKnowledgeLevel();
+        double maxKnowledgeLevel = fragmentArgs.getMaxKnowledgeLevel();
+        int lessonId = fragmentArgs.getLessonId();
+        reverseTraining = fragmentArgs.getReverseTraining();
+        Toast.makeText(getActivity(), "" + amountOfWords + " " + minKnowledgeLevel + " " + maxKnowledgeLevel + " " + lessonId + " " + reverseTraining, Toast.LENGTH_LONG).show();
         //create the view model
         TrainingViewModelFactory viewModelFactory = new TrainingViewModelFactory(amountOfWords,
                 minKnowledgeLevel, maxKnowledgeLevel, lessonId);
@@ -102,24 +95,29 @@ public class TrainingActivity extends AppCompatActivity {
                             libraryEntries.get(0).toString());
                     showWord(savedInstanceState == null);
                 } else {
-                    setResult(StartTrainingFragment.RESULT_KEY_NO_MATCHING_ENTRIES);
-                    finish();
+                    //TODO: return
+                    //setResult(StartTrainingFragment.RESULT_KEY_NO_MATCHING_ENTRIES);
+                    //finish();
+                    //Toast.makeText(getActivity(), "TODO: RETURN", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        return mBinding.getRoot();
     }
+
 
     /**
      * Display the next word to learn.
+     *
      * @param nextWord True if the next word should be displayed, false if the current one should
-     *                be shown.
+     *                 be shown.
      */
     private void showWord(boolean nextWord) {
         if (!mViewModel.hasNextEntry()) {
             //TODO: show statistics or similar instead of just returning.
-            Analytics.logEventStopTraining(this);
 
-            finish();
+            //TODO: return
+            //finish();
         } else {
             mBinding.etTranslatedWord.getText().clear();
             mBinding.etTranslatedWord.requestFocus();
@@ -145,17 +143,16 @@ public class TrainingActivity extends AppCompatActivity {
 
     /**
      * Check the current word and move to the next.
-     *
-     * @param  view The clicked button
      */
-    public void checkWord(@SuppressWarnings("unused") View view) {
+    private void checkWord() {
         //todo: refactor snackbar creation, lots of boilerplate code.
         // If there is no next word to train, return
         if (!mViewModel.hasNextEntry()) {
             //TODO: show statistics or similar instead of just returning.
-            Toast.makeText(this, R.string.activity_training_training_finished, Toast.LENGTH_SHORT)
+            Toast.makeText(getActivity(), R.string.activity_training_training_finished, Toast.LENGTH_SHORT)
                     .show();
-            finish();
+            //TODO: return
+            //finish();
         }
 
 
@@ -184,7 +181,7 @@ public class TrainingActivity extends AppCompatActivity {
                 int correctStart = snackbarText.length();
                 snackbarText.append(correctTranslation);
                 snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor
-                        (getApplicationContext(), R.color
+                        (getContext(), R.color
                                 .colorPrimary)), correctStart, snackbarText.length(), Spannable
                         .SPAN_EXCLUSIVE_EXCLUSIVE);
                 snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
@@ -203,7 +200,6 @@ public class TrainingActivity extends AppCompatActivity {
         }
 
 
-
         //check whether the trained word was correct and act accordingly
         double updatedKnowledgeLevel;
         boolean trainingCorrect = typedTranslation.equals(correctTranslation);
@@ -211,7 +207,7 @@ public class TrainingActivity extends AppCompatActivity {
         if (trainingCorrect) {
             SpannableStringBuilder snackbarText = new SpannableStringBuilder();
             snackbarText.append(getString(R.string.correct));
-            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color
+            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color
                     .green)), 0, snackbarText.length(), Spannable
                     .SPAN_EXCLUSIVE_EXCLUSIVE);
             snackbarText.setSpan(new StyleSpan(Typeface.BOLD), 0,
@@ -227,7 +223,7 @@ public class TrainingActivity extends AppCompatActivity {
             // create and format the snackbar feedback
             SpannableStringBuilder snackbarText = new SpannableStringBuilder();
             snackbarText.append(getString(R.string.wrong));
-            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color
+            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color
                     .red)), 0, snackbarText.length(), Spannable
                     .SPAN_EXCLUSIVE_EXCLUSIVE);
             snackbarText.setSpan(new StyleSpan(Typeface.BOLD), 0,
@@ -237,7 +233,7 @@ public class TrainingActivity extends AppCompatActivity {
                     ().toString()));
             int correctStart = snackbarText.length();
             snackbarText.append(correctTranslation);
-            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color
+            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color
                     .colorPrimary)), correctStart, snackbarText.length(), Spannable
                     .SPAN_EXCLUSIVE_EXCLUSIVE);
             snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
@@ -256,4 +252,5 @@ public class TrainingActivity extends AppCompatActivity {
         mCulaRepository.updateLibraryEntry(currentEntry);
         showWord(true);
     }
+
 }
