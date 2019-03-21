@@ -1,11 +1,11 @@
 package com.sliebald.cula.data.database.Entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import androidx.annotation.NonNull;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -114,12 +114,14 @@ public class LessonEntry {
         return language;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "LessonEntry{" +
                 "id=" + id +
                 ", lessonName='" + lessonName + '\'' +
                 ", lessonDescription='" + lessonDescription + '\'' +
+                ", language='" + language + '\'' +
                 '}';
     }
 }

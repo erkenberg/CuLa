@@ -13,6 +13,7 @@
     <!--Toolbar titles, drawer item names are used for fragments-->
     <string name="title_update_library_entry">Update Library</string>
     <string name="title_update_lesson_entry">Update Lesson</string>
+    <string name="title_training">Training</string>
 
     <!-- Library Strings-->
     <string name="library_word_deleted">Word removed from Library!</string>
@@ -136,8 +137,7 @@
     <string name="activity_training_hint_translated_word">Translated word</string>
     <string name="activity_training_label_translate_word">Translate the following word:</string>
     <string name="activity_training_label_progress">Progress: %1$d from %2$d</string>
-    <string name="activity_training_skip_word">Skip word?
-        translation!</string>
+    <string name="activity_training_skip_word">Skip word?f</string>
     <string name="activity_training_wrong_translation">, correct translation for
         %1$s:&#160;</string>
     <string name="activity_training_skip_translation">Correct translation for
@@ -172,6 +172,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="finish_training">Finish Training</string>
 
 
 </resources>

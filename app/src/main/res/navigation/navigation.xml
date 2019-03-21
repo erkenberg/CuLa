@@ -37,31 +37,16 @@
     <fragment
         android:id="@+id/training_dest"
         android:name="com.sliebald.cula.ui.training.TrainingFragment"
-        android:label="fragment_training"
+        android:label="@string/title_training"
         tools:layout="@layout/fragment_training">
         <action
             android:id="@+id/action_training_dest_to_startTraining_dest"
             app:popUpTo="@id/startTraining_dest" />
         <argument
-            android:name="numWords"
-            android:defaultValue="10"
-            app:argType="integer" />
-        <argument
-            android:name="lessonId"
-            android:defaultValue="-1"
-            app:argType="integer" />
-        <argument
-            android:name="reverseTraining"
-            android:defaultValue="false"
-            app:argType="boolean" />
-        <argument
-            android:name="minKnowledgeLevel"
-            android:defaultValue="0.0"
-            app:argType="float" />
-        <argument
-            android:name="maxKnowledgeLevel"
-            android:defaultValue="5.0"
-            app:argType="float" />
+            android:name="trainingData"
+            android:defaultValue="@null"
+            app:argType="com.sliebald.cula.data.database.Pojos.TrainingData"
+            app:nullable="true" />
     </fragment>
 
 </navigation>

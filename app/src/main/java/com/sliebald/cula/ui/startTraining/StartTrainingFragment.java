@@ -1,7 +1,6 @@
 package com.sliebald.cula.ui.startTraining;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.ArrayAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
+import com.sliebald.cula.data.database.Pojos.TrainingData;
 import com.sliebald.cula.databinding.FragmentStartTrainingBinding;
 
 import java.util.Objects;
@@ -18,6 +18,8 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
@@ -27,20 +29,10 @@ import androidx.navigation.Navigation;
 public class StartTrainingFragment extends Fragment {
 
     /**
-     * Result returned when no entries are matching to the given settings.
-     */
-    public static final int RESULT_KEY_NO_MATCHING_ENTRIES = -1;
-
-    /**
-     * Request code for training activity.
-     */
-    private static final int RESULT_KEY_REQUEST_CODE = 42;
-
-
-    /**
      * Tag for logging and fragment identification.
      */
     public static final String TAG = StartTrainingFragment.class.getSimpleName();
+
     /**
      * Key for the savedInstanceState selected lesson.
      */
@@ -136,29 +128,30 @@ public class StartTrainingFragment extends Fragment {
     }
 
     /**
-     * Start the training Activity with correct settings.
-     *
+     * Start the training fragment and pass the elements that should be trained to it.
      */
     private void startTraining() {
-        StartTrainingFragmentDirections.ActionStartTrainingDestToTrainingDest action = StartTrainingFragmentDirections.actionStartTrainingDestToTrainingDest();
-        action.setLessonId(getSelectedLessonId());
-        action.setReverseTraining(getSelectedReverseTraining());
-        action.setMinKnowledgeLevel((float) getSelectedMinKnowledgeLevel());
-        action.setMaxKnowledgeLevel((float) getSelectedMaxKnowledgeLevel());
-        action.setNumWords(getSelectedNumWords());
-        Navigation.findNavController(getView()).navigate(action);
-        //TODO: save selected options to sharedParameters for next session
-    }
+        LiveData<TrainingData> data = mViewModel.getTrainingData(getSelectedNumWords(),
+                getSelectedMinKnowledgeLevel(), getSelectedMaxKnowledgeLevel(),
+                getSelectedLessonId(), getSelectedReverseTraining());
+        data.observe(this, new Observer<TrainingData>() {
+            @Override
+            public void onChanged(TrainingData trainingData) {
+                if (trainingData.getTrainingEntries().size() > 0) {
+                    StartTrainingFragmentDirections.ActionStartTrainingDestToTrainingDest action =
+                            StartTrainingFragmentDirections.actionStartTrainingDestToTrainingDest();
+                    action.setTrainingData(trainingData);
+                    Navigation.findNavController(getView()).navigate(action);
+                } else {
+                    Snackbar.make(mBinding.fragmentStartTraining, R.string
+                            .start_training_warning_no_matching_words, Snackbar.LENGTH_SHORT)
+                            .show();
+                }
+                data.removeObserver(this);
+            }
+        });
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_KEY_REQUEST_CODE && resultCode ==
-                RESULT_KEY_NO_MATCHING_ENTRIES) {
-            Snackbar.make(mBinding.fragmentStartTraining, R.string
-                    .start_training_warning_no_matching_words, Snackbar.LENGTH_SHORT)
-                    .show();
-        }
+        //TODO: save selected options to sharedParameters for next session
     }
 
     /**
