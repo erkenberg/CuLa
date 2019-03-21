@@ -76,7 +76,7 @@ public class TrainingFragment extends Fragment {
 
 
     /**
-     * Display the next word to learn.
+     * Display the next word to train.
      */
     private void showWord() {
         if (mViewModel.isTrainingOver()) {
@@ -84,7 +84,7 @@ public class TrainingFragment extends Fragment {
             mBinding.etTranslatedWord.setEnabled(false);
             mBinding.trainingProgress.tvLabelProgress.setText(getString(R.string
                             .activity_training_label_progress,
-                    mViewModel.getLearningSetPosition(), mViewModel.getLearningSetSize()));
+                    mViewModel.getLearningSetSize(), mViewModel.getLearningSetSize()));
             mBinding.trainingProgress.pgProgress.setProgress(100);
             mBinding.btCheck.setOnClickListener(v -> finishTraining());
             return;
@@ -150,20 +150,16 @@ public class TrainingFragment extends Fragment {
             });
             skipBar.show();
             return;
-        } else if (mViewModel.checkTranslationCorrect(typedTranslation)) {
-            SpannableStringBuilder snackbarText = new SpannableStringBuilder();
+        }
+        SpannableStringBuilder snackbarText = new SpannableStringBuilder();
+        if (mViewModel.checkTranslationCorrect(typedTranslation)) {
             snackbarText.append(getString(R.string.correct));
             snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color
                     .green)), 0, snackbarText.length(), Spannable
                     .SPAN_EXCLUSIVE_EXCLUSIVE);
             snackbarText.setSpan(new StyleSpan(Typeface.BOLD), 0,
                     snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            Snackbar correct = Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
-                    .LENGTH_SHORT);
-            correct.show();
         } else {
-            // create and format the snackbar feedback
-            SpannableStringBuilder snackbarText = new SpannableStringBuilder();
             snackbarText.append(getString(R.string.wrong));
             snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color
                     .red)), 0, snackbarText.length(), Spannable
@@ -182,11 +178,10 @@ public class TrainingFragment extends Fragment {
                     snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             snackbarText.setSpan(new RelativeSizeSpan(1.2f), correctStart, snackbarText.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            Snackbar wrong = Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
-                    .LENGTH_LONG);
-            wrong.show();
-
         }
+        Snackbar feedback = Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
+                .LENGTH_LONG);
+        feedback.show();
         mViewModel.next();
         showWord();
     }
