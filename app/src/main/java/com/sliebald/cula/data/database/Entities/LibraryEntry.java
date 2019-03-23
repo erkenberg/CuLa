@@ -191,6 +191,7 @@ public class LibraryEntry {
         this.lastUpdated = lastUpdated;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "LibraryEntry{" +

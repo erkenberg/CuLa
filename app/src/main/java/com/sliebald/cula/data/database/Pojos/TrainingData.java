@@ -8,12 +8,18 @@ import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+
 /**
  * POJO that describes all data required to initiate a training session and store statistics
  * about it.
  */
 public class TrainingData implements Parcelable {
 
+    /**
+     * CREATOR for making the {@link TrainingData} Parcelable to pass it via fragments via gradle
+     * safeargs fragment.
+     */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public TrainingData createFromParcel(Parcel in) {
             return new TrainingData(in);
@@ -23,6 +29,7 @@ public class TrainingData implements Parcelable {
             return new TrainingData[size];
         }
     };
+
     /**
      * The trained lessonId.
      */
@@ -57,6 +64,16 @@ public class TrainingData implements Parcelable {
         in.readList(trainingEntries, LibraryEntry.class.getClassLoader());
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "TrainingData{" +
+                "lessonId=" + lessonId +
+                ", reverseTraining=" + reverseTraining +
+                ", trainingEntries=" + trainingEntries +
+                '}';
+    }
+
     /**
      * The trained lessonId.
      *
@@ -83,6 +100,7 @@ public class TrainingData implements Parcelable {
     public List<LibraryEntry> getTrainingEntries() {
         return trainingEntries;
     }
+
 
     @Override
     public int describeContents() {

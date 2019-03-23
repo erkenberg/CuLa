@@ -1,5 +1,6 @@
 package com.sliebald.cula.data.database.Pojos;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 
 
@@ -23,4 +24,12 @@ public class LessonKnowledgeLevel {
     @ColumnInfo(name = "average")
     public double average;
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "LessonKnowledgeLevel{" +
+                "lessonName='" + lessonName + '\'' +
+                ", average=" + average +
+                '}';
+    }
 }

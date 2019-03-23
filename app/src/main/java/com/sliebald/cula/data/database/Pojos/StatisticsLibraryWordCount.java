@@ -1,5 +1,6 @@
 package com.sliebald.cula.data.database.Pojos;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 
 
@@ -33,5 +34,14 @@ public class StatisticsLibraryWordCount {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "StatisticsLibraryWordCount{" +
+                "level=" + level +
+                ", count=" + count +
+                '}';
     }
 }

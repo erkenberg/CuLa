@@ -1,13 +1,13 @@
 package com.sliebald.cula.data.database.Entities;
 
+import java.util.Date;
+
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import androidx.annotation.NonNull;
-
-import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -149,5 +149,18 @@ public class StatisticEntry {
      */
     public double getSuccessRate() {
         return successRate;
+    }
+
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "StatisticEntry{" +
+                "id=" + id +
+                ", libraryEntryID=" + libraryEntryID +
+                ", lessonEntryID=" + lessonEntryID +
+                ", successRate=" + successRate +
+                ", trainingDate=" + trainingDate +
+                '}';
     }
 }

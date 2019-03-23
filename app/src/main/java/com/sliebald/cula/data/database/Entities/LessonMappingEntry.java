@@ -1,5 +1,6 @@
 package com.sliebald.cula.data.database.Entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
@@ -99,6 +100,7 @@ public class LessonMappingEntry {
     }
 
 
+    @NonNull
     @Override
     public String toString() {
         return "LessonMappingEntry{" +
