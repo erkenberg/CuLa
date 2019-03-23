@@ -137,6 +137,7 @@ public class StartTrainingFragment extends Fragment {
         data.observe(this, new Observer<TrainingData>() {
             @Override
             public void onChanged(TrainingData trainingData) {
+                data.removeObserver(this);
                 if (trainingData.getTrainingEntries().size() > 0) {
                     StartTrainingFragmentDirections.ActionStartTrainingDestToTrainingDest action =
                             StartTrainingFragmentDirections.actionStartTrainingDestToTrainingDest();
@@ -147,7 +148,6 @@ public class StartTrainingFragment extends Fragment {
                             .start_training_warning_no_matching_words, Snackbar.LENGTH_SHORT)
                             .show();
                 }
-                data.removeObserver(this);
             }
         });
 

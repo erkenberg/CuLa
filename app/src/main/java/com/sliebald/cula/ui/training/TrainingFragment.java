@@ -1,7 +1,6 @@
 package com.sliebald.cula.ui.training;
 
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -12,14 +11,12 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
-import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Pojos.TrainingData;
 import com.sliebald.cula.databinding.FragmentTrainingBinding;
-import com.sliebald.cula.utilities.InjectorUtils;
+import com.sliebald.cula.utilities.KeyboardUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -44,11 +41,6 @@ public class TrainingFragment extends Fragment {
     private FragmentTrainingBinding mBinding;
 
     /**
-     * The {@link CulaRepository} that provides access to all data sources.
-     */
-    private CulaRepository mCulaRepository;
-
-    /**
      * ViewModel of the activity.
      */
     private TrainingViewModel mViewModel;
@@ -62,7 +54,6 @@ public class TrainingFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_training, container, false);
         mBinding.btCheck.setOnClickListener(v -> checkWord());
         // get DB access
-        mCulaRepository = InjectorUtils.provideRepository();
         // get the fragmentArgs that started the learning activity and extract the relevant values.
         //TODO: dummy fragmentArgs
         TrainingFragmentArgs fragmentArgs = TrainingFragmentArgs.fromBundle(getArguments());
@@ -110,9 +101,7 @@ public class TrainingFragment extends Fragment {
     private void finishTraining() {
         //TODO: show statistics or similar instead of just returning.
 
-        InputMethodManager imm =
-                (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getView().getRootView().getWindowToken(), 0);
+        KeyboardUtils.hideKeyboard(getContext(), getView());
         Navigation.findNavController(getView()).navigate(R.id.action_training_dest_to_startTraining_dest);
     }
 

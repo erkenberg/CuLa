@@ -11,7 +11,7 @@
             android:id="@+id/activity_update_lesson"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context="com.sliebald.cula.ui.updateLibrary.UpdateLibraryActivity">
+            tools:context="com.sliebald.cula.ui.updateLibrary.UpdateLibraryFragment">
 
             <TextView
                 android:id="@+id/tv_label_add_lesson_name"
@@ -75,7 +75,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/distance_normal"
                 android:focusable="true"
-                android:onClick="commitLessonEntry"
                 android:text="@string/update_library_button_save_word"
                 app:layout_constraintEnd_toStartOf="@+id/button_return"
                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -90,7 +89,6 @@
                 android:layout_marginStart="@dimen/distance_normal"
                 android:layout_marginTop="@dimen/distance_normal"
                 android:focusable="true"
-                android:onClick="returnWithoutSave"
                 android:text="@string/button_return"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/button_add_lesson"

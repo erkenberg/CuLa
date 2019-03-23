@@ -23,7 +23,14 @@
         android:id="@+id/lessons_dest"
         android:name="com.sliebald.cula.ui.lessons.LessonsFragment"
         android:label="@string/drawer_label_lessons"
-        tools:layout="@layout/fragment_lessons" />
+        tools:layout="@layout/fragment_lessons">
+        <action
+            android:id="@+id/action_lessons_dest_to_updateLessonFragment"
+            app:destination="@id/updateLessonFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/statistics_dest"
         android:name="com.sliebald.cula.ui.statistics.StatisticsFragment"
@@ -41,12 +48,30 @@
         tools:layout="@layout/fragment_training">
         <action
             android:id="@+id/action_training_dest_to_startTraining_dest"
+            app:destination="@+id/startTraining_dest"
             app:popUpTo="@id/startTraining_dest" />
         <argument
             android:name="trainingData"
             android:defaultValue="@null"
             app:argType="com.sliebald.cula.data.database.Pojos.TrainingData"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateLessonFragment"
+        android:name="com.sliebald.cula.ui.updateLesson.UpdateLessonFragment"
+        android:label="@string/title_update_lesson_entry"
+        tools:layout="@layout/fragment_update_lesson">
+        <action
+            android:id="@+id/action_updateLessonFragment_to_lessons_dest"
+            app:destination="@id/lessons_dest"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_in_right"
+            app:popUpTo="@+id/lessons_dest" />
+        <argument
+            android:name="lessonId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>
