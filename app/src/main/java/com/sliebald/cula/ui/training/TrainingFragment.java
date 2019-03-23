@@ -102,7 +102,7 @@ public class TrainingFragment extends Fragment {
         //TODO: show statistics or similar instead of just returning.
 
         KeyboardUtils.hideKeyboard(getContext(), getView());
-        Navigation.findNavController(getView()).navigate(R.id.action_training_dest_to_startTraining_dest);
+        Navigation.findNavController(getView()).popBackStack();
     }
 
     /**

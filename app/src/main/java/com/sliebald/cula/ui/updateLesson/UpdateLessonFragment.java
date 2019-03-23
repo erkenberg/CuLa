@@ -130,7 +130,9 @@ public class UpdateLessonFragment extends Fragment implements
      */
     private void finishLessonUpdate() {
         KeyboardUtils.hideKeyboard(getContext(), getView());
-        Navigation.findNavController(getView()).navigate(R.id.action_updateLessonFragment_to_lessons_dest);
+        Navigation.findNavController(getView()).popBackStack();
+        //Navigation.findNavController(getView()).navigate(R.id
+        // .action_updateLessonFragment_to_lessons_dest);
     }
 
 

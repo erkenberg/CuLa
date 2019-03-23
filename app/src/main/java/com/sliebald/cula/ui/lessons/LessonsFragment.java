@@ -144,8 +144,8 @@ public class LessonsFragment extends Fragment implements
 
     @Override
     public void onLessonEntryClick(int id) {
-        LessonsFragmentDirections.ActionLessonsDestToUpdateLessonFragment action =
-                LessonsFragmentDirections.actionLessonsDestToUpdateLessonFragment(id);
+        LessonsFragmentDirections.ActionLessonsDestToUpdateLessonDest action =
+                LessonsFragmentDirections.actionLessonsDestToUpdateLessonDest(id);
         Navigation.findNavController(getView()).navigate(action);
     }
 
