@@ -12,6 +12,7 @@ import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.databinding.ActivityUpdateLibraryBinding;
 import com.sliebald.cula.utilities.InjectorUtils;
+import com.sliebald.cula.utilities.PreferenceUtils;
 
 import java.util.Date;
 
@@ -101,9 +102,7 @@ public class UpdateLibraryActivity extends AppCompatActivity {
 
         } else {
             //on creating a new entry load the default day set in the settings.
-            setKnowledgeLevelUI(Double.parseDouble(mSharedPreferences.getString(getString(R.string
-                    .settings_default_knowledgeLevel_key), getString
-                    (R.string.knowledgeLevel3))));
+            setKnowledgeLevelUI(PreferenceUtils.getDefaultKnowledgeLevel());
         }
 
         //add an onCheckedChange listener to set the internal current knowledge day correctly.

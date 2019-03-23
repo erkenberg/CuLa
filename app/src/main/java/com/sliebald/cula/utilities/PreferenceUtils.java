@@ -46,4 +46,34 @@ public class PreferenceUtils {
                 (R.string.settings_select_language_key), "");
     }
 
+    /**
+     * Sets the currently active language.
+     *
+     * @param language The currently active language.
+     */
+    public static void setActiveLanguage(String language) {
+        Context context = MyApplication.getContext();
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(context.getResources().getString(R.string
+                .settings_select_language_key), language);
+        editor.apply();
+    }
+
+    /**
+     * Returns the default knowledgelevel, as set in the settings.
+     *
+     * @return The default knowledgelevel as double.
+     */
+    public static double getDefaultKnowledgeLevel() {
+        Context context = MyApplication.getContext();
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        return Double.parseDouble(preferences.getString(context.getString(R.string
+                .settings_default_knowledgeLevel_key), context.getString
+                (R.string.knowledgeLevel3_value)));
+    }
+
+
 }

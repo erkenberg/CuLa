@@ -1,12 +1,11 @@
 package com.sliebald.cula;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.material.navigation.NavigationView;
 import com.sliebald.cula.data.database.Entities.LanguageEntry;
 import com.sliebald.cula.databinding.MainActivityBinding;
+import com.sliebald.cula.utilities.PreferenceUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +18,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.preference.PreferenceManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
      * Tag for logging.
      */
     private static final String TAG = MainActivity.class.getSimpleName();
-
-
-    private SharedPreferences sharedPreferences;
 
     private NavController mNavController;
 
@@ -46,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = mBinding.toolbar;
         MainViewModel mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         //check whether there is a language set as active.
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mViewModel.getActiveLanguage().observe(this, this::checkActiveLanguage);
 
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -75,21 +69,12 @@ public class MainActivity extends AppCompatActivity {
      *                      active.
      */
     private void checkActiveLanguage(LanguageEntry languageEntry) {
-        String preferencesLanguage = sharedPreferences.getString(getResources().getString(R.string
-                .settings_select_language_key), "");
+        String preferencesLanguage =
+                PreferenceUtils.getActiveLanguage();
         if (languageEntry == null) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(getResources().getString(R.string
-                    .settings_select_language_key), "");
-            editor.apply();
+            PreferenceUtils.setActiveLanguage("");
         } else if (!languageEntry.getLanguage().equals(preferencesLanguage)) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(getResources().getString(R.string
-                    .settings_select_language_key), languageEntry.getLanguage());
-            editor.apply();
-            Log.d(TAG, "Currently active language, preferences: " + sharedPreferences
-                    .getString(getResources().getString(R.string.settings_select_language_key),
-                            "") + "database: " + languageEntry.getLanguage());
+            PreferenceUtils.setActiveLanguage(languageEntry.getLanguage());
         }
         //reflect the active language to the toolbar subtitle
         if (languageEntry != null)
