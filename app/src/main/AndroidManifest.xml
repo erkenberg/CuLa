@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.updateLibrary.UpdateLibraryActivity"
+            android:name=".ui.updateLibrary.UpdateLibraryFragment"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ui.updateLesson.UpdateLessonFragment"

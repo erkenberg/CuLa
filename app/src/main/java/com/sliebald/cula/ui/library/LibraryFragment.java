@@ -1,7 +1,6 @@
 package com.sliebald.cula.ui.library;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,12 +13,12 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.databinding.FragmentLibraryBinding;
-import com.sliebald.cula.ui.updateLibrary.UpdateLibraryActivity;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -65,7 +64,7 @@ public class LibraryFragment extends Fragment implements
                 Snackbar snackbar = Snackbar
                         .make(mBinding.libraryCoordinatorLayout, R.string.library_add_first_word,
                                 Snackbar.LENGTH_LONG);
-                snackbar.setAction(R.string.add, (View view) -> updateLibraryActivity());
+                snackbar.setAction(R.string.add, (View view) -> onLibraryEntryClick(-1));
                 snackbar.show();
             }
             mAdapter.swapEntries(libraryEntries);
@@ -98,7 +97,7 @@ public class LibraryFragment extends Fragment implements
                 .recyclerViewLibraryList);
 
         //Set the setOnClickListener for the Floating Action Button
-        mBinding.fabAddWord.setOnClickListener(v -> updateLibraryActivity());
+        mBinding.fabAddWord.setOnClickListener(v -> onLibraryEntryClick(-1));
         mBinding.fabAddWord.setImageDrawable(new IconicsDrawable(getContext()).icon(FontAwesome
                 .Icon.faw_plus).color(Color.WHITE).sizeDp(24));
 
@@ -131,15 +130,11 @@ public class LibraryFragment extends Fragment implements
         }
     }
 
-    private void updateLibraryActivity() {
-        Intent intent = new Intent(getContext(), UpdateLibraryActivity.class);
-        startActivity(intent);
-    }
-
     @Override
     public void onLibraryEntryClick(int id) {
-        Intent intent = new Intent(getContext(), UpdateLibraryActivity.class);
-        intent.putExtra(UpdateLibraryActivity.BUNDLE_EXTRA_UPDATE_KEY, id);
-        startActivity(intent);
+        LibraryFragmentDirections.ActionLibraryDestToUpdateLibraryDest action =
+                LibraryFragmentDirections.actionLibraryDestToUpdateLibraryDest(id);
+
+        Navigation.findNavController(getView()).navigate(action);
     }
 }

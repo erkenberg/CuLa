@@ -13,7 +13,7 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
+                            <option name="x" value="412" />
                             <option name="y" value="280" />
                           </Point>
                         </option>
@@ -35,8 +35,17 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="y" value="280" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_library_dest_to_updateLibrary_dest">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -46,7 +55,7 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="324" />
+                            <option name="x" value="168" />
                             <option name="y" value="12" />
                           </Point>
                         </option>
@@ -58,7 +67,7 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="480" />
+                            <option name="x" value="324" />
                             <option name="y" value="12" />
                           </Point>
                         </option>
@@ -79,7 +88,7 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="168" />
+                            <option name="x" value="12" />
                             <option name="y" value="12" />
                           </Point>
                         </option>
@@ -91,7 +100,7 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="724" />
+                            <option name="x" value="568" />
                             <option name="y" value="12" />
                           </Point>
                         </option>
@@ -99,6 +108,18 @@
                     </value>
                   </entry>
                   <entry key="updateLessonFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="656" />
+                            <option name="y" value="280" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="updateLibrary_dest">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">

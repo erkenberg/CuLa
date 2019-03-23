@@ -22,7 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 /**
- * Activity that manages editing and adding lessons.
+ * Fragment that manages editing and adding lessons.
  */
 public class UpdateLessonFragment extends Fragment implements
         UpdateLessonRecyclerViewAdapter.OnItemClickListener {
@@ -126,13 +126,11 @@ public class UpdateLessonFragment extends Fragment implements
 
 
     /**
-     * Finishes the training session.
+     * Return to the lesson overview fragment
      */
     private void finishLessonUpdate() {
         KeyboardUtils.hideKeyboard(getContext(), getView());
         Navigation.findNavController(getView()).popBackStack();
-        //Navigation.findNavController(getView()).navigate(R.id
-        // .action_updateLessonFragment_to_lessons_dest);
     }
 
 

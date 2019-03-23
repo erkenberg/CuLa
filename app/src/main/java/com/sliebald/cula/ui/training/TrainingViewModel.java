@@ -4,13 +4,13 @@ import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.data.database.Entities.StatisticEntry;
 import com.sliebald.cula.data.database.Pojos.TrainingData;
-import com.sliebald.cula.ui.updateLibrary.UpdateLibraryActivity;
+import com.sliebald.cula.ui.updateLibrary.UpdateLibraryFragment;
 import com.sliebald.cula.utilities.KnowledgeLevelUtils;
 
 import androidx.lifecycle.ViewModel;
 
 /**
- * {@link ViewModel} for the {@link UpdateLibraryActivity}.
+ * {@link ViewModel} for the {@link UpdateLibraryFragment}.
  */
 public class TrainingViewModel extends ViewModel {
 

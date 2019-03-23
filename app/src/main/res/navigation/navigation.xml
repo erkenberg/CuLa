@@ -22,7 +22,15 @@
         android:id="@+id/library_dest"
         android:name="com.sliebald.cula.ui.library.LibraryFragment"
         android:label="@string/drawer_label_library"
-        tools:layout="@layout/fragment_library" />
+        tools:layout="@layout/fragment_library">
+        <action
+            android:id="@+id/action_library_dest_to_updateLibrary_dest"
+            app:destination="@id/updateLibrary_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/lessons_dest"
         android:name="com.sliebald.cula.ui.lessons.LessonsFragment"
@@ -64,6 +72,15 @@
         tools:layout="@layout/fragment_update_lesson">
         <argument
             android:name="lessonId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateLibrary_dest"
+        android:name="com.sliebald.cula.ui.updateLibrary.UpdateLibraryFragment"
+        android:label="@string/title_update_library_entry"
+        tools:layout="@layout/fragment_update_library">
+        <argument
+            android:name="libraryEntryId"
             app:argType="integer" />
     </fragment>
 
