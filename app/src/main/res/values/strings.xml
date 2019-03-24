@@ -138,7 +138,7 @@
     <string name="activity_training_hint_translated_word">Translated word</string>
     <string name="activity_training_label_translate_word">Translate the following word:</string>
     <string name="activity_training_label_progress">Progress: %1$d from %2$d</string>
-    <string name="activity_training_skip_word">Skip word?f</string>
+    <string name="activity_training_skip_word">Skip word?</string>
     <string name="activity_training_wrong_translation">, correct translation for
         %1$s:&#160;</string>
     <string name="activity_training_skip_translation">Correct translation for
