@@ -43,16 +43,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private ListPreference mLanguageListPreference;
 
     /**
-     * {@link androidx.preference.Preference.OnPreferenceChangeListener} for the KnowledgeLevel
-     * adaption {@link SeekBarPreference}s.
-     */
-    Preference.OnPreferenceChangeListener mTrainingSeekBarPreferenceChangeListener;
-    /**
-     * {@link androidx.preference.Preference.OnPreferenceClickListener} for the KnowledgeLevel
-     * adaption {@link SeekBarPreference}s.
-     */
-    Preference.OnPreferenceClickListener mTrainingSeekBarPreferenceClickListener;
-    /**
      * The {@link SeekBarPreference} used to configure how much the KnowledgeLevel of a word
      * should be incremented on correct training.
      */
@@ -79,7 +69,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         mRepository = InjectorUtils.provideRepository();
 
         // get the ListPreference for the language settings (select, add, delete)
-        mLanguageListPreference = (ListPreference) findPreference(getResources().getString(R
+        mLanguageListPreference = findPreference(getResources().getString(R
                 .string.settings_select_language_key));
         Preference addLanguage = findPreference(getResources().getString(R.string
                 .settings_add_language_key));
@@ -105,26 +95,25 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         // Set up the SeekBarPreferences for updating how much the KnowledgeLevel of a word should
         // change when trained.
-        mCorrectTrainingSeekBarPreference = (SeekBarPreference) findPreference(getResources()
+        mCorrectTrainingSeekBarPreference = findPreference(getResources()
                 .getString(R.string.settings_reward_correct_training_key));
-        mWrongTrainingSeekBarPreference = (SeekBarPreference) findPreference(getResources()
+        mWrongTrainingSeekBarPreference = findPreference(getResources()
                 .getString(R.string.settings_punish_wrong_training_key));
 
-        mTrainingSeekBarPreferenceChangeListener =
-                (preference, newValue) -> {
-                    //update the summary. Using a SummaryProvider should be the better way but
-                    // does only  update once reloading the fragment.
-                    preference.setSummary(getString(R.string
-                            .settings_adapt_knowledge_level_summary, ((int) newValue) * 10));
-                    return true;
-                };
+        Preference.OnPreferenceChangeListener mTrainingSeekBarPreferenceChangeListener = (preference, newValue) -> {
+            //update the summary. Using a SummaryProvider should be the better way but
+            // does only  update once reloading the fragment.
+            preference.setSummary(getString(R.string
+                    .settings_adapt_knowledge_level_summary, ((int) newValue) * 10));
+            return true;
+        };
         mCorrectTrainingSeekBarPreference.setOnPreferenceChangeListener
                 (mTrainingSeekBarPreferenceChangeListener);
         mWrongTrainingSeekBarPreference.setOnPreferenceChangeListener
                 (mTrainingSeekBarPreferenceChangeListener);
 
         // When clicking on the SeekBarPreference the users should get feedback.
-        mTrainingSeekBarPreferenceClickListener = preference -> {
+        Preference.OnPreferenceClickListener mTrainingSeekBarPreferenceClickListener = preference -> {
             AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
             int changeRate = ((SeekBarPreference) preference).getValue() * 10;
             if (preference.getKey().equals(getString(R.string

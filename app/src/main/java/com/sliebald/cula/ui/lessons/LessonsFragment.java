@@ -1,7 +1,6 @@
 package com.sliebald.cula.ui.lessons;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,12 +13,12 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.databinding.FragmentLessonsBinding;
-import com.sliebald.cula.ui.updateLesson.UpdateLessonActivity;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,7 +34,6 @@ public class LessonsFragment extends Fragment implements
      * Tag for logging and fragment identification.
      */
     public static final String TAG = LessonsFragment.class.getSimpleName();
-    private int mPosition = RecyclerView.NO_POSITION;
 
     /**
      * Data binding of the layout.
@@ -81,14 +79,10 @@ public class LessonsFragment extends Fragment implements
                 Snackbar snackbar = Snackbar
                         .make(mBinding.lessonCoordinatorLayout, R.string.lesson_add_first_lesson,
                                 Snackbar.LENGTH_LONG);
-                snackbar.setAction(R.string.add, (View view) -> updateLessonActivity());
+                snackbar.setAction(R.string.add, (View view) -> onLessonEntryClick(-1));
                 snackbar.show();
             }
             mAdapter.swapEntries(lessonEntries);
-            if (mPosition == RecyclerView.NO_POSITION) {
-                mPosition = 0;
-            }
-            mBinding.recyclerViewLessonsList.smoothScrollToPosition(mPosition);
         });
     }
 
@@ -116,7 +110,7 @@ public class LessonsFragment extends Fragment implements
 
 
         //Set the setOnClickListener for the Floating Action Button
-        mBinding.fabAddLesson.setOnClickListener(v -> updateLessonActivity());
+        mBinding.fabAddLesson.setOnClickListener(v -> onLessonEntryClick(-1));
         mBinding.fabAddLesson.setImageDrawable(new IconicsDrawable(getContext()).icon(FontAwesome
                 .Icon.faw_plus).color(Color.WHITE).sizeDp(24));
 
@@ -147,17 +141,12 @@ public class LessonsFragment extends Fragment implements
         }
     }
 
-    private void updateLessonActivity() {
-        Intent intent = new Intent(getContext(), UpdateLessonActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void onLessonEntryClick(int id) {
-
-        Intent intent = new Intent(getContext(), UpdateLessonActivity.class);
-        intent.putExtra(UpdateLessonActivity.BUNDLE_EXTRA_UPDATE_KEY, id);
-        startActivity(intent);
+        LessonsFragmentDirections.ActionLessonsDestToUpdateLessonDest action =
+                LessonsFragmentDirections.actionLessonsDestToUpdateLessonDest(id);
+        Navigation.findNavController(getView()).navigate(action);
     }
 
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.about.AboutFragment">
+
+
+    <TextView
+        android:id="@+id/tv_label_privacy"
+        style="@style/LabelHeadline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_privacy_policy_title" />
+
+    <TextView
+        android:id="@+id/tv_text_privacy"
+        style="@style/about_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_privacy_policy_brief" />
+
+    <TextView
+        android:id="@+id/tv_url_privacy"
+        style="@style/about_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="@string/about_privacy_policy_url"
+        android:textAlignment="center" />
+
+
+    <TextView
+        android:id="@+id/tv_label_code"
+        style="@style/LabelHeadline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_code_title" />
+
+
+    <TextView
+        android:id="@+id/tv_text_code"
+        style="@style/about_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about_cula_code_label" />
+
+    <TextView
+        android:id="@+id/tv_url_code"
+        style="@style/about_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="@string/about_cula_code_url"
+        android:textAlignment="center" />
+</LinearLayout>

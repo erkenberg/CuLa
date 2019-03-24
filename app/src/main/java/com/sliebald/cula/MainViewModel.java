@@ -1,4 +1,4 @@
-package com.sliebald.cula.ui.main;
+package com.sliebald.cula;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

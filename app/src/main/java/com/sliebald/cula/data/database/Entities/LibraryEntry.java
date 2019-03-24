@@ -1,13 +1,13 @@
 package com.sliebald.cula.data.database.Entities;
 
+import java.util.Date;
+
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import androidx.annotation.NonNull;
-
-import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -191,6 +191,7 @@ public class LibraryEntry {
         this.lastUpdated = lastUpdated;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "LibraryEntry{" +
@@ -198,7 +199,7 @@ public class LibraryEntry {
                 ", nativeWord='" + nativeWord + '\'' +
                 ", foreignWord='" + foreignWord + '\'' +
                 ", language='" + language + '\'' +
-                ", day=" + knowledgeLevel +
+                ", knowledgeLevel=" + knowledgeLevel +
                 ", lastUpdated=" + lastUpdated +
                 '}';
     }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/primary">
+        <item
+            android:id="@+id/startTraining_dest"
+            android:title="@string/drawer_label_train" />
+
+        <!--android:icon="@drawable/ic_dashboard_black_24dp"-->
+        <item
+            android:id="@+id/library_dest"
+            android:title="@string/drawer_label_library" />
+        <item
+            android:id="@+id/lessons_dest"
+            android:title="@string/drawer_label_lessons" />
+        <item
+            android:id="@+id/statistics_dest"
+            android:title="@string/drawer_label_statistics" />
+    </group>
+    <group android:id="@+id/secondary">
+        <item
+            android:id="@+id/settings_dest"
+            android:title="@string/drawer_label_settings" />
+        <item
+            android:id="@+id/about_dest"
+            android:title="@string/drawer_label_about" />
+    </group>
+
+</menu>
