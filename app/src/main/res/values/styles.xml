@@ -67,4 +67,9 @@
     </style>
 
 
+    <style name="about_text" parent="@style/TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">@dimen/textSize_medium</item>
+        <item name="android:layout_margin">@dimen/distance_normal</item>
+    </style>
+
 </resources>

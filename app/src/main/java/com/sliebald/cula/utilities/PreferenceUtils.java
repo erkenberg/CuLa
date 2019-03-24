@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import com.sliebald.cula.MyApplication;
 import com.sliebald.cula.R;
 
+import java.util.Objects;
+
 public class PreferenceUtils {
 
     /**
@@ -70,9 +72,15 @@ public class PreferenceUtils {
         Context context = MyApplication.getContext();
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
-        return Double.parseDouble(preferences.getString(context.getString(R.string
-                .settings_default_knowledgeLevel_key), context.getString
-                (R.string.knowledgeLevel3_value)));
+        double result;
+        try {
+            result = Double.parseDouble(Objects.requireNonNull(preferences.getString(context.getString(R.string
+                    .settings_default_knowledgeLevel_key), context.getString
+                    (R.string.knowledgeLevel3_value))));
+        } catch (NumberFormatException e) {
+            result = 2.5;
+        }
+        return result;
     }
 
 

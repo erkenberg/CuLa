@@ -7,8 +7,8 @@ android {
         applicationId "com.sliebald.cula"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 8
-        versionName "1.0.7"
+        versionCode 9
+        versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -51,13 +51,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
-    //Material drawer dependencies:
-    //https://github.com/mikepenz/MaterialDrawer
-    //check for newest releases here: https://github.com/mikepenz/MaterialDrawer/releases
-    implementation('com.mikepenz:materialdrawer:6.1.1') {
-        transitive = true
-    }
+
     // Icons to use
+    // https://github.com/mikepenz/Android-Iconics
+    implementation "com.mikepenz:iconics-core:3.2.2"
     implementation 'com.mikepenz:fontawesome-typeface:5.3.1.1@aar'
 
     // Graph/chart drawer library

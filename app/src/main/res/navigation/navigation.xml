@@ -83,5 +83,10 @@
             android:name="libraryEntryId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/about_dest"
+        android:name="com.sliebald.cula.ui.about.AboutFragment"
+        android:label="@string/drawer_label_about"
+        tools:layout="@layout/fragment_about" />
 
 </navigation>

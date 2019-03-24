@@ -21,6 +21,9 @@
         <item
             android:id="@+id/settings_dest"
             android:title="@string/drawer_label_settings" />
+        <item
+            android:id="@+id/about_dest"
+            android:title="@string/drawer_label_about" />
     </group>
 
 </menu>

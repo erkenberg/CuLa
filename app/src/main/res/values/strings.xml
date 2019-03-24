@@ -9,6 +9,7 @@
     <string name="drawer_label_train">Train</string>
     <string name="drawer_label_lessons">Lessons</string>
     <string name="drawer_label_statistics">Statistics</string>
+    <string name="drawer_label_about">About</string>
 
     <!--Toolbar titles, drawer item names are used for fragments-->
     <string name="title_update_library_entry">Update Library</string>
@@ -143,6 +144,7 @@
     <string name="activity_training_skip_translation">Correct translation for
         %1$s:&#160;</string>
     <string name="activity_training_training_finished">Training finished</string>
+    <string name="finish_training">Finish Training</string>
 
 
     <!-- Statistics strings-->
@@ -170,9 +172,17 @@
         <br /> As first step you should add the language you want to learn in the settings.
         <br />I hope you have a lot of fun with CuLa.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="finish_training">Finish Training</string>
+    <!-- About page related -->
+    <string name="about_privacy_policy_title">Privacy Policy</string>
+    <string name="about_privacy_policy_brief">CuLa is a free and open source app that aims to
+        support you with learning new languages. In order to improve the app some analytics on
+        app performance are gathered and sent to the developer. You can find the full privacy
+        policy in the App Store or under the following link:
+    </string>
+    <string name="about_code_title">Open Source</string>
 
+    <string name="about_privacy_policy_url">https://sliebald.com/privacy-policy/cula</string>
+    <string name="about_cula_code_label">You can find the source code of the app on github:</string>
+    <string name="about_cula_code_url">https://github.com/SLiebald/CuLa</string>
 
 </resources>
