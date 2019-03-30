@@ -8,13 +8,64 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_library_list"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:context="com.sliebald.cula.ui.library.LibraryFragment"
-            tools:listitem="@layout/library_item" />
+            android:layout_height="match_parent">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/nativeWord"
+                    style="@style/Label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/distance_large"
+                    android:layout_weight="1"
+                    android:text="@string/update_library_label_native_word"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
+                    tools:text="language" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/distance_small"
+                    android:layout_marginBottom="@dimen/distance_small"
+                    android:background="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:id="@+id/foreignWord"
+                    style="@style/Label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/distance_large"
+                    android:layout_weight="1"
+                    android:text="@string/update_library_label_foreign_word"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
+                    tools:text="foreignWord" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_library_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/header"
+                tools:context="com.sliebald.cula.ui.library.LibraryFragment"
+                tools:listitem="@layout/library_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_word"

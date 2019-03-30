@@ -66,10 +66,17 @@
         <item name="colorControlNormal">@color/secondaryColor</item>
     </style>
 
+    <style name="text" parent="@style/TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">@dimen/textSize_medium</item>
+    </style>
 
     <style name="about_text" parent="@style/TextAppearance.AppCompat.Body2">
         <item name="android:textSize">@dimen/textSize_medium</item>
         <item name="android:layout_margin">@dimen/distance_normal</item>
+    </style>
+
+    <style name="checkbox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:buttonTint">@color/colorPrimary</item>
     </style>
 
 </resources>

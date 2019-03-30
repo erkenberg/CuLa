@@ -8,10 +8,14 @@ import com.sliebald.cula.data.database.Entities.LessonMappingEntry;
 import com.sliebald.cula.data.database.Pojos.MappingPOJO;
 import com.sliebald.cula.utilities.InjectorUtils;
 import com.sliebald.cula.utilities.PreferenceUtils;
+import com.sliebald.cula.utilities.SortUtils;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
@@ -27,8 +31,13 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
      */
     private static final String TAG = UpdateLessonFragment.class.getSimpleName();
     private LiveData<LessonEntry> entry;
-    private LiveData<List<MappingPOJO>> mapping;
+    private MediatorLiveData<List<MappingPOJO>> mapping;
     private final CulaRepository mCulaRepository;
+
+    private Comparator<MappingPOJO> mComparator;
+
+    private boolean mCurrentSortOrder;
+    private SortUtils.SortType mCurrentSortType;
 
     /**
      * The entryId of an entry that is updated. -1 means a new entry is being edited.
@@ -44,10 +53,17 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
         mCulaRepository = InjectorUtils.provideRepository();
         lessonId = new MutableLiveData<>();
         lessonId.setValue(entryId);
+        mapping = new MediatorLiveData<>();
+        mCurrentSortOrder = true;
+        mCurrentSortType = SortUtils.SortType.NATIVE_WORD;
+        mComparator = (one, two) -> one.getNativeWord().compareTo(two.getNativeWord());
         entry = Transformations.switchMap(lessonId, mCulaRepository::getLessonEntry);
         //mCulaRepository.getLessonEntry(entryId);
-        mapping = Transformations.switchMap(lessonId, mCulaRepository::getMappingEntries);
-
+        mapping.addSource(Transformations.switchMap(lessonId, mCulaRepository::getMappingEntries), libraryEntries -> {
+                    Collections.sort(libraryEntries, mComparator);
+                    mapping.setValue(libraryEntries);
+                }
+        );
     }
 
     /**
@@ -57,6 +73,45 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
      */
     LiveData<LessonEntry> getEntry() {
         return entry;
+    }
+
+    /**
+     * Sort the lesson/library mapping list by the given parameter and order.
+     *
+     * @param sortBy    The parameter to sort by.
+     * @param ascending True if sorting ascending, false otherwise.
+     */
+    void sortMappingBy(SortUtils.SortType sortBy, boolean ascending) {
+        Log.d("test", "sortBy: " + sortBy + " " + ascending);
+        mCurrentSortOrder = ascending;
+        mCurrentSortType = sortBy;
+        switch (sortBy) {
+            case ID:
+                mComparator = (one, two) -> Integer.compare(one.getLibraryId(), two.getLibraryId());
+                break;
+            case PART_OF_LESSON:
+                mComparator =
+                        (one, two) -> Boolean.compare(one.isPartOfLesson(), two.isPartOfLesson());
+                break;
+            case FOREIGN_WORD:
+                mComparator =
+                        (one, two) -> one.getForeignWord().compareTo(two.getForeignWord());
+                break;
+            case KNOWLEDGE_LEVEL:
+                mComparator =
+                        (one, two) -> Double.compare(one.getKnowledgeLevel(),
+                                two.getKnowledgeLevel());
+                break;
+            default:
+                mComparator =
+                        (one, two) -> one.getNativeWord().compareTo(two.getNativeWord());
+        }
+        if (!ascending) {
+            mComparator = mComparator.reversed();
+        }
+        List<MappingPOJO> entries = mapping.getValue();
+        Collections.sort(entries, mComparator);
+        mapping.setValue(entries);
     }
 
 
@@ -115,5 +170,23 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
         } else {
             mCulaRepository.deleteLessonMappingEntry(new LessonMappingEntry(entry.getValue().getId(), id));
         }
+    }
+
+    /**
+     * Returns the active sortOrder.
+     *
+     * @return True for ascending, false for descending.
+     */
+    boolean getCurrentSortOrder() {
+        return mCurrentSortOrder;
+    }
+
+    /**
+     * Type the entries are currently sorted by.
+     *
+     * @return SortType
+     */
+    SortUtils.SortType getCurrentSortType() {
+        return mCurrentSortType;
     }
 }

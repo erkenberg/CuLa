@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,6 +16,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.databinding.FragmentLibraryBinding;
+import com.sliebald.cula.utilities.SortUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -28,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class LibraryFragment extends Fragment implements
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
-        LibraryRecyclerViewAdapter.OnItemClickListener {
+        LibraryRecyclerViewAdapter.OnItemClickListener, SortUtils.OnSortChangedListener {
 
     public static final String TAG = LibraryFragment.class.getSimpleName();
     private int mPosition = RecyclerView.NO_POSITION;
@@ -66,6 +70,7 @@ public class LibraryFragment extends Fragment implements
                                 Snackbar.LENGTH_LONG);
                 snackbar.setAction(R.string.add, (View view) -> onLibraryEntryClick(-1));
                 snackbar.show();
+                return;
             }
             mAdapter.swapEntries(libraryEntries);
             if (mPosition == RecyclerView.NO_POSITION) {
@@ -88,7 +93,7 @@ public class LibraryFragment extends Fragment implements
         if (getContext() == null)
             return mBinding.getRoot();
 
-        mAdapter = new LibraryRecyclerViewAdapter(this, getContext());
+        mAdapter = new LibraryRecyclerViewAdapter(this);
         mBinding.recyclerViewLibraryList.setAdapter(mAdapter);
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0,
@@ -101,6 +106,7 @@ public class LibraryFragment extends Fragment implements
         mBinding.fabAddWord.setImageDrawable(new IconicsDrawable(getContext()).icon(FontAwesome
                 .Icon.faw_plus).color(Color.WHITE).sizeDp(24));
 
+        setHasOptionsMenu(true);
         return mBinding.getRoot();
     }
 
@@ -134,7 +140,36 @@ public class LibraryFragment extends Fragment implements
     public void onLibraryEntryClick(int id) {
         LibraryFragmentDirections.ActionLibraryDestToUpdateLibraryDest action =
                 LibraryFragmentDirections.actionLibraryDestToUpdateLibraryDest(id);
-
         Navigation.findNavController(getView()).navigate(action);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.sort_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_sort:
+                // Open a sort dialog and set this fragment as target for the callback.
+                LibrarySortDialog librarySortDialog = new LibrarySortDialog();
+                Bundle args = new Bundle();
+                args.putString(SortUtils.KEY_ACTIVE_SORT_BY, mViewModel.getCurrentSortType().name());
+                args.putBoolean(SortUtils.KEY_ACTIVE_SORT_ORDER, mViewModel.getCurrentSortOrder());
+                librarySortDialog.setArguments(args);
+                librarySortDialog.setTargetFragment(this, 1);
+                librarySortDialog.show(getFragmentManager(), "SortDialog");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    @Override
+    public void onUpdateSortOrderClick(SortUtils.SortType type, boolean asc) {
+        mViewModel.sortLibraryBy(type, asc);
     }
 }

@@ -31,6 +31,7 @@
     <string name="correct">Correct</string>
     <string name="wrong">Wrong</string>
     <string name="skip">Skip</string>
+    <string name="sort">Sort</string>
 
     <!-- Update Library Strings-->
     <string name="update_library_hint_foreign_word">Add the foreign word</string>
@@ -138,7 +139,7 @@
     <string name="activity_training_hint_translated_word">Translated word</string>
     <string name="activity_training_label_translate_word">Translate the following word:</string>
     <string name="activity_training_label_progress">Progress: %1$d from %2$d</string>
-    <string name="activity_training_skip_word">Skip word?f</string>
+    <string name="activity_training_skip_word">Skip word?</string>
     <string name="activity_training_wrong_translation">, correct translation for
         %1$s:&#160;</string>
     <string name="activity_training_skip_translation">Correct translation for
@@ -184,5 +185,18 @@
     <string name="about_privacy_policy_url">https://sliebald.com/privacy-policy/cula</string>
     <string name="about_cula_code_label">You can find the source code of the app on github:</string>
     <string name="about_cula_code_url">https://github.com/SLiebald/CuLa</string>
+
+
+    <!-- Sorting Keys -->
+    <string name="sort_sort_by_label">Sort by:</string>
+    <string name="sort_knowledgelevel">Knowledge Level</string>
+    <string name="sort_created">Creation Date</string>
+    <string name="sort_foreign_word">Foreign Word</string>
+    <string name="sort_native_word">Native Word</string>
+    <string name="sort_asc">Ascending</string>
+    <string name="sort_desc">Descending</string>
+    <string name="sort_name">Name</string>
+    <string name="sort_part_of_lesson">Part of Lesson</string>
+
 
 </resources>

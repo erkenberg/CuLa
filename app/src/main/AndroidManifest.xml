@@ -31,6 +31,7 @@
         <activity
             android:name=".ui.updateLesson.UpdateLessonFragment"
             android:parentActivityName=".MainActivity" />
+
         <receiver android:name=".widget.CulaWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

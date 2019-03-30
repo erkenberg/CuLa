@@ -3,15 +3,18 @@ package com.sliebald.cula.ui.updateLesson;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
-import com.sliebald.cula.data.database.Pojos.MappingPOJO;
 import com.sliebald.cula.databinding.FragmentUpdateLessonBinding;
 import com.sliebald.cula.utilities.KeyboardUtils;
+import com.sliebald.cula.utilities.SortUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +28,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
  * Fragment that manages editing and adding lessons.
  */
 public class UpdateLessonFragment extends Fragment implements
-        UpdateLessonRecyclerViewAdapter.OnItemClickListener {
+        UpdateLessonRecyclerViewAdapter.OnItemClickListener, SortUtils.OnSortChangedListener {
 
     /**
      * Tag of this activity.
@@ -88,12 +91,13 @@ public class UpdateLessonFragment extends Fragment implements
                 return;
             }
             mAdapter.swapEntries(mappingPOJOList);
-            Log.d(UpdateLessonFragment.class.getSimpleName(), "Elements in mapping list: " +
-                    mappingPOJOList.size());
-            for (MappingPOJO mappingPOJO : mappingPOJOList)
-                Log.d(UpdateLessonFragment.class.getSimpleName(), mappingPOJO.toString());
+            //            Log.d(UpdateLessonFragment.class.getSimpleName(), "Elements in mapping list: " +
+            //                    mappingPOJOList.size());
+            //            for (MappingPOJO mappingPOJO : mappingPOJOList)
+            //                Log.d(UpdateLessonFragment.class.getSimpleName(), mappingPOJO.toString());
         });
 
+        setHasOptionsMenu(true);
         return mBinding.getRoot();
     }
 
@@ -136,9 +140,38 @@ public class UpdateLessonFragment extends Fragment implements
 
     @Override
     public void onLessonEntryClick(CheckBox check, int id) {
-        //TODO: keep scroll position on update.
         mViewModel.insertOrDeleteLessonMappingEntry(check.isChecked(), id);
+    }
 
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.sort_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_sort:
+                // Open a sort dialog and set this fragment as target for the callback.
+                UpdateLessonSortDialog updateLessonSortDialog = new UpdateLessonSortDialog();
+                Bundle args = new Bundle();
+                args.putString(SortUtils.KEY_ACTIVE_SORT_BY, mViewModel.getCurrentSortType().name());
+                args.putBoolean(SortUtils.KEY_ACTIVE_SORT_ORDER, mViewModel.getCurrentSortOrder());
+                updateLessonSortDialog.setArguments(args);
+                updateLessonSortDialog.setTargetFragment(this, 1);
+                updateLessonSortDialog.show(getFragmentManager(), "SortDialog");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    @Override
+    public void onUpdateSortOrderClick(SortUtils.SortType type, boolean asc) {
+        mViewModel.sortMappingBy(type, asc);
     }
 
 

@@ -1,6 +1,7 @@
 package com.sliebald.cula.data.database.Entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -49,7 +50,7 @@ public class LibraryEntry {
     private final String language;
 
     /**
-     * The day of the {@link LibraryEntry}.
+     * The Knowledge Level of the {@link LibraryEntry}.
      */
     private double knowledgeLevel;
 
@@ -202,5 +203,23 @@ public class LibraryEntry {
                 ", knowledgeLevel=" + knowledgeLevel +
                 ", lastUpdated=" + lastUpdated +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LibraryEntry that = (LibraryEntry) o;
+        return id == that.id &&
+                Double.compare(that.knowledgeLevel, knowledgeLevel) == 0 &&
+                Objects.equals(nativeWord, that.nativeWord) &&
+                Objects.equals(foreignWord, that.foreignWord) &&
+                Objects.equals(language, that.language) &&
+                Objects.equals(lastUpdated, that.lastUpdated);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nativeWord, foreignWord, language, knowledgeLevel, lastUpdated);
     }
 }

@@ -1,13 +1,5 @@
 package com.sliebald.cula.data.database.Dao;
 
-import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
-
 import com.sliebald.cula.data.database.CulaDatabase;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.data.database.Entities.LessonMappingEntry;
@@ -15,6 +7,14 @@ import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.data.database.Pojos.MappingPOJO;
 
 import java.util.List;
+
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Update;
 
 /**
  * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase}
@@ -108,15 +108,11 @@ public interface LessonDao {
      * @return {@link LiveData} with the {@link List} of @{@link MappingPOJO}s.
      */
     //TODO: probably not the most efficient query.
-    //TODO: find a way to avoid showing 'partOfLesson' as invalid, it is just the defined name
-    // (AS partOfLesson)
-    @Query("SELECT id, foreignWord, nativeWord, " +
+    @Query("SELECT id, foreignWord, nativeWord, knowledgeLevel, " +
             "CASE WHEN EXISTS(SELECT Id FROM lesson_mapping WHERE libraryEntryId=library.id AND " +
             "lessonEntryId=:id) THEN 1 ELSE 0 END AS partOfLesson " +
             "FROM library " +
-            "WHERE language = (SELECT language FROM language WHERE isActive=1 LIMIT 1) " +
-            "ORDER BY " +
-            "partOfLesson DESC")
+            "WHERE language = (SELECT language FROM language WHERE isActive=1 LIMIT 1)")
     LiveData<List<MappingPOJO>> getLessonMappingById(int id);
 
     /**
