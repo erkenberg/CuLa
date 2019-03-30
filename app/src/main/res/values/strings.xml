@@ -31,6 +31,7 @@
     <string name="correct">Correct</string>
     <string name="wrong">Wrong</string>
     <string name="skip">Skip</string>
+    <string name="sort">Sort</string>
 
     <!-- Update Library Strings-->
     <string name="update_library_hint_foreign_word">Add the foreign word</string>
@@ -194,7 +195,7 @@
     <string name="sort_asc">Ascending</string>
     <string name="sort_desc">Descending</string>
     <string name="sort_sort_by_label">Sort by</string>
-    <string name="sort_sort">Sort</string>
+    <string name="sort_name">Name</string>
 
 
 </resources>

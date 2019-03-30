@@ -123,6 +123,11 @@ public class LibraryViewModel extends ViewModel {
         return mCurrentSortOrder;
     }
 
+    /**
+     * Type the library is currently sorted by.
+     *
+     * @return SortType
+     */
     SortUtils.SortType getCurrentSortType() {
         return mCurrentSortType;
     }

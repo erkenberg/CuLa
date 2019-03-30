@@ -1,4 +1,4 @@
-package com.sliebald.cula.ui.library;
+package com.sliebald.cula.ui.lessons;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,9 +17,9 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
 
 /**
- * Sort {@link DialogFragment} for sorting library entries.
+ * Sort {@link DialogFragment} for sorting lesson entries.
  */
-public class LibrarySortDialog extends DialogFragment {
+public class LessonSortDialog extends DialogFragment {
 
     @NonNull
     @Override
@@ -27,7 +27,7 @@ public class LibrarySortDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         // inflate the dialog
-        View view = inflater.inflate(R.layout.dialog_sort_library, null);
+        View view = inflater.inflate(R.layout.dialog_sort_lessons, null);
 
         // get the arguments to set the currently selected values.
         Bundle args = getArguments();
@@ -37,17 +37,11 @@ public class LibrarySortDialog extends DialogFragment {
         TextView textOrder = view.findViewById(R.id.tv_asc);
         RadioButton rb;
         switch (SortUtils.SortType.valueOf(args.getString(SortUtils.KEY_ACTIVE_SORT_BY))) {
-            case NATIVE_WORD:
-                rb = view.findViewById(R.id.radio_sort_native);
-                break;
-            case FOREIGN_WORD:
-                rb = view.findViewById(R.id.radio_sort_foreign);
-                break;
             case ID:
                 rb = view.findViewById(R.id.radio_sort_created);
                 break;
             default:
-                rb = view.findViewById(R.id.radio_sort_knowledge);
+                rb = view.findViewById(R.id.radio_sort_name);
         }
         rb.toggle();
 
@@ -71,17 +65,11 @@ public class LibrarySortDialog extends DialogFragment {
             // read the selected values and report them via callback
             SortUtils.SortType type;
             switch (rg.getCheckedRadioButtonId()) {
-                case R.id.radio_sort_native:
-                    type = SortUtils.SortType.NATIVE_WORD;
-                    break;
-                case R.id.radio_sort_foreign:
-                    type = SortUtils.SortType.FOREIGN_WORD;
-                    break;
                 case R.id.radio_sort_created:
                     type = SortUtils.SortType.ID;
                     break;
                 default:
-                    type = SortUtils.SortType.KNOWLEDGE_LEVEL;
+                    type = SortUtils.SortType.NAME;
                     break;
             }
 

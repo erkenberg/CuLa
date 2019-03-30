@@ -1,50 +1,94 @@
 package com.sliebald.cula.ui.lessons;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.utilities.InjectorUtils;
+import com.sliebald.cula.utilities.SortUtils;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.ViewModel;
 
 /**
  * {@link ViewModel} for the {@link LessonsFragment}.
  */
 public class LessonsViewModel extends ViewModel {
 
-    private final LiveData<List<LessonEntry>> mLessonEntries;
+    private final MediatorLiveData<List<LessonEntry>> mLessonEntries;
     private final CulaRepository mCulaRepository;
-    private LessonEntry latestDeletedEntry = null;
 
+    private Comparator<LessonEntry> mComparator;
+
+    private boolean mCurrentSortOrder;
+    private SortUtils.SortType mCurrentSortType;
     /**
      * Constructor of the ViewModel.
      */
     public LessonsViewModel() {
         mCulaRepository = InjectorUtils.provideRepository();
-        mLessonEntries = mCulaRepository.getAllLessonEntries();
+        mCurrentSortOrder = true;
+        mCurrentSortType = SortUtils.SortType.NAME;
+        mLessonEntries = new MediatorLiveData<>();
+        mComparator = (one, two) -> one.getLessonName().compareTo(two.getLessonName());
+
+        mLessonEntries.addSource(mCulaRepository.getAllLessonEntries(), libraryEntries -> {
+                    Collections.sort(libraryEntries, mComparator);
+                    mLessonEntries.setValue(libraryEntries);
+                }
+        );
     }
+
+    /**
+     * Sort the lesson by the given parameters and order.
+     *
+     * @param sortBy    The parameter to sort by.
+     * @param ascending True if sorting ascending, false otherwise.
+     */
+    void sortLessonsBy(SortUtils.SortType sortBy, boolean ascending) {
+        mCurrentSortOrder = ascending;
+        mCurrentSortType = sortBy;
+        switch (sortBy) {
+            case ID:
+                mComparator = (one, two) -> Integer.compare(one.getId(), two.getId());
+                break;
+            default:
+                mComparator =
+                        (one, two) -> one.getLessonName().compareTo(two.getLessonName());
+        }
+        if (!ascending) {
+            mComparator = mComparator.reversed();
+        }
+        List<LessonEntry> entries = mLessonEntries.getValue();
+        Collections.sort(entries, mComparator);
+        mLessonEntries.setValue(entries);
+    }
+
 
     /**
      * Returns all {@link LessonEntry}s.
      *
      * @return All {@link LessonEntry}s as {@link List} in {@link LiveData}.
      */
-    public LiveData<List<LessonEntry>> getLessonEntries() {
+    LiveData<List<LessonEntry>> getLessonEntries() {
         return mLessonEntries;
     }
+
 
     /**
      * Remove the selected {@link LessonEntry} from the database.
      *
      * @param index Index of the selected index.
      */
-    public void removeLessonEntry(int index) {
+    void removeLessonEntry(int index) {
         if (mLessonEntries == null || mLessonEntries.getValue() == null)
             return;
-        latestDeletedEntry = mLessonEntries.getValue().get(index);
+        LessonEntry latestDeletedEntry = mLessonEntries.getValue().get(index);
         Log.d(LessonsViewModel.class.getSimpleName(), latestDeletedEntry.toString());
         mCulaRepository.deleteLessonEntry(latestDeletedEntry);
     }
@@ -59,5 +103,23 @@ public class LessonsViewModel extends ViewModel {
 //        };
 //        mCulaRepository.insertLessonEntry(dummyListener, latestDeletedEntry);
 //    }
+
+    /**
+     * Returns the active sortOrder.
+     *
+     * @return True for ascending, false for descending.
+     */
+    boolean getCurrentSortOrder() {
+        return mCurrentSortOrder;
+    }
+
+    /**
+     * Type the lessons are currently sorted by.
+     *
+     * @return SortType
+     */
+    SortUtils.SortType getCurrentSortType() {
+        return mCurrentSortType;
+    }
 
 }

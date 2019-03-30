@@ -1,8 +1,5 @@
 package com.sliebald.cula.ui.lessons;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +12,10 @@ import com.sliebald.cula.data.database.Entities.LessonEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * {@link RecyclerView.Adapter} that can display a list of {@link LessonEntry}s.
@@ -48,7 +49,6 @@ public class LessonsRecyclerViewAdapter extends
     void swapEntries(final List<LessonEntry> newLessonEntries) {
         if (mValues == null) {
             mValues = newLessonEntries;
-            notifyDataSetChanged();
             Log.d("adapter", "adapter called, notified changed");
 
         } else {
@@ -90,6 +90,7 @@ public class LessonsRecyclerViewAdapter extends
             mValues = newLessonEntries;
             result.dispatchUpdatesTo(this);
         }
+        notifyDataSetChanged();
     }
 
     @Override
