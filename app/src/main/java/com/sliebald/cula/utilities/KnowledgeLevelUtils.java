@@ -3,6 +3,7 @@ package com.sliebald.cula.utilities;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.sliebald.cula.MyApplication;
 import com.sliebald.cula.R;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -22,12 +23,11 @@ public class KnowledgeLevelUtils {
     /**
      * Resolves the given knowledgeLevel to color.
      *
-     * @param context        Context required to access the resources.
      * @param knowledgeLevel The knowledgeLevel.
      * @return The color of the given KnowledgeLevel.
      */
-    public static int getColorByKnowledgeLevel(Context context, double knowledgeLevel) {
-        Resources res = context.getResources();
+    public static int getColorByKnowledgeLevel(double knowledgeLevel) {
+        Resources res = MyApplication.getContext().getResources();
         if (knowledgeLevel < 1)
             return ResourcesCompat.getColor(res, R.color.knowledgeLevel_1, null);
         else if (knowledgeLevel < 2)

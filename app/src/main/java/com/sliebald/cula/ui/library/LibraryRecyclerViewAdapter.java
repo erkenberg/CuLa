@@ -1,6 +1,5 @@
 package com.sliebald.cula.ui.library;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,16 +25,12 @@ public class LibraryRecyclerViewAdapter extends
         RecyclerView.Adapter<LibraryRecyclerViewAdapter.ViewHolder> {
 
     private final OnItemClickListener mListener;
-    /**
-     * Context required to set the correct colors for the day.
-     */
-    private final Context mContext;
+
     private List<LibraryEntry> mValues;
 
-    LibraryRecyclerViewAdapter(OnItemClickListener listener, Context context) {
+    LibraryRecyclerViewAdapter(OnItemClickListener listener) {
         mValues = new ArrayList<>();
         mListener = listener;
-        mContext = context;
     }
 
     @NonNull
@@ -51,7 +46,7 @@ public class LibraryRecyclerViewAdapter extends
         holder.mNativeWordView.setText(mValues.get(position).getNativeWord());
         holder.mForeignWordView.setText(mValues.get(position).getForeignWord());
         holder.viewForeground.setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
-                (mContext, mValues.get(position).getKnowledgeLevel()));
+                (mValues.get(position).getKnowledgeLevel()));
 
     }
 

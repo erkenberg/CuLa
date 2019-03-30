@@ -82,6 +82,7 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
      * @param ascending True if sorting ascending, false otherwise.
      */
     void sortMappingBy(SortUtils.SortType sortBy, boolean ascending) {
+        Log.d("test", "sortBy: " + sortBy + " " + ascending);
         mCurrentSortOrder = ascending;
         mCurrentSortType = sortBy;
         switch (sortBy) {
@@ -100,6 +101,7 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
                 mComparator =
                         (one, two) -> Double.compare(one.getKnowledgeLevel(),
                                 two.getKnowledgeLevel());
+                break;
             default:
                 mComparator =
                         (one, two) -> one.getNativeWord().compareTo(two.getNativeWord());

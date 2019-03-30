@@ -93,7 +93,7 @@ public class LibraryFragment extends Fragment implements
         if (getContext() == null)
             return mBinding.getRoot();
 
-        mAdapter = new LibraryRecyclerViewAdapter(this, getContext());
+        mAdapter = new LibraryRecyclerViewAdapter(this);
         mBinding.recyclerViewLibraryList.setAdapter(mAdapter);
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0,

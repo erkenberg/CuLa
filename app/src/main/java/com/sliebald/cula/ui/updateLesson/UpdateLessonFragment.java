@@ -12,9 +12,7 @@ import android.widget.CheckBox;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
-import com.sliebald.cula.data.database.Pojos.MappingPOJO;
 import com.sliebald.cula.databinding.FragmentUpdateLessonBinding;
-import com.sliebald.cula.ui.library.LibrarySortDialog;
 import com.sliebald.cula.utilities.KeyboardUtils;
 import com.sliebald.cula.utilities.SortUtils;
 
@@ -93,10 +91,10 @@ public class UpdateLessonFragment extends Fragment implements
                 return;
             }
             mAdapter.swapEntries(mappingPOJOList);
-            Log.d(UpdateLessonFragment.class.getSimpleName(), "Elements in mapping list: " +
-                    mappingPOJOList.size());
-            for (MappingPOJO mappingPOJO : mappingPOJOList)
-                Log.d(UpdateLessonFragment.class.getSimpleName(), mappingPOJO.toString());
+            //            Log.d(UpdateLessonFragment.class.getSimpleName(), "Elements in mapping list: " +
+            //                    mappingPOJOList.size());
+            //            for (MappingPOJO mappingPOJO : mappingPOJOList)
+            //                Log.d(UpdateLessonFragment.class.getSimpleName(), mappingPOJO.toString());
         });
 
         setHasOptionsMenu(true);

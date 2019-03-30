@@ -1,14 +1,9 @@
 package com.sliebald.cula.ui.statistics;
 
 
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
-import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +34,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 
 public class StatisticsFragment extends Fragment {
@@ -223,7 +224,7 @@ public class StatisticsFragment extends Fragment {
         for (StatisticsLibraryWordCount entry : libraryWordCountList) {
             counts.add(new PieEntry((float) entry.getCount(), KnowledgeLevelUtils
                     .getNameByKnowledgeLevel(context, entry.level)));
-            colors.add(KnowledgeLevelUtils.getColorByKnowledgeLevel(context, entry.level));
+            colors.add(KnowledgeLevelUtils.getColorByKnowledgeLevel(entry.level));
 
         }
 

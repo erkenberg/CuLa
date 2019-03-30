@@ -1,8 +1,8 @@
 package com.sliebald.cula.data.database.Pojos;
 
-import androidx.room.ColumnInfo;
-
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
+
+import androidx.room.ColumnInfo;
 
 /**
  * Simple POJO that contains the required data of a {@link LibraryEntry} to map it to a lesson.
@@ -18,21 +18,18 @@ public class MappingPOJO {
     private int libraryId;
 
     /**
-     * Native word of the {@link LibraryEntry}.
-     */
-    private String nativeWord;
-
-    /**
-     * Foreign word of the {@link LibraryEntry}.
-     */
-    private String foreignWord;
-
-    /**
      * Info whether the {@link LibraryEntry} is part of the lesson that was queried.
      */
     @ColumnInfo(name = "partOfLesson")
     public boolean partOfLesson;
-
+    /**
+     * Native word of the {@link LibraryEntry}.
+     */
+    private String nativeWord;
+    /**
+     * Foreign word of the {@link LibraryEntry}.
+     */
+    private String foreignWord;
     /**
      * The Knowledge Level of the {@link LibraryEntry}.
      */
@@ -40,35 +37,8 @@ public class MappingPOJO {
     private double knowledgeLevel;
 
 
-
-
     public void setLibraryId(int libraryId) {
         this.libraryId = libraryId;
-    }
-
-    public void setNativeWord(String nativeWord) {
-        this.nativeWord = nativeWord;
-    }
-
-    public void setForeignWord(String foreignWord) {
-        this.foreignWord = foreignWord;
-    }
-
-    public void setPartOfLesson(boolean partOfLesson) {
-        this.partOfLesson = partOfLesson;
-    }
-
-    public void setKnowledgeLevel(double knowledgeLevel) {
-        this.knowledgeLevel = knowledgeLevel;
-    }
-
-    /**
-     * Getter for the Id of the {@link LibraryEntry} linked to this entry.
-     *
-     * @return The Id of the {@link LibraryEntry}
-     */
-    public int getLibraryId() {
-        return libraryId;
     }
 
     /**
@@ -78,6 +48,14 @@ public class MappingPOJO {
      */
     public String getNativeWord() {
         return nativeWord;
+    }
+
+    public void setNativeWord(String nativeWord) {
+        this.nativeWord = nativeWord;
+    }
+
+    public void setPartOfLesson(boolean partOfLesson) {
+        this.partOfLesson = partOfLesson;
     }
 
     /**
@@ -90,13 +68,16 @@ public class MappingPOJO {
     }
 
     /**
-     * Boolean that defines whether this entry is part of the lesson that was given to the query
-     * returning a list of {@link MappingPOJO}s.
+     * Getter for the Id of the {@link LibraryEntry} linked to this entry.
      *
-     * @return True if part of that lesson, false otherwise.
+     * @return The Id of the {@link LibraryEntry}
      */
-    public boolean isPartOfLesson() {
-        return partOfLesson;
+    public int getLibraryId() {
+        return libraryId;
+    }
+
+    public void setForeignWord(String foreignWord) {
+        this.foreignWord = foreignWord;
     }
 
     /**
@@ -106,6 +87,20 @@ public class MappingPOJO {
      */
     public double getKnowledgeLevel() {
         return knowledgeLevel;
+    }
+
+    /**
+     * Boolean that defines whether this entry is part of the lesson that was given to the query
+     * returning a list of {@link MappingPOJO}s.
+     *
+     * @return True if part of that lesson, false otherwise.
+     */
+    public boolean isPartOfLesson() {
+        return partOfLesson;
+    }
+
+    public void setKnowledgeLevel(double knowledgeLevel) {
+        this.knowledgeLevel = knowledgeLevel;
     }
 
     @Override
