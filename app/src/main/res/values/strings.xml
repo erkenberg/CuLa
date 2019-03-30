@@ -185,4 +185,16 @@
     <string name="about_cula_code_label">You can find the source code of the app on github:</string>
     <string name="about_cula_code_url">https://github.com/SLiebald/CuLa</string>
 
+
+    <!-- Sorting Keys -->
+    <string name="sort_knowledgelevel">Knowledge Level</string>
+    <string name="sort_created">Creation Date</string>
+    <string name="sort_foreign_word">Foreign Word</string>
+    <string name="sort_native_word">Native Word</string>
+    <string name="sort_asc">Ascending</string>
+    <string name="sort_desc">Descending</string>
+    <string name="sort_sort_by_label">Sort by</string>
+    <string name="sort_sort">Sort</string>
+
+
 </resources>

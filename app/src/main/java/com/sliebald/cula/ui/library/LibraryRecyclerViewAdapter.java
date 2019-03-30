@@ -1,9 +1,6 @@
 package com.sliebald.cula.ui.library;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +14,10 @@ import com.sliebald.cula.utilities.KnowledgeLevelUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link LibraryEntry}.
@@ -57,9 +58,7 @@ public class LibraryRecyclerViewAdapter extends
     void swapEntries(final List<LibraryEntry> newLibraryEntries) {
         if (mValues == null) {
             mValues = newLibraryEntries;
-            notifyDataSetChanged();
             Log.d("adapter", "adapter called, notified changed");
-
         } else {
             /*
              * Use DiffUtil to calculate the changes and update accordingly. This
@@ -68,7 +67,6 @@ public class LibraryRecyclerViewAdapter extends
              * values passed in from the observing the database.
              * Based on the Diffultil used in parts of the Udacity Android nanodegree course.
              */
-
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
@@ -90,17 +88,13 @@ public class LibraryRecyclerViewAdapter extends
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     LibraryEntry newEntry = newLibraryEntries.get(newItemPosition);
                     LibraryEntry oldEntry = mValues.get(oldItemPosition);
-                    return newEntry.getId() == oldEntry.getId() && newEntry.getForeignWord()
-                            .equals(oldEntry.getForeignWord()) && newEntry.getNativeWord().equals
-                            (oldEntry.getNativeWord()) && newEntry.getKnowledgeLevel() ==
-                            oldEntry.getKnowledgeLevel() && oldEntry.getLanguage().equals(newEntry
-                            .getLanguage()) && oldEntry.getLastUpdated().equals(newEntry
-                            .getLastUpdated());
+                    return newEntry.equals(oldEntry);
                 }
             });
             mValues = newLibraryEntries;
             result.dispatchUpdatesTo(this);
         }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -115,7 +109,7 @@ public class LibraryRecyclerViewAdapter extends
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         final TextView mNativeWordView;
         final TextView mForeignWordView;
@@ -130,12 +124,7 @@ public class LibraryRecyclerViewAdapter extends
                     (getAdapterPosition()).getId()));
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mNativeWordView.getText() + "'" + " '" +
-                    mForeignWordView
-                    .getText() + "'";
-        }
+
     }
 
 
