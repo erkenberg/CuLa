@@ -8,6 +8,7 @@ import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.sliebald.cula.data.database.Entities.LanguageEntry;
 import com.sliebald.cula.databinding.MainActivityBinding;
+import com.sliebald.cula.utilities.KeyboardUtils;
 import com.sliebald.cula.utilities.PreferenceUtils;
 
 import java.util.HashSet;
@@ -98,13 +99,15 @@ public class MainActivity extends AppCompatActivity {
         } else if (!languageEntry.getLanguage().equals(preferencesLanguage)) {
             PreferenceUtils.setActiveLanguage(languageEntry.getLanguage());
         }
-        //reflect the active language to the toolbar subtitle
+        // reflect the active language to the toolbar subtitle
         if (languageEntry != null)
             mBinding.toolbar.setSubtitle(languageEntry.getLanguage());
     }
 
     @Override
     public boolean onSupportNavigateUp() {
+        // hide keyboard whenever back is pressed.
+        KeyboardUtils.hideKeyboard(this, mBinding.getRoot());
         return NavigationUI.navigateUp(mNavController, mAppBarConfiguration);
     }
 
