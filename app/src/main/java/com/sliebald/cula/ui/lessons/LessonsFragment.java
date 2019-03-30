@@ -181,7 +181,7 @@ public class LessonsFragment extends Fragment implements
     }
 
     @Override
-    public void onDialogPositiveClick(SortUtils.SortType type, boolean asc) {
+    public void onUpdateSortOrderClick(SortUtils.SortType type, boolean asc) {
         Log.d("test", "called " + type + " " + asc);
         mViewModel.sortLessonsBy(type, asc);
     }

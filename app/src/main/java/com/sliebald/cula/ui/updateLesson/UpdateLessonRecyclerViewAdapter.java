@@ -44,15 +44,14 @@ public class UpdateLessonRecyclerViewAdapter extends
     @Override
     public void onBindViewHolder(@NonNull final UpdateLessonRecyclerViewAdapter.ViewHolder
                                          holder, int position) {
-        holder.mNativeWord.setText(mValues.get(position).getNative_word());
-        holder.mForeignWord.setText(mValues.get(position).getForeign_word());
+        holder.mNativeWord.setText(mValues.get(position).getNativeWord());
+        holder.mForeignWord.setText(mValues.get(position).getForeignWord());
         holder.mPartOfLesson.setChecked(mValues.get(position).partOfLesson);
     }
 
     void swapEntries(final List<MappingPOJO> mapping) {
         if (mValues == null) {
             mValues = mapping;
-            notifyDataSetChanged();
             Log.d("adapter", "adapter called, notified changed");
 
         } else {
@@ -85,14 +84,15 @@ public class UpdateLessonRecyclerViewAdapter extends
                     MappingPOJO newEntry = mapping.get(newItemPosition);
                     MappingPOJO oldEntry = mValues.get(oldItemPosition);
                     return newEntry.getLibraryId() == oldEntry.getLibraryId()
-                            && newEntry.getForeign_word().equals(oldEntry.getForeign_word())
-                            && newEntry.getNative_word().equals(oldEntry.getNative_word())
+                            && newEntry.getForeignWord().equals(oldEntry.getForeignWord())
+                            && newEntry.getNativeWord().equals(oldEntry.getNativeWord())
                             && newEntry.isPartOfLesson() == oldEntry.isPartOfLesson();
                 }
             });
             mValues = mapping;
             result.dispatchUpdatesTo(this);
         }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -106,7 +106,7 @@ public class UpdateLessonRecyclerViewAdapter extends
         void onLessonEntryClick(CheckBox checkBox, int id);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         final CheckBox mPartOfLesson;
         final TextView mNativeWord;
         final TextView mForeignWord;

@@ -9,7 +9,6 @@ import com.sliebald.cula.data.database.Entities.LibraryEntry;
  * LessonID not stored, since only entries for a single lesson will be queried at a time and the
  * lessonID is therefore implicit.
  */
-@SuppressWarnings("unused")
 public class MappingPOJO {
 
     /**
@@ -17,32 +16,16 @@ public class MappingPOJO {
      */
     @ColumnInfo(name = "id")
     private int libraryId;
+
     /**
      * Native word of the {@link LibraryEntry}.
      */
-    @ColumnInfo(name = "nativeWord")
-    private String native_word;
+    private String nativeWord;
+
     /**
      * Foreign word of the {@link LibraryEntry}.
      */
-    @ColumnInfo(name = "foreignWord")
-    private String foreign_word;
-
-    public void setLibraryId(int libraryId) {
-        this.libraryId = libraryId;
-    }
-
-    public void setNative_word(String native_word) {
-        this.native_word = native_word;
-    }
-
-    public void setForeign_word(String foreign_word) {
-        this.foreign_word = foreign_word;
-    }
-
-    public void setPartOfLesson(boolean partOfLesson) {
-        this.partOfLesson = partOfLesson;
-    }
+    private String foreignWord;
 
     /**
      * Info whether the {@link LibraryEntry} is part of the lesson that was queried.
@@ -50,14 +33,33 @@ public class MappingPOJO {
     @ColumnInfo(name = "partOfLesson")
     public boolean partOfLesson;
 
-    @Override
-    public String toString() {
-        return "MappingPOJO{" +
-                "libraryId=" + libraryId +
-                ", native_word='" + native_word + '\'' +
-                ", foreign_word='" + foreign_word + '\'' +
-                ", partOfLesson=" + partOfLesson +
-                '}';
+    /**
+     * The Knowledge Level of the {@link LibraryEntry}.
+     */
+    @ColumnInfo(name = "knowledgeLevel")
+    private double knowledgeLevel;
+
+
+
+
+    public void setLibraryId(int libraryId) {
+        this.libraryId = libraryId;
+    }
+
+    public void setNativeWord(String nativeWord) {
+        this.nativeWord = nativeWord;
+    }
+
+    public void setForeignWord(String foreignWord) {
+        this.foreignWord = foreignWord;
+    }
+
+    public void setPartOfLesson(boolean partOfLesson) {
+        this.partOfLesson = partOfLesson;
+    }
+
+    public void setKnowledgeLevel(double knowledgeLevel) {
+        this.knowledgeLevel = knowledgeLevel;
     }
 
     /**
@@ -74,8 +76,8 @@ public class MappingPOJO {
      *
      * @return The native Word of the {@link LibraryEntry}
      */
-    public String getNative_word() {
-        return native_word;
+    public String getNativeWord() {
+        return nativeWord;
     }
 
     /**
@@ -83,8 +85,8 @@ public class MappingPOJO {
      *
      * @return The foreign Word of the {@link LibraryEntry}
      */
-    public String getForeign_word() {
-        return foreign_word;
+    public String getForeignWord() {
+        return foreignWord;
     }
 
     /**
@@ -96,4 +98,25 @@ public class MappingPOJO {
     public boolean isPartOfLesson() {
         return partOfLesson;
     }
+
+    /**
+     * Getter for the knowledge day of the {@link LibraryEntry}.
+     *
+     * @return knowledge day of the {@link LibraryEntry}.
+     */
+    public double getKnowledgeLevel() {
+        return knowledgeLevel;
+    }
+
+    @Override
+    public String toString() {
+        return "MappingPOJO{" +
+                "libraryId=" + libraryId +
+                ", nativeWord='" + nativeWord + '\'' +
+                ", foreignWord='" + foreignWord + '\'' +
+                ", partOfLesson=" + partOfLesson +
+                ", knowledgeLevel=" + knowledgeLevel +
+                '}';
+    }
+
 }

@@ -50,7 +50,7 @@ public class LibraryEntry {
     private final String language;
 
     /**
-     * The day of the {@link LibraryEntry}.
+     * The Knowledge Level of the {@link LibraryEntry}.
      */
     private double knowledgeLevel;
 

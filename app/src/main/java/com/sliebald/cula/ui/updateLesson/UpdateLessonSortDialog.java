@@ -1,4 +1,4 @@
-package com.sliebald.cula.ui.lessons;
+package com.sliebald.cula.ui.updateLesson;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,9 +17,9 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
 
 /**
- * Sort {@link DialogFragment} for sorting lesson entries.
+ * Sort {@link DialogFragment} for sorting library entries for a lesson.
  */
-public class LessonSortDialog extends DialogFragment {
+public class UpdateLessonSortDialog extends DialogFragment {
 
     @NonNull
     @Override
@@ -27,7 +27,7 @@ public class LessonSortDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         // inflate the dialog
-        View view = inflater.inflate(R.layout.dialog_sort_lessons, null);
+        View view = inflater.inflate(R.layout.dialog_sort_lesson_content, null);
 
         // get the arguments to set the currently selected values.
         Bundle args = getArguments();
@@ -37,11 +37,20 @@ public class LessonSortDialog extends DialogFragment {
         TextView textOrder = view.findViewById(R.id.tv_asc);
         RadioButton rb;
         switch (SortUtils.SortType.valueOf(args.getString(SortUtils.KEY_ACTIVE_SORT_BY))) {
+            case PART_OF_LESSON:
+                rb = view.findViewById(R.id.radio_sort_part_of_lesson);
+                break;
+            case FOREIGN_WORD:
+                rb = view.findViewById(R.id.radio_sort_foreign);
+                break;
             case ID:
                 rb = view.findViewById(R.id.radio_sort_created);
                 break;
+            case KNOWLEDGE_LEVEL:
+                rb = view.findViewById(R.id.radio_sort_knowledge);
+                break;
             default:
-                rb = view.findViewById(R.id.radio_sort_name);
+                rb = view.findViewById(R.id.radio_sort_native);
         }
         rb.toggle();
 
@@ -65,11 +74,20 @@ public class LessonSortDialog extends DialogFragment {
             // read the selected values and report them via callback
             SortUtils.SortType type;
             switch (rg.getCheckedRadioButtonId()) {
+                case R.id.radio_sort_part_of_lesson:
+                    type = SortUtils.SortType.PART_OF_LESSON;
+                    break;
+                case R.id.radio_sort_foreign:
+                    type = SortUtils.SortType.FOREIGN_WORD;
+                    break;
+                case R.id.radio_sort_knowledge:
+                    type = SortUtils.SortType.KNOWLEDGE_LEVEL;
+                    break;
                 case R.id.radio_sort_created:
                     type = SortUtils.SortType.ID;
                     break;
                 default:
-                    type = SortUtils.SortType.NAME;
+                    type = SortUtils.SortType.NATIVE_WORD;
                     break;
             }
 

@@ -39,8 +39,7 @@ public class LibraryViewModel extends ViewModel {
         mCurrentSortType = SortUtils.SortType.KNOWLEDGE_LEVEL;
         mComparator = (one, two) -> Double.compare(one.getKnowledgeLevel(),
                 two.getKnowledgeLevel());
-        LiveData<List<LibraryEntry>> s = mCulaRepository.getAllLibraryEntries();
-        mLibraryEntries.addSource(s, libraryEntries -> {
+        mLibraryEntries.addSource(mCulaRepository.getAllLibraryEntries(), libraryEntries -> {
                     Collections.sort(libraryEntries, mComparator);
                     mLibraryEntries.setValue(libraryEntries);
                 }
@@ -49,7 +48,7 @@ public class LibraryViewModel extends ViewModel {
 
 
     /**
-     * Sort the library by the given parameters and order.
+     * Sort the library by the given parameter and order.
      *
      * @param sortBy    The parameter to sort by.
      * @param ascending True if sorting ascending, false otherwise.

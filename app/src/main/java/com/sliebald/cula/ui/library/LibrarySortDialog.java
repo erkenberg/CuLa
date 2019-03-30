@@ -87,7 +87,7 @@ public class LibrarySortDialog extends DialogFragment {
 
             SortUtils.OnSortChangedListener listener = (SortUtils.OnSortChangedListener) getTargetFragment();
             if (listener != null) {
-                listener.onDialogPositiveClick(type, sw.isChecked());
+                listener.onUpdateSortOrderClick(type, sw.isChecked());
             }
         })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> {
