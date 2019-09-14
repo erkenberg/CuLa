@@ -181,7 +181,6 @@
         policy in the App Store or under the following link:
     </string>
     <string name="about_code_title">Open Source</string>
-
     <string name="about_privacy_policy_url">https://sliebald.com/privacy-policy/cula</string>
     <string name="about_cula_code_label">You can find the source code of the app on github:</string>
     <string name="about_cula_code_url">https://github.com/SLiebald/CuLa</string>
