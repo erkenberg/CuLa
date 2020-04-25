@@ -1,13 +1,13 @@
 package com.sliebald.cula.data.database.Entities;
 
-import java.util.Date;
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -34,28 +34,22 @@ import static androidx.room.ForeignKey.CASCADE;
 public class StatisticEntry {
 
     /**
-     * The Id of the Entry in the Database.
-     */
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
-
-    /**
      * The id of the {@link LibraryEntry} that was trained
      */
     private final int libraryEntryID;
-
     /**
      * The id of the {@link LessonEntry} of the lesson that was trained.
      */
     private final Integer lessonEntryID;
-
-
     /**
      * Specifies how successful was the training. Can take values between 0 and 1.
      */
     private final double successRate;
-
+    /**
+     * The Id of the Entry in the Database.
+     */
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     /**
      * Timestamp when the {@link StatisticEntry} was last updated.
      */

@@ -1,9 +1,10 @@
 package com.sliebald.cula.ui.lessons;
 
 import android.graphics.Canvas;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.View;
+
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 //TODO: merge with  RecyclerItemTouchHelper from library
 

@@ -19,6 +19,8 @@ package com.sliebald.cula.data;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.sliebald.cula.BuildConfig;
 import com.sliebald.cula.data.database.CulaDatabase;
 import com.sliebald.cula.data.database.Dao.LanguageDao;
@@ -40,8 +42,6 @@ import com.sliebald.cula.utilities.AppExecutors;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import androidx.lifecycle.LiveData;
 
 /**
  * Handles data operations in Cula.
@@ -104,31 +104,69 @@ public class CulaRepository {
 //        mExecutors.diskIO().execute(mLibraryDao::deleteAll);
         insertLanguageEntry(new LanguageEntry("German", true));
         insertLanguageEntry(new LanguageEntry("Greek", false));
-        insertLibraryEntry(new LibraryEntry(1, "native1", "foreign", "German", 1.1, new Date()));
-        insertLibraryEntry(new LibraryEntry(2, "native2", "foreign2", "German", 2.2, new Date()));
-        insertLibraryEntry(new LibraryEntry(3, "native3", "foreign3", "German", 3.3, new Date()));
-        insertLibraryEntry(new LibraryEntry(4, "native4", "foreign4", "German", 4.4, new Date()));
-        insertLibraryEntry(new LibraryEntry(5, "native5", "foreign5", "German", 4.8, new Date()));
+        insertLibraryEntry(new LibraryEntry(1, "Bread", "Brot", "German", 1.1, new Date()));
+        insertLibraryEntry(new LibraryEntry(2, "Apple", "Apfel", "German", 2.2, new Date()));
+        insertLibraryEntry(new LibraryEntry(3, "Banana", "Banane", "German", 3.3, new Date()));
+        insertLibraryEntry(new LibraryEntry(4, "Pear", "Birne", "German", 0.5, new Date()));
+        insertLibraryEntry(new LibraryEntry(5, "Blackberry", "Brombeere", "German", 4.8,
+                new Date()));
         insertLibraryEntry(new LibraryEntry(6, "native6", "foreign6", "Greek", 2, new Date()));
         insertLibraryEntry(new LibraryEntry(7, "native7", "foreign7", "Greek", 4, new Date()));
         insertLibraryEntry(new LibraryEntry(8, "native8", "foreign8", "Greek", 4, new Date()));
+        insertLibraryEntry(new LibraryEntry(9, "Strawberry", "Erdbeere", "German", 1, new Date()));
+        insertLibraryEntry(new LibraryEntry(10, "Peanut", "Erdnuss", "German", 4, new Date()));
+        insertLibraryEntry(new LibraryEntry(11, "Raspberry", "Himbeeere", "German", 4.7,
+                new Date()));
+        insertLibraryEntry(new LibraryEntry(12, "Cherry", "Kirsche", "German", 2.1, new Date()));
+        insertLibraryEntry(new LibraryEntry(13, "Bedroom", "Schlafzimmer", "German", 3.3,
+                new Date()));
+        insertLibraryEntry(new LibraryEntry(14, "Living room", "Wohnzimmer", "German", 3.8,
+                new Date()));
+        insertLibraryEntry(new LibraryEntry(15, "Bath", "Bad", "German", 1.6, new Date()));
+        insertLibraryEntry(new LibraryEntry(16, "bath2", "bad2", "German", 1.6, new Date()));
 
 
         OnLessonEntryAddedListener dummyListener = ids -> {
         };
-        insertLessonEntry(dummyListener, new LessonEntry(1, "Test Lesson 1", "This lesson is for " +
-                "testing purposes", "German"));
-        insertLessonEntry(dummyListener, new LessonEntry(2, "Test Lesson 2", "This lesson is for " +
-                "testing purposes", "Greek"));
+        insertLessonEntry(dummyListener, new LessonEntry(1, "Fruits", "This lesson contains all " +
+                "fruits", "German"));
+        insertLessonEntry(dummyListener, new LessonEntry(2, "Rooms", "This lesson " +
+                "contains rooms", "German"));
         insertLessonEntry(dummyListener, new LessonEntry(3, "Test Lesson 3", "This lesson is for " +
                 "testing purposes", "Greek"));
+        insertLessonEntry(dummyListener, new LessonEntry(4, "Everything", "This lesson " +
+                "contains all German words", "German"));
+        insertLessonEntry(dummyListener, new LessonEntry(5, "everything", "This lesson " +
+                "contains all German words", "German"));
+
         insertLessonMappingEntry(new LessonMappingEntry(1, 1, 1));
         insertLessonMappingEntry(new LessonMappingEntry(2, 1, 2));
-        insertLessonMappingEntry(new LessonMappingEntry(3, 2, 6));
-        insertLessonMappingEntry(new LessonMappingEntry(4, 2, 7));
-        insertLessonMappingEntry(new LessonMappingEntry(5, 2, 8));
-        insertLessonMappingEntry(new LessonMappingEntry(6, 3, 7));
-        insertLessonMappingEntry(new LessonMappingEntry(7, 3, 8));
+        insertLessonMappingEntry(new LessonMappingEntry(3, 1, 3));
+        insertLessonMappingEntry(new LessonMappingEntry(4, 1, 4));
+        insertLessonMappingEntry(new LessonMappingEntry(5, 1, 5));
+        insertLessonMappingEntry(new LessonMappingEntry(6, 1, 9));
+        insertLessonMappingEntry(new LessonMappingEntry(7, 1, 10));
+        insertLessonMappingEntry(new LessonMappingEntry(8, 1, 11));
+        insertLessonMappingEntry(new LessonMappingEntry(9, 1, 12));
+        insertLessonMappingEntry(new LessonMappingEntry(10, 2, 13));
+        insertLessonMappingEntry(new LessonMappingEntry(11, 2, 14));
+        insertLessonMappingEntry(new LessonMappingEntry(12, 2, 15));
+        insertLessonMappingEntry(new LessonMappingEntry(13, 4, 1));
+        insertLessonMappingEntry(new LessonMappingEntry(14, 4, 2));
+        insertLessonMappingEntry(new LessonMappingEntry(15, 4, 3));
+        insertLessonMappingEntry(new LessonMappingEntry(16, 4, 4));
+        insertLessonMappingEntry(new LessonMappingEntry(17, 4, 5));
+        insertLessonMappingEntry(new LessonMappingEntry(18, 4, 9));
+        insertLessonMappingEntry(new LessonMappingEntry(19, 4, 10));
+        insertLessonMappingEntry(new LessonMappingEntry(20, 4, 11));
+        insertLessonMappingEntry(new LessonMappingEntry(21, 4, 12));
+        insertLessonMappingEntry(new LessonMappingEntry(22, 4, 13));
+        insertLessonMappingEntry(new LessonMappingEntry(23, 4, 14));
+        insertLessonMappingEntry(new LessonMappingEntry(24, 4, 15));
+        insertLessonMappingEntry(new LessonMappingEntry(25, 3, 6));
+        insertLessonMappingEntry(new LessonMappingEntry(26, 3, 7));
+        insertLessonMappingEntry(new LessonMappingEntry(27, 3, 8));
+
 
         insertStatisticsEntry(new StatisticEntry(1, 1, 1, 0, new Date()));
         insertStatisticsEntry(new StatisticEntry(2, 1, 1, 0, new Date()));
@@ -161,9 +199,9 @@ public class CulaRepository {
         insertStatisticsEntry(new StatisticEntry(17, 1, 1, 0, new Date(new Date().getTime()
                 - 86400000 * 8)));
         insertStatisticsEntry(new StatisticEntry(18, 1, 1, 0, new Date(new Date().getTime()
-                - 86400000 * 10)));
+                - 86400000 * 9)));
         insertStatisticsEntry(new StatisticEntry(19, 1, 1, 0, new Date(new Date().getTime()
-                - 86400000 * 10)));
+                - 86400000 * 9)));
         insertStatisticsEntry(new StatisticEntry(20, 1, 1, 0, new Date(new Date().getTime()
                 - 86400000 * 10)));
         insertStatisticsEntry(new StatisticEntry(21, 1, 1, 0, new Date(new Date().getTime()

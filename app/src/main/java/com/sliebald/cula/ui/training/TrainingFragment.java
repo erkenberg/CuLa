@@ -12,18 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.sliebald.cula.R;
-import com.sliebald.cula.data.database.Pojos.TrainingData;
-import com.sliebald.cula.databinding.FragmentTrainingBinding;
-import com.sliebald.cula.utilities.KeyboardUtils;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.sliebald.cula.R;
+import com.sliebald.cula.data.database.Pojos.TrainingData;
+import com.sliebald.cula.databinding.FragmentTrainingBinding;
+import com.sliebald.cula.utilities.KeyboardUtils;
 
 
 public class TrainingFragment extends Fragment {

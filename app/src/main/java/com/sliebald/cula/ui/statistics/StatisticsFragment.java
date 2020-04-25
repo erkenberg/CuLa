@@ -9,6 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -19,7 +25,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Pojos.StatisticsActivityEntry;
 import com.sliebald.cula.data.database.Pojos.StatisticsLibraryWordCount;
@@ -33,13 +39,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 
 public class StatisticsFragment extends Fragment {
@@ -73,13 +72,13 @@ public class StatisticsFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistics, container,
                 false);
 
-        mViewModel.getLibraryCount().observe(this, libraryWordCountList -> {
+        mViewModel.getLibraryCount().observe(getViewLifecycleOwner(), libraryWordCountList -> {
             if (libraryWordCountList != null && libraryWordCountList.size() > 0) {
                 updateWordCountGraph(libraryWordCountList);
             }
         });
 
-        mViewModel.getActivity().observe(this, activityList -> {
+        mViewModel.getActivity().observe(getViewLifecycleOwner(), activityList -> {
             if (activityList != null && activityList.size() > 0) {
                 updateActivityGraph(fillMissingActivityDays(activityList));
 
@@ -163,8 +162,12 @@ public class StatisticsFragment extends Fragment {
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(true);
         xAxis.setLabelRotationAngle(310);
-        xAxis.setValueFormatter((value, axis) -> new SimpleDateFormat("dd.MM.", Locale.GERMANY)
-                .format(new Date(((long) value))));
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return new SimpleDateFormat("dd.MM.", Locale.GERMANY).format(new Date((long) value));
+            }
+        });
         xAxis.setLabelCount(7, true);
 
         YAxis yAxis = mChart.getAxisLeft();
@@ -172,7 +175,12 @@ public class StatisticsFragment extends Fragment {
         yAxis.setTextColor(Color.BLACK);
         yAxis.setTextSize(14f);
         yAxis.setAxisMinimum(0f);
-        yAxis.setValueFormatter((value, axis) -> String.valueOf((int) value));
+        yAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return Integer.toString((int) value);
+            }
+        });
         yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         yAxis.setDrawGridLines(false);
         mChart.getAxisRight().setEnabled(false);
@@ -219,7 +227,7 @@ public class StatisticsFragment extends Fragment {
     private void updateWordCountGraph(List<StatisticsLibraryWordCount> libraryWordCountList) {
         ArrayList<PieEntry> counts = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
-        Context context = Objects.requireNonNull(getContext());
+        Context context = requireContext();
 
         for (StatisticsLibraryWordCount entry : libraryWordCountList) {
             counts.add(new PieEntry((float) entry.getCount(), KnowledgeLevelUtils
@@ -234,8 +242,12 @@ public class StatisticsFragment extends Fragment {
         pieDataSet.setColors(colors);
 
         //Set the formatter to not display floats but integers.
-        IValueFormatter formatter = (value, entry, dataSetIndex, viewPortHandler) -> Integer
-                .toString((int) value);
+        ValueFormatter formatter = new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return Integer.toString((int) value);
+            }
+        };
         pieDataSet.setValueFormatter(formatter);
 
         Legend legend = mBinding.chartWordCount.getLegend();

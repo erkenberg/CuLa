@@ -3,10 +3,10 @@ package com.sliebald.cula.utilities;
 import android.content.Context;
 import android.content.res.Resources;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import com.sliebald.cula.MyApplication;
 import com.sliebald.cula.R;
-
-import androidx.core.content.res.ResourcesCompat;
 
 public class KnowledgeLevelUtils {
     /**

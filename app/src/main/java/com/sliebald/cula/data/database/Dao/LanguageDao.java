@@ -33,21 +33,12 @@ public interface LanguageDao {
     //TODO: make sure only one entry has isActive set to true at a time
 
     /**
-     * Updates a {@link LanguageEntry} in the language table.
-     *
-     * @param language The language of the language to set to active
-     */
-    @Query("UPDATE language SET isActive = CASE WHEN language IS :language THEN 1 ELSE 0 END")
-    void setActiveLanguage(String language);
-
-    /**
      * Gets all {@link LanguageEntry}s in the language database table.
      *
      * @return {@link LiveData} with all @{@link LanguageEntry}s.
      */
     @Query("SELECT language, isActive FROM language ORDER by language desc")
     LiveData<List<LanguageEntry>> getAllEntries();
-
 
     /**
      * Get the current amount of entries in the language table.
@@ -70,4 +61,12 @@ public interface LanguageDao {
      */
     @Query("SELECT language, isActive FROM language WHERE isActive=1 LIMIT 1")
     LiveData<LanguageEntry> getActiveLanguage();
+
+    /**
+     * Updates a {@link LanguageEntry} in the language table.
+     *
+     * @param language The language of the language to set to active
+     */
+    @Query("UPDATE language SET isActive = CASE WHEN language IS :language THEN 1 ELSE 0 END")
+    void setActiveLanguage(String language);
 }

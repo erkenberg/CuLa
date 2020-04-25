@@ -22,28 +22,25 @@ import static androidx.room.ForeignKey.CASCADE;
 public class LessonEntry {
 
     /**
-     * The Id of the {@link LessonEntry} in the Database.
-     */
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
-    /**
      * The name of the lesson.
      */
     @NonNull
     private final String lessonName;
-
     /**
      * The description of the lesson.
      */
     @NonNull
     private final String lessonDescription;
-
     /**
      * To which language as described in an {@link LanguageEntry} does this word belong.
      */
     @NonNull
     private final String language;
+    /**
+     * The Id of the {@link LessonEntry} in the Database.
+     */
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     /**
      * Constructor for an {@link LessonEntry}.

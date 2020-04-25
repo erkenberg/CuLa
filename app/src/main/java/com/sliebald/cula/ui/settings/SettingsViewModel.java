@@ -15,7 +15,6 @@ public class SettingsViewModel extends ViewModel {
 
     /**
      * Constructor of the ViewModel.
-     *
      */
     public SettingsViewModel() {
         mLanguageEntries = InjectorUtils.provideRepository().getAllLanguageEntries();

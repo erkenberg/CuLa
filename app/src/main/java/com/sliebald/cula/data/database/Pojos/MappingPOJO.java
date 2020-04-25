@@ -1,8 +1,8 @@
 package com.sliebald.cula.data.database.Pojos;
 
-import com.sliebald.cula.data.database.Entities.LibraryEntry;
-
 import androidx.room.ColumnInfo;
+
+import com.sliebald.cula.data.database.Entities.LibraryEntry;
 
 /**
  * Simple POJO that contains the required data of a {@link LibraryEntry} to map it to a lesson.
@@ -12,16 +12,15 @@ import androidx.room.ColumnInfo;
 public class MappingPOJO {
 
     /**
-     * Id of the {@link LibraryEntry}.
-     */
-    @ColumnInfo(name = "id")
-    private int libraryId;
-
-    /**
      * Info whether the {@link LibraryEntry} is part of the lesson that was queried.
      */
     @ColumnInfo(name = "partOfLesson")
     public boolean partOfLesson;
+    /**
+     * Id of the {@link LibraryEntry}.
+     */
+    @ColumnInfo(name = "id")
+    private int libraryId;
     /**
      * Native word of the {@link LibraryEntry}.
      */
@@ -36,11 +35,6 @@ public class MappingPOJO {
     @ColumnInfo(name = "knowledgeLevel")
     private double knowledgeLevel;
 
-
-    public void setLibraryId(int libraryId) {
-        this.libraryId = libraryId;
-    }
-
     /**
      * Getter for the native Word of the {@link LibraryEntry} linked to this entry.
      *
@@ -54,10 +48,6 @@ public class MappingPOJO {
         this.nativeWord = nativeWord;
     }
 
-    public void setPartOfLesson(boolean partOfLesson) {
-        this.partOfLesson = partOfLesson;
-    }
-
     /**
      * Getter for the foreign Word of the {@link LibraryEntry} linked to this entry.
      *
@@ -65,6 +55,10 @@ public class MappingPOJO {
      */
     public String getForeignWord() {
         return foreignWord;
+    }
+
+    public void setForeignWord(String foreignWord) {
+        this.foreignWord = foreignWord;
     }
 
     /**
@@ -76,8 +70,8 @@ public class MappingPOJO {
         return libraryId;
     }
 
-    public void setForeignWord(String foreignWord) {
-        this.foreignWord = foreignWord;
+    public void setLibraryId(int libraryId) {
+        this.libraryId = libraryId;
     }
 
     /**
@@ -87,6 +81,10 @@ public class MappingPOJO {
      */
     public double getKnowledgeLevel() {
         return knowledgeLevel;
+    }
+
+    public void setKnowledgeLevel(double knowledgeLevel) {
+        this.knowledgeLevel = knowledgeLevel;
     }
 
     /**
@@ -99,8 +97,8 @@ public class MappingPOJO {
         return partOfLesson;
     }
 
-    public void setKnowledgeLevel(double knowledgeLevel) {
-        this.knowledgeLevel = knowledgeLevel;
+    public void setPartOfLesson(boolean partOfLesson) {
+        this.partOfLesson = partOfLesson;
     }
 
     @Override

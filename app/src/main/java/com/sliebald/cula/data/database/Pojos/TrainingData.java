@@ -3,12 +3,12 @@ package com.sliebald.cula.data.database.Pojos;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
 
 /**
  * POJO that describes all data required to initiate a training session and store statistics

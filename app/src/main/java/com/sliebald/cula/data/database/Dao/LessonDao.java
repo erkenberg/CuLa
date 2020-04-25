@@ -1,13 +1,5 @@
 package com.sliebald.cula.data.database.Dao;
 
-import com.sliebald.cula.data.database.CulaDatabase;
-import com.sliebald.cula.data.database.Entities.LessonEntry;
-import com.sliebald.cula.data.database.Entities.LessonMappingEntry;
-import com.sliebald.cula.data.database.Entities.LibraryEntry;
-import com.sliebald.cula.data.database.Pojos.MappingPOJO;
-
-import java.util.List;
-
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -15,6 +7,14 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.sliebald.cula.data.database.CulaDatabase;
+import com.sliebald.cula.data.database.Entities.LessonEntry;
+import com.sliebald.cula.data.database.Entities.LessonMappingEntry;
+import com.sliebald.cula.data.database.Entities.LibraryEntry;
+import com.sliebald.cula.data.database.Pojos.MappingPOJO;
+
+import java.util.List;
 
 /**
  * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase}
@@ -103,8 +103,8 @@ public interface LessonDao {
     /**
      * Gets the List of {@link MappingPOJO}s in the lesson database table with the given id.
      *
-     * @param id      The lesson id for which the {@link List} of {@link MappingPOJO}s should be
-     *                retrieved.
+     * @param id The lesson id for which the {@link List} of {@link MappingPOJO}s should be
+     *           retrieved.
      * @return {@link LiveData} with the {@link List} of @{@link MappingPOJO}s.
      */
     //TODO: probably not the most efficient query.
@@ -119,7 +119,7 @@ public interface LessonDao {
      * Deletes a {@link LessonMappingEntry} between a {@link LessonEntry} and a
      * {@link LibraryEntry}.
      *
-     * @param lessonId The lessonId of the {@link LessonMappingEntry}
+     * @param lessonId  The lessonId of the {@link LessonMappingEntry}
      * @param libraryId The libraryId of the {@link LessonMappingEntry}
      */
     @Query("DELETE FROM lesson_mapping WHERE lessonEntryId=:lessonId AND libraryEntryId=:libraryId")

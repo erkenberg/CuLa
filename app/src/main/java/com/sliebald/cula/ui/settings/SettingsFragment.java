@@ -8,6 +8,13 @@ import android.text.InputType;
 import android.util.Log;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SeekBarPreference;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
@@ -16,13 +23,6 @@ import com.sliebald.cula.utilities.InjectorUtils;
 
 import java.util.List;
 import java.util.Objects;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SeekBarPreference;
 
 /**
  * The settings/preferences Fragment for configuration of the app.
@@ -55,12 +55,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
 
     private Preference mDeleteLanguage;
+    private CulaRepository mRepository;
 
     public SettingsFragment() {
         // Required empty public constructor
     }
-
-    private CulaRepository mRepository;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {

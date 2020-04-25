@@ -10,12 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.sliebald.cula.R;
-import com.sliebald.cula.databinding.FragmentUpdateLessonBinding;
-import com.sliebald.cula.utilities.KeyboardUtils;
-import com.sliebald.cula.utilities.SortUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -23,6 +17,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.sliebald.cula.R;
+import com.sliebald.cula.databinding.FragmentUpdateLessonBinding;
+import com.sliebald.cula.utilities.KeyboardUtils;
+import com.sliebald.cula.utilities.SortUtils;
 
 /**
  * Fragment that manages editing and adding lessons.

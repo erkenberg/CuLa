@@ -10,14 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.mikepenz.fontawesome_typeface_library.FontAwesome;
-import com.mikepenz.iconics.IconicsDrawable;
-import com.sliebald.cula.R;
-import com.sliebald.cula.data.database.Entities.LibraryEntry;
-import com.sliebald.cula.databinding.FragmentLibraryBinding;
-import com.sliebald.cula.utilities.SortUtils;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -26,6 +18,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.sliebald.cula.R;
+import com.sliebald.cula.data.database.Entities.LibraryEntry;
+import com.sliebald.cula.databinding.FragmentLibraryBinding;
+import com.sliebald.cula.utilities.SortUtils;
 
 /**
  * A fragment presenting a list of {@link LibraryEntry}s and the possibility to add new ones.

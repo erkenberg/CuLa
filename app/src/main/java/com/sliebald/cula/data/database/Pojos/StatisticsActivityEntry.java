@@ -19,22 +19,6 @@ public class StatisticsActivityEntry {
     @ColumnInfo(name = "activity")
     private int activity;
 
-    public String getDate() {
-        return date;
-    }
-
-    public int getActivity() {
-        return activity;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setActivity(int activity) {
-        this.activity = activity;
-    }
-
     /**
      * Default constructor.
      */
@@ -51,6 +35,22 @@ public class StatisticsActivityEntry {
     @Ignore
     public StatisticsActivityEntry(String date, int activity) {
         this.date = date;
+        this.activity = activity;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getActivity() {
+        return activity;
+    }
+
+    public void setActivity(int activity) {
         this.activity = activity;
     }
 

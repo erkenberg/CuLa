@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+
 import com.sliebald.cula.MainActivity;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
@@ -17,10 +21,6 @@ import com.sliebald.cula.data.database.Pojos.StatisticsLastTrainingDate;
 import com.sliebald.cula.utilities.InjectorUtils;
 
 import java.util.Date;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
 /**
  * Implementation of App Widget functionality.
