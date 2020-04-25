@@ -148,7 +148,7 @@ public class CulaRepository {
         insertLessonMappingEntry(new LessonMappingEntry(7, 1, 10));
         insertLessonMappingEntry(new LessonMappingEntry(8, 1, 11));
         insertLessonMappingEntry(new LessonMappingEntry(9, 1, 12));
-        insertLessonMappingEntry(new LessonMappingEntry(10,2 ,13 ));
+        insertLessonMappingEntry(new LessonMappingEntry(10, 2, 13));
         insertLessonMappingEntry(new LessonMappingEntry(11, 2, 14));
         insertLessonMappingEntry(new LessonMappingEntry(12, 2, 15));
         insertLessonMappingEntry(new LessonMappingEntry(13, 4, 1));
@@ -160,10 +160,10 @@ public class CulaRepository {
         insertLessonMappingEntry(new LessonMappingEntry(19, 4, 10));
         insertLessonMappingEntry(new LessonMappingEntry(20, 4, 11));
         insertLessonMappingEntry(new LessonMappingEntry(21, 4, 12));
-        insertLessonMappingEntry(new LessonMappingEntry(22,4 ,13 ));
+        insertLessonMappingEntry(new LessonMappingEntry(22, 4, 13));
         insertLessonMappingEntry(new LessonMappingEntry(23, 4, 14));
         insertLessonMappingEntry(new LessonMappingEntry(24, 4, 15));
-        insertLessonMappingEntry(new LessonMappingEntry(25,3 ,6 ));
+        insertLessonMappingEntry(new LessonMappingEntry(25, 3, 6));
         insertLessonMappingEntry(new LessonMappingEntry(26, 3, 7));
         insertLessonMappingEntry(new LessonMappingEntry(27, 3, 8));
 

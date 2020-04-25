@@ -2,6 +2,10 @@ package com.sliebald.cula.ui.library;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.ViewModel;
+
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.utilities.InjectorUtils;
@@ -10,10 +14,6 @@ import com.sliebald.cula.utilities.SortUtils;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.ViewModel;
 
 /**
  * {@link ViewModel} for the {@link LibraryFragment}.
@@ -28,9 +28,9 @@ public class LibraryViewModel extends ViewModel {
 
     private boolean mCurrentSortOrder;
     private SortUtils.SortType mCurrentSortType;
+
     /**
      * Constructor of the ViewModel.
-     *
      */
     public LibraryViewModel() {
         mCulaRepository = InjectorUtils.provideRepository();

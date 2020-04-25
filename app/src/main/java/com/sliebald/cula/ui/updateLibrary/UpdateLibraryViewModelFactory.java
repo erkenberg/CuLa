@@ -1,8 +1,8 @@
 package com.sliebald.cula.ui.updateLibrary;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.annotation.NonNull;
 
 class UpdateLibraryViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 

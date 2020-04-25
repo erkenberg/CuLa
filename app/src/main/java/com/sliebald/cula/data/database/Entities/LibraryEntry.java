@@ -1,14 +1,14 @@
 package com.sliebald.cula.data.database.Entities;
 
-import java.util.Date;
-import java.util.Objects;
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import java.util.Date;
+import java.util.Objects;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -25,30 +25,25 @@ import static androidx.room.ForeignKey.CASCADE;
 public class LibraryEntry {
 
     /**
-     * The Id of the Entry in the Database.
-     */
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
-    /**
      * The word in the native language.
      */
     @NonNull
     private final String nativeWord;
-
     /**
      * The word in the foreign language.
      */
     @NonNull
     private final String foreignWord;
-
-
     /**
      * To which language as described in an {@link LanguageEntry} does this word belong.
      */
     @NonNull
     private final String language;
-
+    /**
+     * The Id of the Entry in the Database.
+     */
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     /**
      * The Knowledge Level of the {@link LibraryEntry}.
      */
@@ -64,12 +59,12 @@ public class LibraryEntry {
     /**
      * Constructor for an {@link LibraryEntry}.
      *
-     * @param id          The Id of the @{@link LibraryEntry}.
-     * @param nativeWord  The stored native language word.
-     * @param foreignWord The translation of the word in the foreign language.
-     * @param language The language this {@link LibraryEntry} belongs to.
+     * @param id             The Id of the @{@link LibraryEntry}.
+     * @param nativeWord     The stored native language word.
+     * @param foreignWord    The translation of the word in the foreign language.
+     * @param language       The language this {@link LibraryEntry} belongs to.
      * @param knowledgeLevel The day of this {@link LibraryEntry}.
-     * @param lastUpdated Timestamp of the last update of the {@link LibraryEntry}
+     * @param lastUpdated    Timestamp of the last update of the {@link LibraryEntry}
      */
     public LibraryEntry(int id, @NonNull String nativeWord, @NonNull String foreignWord, @NonNull
             String language, double knowledgeLevel, @NonNull Date lastUpdated) {
@@ -81,9 +76,9 @@ public class LibraryEntry {
     /**
      * Constructor for an {@link LibraryEntry}.
      *
-     * @param nativeWord  The stored native language word.
-     * @param foreignWord The translation of the word in the foreign language.
-     * @param language The language this {@link LibraryEntry} belongs to.
+     * @param nativeWord     The stored native language word.
+     * @param foreignWord    The translation of the word in the foreign language.
+     * @param language       The language this {@link LibraryEntry} belongs to.
      * @param knowledgeLevel The day of this {@link LibraryEntry}.
      */
     @Ignore

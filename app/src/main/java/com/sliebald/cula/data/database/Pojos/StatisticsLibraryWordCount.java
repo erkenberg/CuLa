@@ -23,13 +23,13 @@ public class StatisticsLibraryWordCount {
         return level;
     }
 
-    public int getCount() {
-        return count;
-    }
-
     @SuppressWarnings("unused")
     public void setLevel(double level) {
         this.level = level;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     public void setCount(int count) {

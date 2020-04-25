@@ -2,6 +2,12 @@ package com.sliebald.cula.ui.updateLesson;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
+import androidx.lifecycle.ViewModel;
+
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.data.database.Entities.LessonMappingEntry;
@@ -14,12 +20,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
-
 /**
  * {@link ViewModel}  for the {@link UpdateLessonFragment}.
  */
@@ -30,10 +30,9 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
      * Tag of this activity.
      */
     private static final String TAG = UpdateLessonFragment.class.getSimpleName();
+    private final CulaRepository mCulaRepository;
     private LiveData<LessonEntry> entry;
     private MediatorLiveData<List<MappingPOJO>> mapping;
-    private final CulaRepository mCulaRepository;
-
     private Comparator<MappingPOJO> mComparator;
 
     private boolean mCurrentSortOrder;
@@ -47,7 +46,7 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
     /**
      * Constructor.
      *
-     * @param entryId    Id of the {@link LessonEntry} which should be loaded.
+     * @param entryId Id of the {@link LessonEntry} which should be loaded.
      */
     public UpdateLessonViewModel(int entryId) {
         mCulaRepository = InjectorUtils.provideRepository();

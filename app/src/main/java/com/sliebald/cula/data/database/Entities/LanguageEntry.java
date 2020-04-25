@@ -1,10 +1,10 @@
 package com.sliebald.cula.data.database.Entities;
 
-import com.sliebald.cula.utilities.StringUtils;
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.sliebald.cula.utilities.StringUtils;
 
 /**
  * An @{@link Entity} Describing a foreign language that can be trained.

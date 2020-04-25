@@ -32,20 +32,18 @@ import static androidx.room.ForeignKey.CASCADE;
 public class LessonMappingEntry {
 
     /**
-     * The Id of the Entry in the Database.
-     */
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
-    /**
      * The id of the {@link LibraryEntry} mapped to the {@link LessonEntry}.
      */
     private final int libraryEntryId;
-
     /**
      * The id of the {@link LessonEntry} mapped to a {@link LibraryEntry}.
      */
     private final int lessonEntryId;
+    /**
+     * The Id of the Entry in the Database.
+     */
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
 
     /**

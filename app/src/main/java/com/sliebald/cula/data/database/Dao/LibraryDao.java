@@ -1,10 +1,5 @@
 package com.sliebald.cula.data.database.Dao;
 
-import com.sliebald.cula.data.database.CulaDatabase;
-import com.sliebald.cula.data.database.Entities.LibraryEntry;
-
-import java.util.List;
-
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -12,6 +7,11 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.sliebald.cula.data.database.CulaDatabase;
+import com.sliebald.cula.data.database.Entities.LibraryEntry;
+
+import java.util.List;
 
 /**
  * {@link Dao} which provides an api for all data operations with the {@link CulaDatabase}

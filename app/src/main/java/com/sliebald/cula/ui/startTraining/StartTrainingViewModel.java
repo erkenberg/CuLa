@@ -1,5 +1,9 @@
 package com.sliebald.cula.ui.startTraining;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
+import androidx.lifecycle.ViewModel;
+
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
@@ -8,10 +12,6 @@ import com.sliebald.cula.ui.updateLibrary.UpdateLibraryFragment;
 import com.sliebald.cula.utilities.InjectorUtils;
 
 import java.util.List;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
 
 /**
  * {@link ViewModel} for the {@link UpdateLibraryFragment}.

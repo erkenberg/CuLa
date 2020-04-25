@@ -2,6 +2,11 @@ package com.sliebald.cula.data.database;
 
 import android.content.Context;
 
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+
 import com.sliebald.cula.data.database.Dao.LanguageDao;
 import com.sliebald.cula.data.database.Dao.LessonDao;
 import com.sliebald.cula.data.database.Dao.LibraryDao;
@@ -11,11 +16,6 @@ import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.data.database.Entities.LessonMappingEntry;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.data.database.Entities.StatisticEntry;
-
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 
 /**
  * The Room Database for the App.

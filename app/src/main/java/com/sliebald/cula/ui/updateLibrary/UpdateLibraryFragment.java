@@ -5,18 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.sliebald.cula.R;
-import com.sliebald.cula.databinding.FragmentUpdateLibraryBinding;
-import com.sliebald.cula.utilities.KeyboardUtils;
-import com.sliebald.cula.utilities.PreferenceUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.sliebald.cula.R;
+import com.sliebald.cula.databinding.FragmentUpdateLibraryBinding;
+import com.sliebald.cula.utilities.KeyboardUtils;
+import com.sliebald.cula.utilities.PreferenceUtils;
 
 public class UpdateLibraryFragment extends Fragment {
 

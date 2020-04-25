@@ -1,13 +1,13 @@
 package com.sliebald.cula.ui.training;
 
+import androidx.lifecycle.ViewModel;
+
 import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.Entities.LibraryEntry;
 import com.sliebald.cula.data.database.Entities.StatisticEntry;
 import com.sliebald.cula.data.database.Pojos.TrainingData;
 import com.sliebald.cula.ui.updateLibrary.UpdateLibraryFragment;
 import com.sliebald.cula.utilities.KnowledgeLevelUtils;
-
-import androidx.lifecycle.ViewModel;
 
 /**
  * {@link ViewModel} for the {@link UpdateLibraryFragment}.

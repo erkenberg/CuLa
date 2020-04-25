@@ -1,9 +1,9 @@
 package com.sliebald.cula.data.database.Pojos;
 
-import java.util.Date;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+
+import java.util.Date;
 
 
 public class StatisticsLastTrainingDate {

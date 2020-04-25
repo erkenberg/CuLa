@@ -9,12 +9,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.sliebald.cula.R;
-import com.sliebald.cula.utilities.SortUtils;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
+
+import com.sliebald.cula.R;
+import com.sliebald.cula.utilities.SortUtils;
 
 /**
  * Sort {@link DialogFragment} for sorting library entries for a lesson.
