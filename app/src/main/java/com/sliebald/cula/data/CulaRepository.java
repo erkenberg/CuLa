@@ -123,6 +123,7 @@ public class CulaRepository {
         insertLibraryEntry(new LibraryEntry(14, "Living room", "Wohnzimmer", "German", 3.8,
                 new Date()));
         insertLibraryEntry(new LibraryEntry(15, "Bath", "Bad", "German", 1.6, new Date()));
+        insertLibraryEntry(new LibraryEntry(16, "bath2", "bad2", "German", 1.6, new Date()));
 
 
         OnLessonEntryAddedListener dummyListener = ids -> {
@@ -134,6 +135,8 @@ public class CulaRepository {
         insertLessonEntry(dummyListener, new LessonEntry(3, "Test Lesson 3", "This lesson is for " +
                 "testing purposes", "Greek"));
         insertLessonEntry(dummyListener, new LessonEntry(4, "Everything", "This lesson " +
+                "contains all German words", "German"));
+        insertLessonEntry(dummyListener, new LessonEntry(5, "everything", "This lesson " +
                 "contains all German words", "German"));
 
         insertLessonMappingEntry(new LessonMappingEntry(1, 1, 1));

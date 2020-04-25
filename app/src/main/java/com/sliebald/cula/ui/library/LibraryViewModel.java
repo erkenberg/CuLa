@@ -62,11 +62,11 @@ public class LibraryViewModel extends ViewModel {
                 break;
             case NATIVE_WORD:
                 mComparator =
-                        (one, two) -> one.getNativeWord().compareTo(two.getNativeWord());
+                        (one, two) -> one.getNativeWord().toLowerCase().compareTo(two.getNativeWord().toLowerCase());
                 break;
             case FOREIGN_WORD:
                 mComparator =
-                        (one, two) -> one.getForeignWord().compareTo(two.getForeignWord());
+                        (one, two) -> one.getForeignWord().toLowerCase().compareTo(two.getForeignWord().toLowerCase());
                 break;
             default:
                 mComparator =

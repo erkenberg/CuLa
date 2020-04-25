@@ -59,7 +59,7 @@ public class LessonsViewModel extends ViewModel {
                 break;
             default:
                 mComparator =
-                        (one, two) -> one.getLessonName().compareTo(two.getLessonName());
+                        (one, two) -> one.getLessonName().toLowerCase().compareTo(two.getLessonName().toLowerCase());
         }
         if (!ascending) {
             mComparator = mComparator.reversed();
