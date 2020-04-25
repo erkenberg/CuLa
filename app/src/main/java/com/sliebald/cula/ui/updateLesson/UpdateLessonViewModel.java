@@ -94,7 +94,7 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
                 break;
             case FOREIGN_WORD:
                 mComparator =
-                        (one, two) -> one.getForeignWord().compareTo(two.getForeignWord());
+                        (one, two) -> one.getForeignWord().toLowerCase().compareTo(two.getForeignWord().toLowerCase());
                 break;
             case KNOWLEDGE_LEVEL:
                 mComparator =
@@ -103,7 +103,7 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
                 break;
             default:
                 mComparator =
-                        (one, two) -> one.getNativeWord().compareTo(two.getNativeWord());
+                        (one, two) -> one.getNativeWord().toLowerCase().compareTo(two.getNativeWord().toLowerCase());
         }
         if (!ascending) {
             mComparator = mComparator.reversed();
