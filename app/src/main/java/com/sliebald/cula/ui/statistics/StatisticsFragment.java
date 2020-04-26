@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -48,7 +48,6 @@ public class StatisticsFragment extends Fragment {
 
     private StatisticsViewModel mViewModel;
 
-
     public StatisticsFragment() {
         // Required empty public constructor
     }
@@ -61,13 +60,12 @@ public class StatisticsFragment extends Fragment {
         if (getActivity() == null || getContext() == null)
             return;
 
-        mViewModel = ViewModelProviders.of(getActivity()).get(StatisticsViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(StatisticsViewModel.class);
 
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistics, container,
                 false);
@@ -81,10 +79,8 @@ public class StatisticsFragment extends Fragment {
         mViewModel.getActivity().observe(getViewLifecycleOwner(), activityList -> {
             if (activityList != null && activityList.size() > 0) {
                 updateActivityGraph(fillMissingActivityDays(activityList));
-
             }
         });
-
 
         return mBinding.getRoot();
     }
@@ -96,24 +92,19 @@ public class StatisticsFragment extends Fragment {
      * @param activityList The list with all activities >0.
      * @return A full list for the last 14 days containing also 0 values (= no training).
      */
-    private List<StatisticsActivityEntry> fillMissingActivityDays(List<StatisticsActivityEntry>
-                                                                          activityList) {
+    private List<StatisticsActivityEntry> fillMissingActivityDays(List<StatisticsActivityEntry> activityList) {
         List<StatisticsActivityEntry> fullList = new ArrayList<>();
         int index = 0;
         for (String date : getLastDaysAsString()) {
-            if (activityList != null && activityList.size() > index && activityList.get(index)
-                    .date.equals(date)) {
+            if (activityList != null && activityList.size() > index && activityList.get(index).date.equals(date)) {
                 fullList.add(activityList.get(index));
                 index++;
             } else {
                 fullList.add(new StatisticsActivityEntry(date, 0));
             }
-
         }
-
         return fullList;
     }
-
 
     /**
      * Helper method to get the string representations of the last 14 days in the format 2018-07-17.
@@ -128,13 +119,11 @@ public class StatisticsFragment extends Fragment {
         calendar.add(Calendar.DAY_OF_YEAR, -days);
         for (int counter = days; counter > 0; counter--) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
-            dayList.add(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).format(calendar
-                    .getTime()));
+            dayList.add(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).format(calendar.getTime()));
         }
         // one final entry to make the graph look nice
         calendar.add(Calendar.DAY_OF_YEAR, 1);
-        dayList.add(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).format(calendar
-                .getTime()));
+        dayList.add(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY).format(calendar.getTime()));
         return dayList;
     }
 
@@ -193,11 +182,11 @@ public class StatisticsFragment extends Fragment {
             Date date;
             try {
                 date = format.parse(entry.getDate());
+                assert date != null;
+                yValues.add(new Entry(date.getTime(), entry.getActivity()));
             } catch (ParseException e) {
                 Log.d(TAG, "Exception parsing a date from the database: " + e);
-                continue;
             }
-            yValues.add(new Entry(date.getTime(), entry.getActivity()));
         }
 
         //create the line data set and format it.
@@ -224,7 +213,7 @@ public class StatisticsFragment extends Fragment {
     }
 
 
-    private void updateWordCountGraph(List<StatisticsLibraryWordCount> libraryWordCountList) {
+    private void updateWordCountGraph(@NonNull List<StatisticsLibraryWordCount> libraryWordCountList) {
         ArrayList<PieEntry> counts = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
         Context context = requireContext();
@@ -243,6 +232,7 @@ public class StatisticsFragment extends Fragment {
 
         //Set the formatter to not display floats but integers.
         ValueFormatter formatter = new ValueFormatter() {
+            @NonNull
             @Override
             public String getFormattedValue(float value) {
                 return Integer.toString((int) value);
@@ -267,5 +257,4 @@ public class StatisticsFragment extends Fragment {
         mBinding.chartWordCount.getLegend().setEnabled(true);
         mBinding.chartWordCount.invalidate();
     }
-
 }

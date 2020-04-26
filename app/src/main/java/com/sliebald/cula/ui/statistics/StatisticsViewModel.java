@@ -28,7 +28,7 @@ public class StatisticsViewModel extends ViewModel {
         activity = mRepository.getStatisticsActivity();
     }
 
-    public LiveData<List<StatisticsLibraryWordCount>> getLibraryCount() {
+    LiveData<List<StatisticsLibraryWordCount>> getLibraryCount() {
         return libraryCount;
     }
 
