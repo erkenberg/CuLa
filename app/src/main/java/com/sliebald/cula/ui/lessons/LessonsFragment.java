@@ -169,8 +169,6 @@ public class LessonsFragment extends Fragment implements
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
     @Override
     public void onUpdateSortOrderClick(SortUtils.SortType type, boolean asc) {
         Log.d("test", "called " + type + " " + asc);
