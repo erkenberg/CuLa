@@ -2,6 +2,7 @@ package com.sliebald.cula.ui.updateLesson;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -48,6 +49,7 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
      *
      * @param entryId Id of the {@link LessonEntry} which should be loaded.
      */
+    @SuppressWarnings("WeakerAccess")
     public UpdateLessonViewModel(int entryId) {
         mCulaRepository = InjectorUtils.provideRepository();
         lessonId = new MutableLiveData<>();
@@ -80,7 +82,7 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
      * @param sortBy    The parameter to sort by.
      * @param ascending True if sorting ascending, false otherwise.
      */
-    void sortMappingBy(SortUtils.SortType sortBy, boolean ascending) {
+    void sortMappingBy(@NonNull SortUtils.SortType sortBy, boolean ascending) {
         Log.d("test", "sortBy: " + sortBy + " " + ascending);
         mCurrentSortOrder = ascending;
         mCurrentSortType = sortBy;
@@ -109,7 +111,7 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
             mComparator = mComparator.reversed();
         }
         List<MappingPOJO> entries = mapping.getValue();
-        Collections.sort(entries, mComparator);
+        if (entries != null) Collections.sort(entries, mComparator);
         mapping.setValue(entries);
     }
 
@@ -133,17 +135,19 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
      */
     boolean addOrUpdateLesson(String lessonName, String lessonDescription) {
         String language = PreferenceUtils.getActiveLanguage();
-        if (lessonId.getValue() < 0) {
+        Integer lessonIdValue = lessonId.getValue();
+        if (lessonIdValue == null) return false;
+        if (lessonIdValue < 0) {
             Log.d(TAG, "Updating existing lesson: " + lessonId);
             mCulaRepository.insertLessonEntry(this, new LessonEntry(lessonName,
                     lessonDescription, language));
         } else {
             Log.d(TAG, "Inserting new lesson");
-            mCulaRepository.updateLessonEntry(new LessonEntry(lessonId.getValue(), lessonName,
+            mCulaRepository.updateLessonEntry(new LessonEntry(lessonIdValue, lessonName,
                     lessonDescription, language));
 //            updateViewModel(lessonId);
         }
-        return lessonId.getValue() < 0;
+        return lessonIdValue < 0;
     }
 
     @Override
@@ -164,8 +168,7 @@ public class UpdateLessonViewModel extends ViewModel implements CulaRepository
         if (entry.getValue() == null)
             return;
         if (insert) {
-            mCulaRepository.insertLessonMappingEntry(new LessonMappingEntry(entry.getValue().getId(),
-                    id));
+            mCulaRepository.insertLessonMappingEntry(new LessonMappingEntry(entry.getValue().getId(), id));
         } else {
             mCulaRepository.deleteLessonMappingEntry(new LessonMappingEntry(entry.getValue().getId(), id));
         }

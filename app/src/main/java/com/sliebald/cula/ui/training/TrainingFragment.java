@@ -1,6 +1,5 @@
 package com.sliebald.cula.ui.training;
 
-
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -16,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -25,15 +24,12 @@ import com.sliebald.cula.data.database.Pojos.TrainingData;
 import com.sliebald.cula.databinding.FragmentTrainingBinding;
 import com.sliebald.cula.utilities.KeyboardUtils;
 
-
 public class TrainingFragment extends Fragment {
-
 
     /**
      * Tag of this activity.
      */
     private static final String TAG = TrainingFragment.class.getSimpleName();
-
 
     /**
      * The data binding for the Layout.
@@ -45,26 +41,23 @@ public class TrainingFragment extends Fragment {
      */
     private TrainingViewModel mViewModel;
 
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // create DataBinding
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_training, container, false);
         mBinding.btCheck.setOnClickListener(v -> checkWord());
         // get DB access
         // get the fragmentArgs that started the learning activity and extract the relevant values.
-        //TODO: dummy fragmentArgs
+        assert getArguments() != null;
+        // TODO: dummy fragmentArgs
         TrainingFragmentArgs fragmentArgs = TrainingFragmentArgs.fromBundle(getArguments());
         TrainingData data = fragmentArgs.getTrainingData();
-        //create the view model
+        // create the view model
         TrainingViewModelFactory viewModelFactory = new TrainingViewModelFactory(data);
-        mViewModel = ViewModelProviders.of(this, viewModelFactory).get(TrainingViewModel.class);
+        mViewModel = new ViewModelProvider(this, viewModelFactory).get(TrainingViewModel.class);
         showWord();
         return mBinding.getRoot();
     }
-
 
     /**
      * Display the next word to train.
@@ -89,8 +82,7 @@ public class TrainingFragment extends Fragment {
                         .activity_training_label_progress,
                 mViewModel.getLearningSetPosition() - 1, mViewModel.getLearningSetSize()));
         // Update the progressbar
-        int progress = ((mViewModel.getLearningSetPosition() - 1) * 100) / mViewModel
-                .getLearningSetSize();
+        int progress = ((mViewModel.getLearningSetPosition() - 1) * 100) / mViewModel.getLearningSetSize();
         mBinding.trainingProgress.pgProgress.setProgress(progress);
 
     }
@@ -100,9 +92,8 @@ public class TrainingFragment extends Fragment {
      */
     private void finishTraining() {
         //TODO: show statistics or similar instead of just returning.
-
-        KeyboardUtils.hideKeyboard(getContext(), getView());
-        Navigation.findNavController(getView()).popBackStack();
+        KeyboardUtils.hideKeyboard(requireContext(), getView());
+        Navigation.findNavController(requireView()).popBackStack();
     }
 
     /**
@@ -123,17 +114,10 @@ public class TrainingFragment extends Fragment {
                                 ().toString()));
                 int correctStart = snackbarText.length();
                 snackbarText.append(mViewModel.getCorrectTranslation());
-                snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor
-                        (getContext(), R.color
-                                .colorPrimary)), correctStart, snackbarText.length(), Spannable
-                        .SPAN_EXCLUSIVE_EXCLUSIVE);
-                snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
-                        snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                snackbarText.setSpan(new RelativeSizeSpan(1.2f), correctStart, snackbarText
-                                .length(),
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
-                        .LENGTH_LONG).show();
+                snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorPrimary)), correctStart, snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart, snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                snackbarText.setSpan(new RelativeSizeSpan(1.2f), correctStart, snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar.LENGTH_LONG).show();
                 mViewModel.next();
                 showWord();
             });
@@ -143,36 +127,24 @@ public class TrainingFragment extends Fragment {
         SpannableStringBuilder snackbarText = new SpannableStringBuilder();
         if (mViewModel.checkTranslationCorrect(typedTranslation)) {
             snackbarText.append(getString(R.string.correct));
-            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color
-                    .green)), 0, snackbarText.length(), Spannable
-                    .SPAN_EXCLUSIVE_EXCLUSIVE);
-            snackbarText.setSpan(new StyleSpan(Typeface.BOLD), 0,
-                    snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.green)), 0, snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new StyleSpan(Typeface.BOLD), 0, snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             snackbarText.append(getString(R.string.wrong));
-            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color
-                    .red)), 0, snackbarText.length(), Spannable
-                    .SPAN_EXCLUSIVE_EXCLUSIVE);
-            snackbarText.setSpan(new StyleSpan(Typeface.BOLD), 0,
-                    snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red)), 0, snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new StyleSpan(Typeface.BOLD), 0, snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             snackbarText.append(getString(R.string
                     .activity_training_wrong_translation, mBinding.tvLabelWordToTranslate.getText
                     ().toString()));
             int correctStart = snackbarText.length();
             snackbarText.append(mViewModel.getCorrectTranslation());
-            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color
-                    .colorPrimary)), correctStart, snackbarText.length(), Spannable
-                    .SPAN_EXCLUSIVE_EXCLUSIVE);
-            snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart,
-                    snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            snackbarText.setSpan(new RelativeSizeSpan(1.2f), correctStart, snackbarText.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorPrimary)), correctStart, snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), correctStart, snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarText.setSpan(new RelativeSizeSpan(1.2f), correctStart, snackbarText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        Snackbar feedback = Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar
-                .LENGTH_LONG);
+        Snackbar feedback = Snackbar.make(mBinding.activityTraining, snackbarText, Snackbar.LENGTH_LONG);
         feedback.show();
         mViewModel.next();
         showWord();
     }
-
 }

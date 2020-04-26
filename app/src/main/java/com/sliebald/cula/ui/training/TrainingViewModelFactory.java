@@ -13,7 +13,6 @@ class TrainingViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private final CulaRepository mCulaRepository;
     private final TrainingData mTrainingData;
 
-
     TrainingViewModelFactory(TrainingData trainingData) {
         mCulaRepository = InjectorUtils.provideRepository();
         mTrainingData = trainingData;

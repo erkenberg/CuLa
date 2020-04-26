@@ -26,20 +26,17 @@ public class UpdateLibraryViewModel extends ViewModel {
      */
     private CulaRepository mRepository;
 
-
     /**
      * Constructor.
      *
      * @param entryId Id of the {@link LibraryEntry} That should be loaded.
      */
+    @SuppressWarnings("WeakerAccess")
     public UpdateLibraryViewModel(int entryId) {
         mRepository = InjectorUtils.provideRepository();
         // if an ID !=-1 is given as extra an existing entry should be loaded and updated instead of
         // creating a new one.
-        if (entryId != -1)
-            entry = InjectorUtils.provideRepository().getLibraryEntry(entryId);
-        else
-            entry = null;
+        entry = entryId != -1 ? InjectorUtils.provideRepository().getLibraryEntry(entryId) : null;
     }
 
     /**
@@ -61,12 +58,9 @@ public class UpdateLibraryViewModel extends ViewModel {
      */
     void commitEntry(String nativeWord, String foreignWord, double selectedKnowledgeLevel) {
         if (entry != null && entry.getValue() != null) {
-            mRepository.updateLibraryEntry(new LibraryEntry(entry.getValue().getId(), nativeWord,
-                    foreignWord, entry.getValue().getLanguage(), selectedKnowledgeLevel, new Date()));
+            mRepository.updateLibraryEntry(new LibraryEntry(entry.getValue().getId(), nativeWord, foreignWord, entry.getValue().getLanguage(), selectedKnowledgeLevel, new Date()));
         } else {
-            mRepository.insertLibraryEntry(new LibraryEntry(nativeWord, foreignWord,
-                    PreferenceUtils.getActiveLanguage(), selectedKnowledgeLevel));
+            mRepository.insertLibraryEntry(new LibraryEntry(nativeWord, foreignWord, PreferenceUtils.getActiveLanguage(), selectedKnowledgeLevel));
         }
-
     }
 }

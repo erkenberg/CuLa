@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context=".ui.about.AboutFragment">
 
-
     <TextView
         android:id="@+id/tv_label_privacy"
         style="@style/LabelHeadline"
@@ -30,14 +29,12 @@
         android:text="@string/about_privacy_policy_url"
         android:textAlignment="center" />
 
-
     <TextView
         android:id="@+id/tv_label_code"
         style="@style/LabelHeadline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/about_code_title" />
-
 
     <TextView
         android:id="@+id/tv_text_code"
