@@ -16,7 +16,7 @@ public class PreferenceUtils {
      *
      * @return Double that should be added to the Knowledgelevel of the trained word.
      */
-    public static double getKnowledgeIncrementCorrectTraining() {
+    static double getKnowledgeIncrementCorrectTraining() {
         Context context = MyApplication.getContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getInt(context.getString(R.string.
@@ -28,7 +28,7 @@ public class PreferenceUtils {
      *
      * @return Double that should be removed from the Knowledgelevel of the trained word.
      */
-    public static double getKnowledgeDecrementWrongTraining() {
+    static double getKnowledgeDecrementWrongTraining() {
         Context context = MyApplication.getContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getInt(context.getString(R.string.

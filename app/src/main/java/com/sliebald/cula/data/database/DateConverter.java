@@ -4,7 +4,6 @@ import androidx.room.TypeConverter;
 
 import java.util.Date;
 
-@SuppressWarnings("WeakerAccess")
 public class DateConverter {
     @TypeConverter
     public static Date toDate(Long timestamp) {

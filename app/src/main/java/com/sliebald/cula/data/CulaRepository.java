@@ -19,6 +19,7 @@ package com.sliebald.cula.data;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.sliebald.cula.BuildConfig;
@@ -68,7 +69,6 @@ public class CulaRepository {
         mExecutors = appExecutors;
         mLanguageDao = database.languageDao();
         mLessonDao = database.lessonDao();
-
 
         //Adding test data to database for testing
         if (BuildConfig.DEBUG) {
@@ -268,7 +268,7 @@ public class CulaRepository {
      *
      * @param libraryEntry One or more {@link LibraryEntry}s to add to the Database
      */
-    public void insertLibraryEntry(LibraryEntry... libraryEntry) {
+    public void insertLibraryEntry(@NonNull LibraryEntry... libraryEntry) {
         mExecutors.diskIO().execute(() -> mLibraryDao.insertEntry(libraryEntry));
         for (LibraryEntry lib :
                 libraryEntry) {

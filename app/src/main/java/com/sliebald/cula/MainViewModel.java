@@ -18,7 +18,7 @@ public class MainViewModel extends ViewModel {
         mActiveLanguage = InjectorUtils.provideRepository().getActiveLanguage();
     }
 
-    public LiveData<LanguageEntry> getActiveLanguage() {
+    LiveData<LanguageEntry> getActiveLanguage() {
         return mActiveLanguage;
     }
 
