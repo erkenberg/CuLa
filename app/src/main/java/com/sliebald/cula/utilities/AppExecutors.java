@@ -1,4 +1,3 @@
-
 package com.sliebald.cula.utilities;
 
 import java.util.concurrent.Executor;
