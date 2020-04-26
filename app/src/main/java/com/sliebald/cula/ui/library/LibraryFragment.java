@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,7 +56,7 @@ public class LibraryFragment extends Fragment implements
         super.onCreate(savedInstanceState);
         if (getActivity() == null || getContext() == null)
             return;
-        mViewModel = ViewModelProviders.of(getActivity()).get(LibraryViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(LibraryViewModel.class);
 
     }
 
@@ -65,17 +65,13 @@ public class LibraryFragment extends Fragment implements
         super.onResume();
         mViewModel.getLibraryEntries().observe(this, libraryEntries -> {
             if (libraryEntries == null || libraryEntries.size() == 0) {
-                Snackbar snackbar = Snackbar
-                        .make(mBinding.libraryCoordinatorLayout, R.string.library_add_first_word,
-                                Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(mBinding.libraryCoordinatorLayout, R.string.library_add_first_word, Snackbar.LENGTH_LONG);
                 snackbar.setAction(R.string.add, (View view) -> onLibraryEntryClick(-1));
                 snackbar.show();
                 return;
             }
             mAdapter.swapEntries(libraryEntries);
-            if (mPosition == RecyclerView.NO_POSITION) {
-                mPosition = 0;
-            }
+            if (mPosition == RecyclerView.NO_POSITION) mPosition = 0;
             mBinding.recyclerViewLibraryList.smoothScrollToPosition(mPosition);
         });
     }
@@ -122,14 +118,11 @@ public class LibraryFragment extends Fragment implements
             // remove the item from the viewModel
             mViewModel.removeLibraryEntry(deletedIndex);
             // show undo option
-            Snackbar snackbar = Snackbar
-                    .make(mBinding.libraryCoordinatorLayout, R.string.library_word_deleted,
-                            Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(mBinding.libraryCoordinatorLayout, R.string.library_word_deleted, Snackbar.LENGTH_LONG);
             snackbar.setAction(R.string.undo, (View view) -> {
-
                 mViewModel.restoreLatestDeletedLibraryEntry();
-                Snackbar.make(mBinding.libraryCoordinatorLayout, R.string.restored, Snackbar
-                        .LENGTH_SHORT).show();
+                Snackbar.make(mBinding.libraryCoordinatorLayout, R.string.restored, Snackbar.LENGTH_SHORT)
+                        .show();
             });
             snackbar.setActionTextColor(Color.YELLOW);
             snackbar.show();
@@ -140,7 +133,7 @@ public class LibraryFragment extends Fragment implements
     public void onLibraryEntryClick(int id) {
         LibraryFragmentDirections.ActionLibraryDestToUpdateLibraryDest action =
                 LibraryFragmentDirections.actionLibraryDestToUpdateLibraryDest(id);
-        Navigation.findNavController(getView()).navigate(action);
+        Navigation.findNavController(requireView()).navigate(action);
     }
 
     @Override
@@ -151,20 +144,17 @@ public class LibraryFragment extends Fragment implements
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_sort:
-                // Open a sort dialog and set this fragment as target for the callback.
-                LibrarySortDialog librarySortDialog = new LibrarySortDialog();
-                Bundle args = new Bundle();
-                args.putString(SortUtils.KEY_ACTIVE_SORT_BY, mViewModel.getCurrentSortType().name());
-                args.putBoolean(SortUtils.KEY_ACTIVE_SORT_ORDER, mViewModel.getCurrentSortOrder());
-                librarySortDialog.setArguments(args);
-                librarySortDialog.setTargetFragment(this, 1);
-                librarySortDialog.show(getFragmentManager(), "SortDialog");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.menu_sort) {// Open a sort dialog and set this fragment as target for the callback.
+            LibrarySortDialog librarySortDialog = new LibrarySortDialog();
+            Bundle args = new Bundle();
+            args.putString(SortUtils.KEY_ACTIVE_SORT_BY, mViewModel.getCurrentSortType().name());
+            args.putBoolean(SortUtils.KEY_ACTIVE_SORT_ORDER, mViewModel.getCurrentSortOrder());
+            librarySortDialog.setArguments(args);
+            librarySortDialog.setTargetFragment(this, 1);
+            librarySortDialog.show(getParentFragmentManager(), "SortDialog");
+            return true;
         }
+        return super.onOptionsItemSelected(item);
 
     }
 

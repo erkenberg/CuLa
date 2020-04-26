@@ -21,8 +21,7 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link LibraryEntry}.
  */
-public class LibraryRecyclerViewAdapter extends
-        RecyclerView.Adapter<LibraryRecyclerViewAdapter.ViewHolder> {
+public class LibraryRecyclerViewAdapter extends RecyclerView.Adapter<LibraryRecyclerViewAdapter.ViewHolder> {
 
     private final OnItemClickListener mListener;
 
@@ -101,7 +100,6 @@ public class LibraryRecyclerViewAdapter extends
 
     public interface OnItemClickListener {
         void onLibraryEntryClick(int id);
-
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -118,9 +116,6 @@ public class LibraryRecyclerViewAdapter extends
             viewForeground.setOnClickListener(v -> mListener.onLibraryEntryClick(mValues.get
                     (getAdapterPosition()).getId()));
         }
-
-
     }
-
 
 }

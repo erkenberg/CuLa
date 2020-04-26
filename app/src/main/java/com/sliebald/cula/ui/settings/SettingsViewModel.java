@@ -8,7 +8,6 @@ import com.sliebald.cula.utilities.InjectorUtils;
 
 import java.util.List;
 
-
 public class SettingsViewModel extends ViewModel {
 
     private final LiveData<List<LanguageEntry>> mLanguageEntries;
@@ -20,7 +19,7 @@ public class SettingsViewModel extends ViewModel {
         mLanguageEntries = InjectorUtils.provideRepository().getAllLanguageEntries();
     }
 
-    public LiveData<List<LanguageEntry>> getLanguageEntries() {
+    LiveData<List<LanguageEntry>> getLanguageEntries() {
         return mLanguageEntries;
     }
 
