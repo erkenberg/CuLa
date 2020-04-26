@@ -86,7 +86,7 @@ public class UpdateLessonSortDialog extends DialogFragment {
                         listener.onUpdateSortOrderClick(type, sw.isChecked());
                     }
                 }).setNegativeButton(R.string.cancel, (dialog, id) -> {
-                });
+        });
         return builder.create();
     }
 }

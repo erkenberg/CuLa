@@ -61,19 +61,14 @@ public class LessonsFragment extends Fragment implements
      * fragment (e.g. upon screen orientation changes).
      */
     public LessonsFragment() {
-
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getActivity() == null || getContext() == null)
             return;
         mViewModel = new ViewModelProvider(this).get(LessonsViewModel.class);
-
-
     }
 
     @Override
@@ -174,7 +169,6 @@ public class LessonsFragment extends Fragment implements
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     @Override
@@ -182,5 +176,4 @@ public class LessonsFragment extends Fragment implements
         Log.d("test", "called " + type + " " + asc);
         mViewModel.sortLessonsBy(type, asc);
     }
-
 }
