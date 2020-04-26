@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -61,19 +61,14 @@ public class LessonsFragment extends Fragment implements
      * fragment (e.g. upon screen orientation changes).
      */
     public LessonsFragment() {
-
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getActivity() == null || getContext() == null)
             return;
-        mViewModel = ViewModelProviders.of(getActivity()).get(LessonsViewModel.class);
-
-
+        mViewModel = new ViewModelProvider(this).get(LessonsViewModel.class);
     }
 
     @Override
@@ -152,7 +147,7 @@ public class LessonsFragment extends Fragment implements
     public void onLessonEntryClick(int id) {
         LessonsFragmentDirections.ActionLessonsDestToUpdateLessonDest action =
                 LessonsFragmentDirections.actionLessonsDestToUpdateLessonDest(id);
-        Navigation.findNavController(getView()).navigate(action);
+        Navigation.findNavController(requireView()).navigate(action);
     }
 
     @Override
@@ -163,21 +158,17 @@ public class LessonsFragment extends Fragment implements
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_sort:
-                // Open a sort dialog and set this fragment as target for the callback.
-                LessonSortDialog lessonSortDialog = new LessonSortDialog();
-                Bundle args = new Bundle();
-                args.putString(SortUtils.KEY_ACTIVE_SORT_BY, mViewModel.getCurrentSortType().name());
-                args.putBoolean(SortUtils.KEY_ACTIVE_SORT_ORDER, mViewModel.getCurrentSortOrder());
-                lessonSortDialog.setArguments(args);
-                lessonSortDialog.setTargetFragment(this, 1);
-                lessonSortDialog.show(getFragmentManager(), "SortDialog");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.menu_sort) {// Open a sort dialog and set this fragment as target for the callback.
+            LessonSortDialog lessonSortDialog = new LessonSortDialog();
+            Bundle args = new Bundle();
+            args.putString(SortUtils.KEY_ACTIVE_SORT_BY, mViewModel.getCurrentSortType().name());
+            args.putBoolean(SortUtils.KEY_ACTIVE_SORT_ORDER, mViewModel.getCurrentSortOrder());
+            lessonSortDialog.setArguments(args);
+            lessonSortDialog.setTargetFragment(this, 1);
+            lessonSortDialog.show(getParentFragmentManager(), "SortDialog");
+            return true;
         }
-
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -185,5 +176,4 @@ public class LessonsFragment extends Fragment implements
         Log.d("test", "called " + type + " " + asc);
         mViewModel.sortLessonsBy(type, asc);
     }
-
 }

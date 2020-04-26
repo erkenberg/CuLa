@@ -22,8 +22,7 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link MappingPOJO}.
  */
-public class UpdateLessonRecyclerViewAdapter extends
-        RecyclerView.Adapter<UpdateLessonRecyclerViewAdapter.ViewHolder> {
+public class UpdateLessonRecyclerViewAdapter extends RecyclerView.Adapter<UpdateLessonRecyclerViewAdapter.ViewHolder> {
 
     private final UpdateLessonRecyclerViewAdapter.OnItemClickListener mListener;
 
@@ -36,29 +35,23 @@ public class UpdateLessonRecyclerViewAdapter extends
 
     @NonNull
     @Override
-    public UpdateLessonRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup
-                                                                                 parent, int
-                                                                                 viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.lesson_mapping_item, parent, false);
+    public UpdateLessonRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lesson_mapping_item, parent, false);
         return new UpdateLessonRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final UpdateLessonRecyclerViewAdapter.ViewHolder
-                                         holder, int position) {
+    public void onBindViewHolder(@NonNull final UpdateLessonRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.mNativeWord.setText(mValues.get(position).getNativeWord());
         holder.mForeignWord.setText(mValues.get(position).getForeignWord());
         holder.mPartOfLesson.setChecked(mValues.get(position).partOfLesson);
-        holder.viewLayout.setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel
-                (mValues.get(position).getKnowledgeLevel()));
+        holder.viewLayout.setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel(mValues.get(position).getKnowledgeLevel()));
     }
 
     void swapEntries(final List<MappingPOJO> mapping) {
         if (mValues == null) {
             mValues = mapping;
             Log.d("adapter", "adapter called, notified changed");
-
         } else {
             /*
              * Use DiffUtil to calculate the changes and update accordingly. This
@@ -102,8 +95,7 @@ public class UpdateLessonRecyclerViewAdapter extends
 
     @Override
     public int getItemCount() {
-        if (mValues == null)
-            return 0;
+        if (mValues == null) return 0;
         return mValues.size();
     }
 
@@ -123,11 +115,7 @@ public class UpdateLessonRecyclerViewAdapter extends
             mNativeWord = view.findViewById(R.id.tv_lesson_mapping_native_word);
             mForeignWord = view.findViewById(R.id.tv_lesson_mapping_foreign_word);
             viewLayout = view.findViewById(R.id.view_item);
-            mPartOfLesson.setOnClickListener(v -> mListener.onLessonEntryClick(mPartOfLesson,
-                    mValues.get(getAdapterPosition()).getLibraryId()));
+            mPartOfLesson.setOnClickListener(v -> mListener.onLessonEntryClick(mPartOfLesson, mValues.get(getAdapterPosition()).getLibraryId()));
         }
-
     }
-
-
 }

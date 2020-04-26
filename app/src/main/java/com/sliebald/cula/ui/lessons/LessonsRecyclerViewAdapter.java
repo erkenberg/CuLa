@@ -119,6 +119,7 @@ public class LessonsRecyclerViewAdapter extends
                     (getAdapterPosition()).getId()));
         }
 
+        @NonNull
         @Override
         public String toString() {
             return super.toString() + " '" + mLessonName.getText() + "'" + " '" + mLessonDescription

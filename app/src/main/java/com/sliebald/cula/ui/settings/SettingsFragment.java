@@ -1,6 +1,5 @@
 package com.sliebald.cula.ui.settings;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,8 +7,9 @@ import android.text.InputType;
 import android.util.Log;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -22,7 +22,6 @@ import com.sliebald.cula.data.database.Entities.LanguageEntry;
 import com.sliebald.cula.utilities.InjectorUtils;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * The settings/preferences Fragment for configuration of the app.
@@ -76,6 +75,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 .settings_delete_language_key));
 
         // set onClick listener for adding/deleting language buttons
+        assert addLanguage != null;
         addLanguage.setOnPreferenceClickListener(preference -> {
             showAddLanguageDialog();
             return true;
@@ -87,7 +87,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         // get the ViewModel
         if (getActivity() != null && getContext() != null) {
-            mViewModel = ViewModelProviders.of(getActivity()).get(SettingsViewModel.class);
+            mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
         }
         //Load the language entries and update the ListPreference
         mViewModel.getLanguageEntries().observe(this, this::updateLanguageList);
@@ -113,7 +113,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         // When clicking on the SeekBarPreference the users should get feedback.
         Preference.OnPreferenceClickListener mTrainingSeekBarPreferenceClickListener = preference -> {
-            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+            AlertDialog alertDialog = new AlertDialog.Builder(requireContext()).create();
             int changeRate = ((SeekBarPreference) preference).getValue() * 10;
             if (preference.getKey().equals(getString(R.string
                     .settings_reward_correct_training_key))) {
@@ -125,15 +125,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 alertDialog.setMessage(getString(R.string
                         .settings_punish_wrong_training_explanation, changeRate));
             }
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
-                    (dialog, which) -> dialog.dismiss());
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.ok), (dialog, which) -> dialog.dismiss());
             alertDialog.show();
             return true;
         };
-        mCorrectTrainingSeekBarPreference.setOnPreferenceClickListener
-                (mTrainingSeekBarPreferenceClickListener);
-        mWrongTrainingSeekBarPreference.setOnPreferenceClickListener
-                (mTrainingSeekBarPreferenceClickListener);
+        mCorrectTrainingSeekBarPreference.setOnPreferenceClickListener(mTrainingSeekBarPreferenceClickListener);
+        mWrongTrainingSeekBarPreference.setOnPreferenceClickListener(mTrainingSeekBarPreferenceClickListener);
 
         initializePreferences();
     }
@@ -152,7 +149,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      * Shows a dialog and asks the user to write the language he wants to add.
      */
     private void showAddLanguageDialog() {
-        Context context = Objects.requireNonNull(getContext());
+        Context context = requireContext();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(getResources().getString(R.string.settings_add_language_title));
@@ -170,10 +167,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      */
     private void addNewLanguageToDb(String newLanguage) {
         if (newLanguage == null || newLanguage.length() < 2 || newLanguage.length() > 20) {
-            Snackbar snackbar = Snackbar
-                    .make(Objects.requireNonNull(getView()), R.string
-                            .settings_warning_invalid_language_length, Snackbar
-                            .LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(requireView(), R.string
+                    .settings_warning_invalid_language_length, Snackbar.LENGTH_LONG);
             snackbar.show();
             return;
         }
@@ -184,7 +179,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      * Deletes the current language from the app, including all words. Asks for confirmation first.
      */
     private void deleteLanguageDialog() {
-        Context context = Objects.requireNonNull(getContext());
+        Context context = requireContext();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(getString(R.string.settings_delete_language_title_warning,
                 mLanguageListPreference.getValue()));
@@ -194,7 +189,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 (mLanguageListPreference.getValue()));
         builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
         builder.show();
-
     }
 
     /**
@@ -210,7 +204,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
      *
      * @param languageEntries the new List of entries that should be shown.
      */
-    private void updateLanguageList(List<LanguageEntry> languageEntries) {
+    private void updateLanguageList(@NonNull List<LanguageEntry> languageEntries) {
         int selected = 0;
         if (languageEntries.size() == 0) {
             mLanguageListPreference.setSummary(getResources().getString(R.string

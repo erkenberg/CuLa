@@ -3,7 +3,6 @@ package com.sliebald.cula.ui.library;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,9 +24,8 @@ public class LibrarySortDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
         // inflate the dialog
-        View view = inflater.inflate(R.layout.dialog_sort_library, null);
+        View view = View.inflate(requireContext(), R.layout.dialog_sort_library, null);
 
         // get the arguments to set the currently selected values.
         Bundle args = getArguments();
@@ -36,6 +34,7 @@ public class LibrarySortDialog extends DialogFragment {
         SwitchCompat sw = view.findViewById(R.id.switch_order);
         TextView textOrder = view.findViewById(R.id.tv_asc);
         RadioButton rb;
+        assert args != null;
         switch (SortUtils.SortType.valueOf(args.getString(SortUtils.KEY_ACTIVE_SORT_BY))) {
             case NATIVE_WORD:
                 rb = view.findViewById(R.id.radio_sort_native);
@@ -51,21 +50,11 @@ public class LibrarySortDialog extends DialogFragment {
         }
         rb.toggle();
 
-        boolean asc = getArguments().getBoolean(SortUtils.KEY_ACTIVE_SORT_ORDER);
-        if (asc) {
-            textOrder.setText(R.string.sort_asc);
-        } else {
-            textOrder.setText(R.string.sort_desc);
-        }
+        boolean asc = args.getBoolean(SortUtils.KEY_ACTIVE_SORT_ORDER);
+        textOrder.setText(asc ? R.string.sort_asc : R.string.sort_desc);
         sw.setChecked(asc);
         // set an OnClickListener to dynamically adapt the text to the selected order.
-        sw.setOnClickListener(v -> {
-            if (((SwitchCompat) v).isChecked()) {
-                textOrder.setText(R.string.sort_asc);
-            } else {
-                textOrder.setText(R.string.sort_desc);
-            }
-        });
+        sw.setOnClickListener(v -> textOrder.setText(((SwitchCompat) v).isChecked() ? R.string.sort_asc : R.string.sort_desc));
 
         builder.setView(view).setPositiveButton(R.string.sort, (dialog, id) -> {
             // read the selected values and report them via callback
@@ -89,9 +78,8 @@ public class LibrarySortDialog extends DialogFragment {
             if (listener != null) {
                 listener.onUpdateSortOrderClick(type, sw.isChecked());
             }
-        })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> {
-                });
+        }).setNegativeButton(R.string.cancel, (dialog, id) -> {
+        });
 
         return builder.create();
     }

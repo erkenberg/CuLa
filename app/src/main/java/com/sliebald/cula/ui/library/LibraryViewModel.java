@@ -2,6 +2,7 @@ package com.sliebald.cula.ui.library;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
@@ -37,8 +38,7 @@ public class LibraryViewModel extends ViewModel {
         mLibraryEntries = new MediatorLiveData<>();
         mCurrentSortOrder = true;
         mCurrentSortType = SortUtils.SortType.KNOWLEDGE_LEVEL;
-        mComparator = (one, two) -> Double.compare(one.getKnowledgeLevel(),
-                two.getKnowledgeLevel());
+        mComparator = (one, two) -> Double.compare(one.getKnowledgeLevel(), two.getKnowledgeLevel());
         mLibraryEntries.addSource(mCulaRepository.getAllLibraryEntries(), libraryEntries -> {
                     Collections.sort(libraryEntries, mComparator);
                     mLibraryEntries.setValue(libraryEntries);
@@ -53,7 +53,7 @@ public class LibraryViewModel extends ViewModel {
      * @param sortBy    The parameter to sort by.
      * @param ascending True if sorting ascending, false otherwise.
      */
-    void sortLibraryBy(SortUtils.SortType sortBy, boolean ascending) {
+    void sortLibraryBy(@NonNull SortUtils.SortType sortBy, boolean ascending) {
         mCurrentSortOrder = ascending;
         mCurrentSortType = sortBy;
         switch (sortBy) {
@@ -73,11 +73,9 @@ public class LibraryViewModel extends ViewModel {
                         (one, two) -> Double.compare(one.getKnowledgeLevel(),
                                 two.getKnowledgeLevel());
         }
-        if (!ascending) {
-            mComparator = mComparator.reversed();
-        }
+        if (!ascending) mComparator = mComparator.reversed();
         List<LibraryEntry> entries = mLibraryEntries.getValue();
-        Collections.sort(entries, mComparator);
+        if (entries != null) Collections.sort(entries, mComparator);
         mLibraryEntries.setValue(entries);
     }
 
@@ -97,8 +95,7 @@ public class LibraryViewModel extends ViewModel {
      * @param index Index of the selected index.
      */
     void removeLibraryEntry(int index) {
-        if (mLibraryEntries == null || mLibraryEntries.getValue() == null)
-            return;
+        if (mLibraryEntries == null || mLibraryEntries.getValue() == null) return;
         if (index < mLibraryEntries.getValue().size()) {
             mLatestDeletedEntry = mLibraryEntries.getValue().get(index);
             Log.d(LibraryViewModel.class.getSimpleName(), mLatestDeletedEntry.toString());

@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -32,21 +32,19 @@ public class UpdateLibraryFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_update_library, container
-                , false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_update_library, container, false);
 
+        assert getArguments() != null;
         UpdateLibraryFragmentArgs args = UpdateLibraryFragmentArgs.fromBundle(getArguments());
 
         int id = args.getLibraryEntryId();
         UpdateLibraryViewModelFactory viewModelFactory = new UpdateLibraryViewModelFactory(id);
-        mViewModel =
-                ViewModelProviders.of(this, viewModelFactory).get(UpdateLibraryViewModel.class);
+        mViewModel = new ViewModelProvider(this, viewModelFactory).get(UpdateLibraryViewModel.class);
 
         if (id != -1) {
             mBinding.buttonAddWordPair.setVisibility(View.GONE);
-            mViewModel.getEntry().observe(this, libraryEntry -> {
+            mViewModel.getEntry().observe(getViewLifecycleOwner(), libraryEntry -> {
                 if (libraryEntry == null)
                     return;
                 mViewModel.getEntry().removeObservers(this);
@@ -58,10 +56,8 @@ public class UpdateLibraryFragment extends Fragment {
             //on creating a new entry load the default day set in the settings.
             setKnowledgeLevelUI(PreferenceUtils.getDefaultKnowledgeLevel());
         }
-
         mBinding.buttonAddWordPair.setOnClickListener(v -> commitLibraryEntry(false));
         mBinding.buttonAddWordPairReturn.setOnClickListener(v -> commitLibraryEntry(true));
-
         return mBinding.getRoot();
     }
 
@@ -108,9 +104,7 @@ public class UpdateLibraryFragment extends Fragment {
             mBinding.editTextAddForeignWord.requestFocus();
             return;
         }
-
         mViewModel.commitEntry(nativeWord, foreignWord, getSelectedKnowledgeLevel());
-
 
         if (returnAfterSave)
             finishLibraryUpdate();
@@ -121,7 +115,6 @@ public class UpdateLibraryFragment extends Fragment {
             setKnowledgeLevelUI(PreferenceUtils.getDefaultKnowledgeLevel());
             Snackbar.make(mBinding.activityUpdateLibrary, R.string
                     .update_library_success_entry_added, Snackbar.LENGTH_SHORT).show();
-
         }
     }
 
@@ -129,8 +122,8 @@ public class UpdateLibraryFragment extends Fragment {
      * Return to the library overview fragment
      */
     private void finishLibraryUpdate() {
-        KeyboardUtils.hideKeyboard(getContext(), getView());
-        Navigation.findNavController(getView()).popBackStack();
+        KeyboardUtils.hideKeyboard(requireContext(), getView());
+        Navigation.findNavController(requireView()).popBackStack();
     }
 
     /**
@@ -149,7 +142,5 @@ public class UpdateLibraryFragment extends Fragment {
             mBinding.rbKnowledgeLevel4.toggle();
         else
             mBinding.rbKnowledgeLevel5.toggle();
-
     }
-
 }

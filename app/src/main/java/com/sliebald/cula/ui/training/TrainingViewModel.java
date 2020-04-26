@@ -1,5 +1,6 @@
 package com.sliebald.cula.ui.training;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.sliebald.cula.data.CulaRepository;
@@ -12,19 +13,18 @@ import com.sliebald.cula.utilities.KnowledgeLevelUtils;
 /**
  * {@link ViewModel} for the {@link UpdateLibraryFragment}.
  */
-public class TrainingViewModel extends ViewModel {
+class TrainingViewModel extends ViewModel {
 
     /**
      * The {@link TrainingData} that defines the training.
      */
     private final TrainingData mTrainingData;
-    CulaRepository mRepository;
+    private CulaRepository mRepository;
     /**
      * Currently learned word in the list of {@link LibraryEntry}s that should be trained, which
      * is stored in the {@link TrainingData}.
      */
     private int currentIndex;
-
 
     /**
      * Constructor.
@@ -53,11 +53,9 @@ public class TrainingViewModel extends ViewModel {
      * @return The current word to learn.
      */
     String getCurrentWord() {
-        if (mTrainingData.isReverseTraining()) {
-            return mTrainingData.getTrainingEntries().get(currentIndex).getForeignWord();
-        } else {
-            return mTrainingData.getTrainingEntries().get(currentIndex).getNativeWord();
-        }
+        return mTrainingData.isReverseTraining()
+                ? mTrainingData.getTrainingEntries().get(currentIndex).getForeignWord()
+                : mTrainingData.getTrainingEntries().get(currentIndex).getNativeWord();
     }
 
     /**
@@ -78,10 +76,9 @@ public class TrainingViewModel extends ViewModel {
         return mTrainingData.getTrainingEntries().size();
     }
 
-    void updateStatistics(double successRate) {
+    private void updateStatistics(double successRate) {
         //TODO: handle lessonId for statistics correctly, not just null
-        mRepository.insertStatisticsEntry(new StatisticEntry(mTrainingData.getTrainingEntries().get(currentIndex).getId(),
-                null, successRate));
+        mRepository.insertStatisticsEntry(new StatisticEntry(mTrainingData.getTrainingEntries().get(currentIndex).getId(), null, successRate));
     }
 
     /**
@@ -90,11 +87,9 @@ public class TrainingViewModel extends ViewModel {
      * @return The correct Translation.
      */
     String getCorrectTranslation() {
-        if (mTrainingData.isReverseTraining()) {
-            return mTrainingData.getTrainingEntries().get(currentIndex).getNativeWord();
-        } else {
-            return mTrainingData.getTrainingEntries().get(currentIndex).getForeignWord();
-        }
+        return mTrainingData.isReverseTraining()
+                ? mTrainingData.getTrainingEntries().get(currentIndex).getNativeWord()
+                : mTrainingData.getTrainingEntries().get(currentIndex).getForeignWord();
     }
 
     /**
@@ -104,13 +99,10 @@ public class TrainingViewModel extends ViewModel {
         currentIndex++;
     }
 
-    boolean checkTranslationCorrect(String typedTranslation) {
+    boolean checkTranslationCorrect(@NonNull String typedTranslation) {
         LibraryEntry currentEntry = mTrainingData.getTrainingEntries().get(currentIndex);
-        boolean success =
-                typedTranslation.trim().toLowerCase().equals(getCorrectTranslation().trim().toLowerCase());
-        double updatedKnowledgeLevel =
-                KnowledgeLevelUtils.calculateKnowledgeLevelAdjustment(currentEntry.getKnowledgeLevel(),
-                        success);
+        boolean success = typedTranslation.trim().toLowerCase().equals(getCorrectTranslation().trim().toLowerCase());
+        double updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowledgeLevelAdjustment(currentEntry.getKnowledgeLevel(), success);
         updateStatistics(success ? 1 : 0);
         currentEntry.setKnowledgeLevel(updatedKnowledgeLevel);
         mRepository.updateLibraryEntry(currentEntry);

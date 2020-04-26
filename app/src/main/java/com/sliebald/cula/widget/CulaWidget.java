@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -29,7 +30,7 @@ public class CulaWidget extends AppWidgetProvider {
 
     private static final String TAG = CulaWidget.class.getSimpleName();
 
-    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+    private static void updateAppWidget(@NonNull Context context, AppWidgetManager appWidgetManager,
                                         int appWidgetId) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.cula_widget);
         Intent configIntent = new Intent(context, MainActivity.class);
@@ -123,7 +124,7 @@ public class CulaWidget extends AppWidgetProvider {
     }
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, @NonNull int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);

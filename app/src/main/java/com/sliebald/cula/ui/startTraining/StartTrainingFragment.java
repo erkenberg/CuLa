@@ -1,6 +1,5 @@
 package com.sliebald.cula.ui.startTraining;
 
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -20,8 +19,6 @@ import com.sliebald.cula.R;
 import com.sliebald.cula.data.database.Entities.LessonEntry;
 import com.sliebald.cula.data.database.Pojos.TrainingData;
 import com.sliebald.cula.databinding.FragmentStartTrainingBinding;
-
-import java.util.Objects;
 
 /**
  * The fragment for starting a training session.
@@ -38,7 +35,6 @@ public class StartTrainingFragment extends Fragment {
      */
     private static final String SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY = "selectedLesson";
 
-
     /**
      * The data binding for the layout.
      */
@@ -48,7 +44,6 @@ public class StartTrainingFragment extends Fragment {
      * The viewModel for the {@link StartTrainingFragment}.
      */
     private StartTrainingViewModel mViewModel;
-
 
     public StartTrainingFragment() {
         // Required empty public constructor
@@ -60,16 +55,13 @@ public class StartTrainingFragment extends Fragment {
         if (getActivity() == null || getContext() == null)
             return;
         // Create the ViewModel for this fragment.
-
-        mViewModel = ViewModelProviders.of(getActivity()).get(StartTrainingViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(StartTrainingViewModel.class);
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_start_training,
-                container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_start_training, container, false);
 
         // set listener for start training button
         mBinding.btStartTraining.setOnClickListener(view -> startTraining());
@@ -78,32 +70,27 @@ public class StartTrainingFragment extends Fragment {
 
         // Set the correct Entries for the number of words to learn spinner.
         ArrayAdapter<CharSequence> num_words_adapter =
-                ArrayAdapter.createFromResource(Objects.requireNonNull(getContext()),
-                        R.array.training_number_of_words, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(requireContext(), R.array.training_number_of_words, android.R.layout.simple_spinner_item);
         num_words_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBinding.spStartTrainingNumberOfWords.setAdapter(num_words_adapter);
         mBinding.spStartTrainingNumberOfWords.setSelectedIndex(1);
 
         // Set the correct Entries for the Knowledge Level Range Spinner.
         ArrayAdapter<CharSequence> knowledgeLevel_range_adapter =
-                ArrayAdapter.createFromResource(Objects.requireNonNull(getContext()),
-                        R.array.knowledgeLevel_range, android.R.layout.simple_spinner_item);
-        knowledgeLevel_range_adapter.setDropDownViewResource(android.R.layout
-                .simple_spinner_dropdown_item);
+                ArrayAdapter.createFromResource(requireContext(), R.array.knowledgeLevel_range, android.R.layout.simple_spinner_item);
+        knowledgeLevel_range_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBinding.spStartTrainingKnowledgeLevelRange.setAdapter(knowledgeLevel_range_adapter);
         mBinding.spStartTrainingKnowledgeLevelRange.setSelectedIndex(2);
 
         // Set the correct Entries for the Knowledge Level Spinner.
         ArrayAdapter<CharSequence> knowledgeLevel_adapter =
-                ArrayAdapter.createFromResource(Objects.requireNonNull(getContext()),
-                        R.array.knowledgeLevel, android.R.layout.simple_spinner_item);
-        knowledgeLevel_adapter.setDropDownViewResource(android.R.layout
-                .simple_spinner_dropdown_item);
+                ArrayAdapter.createFromResource(requireContext(), R.array.knowledgeLevel, android.R.layout.simple_spinner_item);
+        knowledgeLevel_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBinding.spStartTrainingKnowledgeLevel.setAdapter(knowledgeLevel_adapter);
         mBinding.spStartTrainingKnowledgeLevel.setSelectedIndex(4);
 
         // Set the correct Entries for the Lessons taken from the database.
-        mViewModel.getLessonEntries().observe(this, entries -> {
+        mViewModel.getLessonEntries().observe(getViewLifecycleOwner(), entries -> {
             if (entries != null) {
                 String[] lessonNames = new String[entries.size() + 1];
                 lessonNames[0] = getResources().getString(R.string.start_training_lessons_any);
@@ -112,16 +99,12 @@ public class StartTrainingFragment extends Fragment {
                     lessonNames[index] = entry.getLessonName();
                     index++;
                 }
-                ArrayAdapter<CharSequence> lesson_adapter = new ArrayAdapter<>(getContext(),
+                ArrayAdapter<CharSequence> lesson_adapter = new ArrayAdapter<>(requireContext(),
                         android.R.layout.simple_spinner_item, lessonNames);
-                lesson_adapter.setDropDownViewResource(android.R.layout
-                        .simple_spinner_dropdown_item);
+                lesson_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mBinding.spStartTrainingLesson.setAdapter(lesson_adapter);
-                if (savedInstanceState != null && savedInstanceState.containsKey
-                        (SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY))
-                    mBinding.spStartTrainingLesson.setSelectedIndex(savedInstanceState.getInt
-                            (SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY, 0));
-
+                if (savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY))
+                    mBinding.spStartTrainingLesson.setSelectedIndex(savedInstanceState.getInt(SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY, 0));
             }
         });
         return mBinding.getRoot();
@@ -134,7 +117,7 @@ public class StartTrainingFragment extends Fragment {
         LiveData<TrainingData> data = mViewModel.getTrainingData(getSelectedNumWords(),
                 getSelectedMinKnowledgeLevel(), getSelectedMaxKnowledgeLevel(),
                 getSelectedLessonId(), getSelectedReverseTraining());
-        data.observe(this, new Observer<TrainingData>() {
+        data.observe(getViewLifecycleOwner(), new Observer<TrainingData>() {
             @Override
             public void onChanged(TrainingData trainingData) {
                 data.removeObserver(this);
@@ -142,15 +125,13 @@ public class StartTrainingFragment extends Fragment {
                     StartTrainingFragmentDirections.ActionStartTrainingDestToTrainingDest action =
                             StartTrainingFragmentDirections.actionStartTrainingDestToTrainingDest();
                     action.setTrainingData(trainingData);
-                    Navigation.findNavController(getView()).navigate(action);
+                    Navigation.findNavController(requireView()).navigate(action);
                 } else {
                     Snackbar.make(mBinding.fragmentStartTraining, R.string
-                            .start_training_warning_no_matching_words, Snackbar.LENGTH_SHORT)
-                            .show();
+                            .start_training_warning_no_matching_words, Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
-
         //TODO: save selected options to sharedParameters for next session
     }
 
@@ -161,15 +142,7 @@ public class StartTrainingFragment extends Fragment {
      */
     private double getSelectedMinKnowledgeLevel() {
         int selectedLevel = mBinding.spStartTrainingKnowledgeLevel.getSelectedIndex() + 1;
-        switch (mBinding
-                .spStartTrainingKnowledgeLevelRange.getSelectedIndex()) {
-            case 2:
-                return 0;
-            default:
-                if (selectedLevel == 1)
-                    return 0;
-                return selectedLevel - 0.5;
-        }
+        return mBinding.spStartTrainingKnowledgeLevelRange.getSelectedIndex() == 2 || selectedLevel == 1 ? 0 : selectedLevel - 0.5;
 
     }
 
@@ -180,15 +153,7 @@ public class StartTrainingFragment extends Fragment {
      */
     private double getSelectedMaxKnowledgeLevel() {
         int selectedLevel = mBinding.spStartTrainingKnowledgeLevel.getSelectedIndex() + 1;
-        switch (mBinding
-                .spStartTrainingKnowledgeLevelRange.getSelectedIndex()) {
-            case 0:
-                return 5;
-            default:
-                if (selectedLevel == 5)
-                    return 5;
-                return selectedLevel + 0.5;
-        }
+        return mBinding.spStartTrainingKnowledgeLevelRange.getSelectedIndex() == 0 || selectedLevel == 5 ? 5 : selectedLevel + 0.5;
     }
 
     /**
@@ -197,12 +162,9 @@ public class StartTrainingFragment extends Fragment {
      * @return The id of the selected lesson (-1 if any is selected).
      */
     private int getSelectedLessonId() {
-        if (mViewModel.getLessonEntries().getValue() == null || mBinding.spStartTrainingLesson
-                .getSelectedIndex()
-                == 0)
-            return -1;
-        return mViewModel.getLessonEntries().getValue().get(mBinding.spStartTrainingLesson
-                .getSelectedIndex() - 1).getId();
+        return mViewModel.getLessonEntries().getValue() == null || mBinding.spStartTrainingLesson.getSelectedIndex() == 0
+                ? -1
+                : mViewModel.getLessonEntries().getValue().get(mBinding.spStartTrainingLesson.getSelectedIndex() - 1).getId();
     }
 
     /**
@@ -222,15 +184,12 @@ public class StartTrainingFragment extends Fragment {
      * @return true if reverse training is activated, false otherwise.
      */
     private boolean getSelectedReverseTraining() {
-        return mBinding
-                .swStartTrainingReverseTraining.isChecked();
+        return mBinding.swStartTrainingReverseTraining.isChecked();
     }
-
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY, mBinding
-                .spStartTrainingLesson.getSelectedIndex());
+        outState.putInt(SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY, mBinding.spStartTrainingLesson.getSelectedIndex());
     }
 }

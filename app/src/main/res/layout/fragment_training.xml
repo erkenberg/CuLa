@@ -43,7 +43,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_label_translate_word" />
 
-
         <EditText
             android:id="@+id/et_translated_word"
             android:layout_width="@dimen/training_translation_edit_text_width"

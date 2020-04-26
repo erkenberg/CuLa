@@ -54,19 +54,14 @@ public class LessonsViewModel extends ViewModel {
     void sortLessonsBy(SortUtils.SortType sortBy, boolean ascending) {
         mCurrentSortOrder = ascending;
         mCurrentSortType = sortBy;
-        switch (sortBy) {
-            case ID:
-                mComparator = (one, two) -> Integer.compare(one.getId(), two.getId());
-                break;
-            default:
-                mComparator =
-                        (one, two) -> one.getLessonName().toLowerCase().compareTo(two.getLessonName().toLowerCase());
-        }
-        if (!ascending) {
-            mComparator = mComparator.reversed();
-        }
+        mComparator = sortBy == SortUtils.SortType.ID
+                ? ((one, two) -> Integer.compare(one.getId(), two.getId()))
+                : ((one, two) -> one.getLessonName().toLowerCase().compareTo(two.getLessonName().toLowerCase()));
+        if (!ascending) mComparator = mComparator.reversed();
+
         List<LessonEntry> entries = mLessonEntries.getValue();
-        Collections.sort(entries, mComparator);
+        if (entries != null) Collections.sort(entries, mComparator);
+
         mLessonEntries.setValue(entries);
     }
 

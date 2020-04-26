@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    <RadioGroup
         android:id="@+id/radio_sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,6 +83,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_asc"
         app:layout_constraintTop_toTopOf="@+id/tv_asc" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

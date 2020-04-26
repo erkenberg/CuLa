@@ -6,7 +6,7 @@ import android.view.Menu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -40,28 +40,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         mBinding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         Toolbar toolbar = mBinding.toolbar;
-        MainViewModel mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        MainViewModel mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         //check whether there is a language set as active.
         mViewModel.getActiveLanguage().observe(this, this::checkActiveLanguage);
 
-
         // setup drawer icons
         Menu menu = mBinding.navView.getMenu();
-        menu.findItem(R.id.startTraining_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome
-                .Icon.faw_pen));
-        menu.findItem(R.id.library_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome
-                .Icon.faw_book));
-        menu.findItem(R.id.lessons_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome
-                .Icon.faw_book_open));
-        menu.findItem(R.id.statistics_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome
-                .Icon.faw_chart_pie));
-        menu.findItem(R.id.settings_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome
-                .Icon.faw_cogs));
-        menu.findItem(R.id.about_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome
-                .Icon.faw_info));
+        menu.findItem(R.id.startTraining_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome.Icon.faw_pen));
+        menu.findItem(R.id.library_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome.Icon.faw_book));
+        menu.findItem(R.id.lessons_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome.Icon.faw_book_open));
+        menu.findItem(R.id.statistics_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome.Icon.faw_chart_pie));
+        menu.findItem(R.id.settings_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome.Icon.faw_cogs));
+        menu.findItem(R.id.about_dest).setIcon(new IconicsDrawable(this).icon(FontAwesome.Icon.faw_info));
         //setup navigation top level destinations
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
         Set<Integer> tlds = new HashSet<>();
@@ -110,5 +102,4 @@ public class MainActivity extends AppCompatActivity {
         KeyboardUtils.hideKeyboard(this, mBinding.getRoot());
         return NavigationUI.navigateUp(mNavController, mAppBarConfiguration);
     }
-
 }

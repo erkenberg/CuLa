@@ -3,6 +3,7 @@ package com.sliebald.cula.utilities;
 import android.content.Context;
 import android.content.res.Resources;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.sliebald.cula.MyApplication;
@@ -47,7 +48,8 @@ public class KnowledgeLevelUtils {
      * @param knowledgeLevel The knowledgeLevel.
      * @return The name of the given KnowledgeLevel
      */
-    public static String getNameByKnowledgeLevel(Context context, double knowledgeLevel) {
+    @NonNull
+    public static String getNameByKnowledgeLevel(@NonNull Context context, double knowledgeLevel) {
         Resources res = context.getResources();
         if (knowledgeLevel < 1)
             return res.getString(R.string.knowledgeLevel1);

@@ -22,7 +22,6 @@ public class StartTrainingViewModel extends ViewModel {
 
     private final CulaRepository mRepository;
 
-
     /**
      * Constructor.
      */
@@ -43,13 +42,9 @@ public class StartTrainingViewModel extends ViewModel {
     LiveData<TrainingData> getTrainingData(int mAmount, double
             mMinKnowledgeLevel, double mMaxKnowledgeLevel, int mLessonId, boolean reverseTraining) {
 
-        LiveData<List<LibraryEntry>> libraryEntries;
-        if (mLessonId < 0) {
-            libraryEntries = mRepository.getTrainingEntries(mAmount, mMinKnowledgeLevel, mMaxKnowledgeLevel);
-
-        } else {
-            libraryEntries = mRepository.getTrainingEntries(mAmount, mMinKnowledgeLevel, mMaxKnowledgeLevel, mLessonId);
-        }
+        LiveData<List<LibraryEntry>> libraryEntries = mLessonId < 0
+                ? mRepository.getTrainingEntries(mAmount, mMinKnowledgeLevel, mMaxKnowledgeLevel)
+                : mRepository.getTrainingEntries(mAmount, mMinKnowledgeLevel, mMaxKnowledgeLevel, mLessonId);
         return Transformations.map(libraryEntries, entries -> new TrainingData(mLessonId, reverseTraining, libraryEntries.getValue()));
     }
 }

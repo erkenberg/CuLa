@@ -8,7 +8,7 @@ class UpdateLessonViewModelFactory extends ViewModelProvider.NewInstanceFactory 
 
     private final int mEntryId;
 
-    public UpdateLessonViewModelFactory(int entryId) {
+    UpdateLessonViewModelFactory(int entryId) {
         mEntryId = entryId;
     }
 
