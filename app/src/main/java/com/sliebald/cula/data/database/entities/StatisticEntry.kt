@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import androidx.room.Ignore
 import java.util.*
 
 /**
@@ -42,9 +43,10 @@ import java.util.*
 )
 data class StatisticEntry(@PrimaryKey(autoGenerate = true) val id: Int = 0, val libraryEntryID: Int, val lessonEntryID: Int?, var successRate: Double = 0.0, val trainingDate: Date = Date()) {
 
+    // TODO: remove secondary constructors in favor of using named arguments when the codebase is all kotlin
+    @Ignore
     constructor(libraryEntryID: Int, lessonEntryID: Int?, successRate: Double) : this(0, libraryEntryID, lessonEntryID, successRate, Date())
 
-    // TODO: remove secondary constructors in favor of using named arguments when the codebase is all kotlin
     init {
         if (successRate < 0) successRate = 0.0 else if (successRate > 1) successRate = 1.0
     }

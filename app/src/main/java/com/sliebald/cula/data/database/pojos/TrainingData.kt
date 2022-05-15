@@ -2,8 +2,8 @@ package com.sliebald.cula.data.database.pojos
 
 import android.os.Parcelable
 import com.sliebald.cula.data.database.entities.LibraryEntry
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 /**
  * POJO that describes all data required to initiate a training session and store statistics

@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import androidx.room.Ignore
 
 /**
  * An @[Entity] Describing a mapping between a [LessonEntry] and a [LibraryEntry].
@@ -41,5 +42,6 @@ data class LessonMappingEntry(
         @PrimaryKey(autoGenerate = true) val id: Int = 0
 ) {
     // TODO: remove secondary constructors in favor of using named arguments when the codebase is all kotlin
+    @Ignore
     constructor(lessonEntryId: Int, libraryEntryId: Int) : this(lessonEntryId, libraryEntryId, 0)
 }
