@@ -359,18 +359,4 @@ class CulaRepository private constructor(database: CulaDatabase, appExecutors: A
         calendar.add(Calendar.DAY_OF_YEAR, -14)
         return mStatisticsDao.getStatisticsActivity(calendar.time)
     }
-
-    /**
-     * Get the date of the last training.
-     *
-     * @return Date of the last training wrapped in LiveData.
-     */
-    fun getLastTrainingDate(): LiveData<StatisticsLastTrainingDate> = mStatisticsDao.getLastTrainingDate()
-
-    /**
-     * Returns the lesson with the lowest KnowledgeLevel
-     *
-     * @return LessonKnowledgeLevel holding the result wrapped in LiveData.
-     */
-    fun getWorstLesson(): LiveData<LessonKnowledgeLevel> = mStatisticsDao.getWorstLesson()
 }

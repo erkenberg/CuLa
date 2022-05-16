@@ -6,14 +6,12 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.sliebald.cula.data.database.entities.StatisticEntry
-import com.sliebald.cula.data.database.pojos.LessonKnowledgeLevel
 import com.sliebald.cula.data.database.pojos.StatisticsActivityEntry
-import com.sliebald.cula.data.database.pojos.StatisticsLastTrainingDate
 import com.sliebald.cula.data.database.pojos.StatisticsLibraryWordCount
 import java.util.*
 
 /**
- * [Dao] which provides an api for all data operations with the [CulaDatabase]
+ * [Dao] which provides an api for all data operations with the [com.sliebald.cula.data.database.CulaDatabase]
  * related to the [StatisticEntry]s.
  */
 @Dao
@@ -63,26 +61,4 @@ interface StatisticsDao {
             "GROUP BY strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch')" +
             "ORDER BY strftime('%Y-%m-%d', trainingDate / 1000, 'unixepoch') ASC")
     fun getStatisticsActivity(date: Date): LiveData<List<StatisticsActivityEntry>>
-
-    /**
-     * Get the date of the last training.
-     *
-     * @return Date of the last training.
-     */
-    @Query("SELECT max(trainingDate) AS lastActive FROM statistics ")
-    fun getLastTrainingDate(): LiveData<StatisticsLastTrainingDate>
-
-    /**
-     * Returns the lesson with the lowest KnowledgeLevel
-     *
-     * @return LessonKnowledgeLevel holding the result wrapped in LiveData.
-     */
-    @Query("SELECT lessonName,avg(knowledgeLevel) AS average " +
-            "FROM lesson JOIN lesson_mapping ON lesson.id=lesson_mapping.lessonEntryId " +
-            "JOIN library ON lesson_mapping.libraryEntryId = library.id " +
-            "WHERE lesson.language = (SELECT language FROM language WHERE isActive=1 LIMIT 1)" +
-            "GROUP BY lessonName " +
-            "ORDER BY avg(knowledgeLevel) ASC " +
-            "LIMIT 1")
-    fun getWorstLesson(): LiveData<LessonKnowledgeLevel>
 }

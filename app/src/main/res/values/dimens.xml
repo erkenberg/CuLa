@@ -6,10 +6,6 @@
     <dimen name="ic_delete">30dp</dimen>
     <dimen name="padd_10">10dp</dimen>
 
-    <dimen name="widget_margin">0dp</dimen>
-    <dimen name="widget_minHeight">40dp</dimen>
-    <dimen name="widget_minWidth">320dp</dimen>
-
     <dimen name="distance_super_small">2dp</dimen>
     <dimen name="distance_small">4dp</dimen>
     <dimen name="distance_normal">8dp</dimen>

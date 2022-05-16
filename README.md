@@ -38,11 +38,6 @@
  * delete
 * Set the default knowledge Level for new words.
 
-## Widget:
-* Different motivational output depending on when the last training was
-* Proposes lesson to train (worst lesson for selected language)
-* click on widget starts CuLa
-
 # Disable dummy prefil:
 * For testing purposes the Room Database is prefilled with some entries for the different tables.
 * To disable that:
