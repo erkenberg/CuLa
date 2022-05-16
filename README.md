@@ -51,22 +51,6 @@
  * Afterwards the App is setup without any prefils.
  * only enabled for debug version, release version should ship without dummy prefill
 
-# google services used:
- * room database for persistence
- * firebase crashlytics to get error reports on critical crashes
- * firebase analytics to analyze defaults + starting/finishing of training sessions
 
-# Setup firebase:
-* create a new firebase project:
-  * follow firebase instructions on https://console.firebase.google.com/
-  * create new project
-  * store google-services.json to cula/app/google-services.json
-* enable crashlytics:
-  * in the firebase console of the project click on Crashlytics
-  * should directly work after starting the app once
- * configure google analytics keys in the firebase console:
-
-  
-  
 # Initial Design can be found here (some parts are not implemented yet, some are additional):
 * https://github.com/SLiebald/Capstone-Project

@@ -176,8 +176,7 @@
     <!-- About page related -->
     <string name="about_privacy_policy_title">Privacy Policy</string>
     <string name="about_privacy_policy_brief">CuLa is a free and open source app that aims to
-        support you with learning new languages. In order to improve the app some analytics on
-        app performance are gathered and sent to the developer. You can find the full privacy
+        support you with learning new languages. You can find the full privacy
         policy in the App Store or under the following link:
     </string>
     <string name="about_code_title">Open Source</string>
