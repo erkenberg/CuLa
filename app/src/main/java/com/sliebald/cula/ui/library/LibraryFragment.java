@@ -34,7 +34,6 @@ public class LibraryFragment extends Fragment implements
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
         LibraryRecyclerViewAdapter.OnItemClickListener, SortUtils.OnSortChangedListener {
 
-    public static final String TAG = LibraryFragment.class.getSimpleName();
     private int mPosition = RecyclerView.NO_POSITION;
     private FragmentLibraryBinding mBinding;
 
@@ -113,8 +112,7 @@ public class LibraryFragment extends Fragment implements
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder) {
         if (viewHolder instanceof LibraryRecyclerViewAdapter.ViewHolder) {
-
-            final int deletedIndex = viewHolder.getAdapterPosition();
+            final int deletedIndex = viewHolder.getBindingAdapterPosition();
             // remove the item from the viewModel
             mViewModel.removeLibraryEntry(deletedIndex);
             // show undo option

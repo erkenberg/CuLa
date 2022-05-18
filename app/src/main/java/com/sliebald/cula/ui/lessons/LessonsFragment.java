@@ -3,7 +3,6 @@ package com.sliebald.cula.ui.lessons;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,11 +33,6 @@ import com.sliebald.cula.utilities.SortUtils;
 public class LessonsFragment extends Fragment implements
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
         LessonsRecyclerViewAdapter.OnItemClickListener, SortUtils.OnSortChangedListener {
-
-    /**
-     * Tag for logging and fragment identification.
-     */
-    public static final String TAG = LessonsFragment.class.getSimpleName();
 
     /**
      * Data binding of the layout.
@@ -126,7 +120,7 @@ public class LessonsFragment extends Fragment implements
     public void onSwiped(RecyclerView.ViewHolder viewHolder) {
         if (viewHolder instanceof LessonsRecyclerViewAdapter.ViewHolder) {
 
-            final int deletedIndex = viewHolder.getAdapterPosition();
+            final int deletedIndex = viewHolder.getBindingAdapterPosition();
             // remove the item from the viewModel
             mViewModel.removeLessonEntry(deletedIndex);
             // show undo option
@@ -173,7 +167,6 @@ public class LessonsFragment extends Fragment implements
 
     @Override
     public void onUpdateSortOrderClick(SortUtils.SortType type, boolean asc) {
-        Log.d("test", "called " + type + " " + asc);
         mViewModel.sortLessonsBy(type, asc);
     }
 }

@@ -11,7 +11,6 @@ import com.sliebald.cula.data.database.entities.LessonEntry;
 import com.sliebald.cula.utilities.InjectorUtils;
 import com.sliebald.cula.utilities.SortUtils;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -36,10 +35,10 @@ public class LessonsViewModel extends ViewModel {
         mCurrentSortOrder = true;
         mCurrentSortType = SortUtils.SortType.NAME;
         mLessonEntries = new MediatorLiveData<>();
-        mComparator = (one, two) -> one.getLessonName().compareTo(two.getLessonName());
+        mComparator = Comparator.comparing(LessonEntry::getLessonName);
 
         mLessonEntries.addSource(mCulaRepository.getAllLessonEntries(), libraryEntries -> {
-                    Collections.sort(libraryEntries, mComparator);
+                    libraryEntries.sort(mComparator);
                     mLessonEntries.setValue(libraryEntries);
                 }
         );
@@ -55,12 +54,12 @@ public class LessonsViewModel extends ViewModel {
         mCurrentSortOrder = ascending;
         mCurrentSortType = sortBy;
         mComparator = sortBy == SortUtils.SortType.ID
-                ? ((one, two) -> Integer.compare(one.getId(), two.getId()))
-                : ((one, two) -> one.getLessonName().toLowerCase().compareTo(two.getLessonName().toLowerCase()));
+                ? (Comparator.comparingInt(LessonEntry::getId))
+                : (Comparator.comparing(one -> one.getLessonName().toLowerCase()));
         if (!ascending) mComparator = mComparator.reversed();
 
         List<LessonEntry> entries = mLessonEntries.getValue();
-        if (entries != null) Collections.sort(entries, mComparator);
+        if (entries != null) entries.sort(mComparator);
 
         mLessonEntries.setValue(entries);
     }

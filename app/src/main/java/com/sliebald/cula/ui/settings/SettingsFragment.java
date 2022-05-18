@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -256,14 +255,18 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     @Override
     public void onResume() {
         super.onResume();
-        getPreferenceScreen().getSharedPreferences()
-                .registerOnSharedPreferenceChangeListener(this);
+        SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
+        if (preferences != null) {
+            preferences.registerOnSharedPreferenceChangeListener(this);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        getPreferenceScreen().getSharedPreferences()
-                .unregisterOnSharedPreferenceChangeListener(this);
+        SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
+        if (preferences != null) {
+            preferences.unregisterOnSharedPreferenceChangeListener(this);
+        }
     }
 }

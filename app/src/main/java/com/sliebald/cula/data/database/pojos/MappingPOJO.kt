@@ -1,6 +1,7 @@
 package com.sliebald.cula.data.database.pojos
 
 import androidx.room.ColumnInfo
+import com.sliebald.cula.data.database.entities.LibraryEntry
 
 /**
  * Simple POJO that contains the required data of a [LibraryEntry] to map it to a lesson.

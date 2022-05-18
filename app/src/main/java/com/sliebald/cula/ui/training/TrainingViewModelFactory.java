@@ -8,7 +8,7 @@ import com.sliebald.cula.data.CulaRepository;
 import com.sliebald.cula.data.database.pojos.TrainingData;
 import com.sliebald.cula.utilities.InjectorUtils;
 
-class TrainingViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+class TrainingViewModelFactory implements ViewModelProvider.Factory {
 
     private final CulaRepository mCulaRepository;
     private final TrainingData mTrainingData;

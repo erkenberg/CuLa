@@ -65,7 +65,7 @@ abstract class CulaDatabase : RoomDatabase() {
         @Volatile
         private lateinit var sInstance: CulaDatabase
 
-        private var init = false;
+        private var init = false
         fun getInstance(context: Context): CulaDatabase {
             if (!init) {
                 synchronized(LOCK) {

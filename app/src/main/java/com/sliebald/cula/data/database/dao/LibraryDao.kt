@@ -3,6 +3,7 @@ package com.sliebald.cula.data.database.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.sliebald.cula.data.database.entities.LibraryEntry
+import com.sliebald.cula.data.database.CulaDatabase
 
 /**
  * [Dao] which provides an api for all data operations with the [CulaDatabase]

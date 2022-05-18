@@ -27,11 +27,6 @@ import com.sliebald.cula.utilities.KeyboardUtils;
 public class TrainingFragment extends Fragment {
 
     /**
-     * Tag of this activity.
-     */
-    private static final String TAG = TrainingFragment.class.getSimpleName();
-
-    /**
      * The data binding for the Layout.
      */
     private FragmentTrainingBinding mBinding;

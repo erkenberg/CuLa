@@ -26,11 +26,6 @@ import com.sliebald.cula.databinding.FragmentStartTrainingBinding;
 public class StartTrainingFragment extends Fragment {
 
     /**
-     * Tag for logging and fragment identification.
-     */
-    public static final String TAG = StartTrainingFragment.class.getSimpleName();
-
-    /**
      * Key for the savedInstanceState selected lesson.
      */
     private static final String SAVED_INSTANCE_STATE_SELECTED_LESSON_KEY = "selectedLesson";
@@ -117,7 +112,7 @@ public class StartTrainingFragment extends Fragment {
         LiveData<TrainingData> data = mViewModel.getTrainingData(getSelectedNumWords(),
                 getSelectedMinKnowledgeLevel(), getSelectedMaxKnowledgeLevel(),
                 getSelectedLessonId(), getSelectedReverseTraining());
-        data.observe(getViewLifecycleOwner(), new Observer<TrainingData>() {
+        data.observe(getViewLifecycleOwner(), new Observer<>() {
             @Override
             public void onChanged(TrainingData trainingData) {
                 data.removeObserver(this);
@@ -174,7 +169,7 @@ public class StartTrainingFragment extends Fragment {
      */
     private int getSelectedNumWords() {
         return Integer.parseInt(mBinding.spStartTrainingNumberOfWords.getItems().get(mBinding
-                .spStartTrainingNumberOfWords.getSelectedIndex())
+                        .spStartTrainingNumberOfWords.getSelectedIndex())
                 .toString());
     }
 

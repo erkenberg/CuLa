@@ -2,7 +2,6 @@ package com.sliebald.cula.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 /**
  * An @[Entity] Describing a foreign language that can be trained.

@@ -8,10 +8,11 @@ import androidx.room.Query
 import com.sliebald.cula.data.database.entities.StatisticEntry
 import com.sliebald.cula.data.database.pojos.StatisticsActivityEntry
 import com.sliebald.cula.data.database.pojos.StatisticsLibraryWordCount
+import com.sliebald.cula.data.database.CulaDatabase
 import java.util.*
 
 /**
- * [Dao] which provides an api for all data operations with the [com.sliebald.cula.data.database.CulaDatabase]
+ * [Dao] which provides an api for all data operations with the [CulaDatabase]
  * related to the [StatisticEntry]s.
  */
 @Dao

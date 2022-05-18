@@ -24,7 +24,7 @@ public class UpdateLibraryViewModel extends ViewModel {
     /**
      * The {@link CulaRepository} for data access.
      */
-    private CulaRepository mRepository;
+    private final CulaRepository mRepository;
 
     /**
      * Constructor.

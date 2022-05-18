@@ -12,7 +12,6 @@ import com.sliebald.cula.data.database.entities.LibraryEntry;
 import com.sliebald.cula.utilities.InjectorUtils;
 import com.sliebald.cula.utilities.SortUtils;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -38,9 +37,9 @@ public class LibraryViewModel extends ViewModel {
         mLibraryEntries = new MediatorLiveData<>();
         mCurrentSortOrder = true;
         mCurrentSortType = SortUtils.SortType.KNOWLEDGE_LEVEL;
-        mComparator = (one, two) -> Double.compare(one.getKnowledgeLevel(), two.getKnowledgeLevel());
+        mComparator = Comparator.comparingDouble(LibraryEntry::getKnowledgeLevel);
         mLibraryEntries.addSource(mCulaRepository.getAllLibraryEntries(), libraryEntries -> {
-                    Collections.sort(libraryEntries, mComparator);
+                    libraryEntries.sort(mComparator);
                     mLibraryEntries.setValue(libraryEntries);
                 }
         );
@@ -58,24 +57,20 @@ public class LibraryViewModel extends ViewModel {
         mCurrentSortType = sortBy;
         switch (sortBy) {
             case ID:
-                mComparator = (one, two) -> Integer.compare(one.getId(), two.getId());
+                mComparator = Comparator.comparingInt(LibraryEntry::getId);
                 break;
             case NATIVE_WORD:
-                mComparator =
-                        (one, two) -> one.getNativeWord().toLowerCase().compareTo(two.getNativeWord().toLowerCase());
+                mComparator = Comparator.comparing(one -> one.getNativeWord().toLowerCase());
                 break;
             case FOREIGN_WORD:
-                mComparator =
-                        (one, two) -> one.getForeignWord().toLowerCase().compareTo(two.getForeignWord().toLowerCase());
+                mComparator = Comparator.comparing(one -> one.getForeignWord().toLowerCase());
                 break;
             default:
-                mComparator =
-                        (one, two) -> Double.compare(one.getKnowledgeLevel(),
-                                two.getKnowledgeLevel());
+                mComparator = Comparator.comparingDouble(LibraryEntry::getKnowledgeLevel);
         }
         if (!ascending) mComparator = mComparator.reversed();
         List<LibraryEntry> entries = mLibraryEntries.getValue();
-        if (entries != null) Collections.sort(entries, mComparator);
+        if (entries != null) entries.sort(mComparator);
         mLibraryEntries.setValue(entries);
     }
 

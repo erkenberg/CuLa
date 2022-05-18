@@ -115,7 +115,7 @@ public class UpdateLessonRecyclerViewAdapter extends RecyclerView.Adapter<Update
             mNativeWord = view.findViewById(R.id.tv_lesson_mapping_native_word);
             mForeignWord = view.findViewById(R.id.tv_lesson_mapping_foreign_word);
             viewLayout = view.findViewById(R.id.view_item);
-            mPartOfLesson.setOnClickListener(v -> mListener.onLessonEntryClick(mPartOfLesson, mValues.get(getAdapterPosition()).getLibraryId()));
+            mPartOfLesson.setOnClickListener(v -> mListener.onLessonEntryClick(mPartOfLesson, mValues.get(getBindingAdapterPosition()).getLibraryId()));
         }
     }
 }

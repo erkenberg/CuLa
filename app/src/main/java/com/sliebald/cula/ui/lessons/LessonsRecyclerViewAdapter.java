@@ -116,7 +116,7 @@ public class LessonsRecyclerViewAdapter extends
             mLessonDescription = view.findViewById(R.id.lesson_description);
             viewForeground = view.findViewById(R.id.view_foreground);
             viewForeground.setOnClickListener(v -> mListener.onLessonEntryClick(mValues.get
-                    (getAdapterPosition()).getId()));
+                    (getBindingAdapterPosition()).getId()));
         }
 
         @NonNull
@@ -126,6 +126,4 @@ public class LessonsRecyclerViewAdapter extends
                     .getText() + "'";
         }
     }
-
-
 }

@@ -114,7 +114,7 @@ public class LibraryRecyclerViewAdapter extends RecyclerView.Adapter<LibraryRecy
             mForeignWordView = view.findViewById(R.id.foreignWord);
             viewForeground = view.findViewById(R.id.view_foreground);
             viewForeground.setOnClickListener(v -> mListener.onLibraryEntryClick(mValues.get
-                    (getAdapterPosition()).getId()));
+                    (getBindingAdapterPosition()).getId()));
         }
     }
 

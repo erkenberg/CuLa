@@ -30,11 +30,6 @@ public class UpdateLessonFragment extends Fragment implements
         UpdateLessonRecyclerViewAdapter.OnItemClickListener, SortUtils.OnSortChangedListener {
 
     /**
-     * Tag of this activity.
-     */
-    private static final String TAG = UpdateLessonFragment.class.getSimpleName();
-
-    /**
      * The data binding for the Layout.
      */
     private FragmentUpdateLessonBinding mBinding;
