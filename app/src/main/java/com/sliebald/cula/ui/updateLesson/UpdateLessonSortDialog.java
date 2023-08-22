@@ -64,22 +64,17 @@ public class UpdateLessonSortDialog extends DialogFragment {
                 .setPositiveButton(R.string.sort, (dialog, id) -> {
                     // read the selected values and report them via callback
                     SortUtils.SortType type;
-                    switch (rg.getCheckedRadioButtonId()) {
-                        case R.id.radio_sort_part_of_lesson:
-                            type = SortUtils.SortType.PART_OF_LESSON;
-                            break;
-                        case R.id.radio_sort_foreign:
-                            type = SortUtils.SortType.FOREIGN_WORD;
-                            break;
-                        case R.id.radio_sort_knowledge:
-                            type = SortUtils.SortType.KNOWLEDGE_LEVEL;
-                            break;
-                        case R.id.radio_sort_created:
-                            type = SortUtils.SortType.ID;
-                            break;
-                        default:
-                            type = SortUtils.SortType.NATIVE_WORD;
-                            break;
+                    int checkedRadioButtonId = rg.getCheckedRadioButtonId();
+                    if (checkedRadioButtonId == R.id.radio_sort_part_of_lesson) {
+                        type = SortUtils.SortType.PART_OF_LESSON;
+                    } else if (checkedRadioButtonId == R.id.radio_sort_foreign) {
+                        type = SortUtils.SortType.FOREIGN_WORD;
+                    } else if (checkedRadioButtonId == R.id.radio_sort_knowledge) {
+                        type = SortUtils.SortType.KNOWLEDGE_LEVEL;
+                    } else if (checkedRadioButtonId == R.id.radio_sort_created) {
+                        type = SortUtils.SortType.ID;
+                    } else {
+                        type = SortUtils.SortType.NATIVE_WORD;
                     }
                     SortUtils.OnSortChangedListener listener = (SortUtils.OnSortChangedListener) getTargetFragment();
                     if (listener != null) {

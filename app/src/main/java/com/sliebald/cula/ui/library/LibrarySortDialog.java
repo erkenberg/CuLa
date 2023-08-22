@@ -59,19 +59,15 @@ public class LibrarySortDialog extends DialogFragment {
         builder.setView(view).setPositiveButton(R.string.sort, (dialog, id) -> {
             // read the selected values and report them via callback
             SortUtils.SortType type;
-            switch (rg.getCheckedRadioButtonId()) {
-                case R.id.radio_sort_native:
-                    type = SortUtils.SortType.NATIVE_WORD;
-                    break;
-                case R.id.radio_sort_foreign:
-                    type = SortUtils.SortType.FOREIGN_WORD;
-                    break;
-                case R.id.radio_sort_created:
-                    type = SortUtils.SortType.ID;
-                    break;
-                default:
-                    type = SortUtils.SortType.KNOWLEDGE_LEVEL;
-                    break;
+            int checkedRadioButtonId = rg.getCheckedRadioButtonId();
+            if (checkedRadioButtonId == R.id.radio_sort_native) {
+                type = SortUtils.SortType.NATIVE_WORD;
+            } else if (checkedRadioButtonId == R.id.radio_sort_foreign) {
+                type = SortUtils.SortType.FOREIGN_WORD;
+            } else if (checkedRadioButtonId == R.id.radio_sort_created) {
+                type = SortUtils.SortType.ID;
+            } else {
+                type = SortUtils.SortType.KNOWLEDGE_LEVEL;
             }
 
             SortUtils.OnSortChangedListener listener = (SortUtils.OnSortChangedListener) getTargetFragment();
