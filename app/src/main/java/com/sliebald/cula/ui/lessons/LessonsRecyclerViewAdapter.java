@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sliebald.cula.R;
-import com.sliebald.cula.data.database.Entities.LessonEntry;
+import com.sliebald.cula.data.database.entities.LessonEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +116,7 @@ public class LessonsRecyclerViewAdapter extends
             mLessonDescription = view.findViewById(R.id.lesson_description);
             viewForeground = view.findViewById(R.id.view_foreground);
             viewForeground.setOnClickListener(v -> mListener.onLessonEntryClick(mValues.get
-                    (getAdapterPosition()).getId()));
+                    (getBindingAdapterPosition()).getId()));
         }
 
         @NonNull
@@ -126,6 +126,4 @@ public class LessonsRecyclerViewAdapter extends
                     .getText() + "'";
         }
     }
-
-
 }

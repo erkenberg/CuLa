@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.sliebald.cula.data.CulaRepository;
-import com.sliebald.cula.data.database.Entities.LibraryEntry;
-import com.sliebald.cula.data.database.Entities.StatisticEntry;
-import com.sliebald.cula.data.database.Pojos.TrainingData;
+import com.sliebald.cula.data.database.entities.LibraryEntry;
+import com.sliebald.cula.data.database.entities.StatisticEntry;
+import com.sliebald.cula.data.database.pojos.TrainingData;
 import com.sliebald.cula.ui.updateLibrary.UpdateLibraryFragment;
 import com.sliebald.cula.utilities.KnowledgeLevelUtils;
 
@@ -19,7 +19,7 @@ class TrainingViewModel extends ViewModel {
      * The {@link TrainingData} that defines the training.
      */
     private final TrainingData mTrainingData;
-    private CulaRepository mRepository;
+    private final CulaRepository mRepository;
     /**
      * Currently learned word in the list of {@link LibraryEntry}s that should be trained, which
      * is stored in the {@link TrainingData}.
@@ -36,15 +36,6 @@ class TrainingViewModel extends ViewModel {
         this.mTrainingData = trainingData;
         mRepository = repository;
         currentIndex = 0;
-    }
-
-    /**
-     * Checks whether there is a next LibraryEntry to learn.
-     *
-     * @return The next entry to learn.
-     */
-    boolean hasNextEntry() {
-        return mTrainingData.getTrainingEntries().size() > currentIndex + 1;
     }
 
     /**
@@ -101,7 +92,7 @@ class TrainingViewModel extends ViewModel {
 
     boolean checkTranslationCorrect(@NonNull String typedTranslation) {
         LibraryEntry currentEntry = mTrainingData.getTrainingEntries().get(currentIndex);
-        boolean success = typedTranslation.trim().toLowerCase().equals(getCorrectTranslation().trim().toLowerCase());
+        boolean success = typedTranslation.trim().equalsIgnoreCase(getCorrectTranslation().trim());
         double updatedKnowledgeLevel = KnowledgeLevelUtils.calculateKnowledgeLevelAdjustment(currentEntry.getKnowledgeLevel(), success);
         updateStatistics(success ? 1 : 0);
         currentEntry.setKnowledgeLevel(updatedKnowledgeLevel);

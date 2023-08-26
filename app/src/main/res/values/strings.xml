@@ -153,21 +153,6 @@
         current language:</string>
     <string name="statistics_label_activity">Activity over the last 2 weeks (all languages):</string>
 
-    <!-- App widget strings-->
-    <string name="widget_description_last_learned">Last time you trained with CuLa</string>
-    <string name="widget_description_worst_lesson">Currently worst lesson.</string>
-    <string name="widget_last_learned_never">Time to train with Cula.</string>
-    <string name="widget_last_learned_recently">You trained recently, very good. Keep it
-        up!</string>
-    <string name="widget_last_learned_last_3_days">You trained during the last days, keep
-        on training!</string>
-    <string name="widget_last_learned_last_7_days">Your last training was already some days
-        ago. You should train regularly.</string>
-    <string name="widget_last_learned_not">You didn\'t train for over a week, try to train
-        more regularly.</string>
-    <string name="widget_lesson_proposal">Maybe have a look at the <b>%1$s</b> lesson next.</string>
-
-
     <!-- welcome -->
     <string name="initial_text">Welcome to CuLa, the Customizable Language Trainer.
         <br /> As first step you should add the language you want to learn in the settings.
@@ -176,14 +161,13 @@
     <!-- About page related -->
     <string name="about_privacy_policy_title">Privacy Policy</string>
     <string name="about_privacy_policy_brief">CuLa is a free and open source app that aims to
-        support you with learning new languages. In order to improve the app some analytics on
-        app performance are gathered and sent to the developer. You can find the full privacy
+        support you with learning new languages. You can find the full privacy
         policy in the App Store or under the following link:
     </string>
     <string name="about_code_title">Open Source</string>
-    <string name="about_privacy_policy_url">https://liebald.info/privacy-policy/cula</string>
+    <string name="about_privacy_policy_url">https://erkenberg.github.io/CuLa/</string>
     <string name="about_cula_code_label">You can find the source code of the app on github:</string>
-    <string name="about_cula_code_url">https://github.com/SLiebald/CuLa</string>
+    <string name="about_cula_code_url">https://github.com/erkenberg/CuLa</string>
 
 
     <!-- Sorting Keys -->

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-class UpdateLibraryViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+class UpdateLibraryViewModelFactory implements ViewModelProvider.Factory {
 
     private final int mEntryId;
 

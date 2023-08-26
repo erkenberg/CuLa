@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sliebald.cula.R;
-import com.sliebald.cula.data.database.Pojos.MappingPOJO;
+import com.sliebald.cula.data.database.pojos.MappingPOJO;
 import com.sliebald.cula.utilities.KnowledgeLevelUtils;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class UpdateLessonRecyclerViewAdapter extends RecyclerView.Adapter<Update
     public void onBindViewHolder(@NonNull final UpdateLessonRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.mNativeWord.setText(mValues.get(position).getNativeWord());
         holder.mForeignWord.setText(mValues.get(position).getForeignWord());
-        holder.mPartOfLesson.setChecked(mValues.get(position).partOfLesson);
+        holder.mPartOfLesson.setChecked(mValues.get(position).isPartOfLesson());
         holder.viewLayout.setBackgroundColor(KnowledgeLevelUtils.getColorByKnowledgeLevel(mValues.get(position).getKnowledgeLevel()));
     }
 
@@ -115,7 +115,7 @@ public class UpdateLessonRecyclerViewAdapter extends RecyclerView.Adapter<Update
             mNativeWord = view.findViewById(R.id.tv_lesson_mapping_native_word);
             mForeignWord = view.findViewById(R.id.tv_lesson_mapping_foreign_word);
             viewLayout = view.findViewById(R.id.view_item);
-            mPartOfLesson.setOnClickListener(v -> mListener.onLessonEntryClick(mPartOfLesson, mValues.get(getAdapterPosition()).getLibraryId()));
+            mPartOfLesson.setOnClickListener(v -> mListener.onLessonEntryClick(mPartOfLesson, mValues.get(getBindingAdapterPosition()).getLibraryId()));
         }
     }
 }

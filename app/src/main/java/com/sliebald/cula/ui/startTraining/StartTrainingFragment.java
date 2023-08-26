@@ -16,19 +16,14 @@ import androidx.navigation.Navigation;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
-import com.sliebald.cula.data.database.Entities.LessonEntry;
-import com.sliebald.cula.data.database.Pojos.TrainingData;
+import com.sliebald.cula.data.database.entities.LessonEntry;
+import com.sliebald.cula.data.database.pojos.TrainingData;
 import com.sliebald.cula.databinding.FragmentStartTrainingBinding;
 
 /**
  * The fragment for starting a training session.
  */
 public class StartTrainingFragment extends Fragment {
-
-    /**
-     * Tag for logging and fragment identification.
-     */
-    public static final String TAG = StartTrainingFragment.class.getSimpleName();
 
     /**
      * Key for the savedInstanceState selected lesson.
@@ -117,7 +112,7 @@ public class StartTrainingFragment extends Fragment {
         LiveData<TrainingData> data = mViewModel.getTrainingData(getSelectedNumWords(),
                 getSelectedMinKnowledgeLevel(), getSelectedMaxKnowledgeLevel(),
                 getSelectedLessonId(), getSelectedReverseTraining());
-        data.observe(getViewLifecycleOwner(), new Observer<TrainingData>() {
+        data.observe(getViewLifecycleOwner(), new Observer<>() {
             @Override
             public void onChanged(TrainingData trainingData) {
                 data.removeObserver(this);
@@ -174,7 +169,7 @@ public class StartTrainingFragment extends Fragment {
      */
     private int getSelectedNumWords() {
         return Integer.parseInt(mBinding.spStartTrainingNumberOfWords.getItems().get(mBinding
-                .spStartTrainingNumberOfWords.getSelectedIndex())
+                        .spStartTrainingNumberOfWords.getSelectedIndex())
                 .toString());
     }
 

@@ -18,7 +18,7 @@ import androidx.preference.SeekBarPreference;
 import com.google.android.material.snackbar.Snackbar;
 import com.sliebald.cula.R;
 import com.sliebald.cula.data.CulaRepository;
-import com.sliebald.cula.data.database.Entities.LanguageEntry;
+import com.sliebald.cula.data.database.entities.LanguageEntry;
 import com.sliebald.cula.utilities.InjectorUtils;
 
 import java.util.List;
@@ -255,14 +255,18 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     @Override
     public void onResume() {
         super.onResume();
-        getPreferenceScreen().getSharedPreferences()
-                .registerOnSharedPreferenceChangeListener(this);
+        SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
+        if (preferences != null) {
+            preferences.registerOnSharedPreferenceChangeListener(this);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        getPreferenceScreen().getSharedPreferences()
-                .unregisterOnSharedPreferenceChangeListener(this);
+        SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
+        if (preferences != null) {
+            preferences.unregisterOnSharedPreferenceChangeListener(this);
+        }
     }
 }

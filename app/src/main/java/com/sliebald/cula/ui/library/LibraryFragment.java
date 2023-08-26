@@ -23,7 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.sliebald.cula.R;
-import com.sliebald.cula.data.database.Entities.LibraryEntry;
+import com.sliebald.cula.data.database.entities.LibraryEntry;
 import com.sliebald.cula.databinding.FragmentLibraryBinding;
 import com.sliebald.cula.utilities.SortUtils;
 
@@ -34,7 +34,6 @@ public class LibraryFragment extends Fragment implements
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
         LibraryRecyclerViewAdapter.OnItemClickListener, SortUtils.OnSortChangedListener {
 
-    public static final String TAG = LibraryFragment.class.getSimpleName();
     private int mPosition = RecyclerView.NO_POSITION;
     private FragmentLibraryBinding mBinding;
 
@@ -113,8 +112,7 @@ public class LibraryFragment extends Fragment implements
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder) {
         if (viewHolder instanceof LibraryRecyclerViewAdapter.ViewHolder) {
-
-            final int deletedIndex = viewHolder.getAdapterPosition();
+            final int deletedIndex = viewHolder.getBindingAdapterPosition();
             // remove the item from the viewModel
             mViewModel.removeLibraryEntry(deletedIndex);
             // show undo option

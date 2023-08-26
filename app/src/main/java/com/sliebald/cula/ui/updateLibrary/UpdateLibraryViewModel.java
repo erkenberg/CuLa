@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.sliebald.cula.data.CulaRepository;
-import com.sliebald.cula.data.database.Entities.LibraryEntry;
+import com.sliebald.cula.data.database.entities.LibraryEntry;
 import com.sliebald.cula.utilities.InjectorUtils;
 import com.sliebald.cula.utilities.PreferenceUtils;
 
@@ -24,7 +24,7 @@ public class UpdateLibraryViewModel extends ViewModel {
     /**
      * The {@link CulaRepository} for data access.
      */
-    private CulaRepository mRepository;
+    private final CulaRepository mRepository;
 
     /**
      * Constructor.
@@ -58,7 +58,7 @@ public class UpdateLibraryViewModel extends ViewModel {
      */
     void commitEntry(String nativeWord, String foreignWord, double selectedKnowledgeLevel) {
         if (entry != null && entry.getValue() != null) {
-            mRepository.updateLibraryEntry(new LibraryEntry(entry.getValue().getId(), nativeWord, foreignWord, entry.getValue().getLanguage(), selectedKnowledgeLevel, new Date()));
+            mRepository.updateLibraryEntry(new LibraryEntry(nativeWord, foreignWord, entry.getValue().getLanguage(), selectedKnowledgeLevel, new Date(), entry.getValue().getId()));
         } else {
             mRepository.insertLibraryEntry(new LibraryEntry(nativeWord, foreignWord, PreferenceUtils.getActiveLanguage(), selectedKnowledgeLevel));
         }

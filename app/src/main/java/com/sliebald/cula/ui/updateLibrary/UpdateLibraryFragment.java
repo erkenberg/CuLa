@@ -67,20 +67,19 @@ public class UpdateLibraryFragment extends Fragment {
      * @return The currently selected KnowledgeLevel as double.
      */
     private double getSelectedKnowledgeLevel() {
-        switch (mBinding.radioGroup.getCheckedRadioButtonId()) {
-            case R.id.rb_knowledgeLevel_1:
-                return 0.5;
-            case R.id.rb_knowledgeLevel_2:
-                return 1.5;
-            case R.id.rb_knowledgeLevel_3:
-                return 2.5;
-            case R.id.rb_knowledgeLevel_4:
-                return 3.5;
-            case R.id.rb_knowledgeLevel_5:
-                return 4.5;
-            default:
-                return PreferenceUtils.getDefaultKnowledgeLevel();
+        int checkedRadioButtonId = mBinding.radioGroup.getCheckedRadioButtonId();
+        if (checkedRadioButtonId == R.id.rb_knowledgeLevel_1) {
+            return 0.5;
+        } else if (checkedRadioButtonId == R.id.rb_knowledgeLevel_2) {
+            return 1.5;
+        } else if (checkedRadioButtonId == R.id.rb_knowledgeLevel_3) {
+            return 2.5;
+        } else if (checkedRadioButtonId == R.id.rb_knowledgeLevel_4) {
+            return 3.5;
+        } else if (checkedRadioButtonId == R.id.rb_knowledgeLevel_5) {
+            return 4.5;
         }
+        return PreferenceUtils.getDefaultKnowledgeLevel();
     }
 
     /**
