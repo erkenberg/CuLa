@@ -49,6 +49,7 @@ public class LessonsFragment extends Fragment implements
      */
     private LessonsRecyclerViewAdapter mAdapter;
 
+    private boolean languageExists;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -69,7 +70,7 @@ public class LessonsFragment extends Fragment implements
     public void onResume() {
         super.onResume();
         mViewModel.getLessonEntries().observe(this, lessonEntries -> {
-            if (lessonEntries == null || lessonEntries.size() == 0) {
+            if (lessonEntries == null || lessonEntries.isEmpty()) {
                 Snackbar snackbar = Snackbar
                         .make(mBinding.lessonCoordinatorLayout, R.string.lesson_add_first_lesson,
                                 Snackbar.LENGTH_LONG);
@@ -139,6 +140,13 @@ public class LessonsFragment extends Fragment implements
 
     @Override
     public void onLessonEntryClick(int id) {
+        if (!mViewModel.getLanguageExists()) {
+            Snackbar snackbar = Snackbar
+                    .make(mBinding.lessonCoordinatorLayout, R.string.lesson_language_missing, Snackbar
+                            .LENGTH_LONG);
+            snackbar.show();
+            return;
+        }
         LessonsFragmentDirections.ActionLessonsDestToUpdateLessonDest action =
                 LessonsFragmentDirections.actionLessonsDestToUpdateLessonDest(id);
         Navigation.findNavController(requireView()).navigate(action);

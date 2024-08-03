@@ -225,6 +225,8 @@ class CulaRepository private constructor(database: CulaDatabase, appExecutors: A
      */
     fun getAllLanguageEntries(): LiveData<List<LanguageEntry>> = mLanguageDao.getAllEntries()
 
+    fun getLanguageCount(): Int = mLanguageDao.getAmountOfLanguages()
+
     /**
      * Removes the given [LanguageEntry]s from the Database.
      *

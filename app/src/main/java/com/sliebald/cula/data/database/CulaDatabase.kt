@@ -70,9 +70,12 @@ abstract class CulaDatabase : RoomDatabase() {
             if (!init) {
                 synchronized(LOCK) {
                     if (!init) {
-                        sInstance = Room.databaseBuilder(context.applicationContext,
-                                CulaDatabase::class.java,
-                                DATABASE_NAME).build()
+                        sInstance = Room.databaseBuilder(
+                            context.applicationContext,
+                            CulaDatabase::class.java,
+                            DATABASE_NAME
+                        ).allowMainThreadQueries() // TODO: Only in for quickfix checking language availability.
+                            .build()
                     }
                 }
             }

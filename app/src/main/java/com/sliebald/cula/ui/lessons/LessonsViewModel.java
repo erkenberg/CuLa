@@ -117,4 +117,9 @@ public class LessonsViewModel extends ViewModel {
         return mCurrentSortType;
     }
 
+    boolean getLanguageExists() {
+        // TODO: This is only a quickfix and should not be done on the main/ui thread.
+        //  enabled `allowMainThreadQueries` only for this fix
+        return mCulaRepository.getLanguageCount() > 0;
+    }
 }

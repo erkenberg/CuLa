@@ -129,6 +129,13 @@ public class LibraryFragment extends Fragment implements
 
     @Override
     public void onLibraryEntryClick(int id) {
+        if (!mViewModel.getLanguageExists()) {
+            Snackbar snackbar = Snackbar
+                    .make(mBinding.libraryCoordinatorLayout, R.string.library_language_missing, Snackbar
+                            .LENGTH_LONG);
+            snackbar.show();
+            return;
+        }
         LibraryFragmentDirections.ActionLibraryDestToUpdateLibraryDest action =
                 LibraryFragmentDirections.actionLibraryDestToUpdateLibraryDest(id);
         Navigation.findNavController(requireView()).navigate(action);

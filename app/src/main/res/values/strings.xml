@@ -17,6 +17,7 @@
     <string name="title_training">Training</string>
 
     <!-- Library Strings-->
+    <string name="library_language_missing">Go to settings to add/set a language before adding words</string>
     <string name="library_word_deleted">Word removed from Library!</string>
     <string name="library_add_first_word">Add word: </string>
 
@@ -102,6 +103,7 @@
 
     <!-- Lesson Overview Strings -->
     <string name="lesson_deleted">Lesson deleted</string>
+    <string name="lesson_language_missing">Go to settings to add/set a language before creating a lesson</string>
     <string name="lesson_add_first_lesson">Add Lesson: </string>
 
     <!-- Update Lesson strings-->
